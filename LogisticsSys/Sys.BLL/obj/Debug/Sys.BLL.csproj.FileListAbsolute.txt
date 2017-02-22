@@ -10,3 +10,15 @@ E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Entit
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.csprojResolveAssemblyReference.cache
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.BLL.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.BLL.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.Common.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.Dal.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.Entities.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Arch.Data.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.Common.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.Dal.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Sys.Entities.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.csprojResolveAssemblyReference.cache
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.pdb

@@ -8,17 +8,15 @@
     <link href="~/Content/index.css" rel="stylesheet" />
 </head>
 <body>
-    <header class="main-header" "=" ">
+    <header class="main-header">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-
-                    <!-- start logo -->
-                    <a class="branding" href="http://www.ghostchina.com" title="Ghost 开源博客平台"><img src="http://static.ghostchina.com/image/b/46/4f5566c1f7bc28b3f7ac1fada8abe.png" alt="Ghost 开源博客平台"></a>
-                    <!-- end logo -->
-                    <h2 class="text-hide">Ghost 是一个简洁、强大的写作平台。你只须专注于用文字表达你的想法就好，其余的事情就让 Ghost 来帮你处理吧。</h2>
-
-
+                    <a class="branding" href="http://www.ghostchina.com" title="Ghost 开源博客平台"></a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://mb.bootcss.com">登录</a></li>
+                        <li><a href="http://www.bootcss.com/">注销</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -35,12 +33,11 @@
                     </div>
                     <div class="collapse navbar-collapse" id="main-menu">
                         <ul class="menu">
-                            <li role="presentation"><a href="/">首页</a></li>
-                            <li role="presentation"><a href="http://wenda.ghostchina.com">论坛</a></li>
-                            <li role="presentation"><a href="/ghost-cheat-sheet/">快捷手册</a></li>
-                            <li role="presentation"><a href="http://docs.ghostchina.com/zh/">中文文档</a></li>
-                            <li role="presentation"><a href="/download/">下载</a></li>
-                            <li class="nav-current" role="presentation"><a href="/about/">关于</a></li>
+                            <li class="nav-current" role="presentation"><a href="/">首页</a></li>
+                            <li role="presentation"><a href="#">订单管理</a></li>
+                            <li role="presentation"><a href="#">物流管理</a></li>
+                            <li role="presentation"><a href="#">基础管理</a></li>
+                            <li role="presentation"><a href="#">关于</a></li>
                         </ul>
                     </div>
                 </div>
@@ -49,14 +46,11 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

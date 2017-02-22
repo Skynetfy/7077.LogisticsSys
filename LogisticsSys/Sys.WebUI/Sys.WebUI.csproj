@@ -210,10 +210,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\index.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -223,11 +225,13 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.smartWizard.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\parsley.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -276,6 +280,24 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sys.BLL\Sys.BLL.csproj">
+      <Project>{66b83118-c304-4095-864e-5652fab14d1a}</Project>
+      <Name>Sys.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sys.Common\Sys.Common.csproj">
+      <Project>{05be1a27-6519-4b9f-91f8-2a93eb9be742}</Project>
+      <Name>Sys.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sys.Dal\Sys.Dal.csproj">
+      <Project>{fcd8f0b7-4b1c-4432-9cd6-4372fc778e4e}</Project>
+      <Name>Sys.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sys.Entities\Sys.Entities.csproj">
+      <Project>{cd082091-8d19-4bd0-ab91-4af1679c6962}</Project>
+      <Name>Sys.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

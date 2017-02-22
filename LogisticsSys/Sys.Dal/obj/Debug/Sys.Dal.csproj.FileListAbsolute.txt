@@ -1,0 +1,9 @@
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Dal.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Dal.pdb
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Arch.Data.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Arch.Data.MySqlProvider.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Entities.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Entities.pdb
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.csprojResolveAssemblyReference.cache
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.pdb

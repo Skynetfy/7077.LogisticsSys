@@ -1,0 +1,12 @@
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.BLL.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.BLL.pdb
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Common.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Dal.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Entities.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Arch.Data.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Common.pdb
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Dal.pdb
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Sys.Entities.pdb
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.csprojResolveAssemblyReference.cache
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.pdb

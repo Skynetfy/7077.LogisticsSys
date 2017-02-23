@@ -25,8 +25,16 @@ namespace Sys.Entities
         public string Password { get; set; }
         /// <summary>
         /// </summary>
+        [Column(Name = "DisplayName", ColumnType = DbType.String, Length = 150)]
+        public string DisplayName { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "Email", ColumnType = DbType.AnsiString, Length = 100)]
         public string Email { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "RuleType", ColumnType = DbType.AnsiString, Length = 50)]
+        public string RuleType { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "Status", ColumnType = DbType.Int32)]

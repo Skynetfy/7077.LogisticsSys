@@ -65,7 +65,38 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);
             }
         }
+        public SysUser GetUser(string username, string password)
+        {
+            try
+            {
+                string sql = @"select top 1 * from SysUser(nolock)
+                       where UserName=@username and Password=@password";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@username", System.Data.DbType.AnsiString, username);
+                parameters.AddInParameter("@password", System.Data.DbType.AnsiString, password);
+                return baseDao.SelectFirst<SysUser>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
+        }
 
+        public SysUser GetUser(string username)
+        {
+            try
+            {
+                string sql = @"select top 1 * from SysUser(nolock)
+                       where UserName=@username";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@username", System.Data.DbType.AnsiString, username);
+                return baseDao.SelectFirst<SysUser>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
+        }
         public IList<SysUser> GetAll()
         {
             try
@@ -103,6 +134,6 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
             }
         }
-        
+
     }
 }

@@ -9,6 +9,8 @@ namespace Sys.Dal
 {
     public partial interface ISysUserRepository : IBaseRepository<SysUser>
     {
+        SysUser GetUser(string username);
 
+        SysUser GetUser(string username, string password);
     }
 }

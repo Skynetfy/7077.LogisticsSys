@@ -9,6 +9,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Sys.
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Sys.Entities.pdb
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Arch.Data.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Arch.Data.MySqlProvider.dll
-C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojResolveAssemblyReference.cache
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.pdb

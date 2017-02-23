@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7077物流管理系统-注册会员</title>
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-app.css" rel="stylesheet" />
+    <link href="~/Content/index.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="dialog">
+            <div class="card">
+                <div class="card-header">
+                    <h4>注 册</h4>
+                </div>
+                <div class="card-block">
+                    <div style="margin: 0 -15px;">
+
+                    </div>
+                    <form role="form" class="new_user" id="new_user" accept-charset="UTF-8" method="post">
+                        <div class="form-group">
+                            <label class="form-control-label required" for="user_email">用户名</label><input autofocus="autofocus" class="form-control" type="text" value="" name="username" id="user_email" required="required" data-parsley-id="0151"><ul class="parsley-errors-list" id="parsley-id-0151"></ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label required" for="user_password">密 码</label><input class="form-control" type="password" name="password" id="user_password" required="required" data-parsley-id="5464"><ul class="parsley-errors-list" id="parsley-id-5464"></ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label required" for="user_password_confim">确认密码</label><input class="form-control" type="password" name="confimpassword" id="user_password_confim" required="required" data-parsley-id="5465"><ul class="parsley-errors-list" id="parsley-id-5465"></ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label required" for="user_displayname">姓 名</label><input class="form-control" type="text" name="displayname" id="user_displayname" required="required" data-parsley-id="5466"><ul class="parsley-errors-list" id="parsley-id-5466"></ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label required" for="user_email">邮 箱</label><input class="form-control" type="email" name="email" id="user_email" required="required" data-parsley-id="5467"><ul class="parsley-errors-list" id="parsley-id-5467"></ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label required" for="user_phone">电 话</label><input class="form-control" type="tel" name="phone" id="user_phone" required="required" data-parsley-id="5468"><ul class="parsley-errors-list" id="parsley-id-5468"></ul>
+                        </div>
+                        <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
+                        <a class="btn btn-link text-warning float-right" href="/users/password/new">已经是会员?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $.listen('parsley:field:validate', function () {
+                validateFront();
+            });
+            $('#new_user .btn').on('click', function () {
+                $('#new_user').parsley().validate();
+                validateFront();
+            });
+            var validateFront = function () {
+                if (true === $('#new_user').parsley().isValid()) {
+                    $('.bs-callout-info').removeClass('hidden');
+                    $('.bs-callout-warning').addClass('hidden');
+                } else {
+                    $('.bs-callout-info').addClass('hidden');
+                    $('.bs-callout-warning').removeClass('hidden');
+                }
+            };
+
+        });
+    </script>
+</body>
+</html>

@@ -7,16 +7,31 @@
     <title>7077物流管理系统</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/index.css" rel="stylesheet" />
+      @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+  
 </head>
 <body>
 @Html.Action("Header","Home")
-    <div class="container body-content">
+    <div class="container body-content" id="main-page">
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+  
+<script>
+    $(function () {
+        $('#main-menu>ul>li:first').addClass('nav-current');
+        $('#main-menu>ul>li>a').click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).parent().addClass('nav-current');
+            $(this).parent().siblings('li').removeClass('nav-current');
+            var url = $(this).attr('href');
+            $('#main-page').load(url);
 
+        });
+    })
+</script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

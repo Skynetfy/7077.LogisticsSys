@@ -37,30 +37,75 @@ namespace Sys.BLL.Users
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public Dictionary<string, string> GetMenusByUserName(string username)
+        public Dictionary<string, Dictionary<string,string>> GetMenusByUserName(string username)
         {
-            var dic = new Dictionary<string, string>();
+            var dic = new Dictionary<string, Dictionary<string, string>>();
             var user = GetUser(username);
             if (user != null && user.RuleType != RuleTypeEnum.None.ToString())
             {
                 if (user.RuleType.Equals(RuleTypeEnum.Admin.ToString()))
                 {
-                    foreach (MenusEnum item in Enum.GetValues(typeof(MenusEnum)))
-                    {
-                        string strVaule = item.GetDescription();//获取名称
-                        string strName = item.ToString();//获取值
-                        dic.Add(strName, strVaule);
-                    }
+                    dic.Add(MenusEnum.主页.ToString()+"|" + MenusEnum.主页.GetDescription(), null);
+
+                    var dic1=new Dictionary<string,string>();
+                    dic1.Add(MenusEnum.创建订单.ToString(), MenusEnum.创建订单.GetDescription());
+                    dic1.Add(MenusEnum.订单列表.ToString(), MenusEnum.订单列表.GetDescription());
+                    dic1.Add(MenusEnum.订单处理.ToString(), MenusEnum.订单处理.GetDescription());
+                    dic.Add(MenusEnum.订单管理.ToString() + "|" + MenusEnum.订单管理.GetDescription(), dic1);
+                    
+                    var dic2=new Dictionary<string,string>();
+                    dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
+                    dic2.Add(MenusEnum.物流进度更新.ToString(), MenusEnum.物流进度更新.GetDescription());
+                    dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
+                    dic.Add(MenusEnum.物流管理.ToString() + "|" + MenusEnum.物流管理.GetDescription(), dic2);
+
+                    var dic3 = new Dictionary<string, string>();
+                    dic3.Add(MenusEnum.城市管理.ToString(), MenusEnum.城市管理.GetDescription());
+                    dic3.Add(MenusEnum.货物类型维护.ToString(), MenusEnum.货物类型维护.GetDescription());
+                    dic.Add(MenusEnum.系统维护.ToString() + "|" + MenusEnum.系统维护.GetDescription(), dic3);
+
+                    var dic4 = new Dictionary<string, string>();
+                    dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
+                    dic4.Add(MenusEnum.用户管理.ToString(), MenusEnum.用户管理.GetDescription());
+                    dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
+                    dic.Add(MenusEnum.个人中心.ToString()+"|"+ MenusEnum.个人中心.GetDescription(), dic4);
                 }
                 else if (user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
                 {
-                    dic.Add(MenusEnum.主页.ToString(), MenusEnum.主页.GetDescription());
-                    dic.Add(MenusEnum.订单管理.ToString(), MenusEnum.个人中心.GetDescription());
-                    dic.Add(MenusEnum.个人中心.ToString(), MenusEnum.个人中心.GetDescription());
+                    dic.Add(MenusEnum.主页.ToString(), null);
+
+                    var dic1 = new Dictionary<string, string>();
+                    dic1.Add(MenusEnum.创建订单.ToString(), MenusEnum.创建订单.GetDescription());
+                    dic1.Add(MenusEnum.订单列表.ToString(), MenusEnum.订单列表.GetDescription());
+                    dic.Add(MenusEnum.订单管理.ToString() + "|" + MenusEnum.订单管理.GetDescription(), dic1);
+
+                    var dic2 = new Dictionary<string, string>();
+                    dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
+                    dic.Add(MenusEnum.物流管理.ToString() + "|" + MenusEnum.物流管理.GetDescription(), dic2);
+                    
+                    var dic4 = new Dictionary<string, string>();
+                    dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
+                    dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
+                    dic.Add(MenusEnum.个人中心.ToString() + "|" + MenusEnum.个人中心.GetDescription(), dic4);
                 }
                 else if (user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))
                 {
+                    dic.Add(MenusEnum.主页.ToString(), null);
 
+                    var dic1 = new Dictionary<string, string>();
+                    dic1.Add(MenusEnum.订单处理.ToString(), MenusEnum.订单处理.GetDescription());
+                    dic.Add(MenusEnum.订单管理.ToString() + "|" + MenusEnum.订单管理.GetDescription(), dic1);
+
+                    var dic2 = new Dictionary<string, string>();
+                    dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
+                    dic2.Add(MenusEnum.物流进度更新.ToString(), MenusEnum.物流进度更新.GetDescription());
+                    dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
+                    dic.Add(MenusEnum.物流管理.ToString() + "|" + MenusEnum.物流管理.GetDescription(), dic2);
+
+                    var dic4 = new Dictionary<string, string>();
+                    dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
+                    dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
+                    dic.Add(MenusEnum.个人中心.ToString() + "|" + MenusEnum.个人中心.GetDescription(), dic4);
                 }
             }
             return dic;

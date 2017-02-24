@@ -331,11 +331,11 @@ a {
 
 .nav > li > a {
     padding: 8px 15px;
+    border-left: 2px solid #fff;
 }
 
     .nav > li > a:active, .nav > li > a:hover {
         color: #34b1c4;
-        border-left: 2px solid #34b1c4;
     }
 
 .main-header {
@@ -485,7 +485,7 @@ a {
     }
 }
 
-.navbar-nav > li > a,.navbar-nav > li > a:hover,.navbar-nav > li > a:active {
+.navbar-nav > li > a {
     color: #fff0f5;
     border: none;
     background: none;
@@ -494,3 +494,15 @@ a {
     padding-right: 0;
 }
 
+    .navbar-nav > li > a:hover, .navbar-nav > li > a:active{
+        color: #fff;
+        border: none;
+        background: none;
+    }
+    .menu > li > a,.menu > li > a:visited {
+        text-decoration: none;
+    }
+.a-username {
+    padding-right: 5px;
+    border-right:1px solid  #fff0f5;
+}

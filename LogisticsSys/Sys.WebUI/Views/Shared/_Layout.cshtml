@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7077物流管理系统</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/index.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="branding" href="http://www.ghostchina.com" title="Ghost 开源博客平台"></a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://mb.bootcss.com">登录</a></li>
+                        <li><a href="http://www.bootcss.com/">注销</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="main-navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-bars"></i>
+                        </span>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main-menu">
+                        <ul class="menu">
+                            <li class="nav-current" role="presentation"><a href="/">首页</a></li>
+                            <li role="presentation"><a href="#">订单管理</a></li>
+                            <li role="presentation"><a href="#">物流管理</a></li>
+                            <li role="presentation"><a href="#">基础管理</a></li>
+                            <li role="presentation"><a href="#">关于</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

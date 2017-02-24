@@ -48,8 +48,26 @@
   <ItemGroup>
     <Compile Include="DALFactory.cs" />
     <Compile Include="IBaseRepository.cs" />
+    <Compile Include="ISysAddresserInfoRepository.cs" />
+    <Compile Include="ISysAgentCityMappingRepository.cs" />
+    <Compile Include="ISysChinaCityRepository.cs" />
+    <Compile Include="ISysGoodsTypeRepository.cs" />
+    <Compile Include="ISysLogisticsInfoRepository.cs" />
+    <Compile Include="ISysOrderInfoRepository.cs" />
+    <Compile Include="ISysReceiverInfoRepository.cs" />
+    <Compile Include="ISysRussiaCityRepository.cs" />
+    <Compile Include="ISysUnitPriceRepository.cs" />
     <Compile Include="ISysUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\SysAddresserInfoRepository.cs" />
+    <Compile Include="Repository\SysAgentCityMappingRepository.cs" />
+    <Compile Include="Repository\SysChinaCityRepository.cs" />
+    <Compile Include="Repository\SysGoodsTypeRepository.cs" />
+    <Compile Include="Repository\SysLogisticsInfoRepository.cs" />
+    <Compile Include="Repository\SysOrderInfoRepository.cs" />
+    <Compile Include="Repository\SysReceiverInfoRepository.cs" />
+    <Compile Include="Repository\SysRussiaCityRepository.cs" />
+    <Compile Include="Repository\SysUnitPriceRepository.cs" />
     <Compile Include="Repository\SysUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,9 @@ h4.page-header {
     margin-right: 0;
     margin-left: 0;
 }
-
+label {
+    font-weight: 500;
+}
 .form-control-feedback {
     margin-top: 8px;
     height: 23px;

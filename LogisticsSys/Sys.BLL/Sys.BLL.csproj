@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Order\OrderInfoProvider.cs" />
+    <Compile Include="Order\OrderStatusEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\MenusEnum.cs" />
     <Compile Include="Users\RuleTypeEnum.cs" />

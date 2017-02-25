@@ -1,6 +1,7 @@
 
 CREATE TABLE [dbo].[SysOrderInfo](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[OrderNo] varchar(50) default '' not null,
 	[ShipperName] [nvarchar](50) default '' NOT NULL,
 	[ShipperPhone] [varchar](50) default '' NOT NULL,
 	[UserId] bigint default 0 not null,

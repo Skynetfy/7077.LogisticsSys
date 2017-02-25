@@ -59,5 +59,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "ChinaCourierNumber", ColumnType = DbType.AnsiString, Length = 50)]
         public string ChinaCourierNumber { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Desc", ColumnType = DbType.String)]
+        public string Desc { get; set; }
     }
 }

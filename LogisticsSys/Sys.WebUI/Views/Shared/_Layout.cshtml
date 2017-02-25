@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>7077物流管理系统</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/index.css" rel="stylesheet" />
-      @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/index.css" rel="stylesheet" />        
+    <link href="~/Content/daterangepicker.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-  
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/daterangepicker.js"></script>
 </head>
 <body>
 @Html.Action("Header","Home")
-    <div class="container body-content" id="main-page">
-        @RenderBody()
-    </div>
+<div class="container body-content" id="main-page">
+    @RenderBody()
+</div>
 
   
 <script>
     $(function () {
+       
         $('#main-menu>ul>li:first').addClass('nav-current');
         $('#main-menu>ul>li>a').click(function (e) {
             e.stopPropagation();

@@ -17,6 +17,10 @@ namespace Sys.Entities
     {
         /// <summary>
         /// </summary>
+        [Column(Name = "OrderNo", ColumnType = DbType.AnsiString, Length = 50)]
+        public string OrderNo { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "ShipperName", ColumnType = DbType.String, Length = 50)]
         public string ShipperName { get; set; }
         /// <summary>

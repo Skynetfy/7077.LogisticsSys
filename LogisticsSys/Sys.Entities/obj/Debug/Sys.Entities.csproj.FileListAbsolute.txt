@@ -11,4 +11,3 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Arch
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.pdb
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojResolveAssemblyReference.cache
-C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojResolveAssemblyReference.cache

@@ -22,6 +22,8 @@ namespace Sys.Dal
 
         bool BulkInsert(IList<T> list);
         
-        //IList<T> GetPagerData(string sort, string order, int limit, int offset, string search);
+        int GetPagerCount(string search);
+
+        IList<T> GetPagerList(string search, int offset, int limit, string order, string sort);
     }
 }

@@ -6,35 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>7077物流管理系统</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/index.css" rel="stylesheet" />        
+    <link href="~/Content/index.css" rel="stylesheet" />
     <link href="~/Content/daterangepicker.css" rel="stylesheet" />
+    <link href="//cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap-table-zh-CN.min.js"></script>
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/daterangepicker.js"></script>
 </head>
 <body>
-@Html.Action("Header","Home")
-<div class="container body-content" id="main-page">
-    @RenderBody()
-</div>
+    @Html.Action("Header", "Home")
+    <div class="container body-content" id="main-page">
+        @RenderBody()
+    </div>
 
-  
-<script>
-    $(function () {
-       
-        $('#main-menu>ul>li:first').addClass('nav-current');
-        $('#main-menu>ul>li>a').click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).parent().addClass('nav-current');
-            $(this).parent().siblings('li').removeClass('nav-current');
-            var url = $(this).attr('href');
-            $('#main-page').load(url);
 
-        });
-    })
-</script>
+    <script>
+        $(function () {
+
+            $('#main-menu>ul>li:first').addClass('nav-current');
+            $('#main-menu>ul>li>a').click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).parent().addClass('nav-current');
+                $(this).parent().siblings('li').removeClass('nav-current');
+                var url = $(this).attr('href');
+                $('#main-page').load(url);
+
+            });
+        })
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

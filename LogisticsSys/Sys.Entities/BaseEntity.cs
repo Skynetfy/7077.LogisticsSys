@@ -19,5 +19,10 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "CreateDate", ColumnType = DbType.DateTime)]
         public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [Column(Name = "IsDelete", ColumnType = DbType.Boolean)]
+        public bool IsDelete { get; set; }
     }
 }

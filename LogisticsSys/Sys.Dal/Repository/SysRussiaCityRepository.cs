@@ -8,7 +8,7 @@ using Sys.Entities;
 
 namespace Sys.Dal.Repository
 {
-    public class SysRussiaCityRepository:ISysRussiaCityRepository
+    public class SysRussiaCityRepository : ISysRussiaCityRepository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
@@ -101,6 +101,35 @@ namespace Sys.Dal.Repository
             catch (Exception ex)
             {
                 throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
+            }
+        }
+        public int GetPagerCount(string search)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT count(1) from SysRussiaCity  with (nolock) where 1=1 {0} ", search);
+                object obj = baseDao.ExecScalar(sql);
+                int ret = Convert.ToInt32(obj);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问Count时出错", ex);
+            }
+        }
+
+        public IList<SysRussiaCity> GetPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT TOP {1} * from SysRussiaCity(nolock) where Id not in(
+                  SELECT TOP {4} Id FROM SysRussiaCity(NOLOCK)
+                  WHERE 1=1 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit,sort, order,  offset);
+                return baseDao.SelectList<SysRussiaCity>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
             }
         }
     }

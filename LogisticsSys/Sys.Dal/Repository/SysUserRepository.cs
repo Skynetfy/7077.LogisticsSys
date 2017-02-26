@@ -134,6 +134,14 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
             }
         }
+        public int GetPagerCount(string search)
+        {
+            return 0;
+        }
 
+        public IList<SysUser> GetPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            return null;
+        }
     }
 }

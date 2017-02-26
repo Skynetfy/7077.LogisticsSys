@@ -14,9 +14,11 @@ h4.page-header {
     margin-right: 0;
     margin-left: 0;
 }
+
 label {
     font-weight: 500;
 }
+
 .form-control-feedback {
     margin-top: 8px;
     height: 23px;
@@ -334,10 +336,18 @@ a {
 .nav > li > a {
     padding: 8px 15px;
     border-left: 2px solid #fff;
+    background: none;
 }
 
-    .nav > li > a:active, .nav > li > a:hover {
-        color: #34b1c4;
+    .nav > li > a:active, .nav > li > a:hover, .nav > li > a:visited {
+        /*color: #505050;*/
+        background: none;
+    }
+
+    .nav > li > a.current {
+        color: #1b809e;
+        border-left: 3px solid #1b809e;
+        background-color: #eee;
     }
 
 .main-header {
@@ -496,15 +506,24 @@ a {
     padding-right: 0;
 }
 
-    .navbar-nav > li > a:hover, .navbar-nav > li > a:active{
+    .navbar-nav > li > a:hover, .navbar-nav > li > a:active {
         color: #fff;
         border: none;
         background: none;
     }
-    .menu > li > a,.menu > li > a:visited {
-        text-decoration: none;
-    }
+
+.menu > li > a, .menu > li > a:visited {
+    text-decoration: none;
+}
+
 .a-username {
     padding-right: 5px;
-    border-right:1px solid  #fff0f5;
+    border-right: 1px solid #fff0f5;
+}
+
+.userlogin > li > a {
+    color: #fff0f5;
+}
+.userlogin > li > a:hover {
+    color: #fff;
 }

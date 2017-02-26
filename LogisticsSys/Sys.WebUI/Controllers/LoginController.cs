@@ -19,6 +19,22 @@ namespace Sys.WebUI.Controllers
                 return Redirect("../Home/Index");
             return View();
         }
+
+        public ActionResult CheckUser(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+                return Content("0");
+            var provider = new UserLoginProvider();
+            if (provider.CheckUserName(username))
+            {
+                return Content("1");
+            }
+            else
+            {
+                return Content("0");
+            }
+        }
+
         [HttpPost]
         public ActionResult Index(string username, string password, string returl, string remember_me)
         {
@@ -47,7 +63,7 @@ namespace Sys.WebUI.Controllers
             string encTicket = FormsAuthentication.Encrypt(authTicket);
             HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
-            return new RedirectResult(returl==null?"../Home/Index":returl);
+            return new RedirectResult(returl==null?"/":returl);
         }
         public ActionResult SignUp()
         {
@@ -68,6 +84,11 @@ namespace Sys.WebUI.Controllers
                 entity.CreateDate = DateTime.Now;
 
                 var i = provider.InsertUser(entity);
+            }
+            else
+            {
+                ViewBag.message = "用户名已存在";
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }

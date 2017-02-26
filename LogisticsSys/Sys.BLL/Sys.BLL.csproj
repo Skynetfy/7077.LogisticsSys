@@ -43,6 +43,7 @@
     <Compile Include="Order\OrderInfoProvider.cs" />
     <Compile Include="Order\OrderStatusEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RussiaCityService.cs" />
     <Compile Include="Users\MenusEnum.cs" />
     <Compile Include="Users\RuleTypeEnum.cs" />
     <Compile Include="Users\UserLoginProvider.cs" />

@@ -13,7 +13,7 @@ namespace Sys.Entities
     /// </summary>
     [Serializable]
     [Table(Name = "SysRussiaCity")]
-    public class SysRussiaCity
+    public class SysRussiaCity:BaseEntity
     {
         /// <summary>
         /// </summary>

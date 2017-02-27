@@ -36,11 +36,11 @@ namespace Sys.BLL.Users
         物流进度更新,
         [Description("System/RussiaCity")]
         系统维护,
-        [Description("System/City")]
+        [Description("User/index")]
         个人中心,
-        [Description("Home/index")]
+        [Description("User/index")]
         用户管理,
-        [Description("Home/index")]
+        [Description("User/Profile")]
         个人信息,
         [Description("Home/index")]
         密码修改

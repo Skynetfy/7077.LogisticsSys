@@ -18,6 +18,14 @@ namespace Sys.BLL.Users
             return userDao.Insert(user);
         }
 
+        public int DeleteUser(SysUser user)
+        {
+            return userDao.Delete(user);
+        }
+        public int UpdateUser(SysUser user)
+        {
+            return userDao.Update(user);
+        }
         public bool CheckUserName(string name)
         {
             return GetUser(name) != null;
@@ -110,6 +118,16 @@ namespace Sys.BLL.Users
                 }
             }
             return dic;
+        }
+
+        public int GetPagerCount(string search)
+        {
+            return userDao.GetPagerCount(search);
+        }
+
+        public List<SysUser> GetPagerDataList(string search, int offset, int limit, string order, string sort)
+        {
+            return userDao.GetPagerList(search, offset, limit, order, sort).ToList();
         }
     }
 }

@@ -53,7 +53,6 @@ namespace Sys.WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(string[] ids)
         {
-            var s = Request.Form["ids"];
             if (ids!=null)
             {
                 foreach (var id in ids)

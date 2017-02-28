@@ -15,12 +15,7 @@
     <link href="~/Content/Login.css" rel="stylesheet" />
 </head>
 <body>
-    <header class="h-login">
-        <div class="h-login-title">
-            7077物流管理系统
-            <a href="@Url.Action("Index")" class="register-link">登录</a>
-        </div>
-    </header>
+ 
     <div class="page page-login">
         <h3 class="login-h3">帐号注册 </h3>
         <fieldset class="accountInfo">
@@ -29,6 +24,7 @@
                 <div class="login">
                     <div style="display: none;" class="alert alert-danger" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                         <span></span>
                     </div>
                     <p class="form-group" style="margin-top: 0;">
@@ -55,7 +51,7 @@
                 </div>
                 <p class="submitButton" style="margin-top: 25px;">
                     <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
-                    <a class="btn btn-link text-warning float-right" style="float: right;color:#696969" href="/users/password/new">已经是会员?</a>
+                    <a class="btn-link text-warning float-right" style="float: right;color:#696969" href="/Login">已经是会员?</a>
                 </p>
             </form>
         </fieldset>

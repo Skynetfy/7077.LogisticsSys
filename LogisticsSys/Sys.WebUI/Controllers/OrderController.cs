@@ -73,5 +73,23 @@ namespace Sys.WebUI.Controllers
             result.Message = message;
             return Json(result);
         }
+
+        public ActionResult OrderList()
+        {
+            return View();
+        }
+
+        public ActionResult GetOrderViewPagerData(string type, string search, int offset, int limit, string order, string sort)
+        {
+            var btdata = new BootstrapTableData<OrderView>();
+            var provider = new OrderInfoProvider();
+            var where = string.Empty;
+            if (!string.IsNullOrEmpty(search))
+                where = string.Format(@" and [CityName] Like '%{0}%'", search);
+            btdata.total = provider.GetOrderViewPagerCount(where);
+            btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
+
+            return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
     }
 }

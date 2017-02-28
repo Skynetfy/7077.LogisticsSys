@@ -11,5 +11,9 @@ namespace Sys.Dal
     {
         string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo,
             SysReceiverInfo receiverinfo,ref int status);
+
+        int GetOrderViewPagerCount(string search);
+
+        IList<OrderView> GetOrderViewPagerList(string search, int offset, int limit, string order, string sort);
     }
 }

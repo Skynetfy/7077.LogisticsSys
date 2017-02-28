@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="OrderView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysAddresserInfo.cs" />
     <Compile Include="SysAgentCityMapping.cs" />

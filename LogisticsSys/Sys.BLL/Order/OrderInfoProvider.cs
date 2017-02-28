@@ -14,9 +14,19 @@ namespace Sys.BLL.Order
         private readonly ISysOrderInfoRepository orderDao = DALFactory.SysOrderInfoDao;
 
         public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo,
-            SysReceiverInfo receiverinfo,ref int status)
+            SysReceiverInfo receiverinfo, ref int status)
         {
             return orderDao.AddOrderInfo(username, orderinfo, addresserinfo, receiverinfo, ref status);
+        }
+
+        public int GetOrderViewPagerCount(string search)
+        {
+            return orderDao.GetOrderViewPagerCount(search);
+        }
+
+        public List<OrderView> GetOrderViewPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            return orderDao.GetOrderViewPagerList(search, offset, limit, order, sort).ToList();
         }
     }
 }

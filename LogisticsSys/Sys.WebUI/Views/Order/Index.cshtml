@@ -6,20 +6,20 @@
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
                 <li class="">
-                    <a href="#overview" class="current">创建订单</a>
+                    <a href="#" class="current">创建订单</a>
                 </li>
                 <li class="">
-                    <a href="#grid">订单列表</a>
+                    <a href="@Url.Action("OrderList")">订单列表</a>
                 </li>
                 <li>
-                    <a href="#type">排版</a>
+                    <a href="@Url.Action("OrderList")">订单处理</a>
                 </li>
             </ul>
         </nav>
     </div>
     <div class="col-md-9" role="main">
         <div class="bs-docs-section">
-            <h4 id="breadcrumbs" class="page-header">创建订单</h4>
+            <h4 id="breadcrumbs" class="page-header">订单列表</h4>
             <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>错误!</strong>
@@ -397,6 +397,18 @@
             "singleDatePicker": true,
             "locale": {
                 "format": "YYYY-MM-DD"
+            }
+        });
+       
+        $('ul.bs-docs-sidenav>li>a').click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var href = $(this).attr('href');
+            if (href != null && href != "#") {
+                $('body').mLoading("show");//显示loading组件
+                $('#main-page').load(href, function () {
+                    $('body').mLoading("hide");//显示loading组件
+                });
             }
         });
         // Smart Wizard

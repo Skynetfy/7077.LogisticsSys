@@ -160,5 +160,35 @@ namespace Sys.Dal.Repository
         {
             return null;
         }
+
+        public int GetOrderViewPagerCount(string search)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT count(1) from [v_orderinfo]  with (nolock) where 1=1 {0} ", search);
+                object obj = baseDao.ExecScalar(sql);
+                int ret = Convert.ToInt32(obj);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问Count时出错", ex);
+            }
+        }
+
+        public IList<OrderView> GetOrderViewPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT TOP {1} * from [v_orderinfo](nolock) where Id not in(
+                  SELECT TOP {4} Id FROM [v_orderinfo](NOLOCK)
+                  WHERE 1=1 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
+                return baseDao.SelectList<OrderView>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
+        }
     }
 }

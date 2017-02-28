@@ -42,13 +42,13 @@ namespace Sys.WebUI.Controllers
             var provider = new UserLoginProvider();
             if (!provider.CheckUserName(username))
             {
-                Response.Write("<script>alert('用户名或者密码错误');</script>");
+                ViewBag.message = "用户名不存在";
                 return View();
             }
             var user = provider.GetUser(username, password);
             if (user == null)
             {
-                Response.Write("<script>alert('用户名或者密码错误');</script>");
+                ViewBag.message = "用户名或密码不正确";
                 return View();
             }
             userData = user.UserName + "|" + user.DisplayName + "|" + user.Email;

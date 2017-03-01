@@ -17,6 +17,7 @@
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/daterangepicker.js"></script>
     <script src="~/Scripts/jquery.mloading.js"></script>
+    <script src="~/Scripts/Solution.js"></script>
 </head>
 <body>
     @Html.Action("Header", "Home")
@@ -37,10 +38,13 @@
             $('#main-menu>ul>li>a').click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
+                $('body').mLoading("show");//显示loading组件
                 $(this).parent().addClass('nav-current');
                 $(this).parent().siblings('li').removeClass('nav-current');
                 var url = $(this).attr('href');
-                $('#main-page').load(url);
+                $('#main-page').load(url,function(e) {
+                    $('body').mLoading("hide");//显示loading组件
+                });
 
             });
           

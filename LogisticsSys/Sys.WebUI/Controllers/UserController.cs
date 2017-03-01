@@ -64,7 +64,7 @@ namespace Sys.WebUI.Controllers
                 entity.CreateDate = DateTime.Now;
                 var i = provider.UpdateUser(entity);
             }
-            return View();
+            return Content("ok");
         }
 
         public ActionResult DeleteUser(string ids)
@@ -82,6 +82,30 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
 
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditPassword(string oldpassword,string newpassword)
+        {
+            var message = "";
+            var provider = new UserLoginProvider();
+            var username = User.Identity.Name;
+            var user = provider.GetUser(username, DEncrypt.Md5(oldpassword));
+            if (user != null)
+            {
+                user.Password = DEncrypt.Md5(newpassword);
+                provider.UpdateUser(user);
+                message = "success";
+            }
+            else
+            {
+                message = "旧密码错误";
+            }
+            return Content(message);
+        }
+        
         public ActionResult Profile()
         {
             var username = User.Identity.Name;

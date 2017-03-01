@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ForgetpasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogisticsController.cs" />
@@ -256,6 +257,7 @@
     <Content Include="Scripts\parsley.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Solution.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -300,10 +302,12 @@
     <Content Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Order\OrderList.cshtml" />
+    <Content Include="Views\Forgetpassword\Index.cshtml" />
+    <Content Include="Views\User\EditPassword.cshtml" />
+    <Content Include="Views\Logistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Logistics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

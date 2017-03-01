@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Security.Principal;
 using Sys.BLL.Users;
+using Sys.Common;
 using Sys.Entities;
 
 namespace Sys.WebUI.Controllers
@@ -45,7 +46,7 @@ namespace Sys.WebUI.Controllers
                 ViewBag.message = "用户名不存在";
                 return View();
             }
-            var user = provider.GetUser(username, password);
+            var user = provider.GetUser(username, DEncrypt.Md5(password));
             if (user == null)
             {
                 ViewBag.message = "用户名或密码不正确";
@@ -56,14 +57,14 @@ namespace Sys.WebUI.Controllers
                      1,
                      user.UserName,
                      DateTime.Now,
-                    remember_me!=null ? DateTime.Now.AddDays(7) : DateTime.Now.AddMinutes(30),
+                    remember_me != null ? DateTime.Now.AddDays(7) : DateTime.Now.AddMinutes(30),
                      false,
                      userData);
 
             string encTicket = FormsAuthentication.Encrypt(authTicket);
             HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
-            return new RedirectResult(returl==null?"/":returl);
+            return new RedirectResult(returl == null ? "/" : returl);
         }
         public ActionResult SignUp()
         {
@@ -92,7 +93,7 @@ namespace Sys.WebUI.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-        
+
         public ActionResult LoginOut()
         {
             FormsAuthentication.SignOut();

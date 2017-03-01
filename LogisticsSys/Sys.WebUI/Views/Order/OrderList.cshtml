@@ -45,8 +45,8 @@
                     <th data-field="ReceiverName">收件人</th>
                     <th data-field="ReceiverPhone">收件人电话</th>
                     <th data-field="DisplayName">下单人</th>
-                    <th data-field="Status">状态</th>
-                    <th data-field="Id" data-formatter="stateFormatter">操作</th>
+                    <th data-field="Status" data-formatter="stateFormatter">状态</th>
+                    <th data-field="Id" data-formatter="actionFormatter">操作</th>
                 </tr>
             </thead>
         </table>
@@ -222,10 +222,6 @@
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
-    function getHeight() {
-        return $(window).height() - $('h1').outerHeight(true);
-    }
-
     $(function () {
         $('[data-toggle="table"]').bootstrapTable();
         var $table = $('#table'),
@@ -253,11 +249,11 @@
                 e.preventDefault();
                 var href = $(this).attr('href');
                 if (href != null && href != "#") {
-                    $('#main-page').mLoading("show"); //显示loading组件
+                    $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
                         .load(href,
                             function () {
-                                $('#main-page').mLoading("hide"); //显示loading组件
+                                $('body').mLoading("hide"); //显示loading组件
                             });
                 }
             });
@@ -273,29 +269,31 @@
     function priceFormatter(v, r) { }
 
     function stateFormatter(value, row, index) {
+        return Status_7077.getOrderStatus(row.Status);
+    }
+    function actionFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
             JSON.stringify(row).replace(/\"/g, "\'") +
             ')" value="">查看</button>');
         return h.join('');
     }
-
     function updatedate(row) {
         $('#orderno').html(row.OrderNo);
         $('#jjxm').html(row.ShipperName);
         $('#jjdh').html(row.ShipperPhone);
         $('#shrshl').html(row.PickupNumber);
         $('#xdr').html(row.DisplayName);
-        $('#ddzt').html(row.Status);
+        $('#ddzt').html(Status_7077.getOrderStatus(row.Status));
         $('#xdsj').html(row.CreateDate);
         $('#elscs').html(row.RussiaCityName);
         $('#elsdz').html(row.RussiaAddress);
         $('#wldh').html(row.LogisticsSingle);
         $('#hwxs').html(row.CargoNumber);
         $('#qhsj').html(row.PickupDate);
-        $('#qhfs').html(row.PickupWay);
-        $('#hwlx').html(row.GoodsType);
-        $('#hwyslx').html(row.TransportationWay);
+        $('#qhfs').html(Status_7077.getPickupWay(row.PickupWay));
+        $('#hwlx').html(Status_7077.getGoodsType(row.GoodsType));
+        $('#hwyslx').html(Status_7077.getCargoTransWay(row.TransportationWay));
         $('#bjjg').html(row.ProtectPrice);
         $('#bdfy').html(row.PolicyFee);
         $('#hwzl').html(row.GoodsWeight);
@@ -307,8 +305,8 @@
         $('#ddxxdz').html(row.ChinaAddress);
         $('#sjrxm').html(row.ReceiverName);
         $('#sjrdh').html(row.ReceiverPhone);
-        $('#dbfs').html(row.PackagingWay);
-        $('#kdfs').html(row.ExpressWay);
+        $('#dbfs').html(Status_7077.getPackagingType(row.PackagingWay));
+        $('#kdfs').html(Status_7077.getExpressWay(row.ExpressWay));
         $('#hwmx').html(row.GoodsDesc);
         $('#bgzl').html(row.ParcelWeight);
         $('#gnkddh').html(row.ChinaCourierNumber);

@@ -32,7 +32,7 @@
                         <li role="presentation"><a href="#">物流管理</a></li>
                         <li role="presentation"><a href="#">基础管理</a></li>*@
                         @Html.MvcIndexHtmlString(User.Identity.Name)
-                        <li role="presentation"><a href="#">关于</a></li>
+                        <li role="presentation"><a href="@Url.Action("About","Home")">关于</a></li>
                     </ul>
                 </div>
             </div>

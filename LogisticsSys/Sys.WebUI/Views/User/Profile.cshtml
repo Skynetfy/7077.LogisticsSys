@@ -12,7 +12,7 @@
                     <a href="@Url.Action("Index")">用户管理</a>
                 </li>
                 <li>
-                    <a href="#type">修改密码</a>
+                    <a href="@Url.Action("EditPassword")">修改密码</a>
                 </li>
             </ul>
         </nav>
@@ -94,6 +94,21 @@
 </style>
 <script>
     $(function () {
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+
         $('#editprofilelink')
             .click(function (e) {
                 $('#main-page').load("@Url.Action("EditProfile")", function (e) { });

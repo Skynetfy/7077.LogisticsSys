@@ -18,7 +18,7 @@ namespace Sys.BLL.Users
         创建订单,
         [Description("Home/index")]
         订单列表,
-        [Description("Home/index")]
+        [Description("Logistics/index")]
         物流管理,
         [Description("System/RussiaCity")]
         俄罗斯城市管理,
@@ -36,7 +36,7 @@ namespace Sys.BLL.Users
         物流进度更新,
         [Description("System/RussiaCity")]
         系统维护,
-        [Description("User/index")]
+        [Description("User/Profile")]
         个人中心,
         [Description("User/index")]
         用户管理,

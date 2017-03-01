@@ -123,6 +123,21 @@
     }
    
     $(function () {
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+
         $('[data-toggle="table"]').bootstrapTable();
         var $table = $('#table'),
             $remove = $('#remove'),

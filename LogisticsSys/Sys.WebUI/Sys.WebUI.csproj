@@ -305,6 +305,9 @@
     <Content Include="Views\Forgetpassword\Index.cshtml" />
     <Content Include="Views\User\EditPassword.cshtml" />
     <Content Include="Views\Logistics\Index.cshtml" />
+    <Content Include="Views\System\ChinaCity.cshtml" />
+    <Content Include="Views\System\GoodsType.cshtml" />
+    <Content Include="Views\System\UnitPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

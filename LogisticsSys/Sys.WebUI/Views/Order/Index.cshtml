@@ -87,7 +87,7 @@
                                     订单编号
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="ordersingle" name="ordersingle" value="35873247222343t2" readonly="readonly" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                                    <input type="text" id="ordersingle" name="ordersingle" value="@ViewBag.OrderNumber" readonly="readonly" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -211,13 +211,13 @@
                                     保价价值(元) <span class="required">*</span>
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="digits" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="policyfee">
                                     保单费用(元)
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <input type="text" id="policyfee" name="policyfee" value="3" readonly="readonly" required="required" data-parsley-type="digits" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="policyfee" name="policyfee" value="3" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -225,7 +225,7 @@
                                     货物重量(kg)  <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="digits" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -236,19 +236,19 @@
                                     长(cm)
                                 </label>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
-                                    <input type="text" id="boxlong" name="boxlong" required="required" data-parsley-type="digits" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="boxlong" name="boxlong" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                     宽(cm)
                                 </label>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
-                                    <input type="text" id="boxwidth" name="boxwidth" required="required" data-parsley-type="digits" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="boxwidth" name="boxwidth" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                     高(cm)
                                 </label>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
-                                    <input type="text" id="boxheight" name="boxheight" required="required" data-parsley-type="digits" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="boxheight" name="boxheight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                         </div>
@@ -348,7 +348,7 @@
                                     包裹重量(千克) <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="digits" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">

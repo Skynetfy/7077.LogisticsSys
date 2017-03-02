@@ -11,7 +11,18 @@ namespace Sys.BLL.Order
 
     public class OrderInfoProvider
     {
+     
         private readonly ISysOrderInfoRepository orderDao = DALFactory.SysOrderInfoDao;
+       
+        public string GetOrderNumber()
+        {
+            var neworder = OrderNumberRandom.GetOrderNumber();
+            if (orderDao.GetOrderByNumber(neworder) != null)
+            {
+                neworder = GetOrderNumber();
+            }
+            return neworder;
+        }
 
         public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo,
             SysReceiverInfo receiverinfo, ref int status)

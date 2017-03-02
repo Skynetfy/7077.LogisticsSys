@@ -82,7 +82,7 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                String sql = "SELECT count(1) from SysGoodsType  with (nolock)  ";
+                String sql = "SELECT count(1) from SysGoodsType  with (nolock) where [IsDelete]=0  ";
                 object obj = baseDao.ExecScalar(sql);
                 long ret = Convert.ToInt64(obj);
                 return ret;
@@ -105,12 +105,32 @@ namespace Sys.Dal.Repository
         }
         public int GetPagerCount(string search)
         {
-            return 0;
+            try
+            {
+                String sql = string.Format(@"SELECT count(1) from SysGoodsType  with (nolock) where 1=1 {0} ", search);
+                object obj = baseDao.ExecScalar(sql);
+                int ret = Convert.ToInt32(obj);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问Count时出错", ex);
+            }
         }
 
         public IList<SysGoodsType> GetPagerList(string search, int offset, int limit, string order, string sort)
         {
-            return null;
+            try
+            {
+                String sql = string.Format(@"SELECT TOP {1} * from SysGoodsType(nolock) where Id not in(
+                  SELECT TOP {4} Id FROM SysGoodsType(NOLOCK)
+                  WHERE [IsDelete]=0 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
+                return baseDao.SelectList<SysGoodsType>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
         }
     }
 }

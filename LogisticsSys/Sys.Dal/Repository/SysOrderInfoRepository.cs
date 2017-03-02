@@ -28,6 +28,22 @@ namespace Sys.Dal.Repository
             }
         }
 
+        public SysOrderInfo GetOrderByNumber(string ordernumber)
+        {
+            try
+            {
+                string sql = @"Select TOP 1 *  from SysOrderInfo  with (nolock) where Isdelete=0 and OrderNo=@OrderNo ";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@OrderNo", DbType.AnsiString, ordernumber);
+                return baseDao.SelectFirst<SysOrderInfo>(sql, parameters);
+
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
+            }
+        }
+
         public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo,
             SysReceiverInfo receiverinfo, ref int status)
         {
@@ -63,7 +79,7 @@ namespace Sys.Dal.Repository
             param.AddInParameter("@ParcelWeight", DbType.Decimal, receiverinfo.ParcelWeight);
             param.AddInParameter("@ChinaCourierNumber", DbType.AnsiString, receiverinfo.ChinaCourierNumber);
             param.AddInParameter("@Desc", DbType.String, receiverinfo.Desc);
-            param.AddOutParameter("@result", DbType.String,100);
+            param.AddOutParameter("@result", DbType.String, 100);
             param.AddParameter("@message", DbType.Int32, 0, 32, ParameterDirection.ReturnValue);
 
             var s = baseDao.VisitDataReaderBySp<object>("CreateOrder_Proc", param, x =>
@@ -130,7 +146,7 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                String sql = "SELECT count(1) from SysOrderInfo  with (nolock)  ";
+                String sql = "SELECT count(1) from SysOrderInfo  with (nolock) where Isdelete=0 ";
                 object obj = baseDao.ExecScalar(sql);
                 long ret = Convert.ToInt64(obj);
                 return ret;

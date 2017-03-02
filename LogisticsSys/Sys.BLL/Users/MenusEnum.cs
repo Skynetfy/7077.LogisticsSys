@@ -28,8 +28,10 @@ namespace Sys.BLL.Users
         物流查询,
         [Description("Home/index")]
         订单处理,
-        [Description("Home/index")]
+        [Description("System/GoodsType")]
         货物类型维护,
+        [Description("System/UnitPrice")]
+        单价信息维护,
         [Description("Home/index")]
         发货管理,
         [Description("Home/index")]

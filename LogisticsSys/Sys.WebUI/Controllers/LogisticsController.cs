@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Sys.WebUI.Controllers
 {
+    [Authorize]
     public class LogisticsController : Controller
     {
         // GET: Logistics

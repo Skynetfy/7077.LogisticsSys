@@ -6,23 +6,23 @@
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
                 <li class="">
-                    <a href="@Url.Action("RussiaCity")" class="current">俄罗斯城市维护</a>
+                    <a href="@Url.Action("RussiaCity")" >俄罗斯城市维护</a>
                 </li>
                 <li class="">
-                    <a href="@Url.Action("ChinaCity")" >国内城市维护</a>
+                    <a href="@Url.Action("ChinaCity")">国内城市维护</a>
                 </li>
                 <li>
                     <a href="@Url.Action("GoodsType")">货物类型维护</a>
                 </li>
                 <li>
-                    <a href="@Url.Action("UnitPrice")">单价信息维护</a>
+                    <a href="@Url.Action("UnitPrice")" class="current">单价信息维护</a>
                 </li>
             </ul>
         </nav>
     </div>
     <div class="col-md-9" role="main">
         <div id="toolbar">
-            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>
+            @*<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>*@
             <button type="button" class="btn btn-danger btn-sm" disabled id="remove">删除</button>
         </div>
         <table id="table"
@@ -31,7 +31,7 @@
                data-show-refresh="true"
                data-show-toggle="true"
                data-search="true"
-               data-url="@Url.Action("GetRussiaCityPagerDateList")"
+               data-url="@Url.Action("GetUnitPricePagerDateList")"
                data-pagination="true"
                data-side-pagination="server"
                data-sort-name="CreateDate"
@@ -46,9 +46,11 @@
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
                     <th data-field="CityName">城市名称</th>
-                    <th data-field="LandTransportTime">陆运时间</th>
-                    <th data-field="AirTransportTime">空运时间</th>
-                    <th data-field="CityDesc">描述</th>
+                    <th data-field="UnitPrice">货物类型</th>
+                    <th data-field="ExpressBeavyPrice">航空件(n&#60;=20kg)单价(元/千克</th>
+                    <th data-field="SfUnitPrice">航空件(20kg&#60;n&#60;=50kg)单价(元/千克)</th>
+                    <th data-field="SflogisticsBeavyPrice">航空件(n&#62;50kg)单价(元/千克)</th>
+                    <th data-field="SflogisticsBeavyPrice">陆运(n&#62;=50kg)单价(元/千克)</th>
                     <th data-field="Id" data-formatter="stateFormatter">操作</th>
                 </tr>
             </thead>
@@ -70,46 +72,60 @@
                     <strong>错误!</strong>
                     <label></label>
                 </div>
-                <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("EditRussiaCity")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("AddChinaCity")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="id" value="" />
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cityname">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RCityId">
                             城市名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="cityname" name="cityname" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                            <input type="text" id="RCityId" name="RCityId" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="landtransporttime">
-                            陆运时间
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="GoodsType">
+                            货物类型
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="landtransporttime" name="landtransporttime" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="GoodsType" name="GoodsType" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="airtransporttime">
-                            空运时间
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LandPrice1">
+                            航空件(n&#60;=20kg)单价(元/千克
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="airtransporttime" name="airtransporttime" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="LandPrice1" name="LandPrice1" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="citydesc">
-                            描述
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LandPrice2">
+                            航空件(20kg&#60;n&#60;=50kg)单价(元/千克)
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <textarea type="text" id="citydesc" name="citydesc"
-                                      class="form-control col-md-7 col-xs-12"></textarea>
+                            <input type="text" id="LandPrice2" name="LandPrice2" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AirPrice1">
+                            航空件(n&#62;50kg)单价(元/千克)
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="AirPrice1" name="AirPrice1" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AirPrice2">
+                            陆运(n&#62;=50kg)单价(元/千克)
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="AirPrice2" name="AirPrice2" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" onclick="" id="btn-save">保存</button>
             </div>
         </div>
@@ -121,7 +137,7 @@
     function getHeight() {
         return $(window).height() - $('h1').outerHeight(true);
     }
-   
+
     $(function () {
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
            .click(function (e) {
@@ -154,7 +170,7 @@
         $remove.click(function () {
             if (confirm("你确定要删除吗？")) {
                 var ids = getIdSelections();
-                $.post("@Url.Action("DeleteRussiaCity")", { ids: ids }, function (e) {
+                $.post("@Url.Action("DeleteUnitPrice")", { ids: ids }, function (e) {
                     $remove.prop('disabled', true);
                     $('[data-toggle="table"]').bootstrapTable('refresh');
                     $('#addModel').modal('hide')
@@ -201,14 +217,16 @@
     function updatedate(row) {
 
         $('form [name=id]').val(row.Id);
-        $('form [name=cityname]').val(row.CityName);
-        $('form [name=landtransporttime]').val(row.LandTransportTime);
-        $('form [name=airtransporttime]').val(row.AirTransportTime);
-        $('form [name=citydesc]').val(row.CityDesc);
+        $('form [name=RCityId]').val(row.RCityId);
+        $('form [name=GoodsType]').val(row.GoodsType);
+        $('form [name=LandPrice1]').val(row.LandPrice1);
+        $('form [name=LandPrice2]').val(row.LandPrice2);
+        $('form [name=AirPrice1]').val(row.AirPrice1);
+        $('form [name=AirPrice2]').val(row.AirPrice2);
         $('#addModel').modal('show');
     }
     function priceFormatter(v, r) { }
-   
+
     function stateFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">修改</button>');

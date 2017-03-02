@@ -11,11 +11,14 @@ using Sys.Entities;
 
 namespace Sys.WebUI.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         // GET: Order
         public ActionResult Index()
         {
+            var provider = new OrderInfoProvider();
+            ViewBag.OrderNumber = provider.GetOrderNumber();
             return View();
         }
 
@@ -58,12 +61,12 @@ namespace Sys.WebUI.Controllers
             receiverInfo.PackagingWay = Convert.ToInt32(packagingway);
             receiverInfo.ExpressWay = Convert.ToInt32(expressway);
             receiverInfo.GoodsDesc = goodsdesc.Trim();
-            receiverInfo.ParcelWeight =Convert.ToDecimal(parcelweight);
+            receiverInfo.ParcelWeight = Convert.ToDecimal(parcelweight);
             receiverInfo.ChinaCourierNumber = chinacouriernumber.Trim();
             receiverInfo.Desc = desc.Trim();
             var username = User.Identity.Name;
             var status = 0;
-            var provider=new OrderInfoProvider();
+            var provider = new OrderInfoProvider();
             var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfo, ref status);
 
             if (status == 1)

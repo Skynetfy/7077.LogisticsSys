@@ -106,47 +106,55 @@ input.parsley-error, textarea.parsley-error, select.parsley-error {
 }
 
 .bs-callout {
-  padding: 20px;
-  margin: 20px 0;
-  border: 1px solid #eee;
-  border-left-width: 5px;
-  border-radius: 3px;
-}
-.bs-callout h4 {
-  margin-top: 0;
-  margin-bottom: 5px;
-}
-.bs-callout p:last-child {
-  margin-bottom: 0;
-}
-.bs-callout code {
-  border-radius: 3px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
 }
 
-/* Tighten up space between multiple callouts */
-.bs-callout + .bs-callout {
-  margin-top: -5px;
-}
+    .bs-callout h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .bs-callout p:last-child {
+        margin-bottom: 0;
+    }
+
+    .bs-callout code {
+        border-radius: 3px;
+    }
+
+    /* Tighten up space between multiple callouts */
+    .bs-callout + .bs-callout {
+        margin-top: -5px;
+    }
 
 /* Variations */
 .bs-callout-danger {
-  border-left-color: #ce4844;
+    border-left-color: #ce4844;
 }
-.bs-callout-danger h4 {
-  color: #ce4844;
-}
+
+    .bs-callout-danger h4 {
+        color: #ce4844;
+    }
+
 .bs-callout-warning {
-  border-left-color: #aa6708;
+    border-left-color: #aa6708;
 }
-.bs-callout-warning h4 {
-  color: #aa6708;
-}
+
+    .bs-callout-warning h4 {
+        color: #aa6708;
+    }
+
 .bs-callout-info {
-  border-left-color: #1b809e;
+    border-left-color: #1b809e;
 }
-.bs-callout-info h4 {
-  color: #1b809e;
-}
+
+    .bs-callout-info h4 {
+        color: #1b809e;
+    }
 
 /* *********  form wizard  **************************** */
 
@@ -569,7 +577,26 @@ a {
 .userlogin > li > a {
     color: #fff0f5;
 }
-.userlogin > li > a:hover {
-    color: #fff;
+
+    .userlogin > li > a:hover {
+        color: #fff;
+    }
+
+.copyright {
+    background: #fff;
+    font-size: 13px;
+    text-align: center;
+    color: #555555;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    border-top: 1px solid #eee;
+    margin-top: 50px;
 }
 
+    .copyright span {
+        margin: 0 .5em;
+    }
+
+    .copyright a {
+        color: #555555;
+    }

@@ -24,6 +24,17 @@
     <div class="container body-content" id="main-page">
         @RenderBody()
     </div>
+    @*<div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span>Copyright © <a href="http://www.ghostchina.com/">7077物流管理系统</a></span> |
+                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
+                    <span>京公网安备11010802014853</span>
+                </div>
+            </div>
+        </div>
+    </div>*@
     <script>
         $(function () {
             //$('#main-page').mLoading({
@@ -42,12 +53,12 @@
                 $(this).parent().addClass('nav-current');
                 $(this).parent().siblings('li').removeClass('nav-current');
                 var url = $(this).attr('href');
-                $('#main-page').load(url,function(e) {
+                $('#main-page').load(url, function (e) {
                     $('body').mLoading("hide");//显示loading组件
                 });
 
             });
-          
+
         })
     </script>
     @RenderSection("scripts", required: false)

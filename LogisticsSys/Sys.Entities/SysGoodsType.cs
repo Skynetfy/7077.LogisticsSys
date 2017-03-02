@@ -13,7 +13,7 @@ namespace Sys.Entities
     /// </summary>
     [Serializable]
     [Table(Name = "SysGoodsType")]
-    public class SysGoodsType
+    public class SysGoodsType : BaseEntity
     {
         /// <summary>
         /// </summary>

@@ -21,8 +21,8 @@ namespace Sys.Entities
         public int RCityId { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "GoodsType", ColumnType = DbType.AnsiString, Length = 1000)]
-        public string GoodsType { get; set; }
+        [Column(Name = "GoodsTypeId", ColumnType = DbType.Int64)]
+        public long GoodsTypeId { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "LandPrice1", ColumnType = DbType.Decimal)]

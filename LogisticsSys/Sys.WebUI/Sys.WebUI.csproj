@@ -308,6 +308,7 @@
     <Content Include="Views\System\ChinaCity.cshtml" />
     <Content Include="Views\System\GoodsType.cshtml" />
     <Content Include="Views\System\UnitPrice.cshtml" />
+    <Content Include="Views\Order\OrderManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

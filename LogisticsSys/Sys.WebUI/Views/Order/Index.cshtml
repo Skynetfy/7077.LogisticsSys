@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Sys.Common
+@using Sys.WebUI.Models
+@{
     Layout = null;
 }
 <div class="row">
@@ -12,7 +14,7 @@
                     <a href="@Url.Action("OrderList")">订单列表</a>
                 </li>
                 <li>
-                    <a href="@Url.Action("OrderList")">订单处理</a>
+                    <a href="@Url.Action("OrderManage")">订单处理</a>
                 </li>
             </ul>
         </nav>
@@ -126,8 +128,12 @@
                                     俄罗斯城市
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="russiacityid" class="form-control col-md-7" id="russiacityid">
-                                        <option value="1">mosike</option>
+                                    <select name="russiacityid" class="form-control col-md-7" onchange="rcChange()" id="russiacityid">
+                                        @{
+                                            var RCityDataList = ViewData["RCityDataList"] as List<SelectBinding>;
+                                            
+                                        }
+                                        @Html.BindingSelectHtmlString(RCityDataList)
                                     </select>
                                 </div>
                             </div>
@@ -139,7 +145,7 @@
                                     <input type="text" id="russiaaddress" name="russiaaddress" required="required" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="divwuliudanhao" style="display: none;">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logisticsSingle">
                                     物流单号 <span class="required">*</span>
                                 </label>
@@ -392,6 +398,14 @@
 <script src="~/Scripts/jquery.smartWizard.js"></script>
 
 <script>
+    function rcChange() {
+        var value = $('#russiacityid').val();
+        if (value === '5') {
+            $('#divwuliudanhao').show();
+        } else {
+            $('#divwuliudanhao').hide();
+        }
+    }
     $(document).ready(function () {
         $('#pickupdate').daterangepicker({
             "singleDatePicker": true,

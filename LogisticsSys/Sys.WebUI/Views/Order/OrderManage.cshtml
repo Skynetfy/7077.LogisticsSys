@@ -9,16 +9,16 @@
                     <a href="@Url.Action("Index")">创建订单</a>
                 </li>
                 <li class="">
-                    <a href="#" class="current">订单列表</a>
+                    <a href="@Url.Action("OrderList")" >订单列表</a>
                 </li>
                 <li>
-                    <a href="@Url.Action("OrderManage")">订单处理</a>
+                    <a href="#" class="current">订单处理</a>
                 </li>
             </ul>
         </nav>
     </div>
     <div class="col-md-9" role="main">
-        <h4 id="breadcrumbs" class="page-header">订单列表</h4>
+        <h4 id="breadcrumbs" class="page-header">订单处理</h4>
         <div id="toolbar">
             <div class="form-inline" role="form">
                 <div class="form-group">
@@ -37,7 +37,7 @@
         </div>
         <table id="table"
                data-toggle="table"
-                data-toolbar="#toolbar"
+               data-toolbar="#toolbar"
                data-show-refresh="true"
                data-show-toggle="true"
                data-search="true"
@@ -46,7 +46,7 @@
                data-side-pagination="server"
                data-sort-name="CreateDate"
                data-sort-order="desc"
-                data-query-params="queryParams"
+               data-query-params="queryParams"
                data-page-size="50"
                data-page-list="[20,50,100]"
                data-pagination-first-text="首页"

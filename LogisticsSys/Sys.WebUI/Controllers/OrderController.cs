@@ -19,6 +19,7 @@ namespace Sys.WebUI.Controllers
         {
             var provider = new OrderInfoProvider();
             ViewBag.OrderNumber = provider.GetOrderNumber();
+            ViewData["RCityDataList"] = RussiaCityService.Current.GetBindings(0);
             return View();
         }
 
@@ -82,13 +83,20 @@ namespace Sys.WebUI.Controllers
             return View();
         }
 
-        public ActionResult GetOrderViewPagerData(string type, string search, int offset, int limit, string order, string sort)
+        public ActionResult OrderManage()
+        {
+            return View();
+        }
+
+        public ActionResult GetOrderViewPagerData(string type,string orderstatus,string search, int offset, int limit, string order, string sort)
         {
             var btdata = new BootstrapTableData<OrderView>();
             var provider = new OrderInfoProvider();
             var where = string.Empty;
             if (!string.IsNullOrEmpty(search))
-                where = string.Format(@" and [CityName] Like '%{0}%'", search);
+                where = string.Format(@" and [OrderNo] Like '%{0}%'", search);
+            if(!string.IsNullOrEmpty(orderstatus))
+                where += string.Format(@" and [Status]={0}", orderstatus);
             btdata.total = provider.GetOrderViewPagerCount(where);
             btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
 

@@ -26,7 +26,7 @@ namespace Sys.BLL.Users
         国内城市管理,
         [Description("Home/index")]
         物流查询,
-        [Description("Home/index")]
+        [Description("Order/OrderManage")]
         订单处理,
         [Description("System/GoodsType")]
         货物类型维护,

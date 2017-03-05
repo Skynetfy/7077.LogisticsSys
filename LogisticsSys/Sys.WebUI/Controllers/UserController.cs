@@ -67,7 +67,7 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
 
-        public ActionResult DeleteUser(string ids)
+        public ActionResult DeleteUser(string[] ids)
         {
             var provider = new UserLoginProvider();
             if (ids != null)

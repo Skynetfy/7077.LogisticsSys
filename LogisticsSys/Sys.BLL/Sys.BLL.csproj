@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ChinaCityService.cs" />
     <Compile Include="GoodsTypeService.cs" />
+    <Compile Include="LogisticsService.cs" />
     <Compile Include="Order\OrderInfoProvider.cs" />
     <Compile Include="Order\OrderNumberRandom.cs" />
     <Compile Include="Order\OrderStatusEnum.cs" />

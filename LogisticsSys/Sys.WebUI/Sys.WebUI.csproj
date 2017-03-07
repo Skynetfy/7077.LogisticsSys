@@ -309,6 +309,8 @@
     <Content Include="Views\System\GoodsType.cshtml" />
     <Content Include="Views\System\UnitPrice.cshtml" />
     <Content Include="Views\Order\OrderManage.cshtml" />
+    <Content Include="Views\Logistics\RussiaLogistics.cshtml" />
+    <Content Include="Views\Logistics\LogisticsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

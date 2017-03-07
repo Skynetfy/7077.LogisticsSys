@@ -7,6 +7,7 @@ using Microsoft.Ajax.Utilities;
 using Sys.BLL;
 using Sys.BLL.Order;
 using Sys.Common;
+using Sys.Dal;
 using Sys.Entities;
 
 namespace Sys.WebUI.Controllers
@@ -73,6 +74,18 @@ namespace Sys.WebUI.Controllers
             if (status == 1)
             {
                 result.Status = 1;
+                if (!string.IsNullOrEmpty(addresserInfo.LogisticsSingle))
+                {
+                    var logistics = new SysLogisticsInfo();
+                    logistics.LogisticsDesc = "订单处理中";
+                    logistics.LogisticsSingle = addresserInfo.LogisticsSingle;
+                    logistics.Status = false;
+                    logistics.UpdateDate=DateTime.Now;
+                    logistics.CreateDate=DateTime.Now;
+                    logistics.IsDelete = false;
+                    ISysLogisticsInfoRepository logisticsInfo = DALFactory.SysLogisticsInfoDao;
+                    logisticsInfo.Insert(logistics);
+                }
             }
             result.Message = message;
             return Json(result);

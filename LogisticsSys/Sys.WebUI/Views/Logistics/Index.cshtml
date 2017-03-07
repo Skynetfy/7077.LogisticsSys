@@ -9,7 +9,7 @@
                     <a href="#" class="current">物流查询</a>
                 </li>
                 <li class="">
-                    <a href="#">物流更新</a>
+                    <a href="@Url.Action("RussiaLogistics")">物流更新</a>
                 </li>
             </ul>
         </nav>
@@ -22,61 +22,39 @@
             </div>
             <div class="form-group">
                 <label for="inputPassword2" class="sr-only">物流单号</label>
+                <select class="form-control">
+                    <option value="">选择快递</option>
+                    <option value="shunfeng">顺丰快递</option>
+                    <option value="yuantong">圆通快递</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword2" class="sr-only">物流单号</label>
                 <input type="text" class="form-control" id="inputPassword2" placeholder="物流单号">
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
-        <ul class="list-unstyled timeline">
-            <li>
-                <div class="block">
-                    
-                    <div class="block_content">
-                        <h2 class="title">
-                            <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                        </h2>
-                        <div class="byline">
-                            <span>13 hours ago</span> by <a>Jane Smith</a>
-                        </div>
-                        <p class="excerpt">
-                            Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="block">
-                 
-                    <div class="block_content">
-                        <h2 class="title">
-                            <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                        </h2>
-                        <div class="byline">
-                            <span>13 hours ago</span> by <a>Jane Smith</a>
-                        </div>
-                        <p class="excerpt">
-                            Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="block">
-                  
-                    <div class="block_content">
-                        <h2 class="title">
-                            <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                        </h2>
-                        <div class="byline">
-                            <span>13 hours ago</span> by <a>Jane Smith</a>
-                        </div>
-                        <p class="excerpt">
-                            Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
 
-
+        @Html.Action("LogisticsDetail")
     </div>
 </div>
+<script>
+    $(function () {
+       
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+    });
+  
+</script>

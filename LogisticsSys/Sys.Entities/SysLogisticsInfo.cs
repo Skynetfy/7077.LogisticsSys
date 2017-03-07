@@ -23,6 +23,14 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "LogisticsDesc", ColumnType = DbType.String, Length = 1000)]
         public string LogisticsDesc { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Status", ColumnType = DbType.Boolean)]
+        public bool Status { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "UpdateDate", ColumnType = DbType.DateTime)]
+        public DateTime UpdateDate { get; set; }
 
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arch.Data;
+using Arch.Data.DbEngine;
 using Sys.Entities;
 
 namespace Sys.Dal.Repository
@@ -92,6 +94,7 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问Count时出错", ex);
             }
         }
+
         public bool BulkInsert(IList<SysLogisticsInfo> list)
         {
             try
@@ -103,13 +106,60 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
             }
         }
+
+        public IList<SysLogisticsInfo> GetLogisticsInfoList(string single)
+        {
+            try
+            {
+                string sql = @"select * from [SysLogisticsInfo] (nolock)
+                             where [IsDelete]=0 and [LogisticsSingle]=@single order by [UpdateDate] desc";
+                StatementParameterCollection parameters=new StatementParameterCollection();
+                parameters.AddInParameter("@single",DbType.AnsiString, single);
+                return baseDao.SelectList<SysLogisticsInfo>(sql, parameters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public int GetPagerCount(string search)
         {
-            return 0;
+            try
+            {
+                string sql = @"select count(1) from v_LogisticsInfo (nolock)
+                             where [IsDelete]=0 ";
+                object obj = baseDao.ExecScalar(sql);
+                int ret = Convert.ToInt32(obj);
+                return ret;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public IList<SysLogisticsInfo> GetPagerList(string search, int offset, int limit, string order, string sort)
         {
+            try
+            {
+                string sql = string.Format(@"select top {0} [Id]
+      ,[LogisticsSingle]
+      ,[LogisticsDesc]
+      ,[CreateDate]
+      ,[IsDelete]
+      ,[Status]
+      ,[UpdateDate] from v_LogisticsInfo (nolock)
+                             where [IsDelete]=0 and [Id] not in (select top {1} id from v_LogisticsInfo (nolock) where [IsDelete]=0 {2} ORDER BY {3} {4}) {2} ORDER BY {3} {4}", limit, offset, search, sort, order);
+                return baseDao.SelectList<SysLogisticsInfo>(sql);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             return null;
         }
     }

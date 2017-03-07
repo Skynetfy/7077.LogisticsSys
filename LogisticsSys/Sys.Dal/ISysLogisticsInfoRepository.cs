@@ -9,5 +9,6 @@ namespace Sys.Dal
 {
     public partial interface ISysLogisticsInfoRepository : IBaseRepository<SysLogisticsInfo>
     {
+        IList<SysLogisticsInfo> GetLogisticsInfoList(string single);
     }
 }

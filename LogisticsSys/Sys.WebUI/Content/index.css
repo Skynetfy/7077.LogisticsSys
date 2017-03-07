@@ -612,7 +612,7 @@ ul.timeline li {
   border-left: 3px solid #e8e8e8;
   overflow: visible;
   padding: 10px 15px;
-  margin-left: 105px;
+  margin-left: 40px;
 }
 .timeline.widget {
   min-width: 0;
@@ -663,6 +663,9 @@ ul.timeline li {
   font-size: 16px;
   margin: 0;
 }
+.timeline h2.last {
+    color:#1ABB9C;
+}
 .timeline h2.title:before {
   content: "";
   position: absolute;
@@ -674,6 +677,10 @@ ul.timeline li {
   border: 3px solid #d2d3d2;
   border-radius: 14px;
   background: #f9f9f9;
+}
+.timeline h2.last:before {
+    background: #1ABB9C;
+   border-color:#1ABB9C;
 }
 .timeline .byline {
   padding: .25em 0;

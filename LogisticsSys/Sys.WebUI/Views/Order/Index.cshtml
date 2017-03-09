@@ -150,7 +150,7 @@
                                     物流单号 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="logisticsSingle" value="s" name="logisticsSingle" required="required" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="logisticsSingle" value="" name="logisticsSingle" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -191,8 +191,11 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="goodstype" class="form-control col-md-7" id="goodstype">
-                                        <option value="1">杂货</option>
-                                        <option>电子邮件</option>
+                                        @{
+                                            var roomTypeDataList = ViewData["RoomTypeDataList"] as List<SelectBinding>;
+
+                                        }
+                                        @Html.BindingSelectHtmlString(roomTypeDataList)
                                     </select>
                                 </div>
                             </div>
@@ -276,9 +279,11 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control col-md-7 col-xs-12" name="chinacityid" id="chinacityid" required="required" data-parsley-group="form3">
-                                        <option value="1">
-                                            广西
-                                        </option>
+                                        @{
+                                            var cCityDataList = ViewData["CCityDataList"] as List<SelectBinding>;
+
+                                        }
+                                        @Html.BindingSelectHtmlString(cCityDataList)
                                     </select>
                                 </div>
                             </div>
@@ -400,10 +405,12 @@
 <script>
     function rcChange() {
         var value = $('#russiacityid').val();
-        if (value === '5') {
+        if (value === '7') {
             $('#divwuliudanhao').show();
+            $('#divwuliudanhao #logisticsSingle').prop("required","required");
         } else {
             $('#divwuliudanhao').hide();
+            $('#divwuliudanhao #logisticsSingle').removeAttr("required");
         }
     }
     $(document).ready(function () {
@@ -435,7 +442,7 @@
             onFinish: onFinishCallback
         });
         function leaveAStepCallback(obj, context) {
-            return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation
+            return validateSteps(context.fromStep, context.toStep > context.fromStep); // return false to stay on step and true to continue navigation
         }
 
         function onFinishCallback(objs, context) {
@@ -462,17 +469,17 @@
         }
 
         // Your Step validation logic
-        function validateSteps(stepnumber) {
+        function validateSteps(stepnumber,vali) {
             var isStepValid = true;
             // validate step 1
-            if (stepnumber === 2) {
+            if (stepnumber === 2 && vali) {
                 isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
                 // $('#form1').submit();
             }
-            else if (stepnumber === 3) {
+            else if (stepnumber === 3 && vali) {
                 isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
             }
-            else if (stepnumber === 4) {
+            else if (stepnumber === 4 && vali) {
                 isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
             }
             return isStepValid;

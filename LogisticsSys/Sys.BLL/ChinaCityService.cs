@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sys.Common;
 using Sys.Dal;
 using Sys.Entities;
 
@@ -50,6 +51,16 @@ namespace Sys.BLL
         public List<SysChinaCity> GetPagerDataList(string search, int offset, int limit, string order, string sort)
         {
             return _dao.GetPagerList(search, offset, limit, order, sort).ToList();
+        }
+
+        public List<SelectBinding> GetChinaCities(int id)
+        {
+            return _dao.GetAll().Where(x => !x.IsDelete).Select(x => new SelectBinding()
+            {
+                Value = x.Id.ToString(),
+                Text = x.CityName,
+                Selected = x.Id == id
+            }).ToList();
         }
     }
 }

@@ -9,6 +9,7 @@
     <link href="~/Content/index.css" rel="stylesheet" />
     <link href="~/Content/daterangepicker.css" rel="stylesheet" />
     <link href="~/Content/jquery.mloading.css" rel="stylesheet" />
+    @*<link href="~/Content/responsive-menu.css" rel="stylesheet" />*@
     <link href="//cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -17,6 +18,8 @@
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/daterangepicker.js"></script>
     <script src="~/Scripts/jquery.mloading.js"></script>
+    @*<script src="~/Scripts/responsive-menu.js"></script>
+    <script src="~/Scripts/modernizr-custom.js"></script>*@
     <script src="~/Scripts/Solution.js"></script>
 </head>
 <body>
@@ -25,39 +28,38 @@
         @RenderBody()
     </div>
     @*<div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <span>Copyright © <a href="http://www.ghostchina.com/">7077物流管理系统</a></span> |
-                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
-                    <span>京公网安备11010802014853</span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span>Copyright © <a href="http://www.ghostchina.com/">7077物流管理系统</a></span> |
+                        <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
+                        <span>京公网安备11010802014853</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <script>
         $(function () {
-            //$('#main-page').mLoading({
-            //    text: "",//加载文字，默认值：加载中...
-            //    icon: "",//加载图标，默认值：一个小型的base64的gif图片
-            //    html: false,//设置加载内容是否是html格式，默认值是false
-            //    content: "",//忽略icon和text的值，直接在加载框中显示此值
-            //    mask: true//是否显示遮罩效果，默认显示
+            //var menu = $('.pull-right').rMenu({
+            //    minWidth: '960px'
             //});
-            //$('#main-page').mLoading("show");//显示loading组件
-            $('#main-menu>ul>li:first').addClass('nav-current');
-            $('#main-menu>ul>li>a').click(function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-                $('body').mLoading("show");//显示loading组件
-                $(this).parent().addClass('nav-current');
-                $(this).parent().siblings('li').removeClass('nav-current');
-                var url = $(this).attr('href');
-                $('#main-page').load(url, function (e) {
-                    $('body').mLoading("hide");//显示loading组件
-                });
 
-            });
+            $('#main-menu>ul>li:first').addClass('nav-current');
+            $('#main-menu>ul>li>a')
+                .click(function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $('body').mLoading("show"); //显示loading组件
+                    $(this).parent().addClass('nav-current');
+                    $(this).parent().siblings('li').removeClass('nav-current');
+                    var url = $(this).attr('href');
+                    $('#main-page')
+                        .load(url,
+                            function (e) {
+                                $('body').mLoading("hide"); //显示loading组件
+                            });
+
+                });
 
         })
     </script>

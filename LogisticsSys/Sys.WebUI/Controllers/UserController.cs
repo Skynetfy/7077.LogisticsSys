@@ -67,6 +67,16 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
 
+        public ActionResult CustomerInfo(string username)
+        {
+            return View();
+        }
+
+        public ActionResult AgentInfo(string username)
+        {
+            return View();
+        }
+
         public ActionResult DeleteUser(string[] ids)
         {
             var provider = new UserLoginProvider();
@@ -132,6 +142,11 @@ namespace Sys.WebUI.Controllers
             btdata.rows = provider.GetPagerDataList(where, offset, limit, order, sort);
 
             return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AgentManage()
+        {
+            return View();
         }
     }
 }

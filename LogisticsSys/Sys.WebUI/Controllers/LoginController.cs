@@ -81,6 +81,7 @@ namespace Sys.WebUI.Controllers
                 entity.Password = password.Trim();
                 entity.Email = email.Trim();
                 entity.Phone = phone.Trim();
+                entity.RuleType = RuleTypeEnum.Customer.ToString();
                 entity.DisplayName = displayname.Trim();
                 entity.CreateDate = DateTime.Now;
 

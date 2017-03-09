@@ -48,9 +48,12 @@
   <ItemGroup>
     <Compile Include="DALFactory.cs" />
     <Compile Include="IBaseRepository.cs" />
+    <Compile Include="ISysActionLogDao.cs" />
     <Compile Include="ISysAddresserInfoRepository.cs" />
     <Compile Include="ISysAgentCityMappingRepository.cs" />
+    <Compile Include="ISysAgentInfoDao.cs" />
     <Compile Include="ISysChinaCityRepository.cs" />
+    <Compile Include="ISysCustomerInfoDao.cs" />
     <Compile Include="ISysGoodsTypeRepository.cs" />
     <Compile Include="ISysLogisticsInfoRepository.cs" />
     <Compile Include="ISysOrderInfoRepository.cs" />
@@ -59,9 +62,12 @@
     <Compile Include="ISysUnitPriceRepository.cs" />
     <Compile Include="ISysUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\SysActionLogDao.cs" />
     <Compile Include="Repository\SysAddresserInfoRepository.cs" />
     <Compile Include="Repository\SysAgentCityMappingRepository.cs" />
+    <Compile Include="Repository\SysAgentInfoDao.cs" />
     <Compile Include="Repository\SysChinaCityRepository.cs" />
+    <Compile Include="Repository\SysCustomerInfoDao.cs" />
     <Compile Include="Repository\SysGoodsTypeRepository.cs" />
     <Compile Include="Repository\SysLogisticsInfoRepository.cs" />
     <Compile Include="Repository\SysOrderInfoRepository.cs" />

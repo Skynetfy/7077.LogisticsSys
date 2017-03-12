@@ -27,7 +27,7 @@ namespace Sys.BLL
             }
         }
 
-        public int AddGoodsType(SysGoodsType entity)
+        public long AddGoodsType(SysGoodsType entity)
         {
             return _dao.Insert(entity);
         }

@@ -18,6 +18,25 @@ namespace Sys.Dal
         private static readonly ISysReceiverInfoRepository _sysReceiverInfoDao = new SysReceiverInfoRepository();
         private static readonly ISysRussiaCityRepository _sysRussiaCityDao = new SysRussiaCityRepository();
         private static readonly ISysUnitPriceRepository _sysUnitPriceDao = new SysUnitPriceRepository();
+        private static readonly ISysAgentInfoDao _SysAgentInfoDao = new SysAgentInfoDao();
+        private static readonly ISysCustomerInfoDao _CustomerInfoDao = new SysCustomerInfoDao();
+        private static readonly ISysActionLogDao _ActionLogDao=new SysActionLogDao();
+
+        public static ISysActionLogDao ActionLogDao
+        {
+            get { return _ActionLogDao; }
+        }
+
+        public static ISysCustomerInfoDao CustomerInfoDao
+        {
+            get { return _CustomerInfoDao; }
+        }
+
+        public static ISysAgentInfoDao SysAgentInfoDao
+        {
+            get { return _SysAgentInfoDao; }
+        }
+
         public static ISysUserRepository SysUserDao
         {
             get

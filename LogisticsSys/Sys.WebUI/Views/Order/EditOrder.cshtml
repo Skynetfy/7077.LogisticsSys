@@ -7,7 +7,7 @@
     <div class="col-md-3 complementary" role="complementary">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
-                @Html.LeftMeunHtmlString("个人中心", "个人信息", User.Identity.Name)
+             @Html.LeftMeunHtmlString("订单管理", "订单处理", User.Identity.Name)
             </ul>
         </nav>
     </div>
@@ -20,7 +20,7 @@
                 <label></label>
             </div>
             <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("EditProfile")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
-                <input type="hidden" name="username" value="@ViewBag.username"/>
+                <input type="hidden" name="username" value="@ViewBag.username" />
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cid">
                         客户编号 <span class="required">*</span>

@@ -35,5 +35,13 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "Status", ColumnType = DbType.Int32)]
         public int Status { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "OrderRealPrice", ColumnType = DbType.Decimal)]
+        public decimal OrderRealPrice { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "PayStatus", ColumnType = DbType.Int32)]
+        public int PayStatus { get; set; }
     }
 }

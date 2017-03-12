@@ -9,5 +9,6 @@ namespace Sys.Dal
 {
     public partial interface ISysAddresserInfoRepository : IBaseRepository<SysAddresserInfo>
     {
+        SysAddresserInfo GetByOrderId(long id);
     }
 }

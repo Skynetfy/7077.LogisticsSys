@@ -28,7 +28,13 @@ namespace Sys.BLL
             }
         }
 
-        public int AddChinaCity(SysChinaCity entity)
+        public string GetCityName(long id)
+        {
+            var city = _dao.FindByPk(id);
+            return city == null ? "" : city.CityName;
+        }
+
+        public long AddChinaCity(SysChinaCity entity)
         {
             return _dao.Insert(entity);
         }
@@ -55,6 +61,7 @@ namespace Sys.BLL
 
         public List<SelectBinding> GetChinaCities(int id)
         {
+            var d = _dao.GetAll().ToList();
             return _dao.GetAll().Where(x => !x.IsDelete).Select(x => new SelectBinding()
             {
                 Value = x.Id.ToString(),

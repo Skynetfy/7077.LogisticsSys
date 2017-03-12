@@ -9,7 +9,7 @@ namespace Sys.Dal
 {
     public partial interface IBaseRepository<T> where T : new()
     {
-        int Insert(T entity);
+        long Insert(T entity);
 
         int Update(T entity);
 

@@ -25,7 +25,7 @@ namespace Sys.BLL
             }
         }
 
-        public int AddLogistics(SysLogisticsInfo entity)
+        public long AddLogistics(SysLogisticsInfo entity)
         {
             return logisticsInfoRepository.Insert(entity);
         }

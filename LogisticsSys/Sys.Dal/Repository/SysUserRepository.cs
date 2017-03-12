@@ -12,12 +12,12 @@ namespace Sys.Dal.Repository
     public class SysUserRepository : ISysUserRepository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
-        public int Insert(SysUser entity)
+        public long Insert(SysUser entity)
         {
             try
             {
                 Object result = baseDao.Insert<SysUser>(entity);
-                int iReturn = Convert.ToInt32(result);
+                long iReturn = Convert.ToInt64(result);
                 return iReturn;
             }
             catch (Exception ex)

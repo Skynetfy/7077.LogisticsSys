@@ -26,7 +26,7 @@ namespace Sys.BLL
             }
         }
 
-        public int AddUnitPrice(SysUnitPrice entity)
+        public long AddUnitPrice(SysUnitPrice entity)
         {
             return _dao.Insert(entity);
         }

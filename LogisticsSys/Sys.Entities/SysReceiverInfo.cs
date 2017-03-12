@@ -57,6 +57,14 @@ namespace Sys.Entities
         public decimal ParcelWeight { get; set; }
         /// <summary>
         /// </summary>
+        [Column(Name = "RealWeight", ColumnType = DbType.Decimal)]
+        public decimal RealWeight { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "RealPrice", ColumnType = DbType.Decimal)]
+        public decimal RealPrice { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "ChinaCourierNumber", ColumnType = DbType.AnsiString, Length = 50)]
         public string ChinaCourierNumber { get; set; }
         /// <summary>

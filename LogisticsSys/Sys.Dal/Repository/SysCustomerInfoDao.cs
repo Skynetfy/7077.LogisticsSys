@@ -78,7 +78,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysCustomerInfo">SysCustomerInfo实体对象</param>
         /// <returns>新增的主键,如果有多个主键则返回第一个主键</returns>
-		public long InsertSysCustomerInfo(SysCustomerInfo sysCustomerInfo)
+		public long Insert(SysCustomerInfo sysCustomerInfo)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysCustomerInfo">SysCustomerInfo实体对象</param>
         /// <returns>状态代码</returns>
-        public int UpdateSysCustomerInfo(SysCustomerInfo sysCustomerInfo)
+        public int Update(SysCustomerInfo sysCustomerInfo)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysCustomerInfo">SysCustomerInfo实体对象</param>
         /// <returns>状态代码</returns>
-        public int DeleteSysCustomerInfo(SysCustomerInfo sysCustomerInfo)
+        public int Delete(SysCustomerInfo sysCustomerInfo)
         {
             try
             {
@@ -220,6 +220,27 @@ namespace Sys.Dal.Repository
             }
         }
 
-        
+
+        public bool BulkInsert(IList<SysCustomerInfo> list)
+        {
+            try
+            {
+                return baseDao.BulkInsert<SysCustomerInfo>(list);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
+            }
+        }
+        public int GetPagerCount(string search)
+        {
+            return 0;
+        }
+
+        public IList<SysCustomerInfo> GetPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            return null;
+        }
+
     }
 }

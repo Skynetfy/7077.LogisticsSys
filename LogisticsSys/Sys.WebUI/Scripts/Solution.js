@@ -4,21 +4,28 @@ var Status_7077 = {
     getOrderStatus: function (s) {
         switch (s) {
             case 0:
-                return "待处理";
+                return "未提交";
             case 1:
-                return "已处理";
+                return "待处理";
             case 2:
-                return "未付款";
+                return "已处理";
             case 3:
-                return "已付款";
+                return "未付款";
             case 4:
-                return "未发货";
+                return "已付款";
             case 5:
-                return "已发货";
+                return "未收款";
             case 6:
-                return "已完成";
+                return "已收款";
             case 7:
+                return "未发货";
+            case 8:
+                return "已发货";
+            case 9:
+                return "已完成";
+            case 10:
                 return "已失败";
+
             default:
                 return "未知";
         }
@@ -93,6 +100,20 @@ var Status_7077 = {
                 return "普通到付";
             case 3:
                 return "顺丰到付";
+            default:
+                return "未知";
+        }
+    },
+    getPayStatus: function(f) {
+        switch (f) {
+            case 0:
+                return "未付款";
+            case 1:
+                return "已付款";
+            case 2:
+                return "未收款";
+            case 3:
+                return "已收款";
             default:
                 return "未知";
         }

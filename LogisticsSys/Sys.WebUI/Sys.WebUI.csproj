@@ -319,6 +319,9 @@
     <Content Include="Views\Logistics\LogisticsDetail.cshtml" />
     <Content Include="Views\User\CustomerInfo.cshtml" />
     <Content Include="Views\User\AgentInfo.cshtml" />
+    <Content Include="Views\Order\EditOrder.cshtml" />
+    <Content Include="Views\Order\MyOrderList.cshtml" />
+    <Content Include="Views\Order\PayOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

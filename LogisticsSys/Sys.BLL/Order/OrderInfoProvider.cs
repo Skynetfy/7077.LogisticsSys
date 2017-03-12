@@ -11,9 +11,41 @@ namespace Sys.BLL.Order
 
     public class OrderInfoProvider
     {
-     
+
         private readonly ISysOrderInfoRepository orderDao = DALFactory.SysOrderInfoDao;
-       
+        private readonly ISysAddresserInfoRepository addresserInfoDao = DALFactory.SysAddresserInfoDao;
+        private readonly ISysReceiverInfoRepository receiverInfoDao = DALFactory.SysReceiverInfoDao;
+
+        public SysAddresserInfo GetAddressInfoByOid(long id)
+        {
+            return addresserInfoDao.GetByOrderId(id);
+        }
+
+        public SysReceiverInfo GetReceiverInfo(long id)
+        {
+            return receiverInfoDao.GetByOrderId(id);
+        }
+
+        public int UpdateAddressInfo(SysAddresserInfo entity)
+        {
+            return addresserInfoDao.Update(entity);
+        }
+
+        public int UpdateReceiverInfo(SysReceiverInfo entity)
+        {
+            return receiverInfoDao.Update(entity);
+        }
+
+        public SysOrderInfo GetOrderInfoById(long id)
+        {
+            return orderDao.FindByPk(id);
+        }
+
+        public int UpdateOrderInfo(SysOrderInfo entity)
+        {
+            return orderDao.Update(entity);
+        }
+
         public string GetOrderNumber()
         {
             var neworder = OrderNumberRandom.GetOrderNumber();

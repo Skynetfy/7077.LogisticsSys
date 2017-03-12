@@ -17,36 +17,57 @@ namespace Sys.WebUI.Models
             StringBuilder sb = new StringBuilder();
             foreach (var d in menus)
             {
-                var a = d.Key.Split('|');
-                sb.AppendLine(" <li role=\"presentation\"><a href=\""+a[1]+"\">"+a[0]+"</a></li>");
+                MenusEnum menu = (MenusEnum)Enum.Parse(typeof(MenusEnum), d.Key);
+                var url = menu.GetDescription();
+                sb.AppendLine(" <li role=\"presentation\"><a href=\"" + url + "\">" + d.Key + "</a></li>");
             }
+            return MvcHtmlString.Create(sb.ToString());
+        }
+
+        public static MvcHtmlString LeftMeunHtmlString(this HtmlHelper htmlhelper, string parent, string current, string username)
+        {
+            var menus = new UserLoginProvider().GetMenusByUserName(username);
+            StringBuilder sb = new StringBuilder();
+            var _menus = menus.FirstOrDefault(x => x.Key.Equals(parent, StringComparison.OrdinalIgnoreCase));
+            if (_menus.Key != null)
+                foreach (var d in _menus.Value)
+                {
+                    MenusEnum menu = (MenusEnum)Enum.Parse(typeof(MenusEnum), d.Key);
+                    var url = menu.GetDescription();
+                    if (current.Equals(d.Key, StringComparison.OrdinalIgnoreCase))
+                        sb.AppendLine(" <li><a href=\"" + url + "\" class=\"current\">" + d.Key + "</a></li>");
+                    else
+                        sb.AppendLine(" <li><a href=\"" + url + "\">" + d.Key + "</a></li>");
+                }
             return MvcHtmlString.Create(sb.ToString());
         }
 
         public static MvcHtmlString BindingSelectHtmlString(this HtmlHelper html, List<SelectBinding> data)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var option in data)
-            {
-                var str = "";
-                if(option.Selected)
-                    str = " selected='selected' ";
-                sb.AppendLine(string.Format("<option value='{0}' {2}>{1}</option>",option.Value,option.Text, str));
-            }
+            if (data != null)
+                foreach (var option in data)
+                {
+                    var str = "";
+                    if (option.Selected)
+                        str = " selected='selected' ";
+                    sb.AppendLine(string.Format("<option value='{0}' {2}>{1}</option>", option.Value, option.Text, str));
+                }
             return MvcHtmlString.Create(sb.ToString());
         }
 
 
-        public static MvcHtmlString BindingCheckboxHtmlString(this HtmlHelper html, List<CheckBoxBinding> data,string name)
+        public static MvcHtmlString BindingCheckboxHtmlString(this HtmlHelper html, List<CheckBoxBinding> data, string name)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var option in data)
-            {
-                var str = "";
-                if (option.Checked)
-                    str = " Checked ";
-                sb.AppendLine(string.Format("<input type='checkbox' value='{0}' name='{1}' {2}/>{3}", option.Value, name, str,option.Text));
-            }
+            if (data != null)
+                foreach (var option in data)
+                {
+                    var str = "";
+                    if (option.Checked)
+                        str = " Checked ";
+                    sb.AppendLine(string.Format("<input type='checkbox' value='{0}' name='{1}' {2}/>{3}", option.Value, name, str, option.Text));
+                }
             return MvcHtmlString.Create(sb.ToString());
         }
     }

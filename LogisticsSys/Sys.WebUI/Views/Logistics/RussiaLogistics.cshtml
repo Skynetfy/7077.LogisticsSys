@@ -1,20 +1,16 @@
-﻿@{
+﻿@using Sys.WebUI.Models
+@{
     Layout = null;
 }
 <div class="row">
-    <div class="col-md-3" role="complementary">
+    <div class="col-md-3 complementary" role="complementary">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
-                <li class="">
-                    <a href="@Url.Action("Index")" >物流查询</a>
-                </li>
-                <li class="">
-                    <a href="#" class="current">物流更新</a>
-                </li>
+                @Html.LeftMeunHtmlString("用户管理", "物流更新", User.Identity.Name)
             </ul>
         </nav>
     </div>
-    <div class="col-md-9" role="main">
+    <div class="col-md-9 maincontent" role="main">
       
         <table id="table"
                data-toggle="table"

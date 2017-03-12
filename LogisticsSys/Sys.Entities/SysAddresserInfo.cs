@@ -65,6 +65,18 @@ namespace Sys.Entities
         public decimal GoodsWeight { get; set; }
         /// <summary>
         /// </summary>
+        [Column(Name = "GoodsVolumeWeight", ColumnType = DbType.Decimal)]
+        public decimal GoodsVolumeWeight { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "GoodsRealWeight", ColumnType = DbType.Decimal)]
+        public decimal GoodsRealWeight { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "AddressRealPrice", ColumnType = DbType.Decimal)]
+        public decimal AddressRealPrice { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "BoxLong", ColumnType = DbType.Decimal)]
         public decimal BoxLong { get; set; }
         /// <summary>

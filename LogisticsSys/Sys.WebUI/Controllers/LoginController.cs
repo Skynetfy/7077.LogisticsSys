@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Security.Principal;
+using Sys.BLL;
 using Sys.BLL.Users;
 using Sys.Common;
 using Sys.Entities;
@@ -71,21 +73,50 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignUp(string username, string password, string email, string displayname, string phone)
+        public ActionResult SignUp(string username, string password, string email)
         {
             var provider = new UserLoginProvider();
             if (!provider.CheckUserName(username))
             {
                 var entity = new SysUser();
                 entity.UserName = username.Trim();
-                entity.Password = password.Trim();
+                entity.Password = DEncrypt.Md5(password.Trim());
                 entity.Email = email.Trim();
-                entity.Phone = phone.Trim();
+                //entity.Phone = phone.Trim();
                 entity.RuleType = RuleTypeEnum.Customer.ToString();
-                entity.DisplayName = displayname.Trim();
+                //entity.DisplayName = displayname.Trim();
                 entity.CreateDate = DateTime.Now;
-
+                entity.Status = 1;
                 var i = provider.InsertUser(entity);
+                if (i > 0)
+                {
+                    var customer = new SysCustomerInfo();
+                    customer.CustomerID = UserService.GetCustomerNo();
+                    customer.UserId = i;
+                    customer.IsDelete = false;
+                    customer.CreateDate = DateTime.Now;
+                    customer.Address = "";
+                    customer.CityId = 0;
+                    customer.QQNumber = "";
+                    customer.WebChatNo = "";
+                    customer.Phone = "";
+                    var x = UserService.InsertCustomer(customer);
+                    if (x > 0)
+                    {
+                        var userData = entity.UserName + "|" + entity.DisplayName + "|" + entity.Email;
+                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                            1,
+                            entity.UserName,
+                            DateTime.Now,
+                            DateTime.Now.AddMinutes(30),
+                            false,
+                            userData);
+
+                        string encTicket = FormsAuthentication.Encrypt(authTicket);
+                        HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                        Response.Cookies.Add(faCookie);
+                    }
+                }
             }
             else
             {

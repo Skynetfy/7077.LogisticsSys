@@ -1,26 +1,16 @@
-﻿@{
+﻿@using Sys.WebUI.Models
+@{
     Layout = null;
 }
 <div class="row">
-    <div class="col-md-3" role="complementary">
+    <div class="col-md-3 complementary" role="complementary">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
-                <li class="">
-                    <a href="@Url.Action("RussiaCity")" >俄罗斯城市维护</a>
-                </li>
-                <li class="">
-                    <a href="@Url.Action("ChinaCity")" class="current">国内城市维护</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("GoodsType")">货物类型维护</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("UnitPrice")">单价信息维护</a>
-                </li>
+                @Html.LeftMeunHtmlString("系统管理", "国内城市维护", User.Identity.Name)
             </ul>
         </nav>
     </div>
-    <div class="col-md-9" role="main">
+    <div class="col-md-9 maincontent" role="main">
         <div id="toolbar">
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>
             <button type="button" class="btn btn-danger btn-sm" disabled id="remove">删除</button>

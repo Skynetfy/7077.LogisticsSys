@@ -2,6 +2,18 @@
     ViewBag.Title = "Home Page";
 }
 <div class="row">
-  @Html.Action("Contact")
-</div>
+    @* @Html.Action("EditProfile", "User", new { username = User.Identity.Name })*@
+    <script>
+        $(function () {
+            var refer = "@ViewBag.refer";
+            if (refer === "1") {
+     
+                $('#main-page').load("@Url.Action("EditProfile", "User", new { username = User.Identity.Name })");
+            } else {
 
+                $('#main-page').load("@Url.Action("Contact")");
+            }
+        })
+
+    </script>
+</div>

@@ -14,9 +14,9 @@ namespace Sys.BLL.Users
         主页,
         [Description("Order/index")]
         订单管理,
-        [Description("Home/index")]
+        [Description("Order/index")]
         创建订单,
-        [Description("Home/index")]
+        [Description("Order/OrderList")]
         订单列表,
         [Description("Logistics/index")]
         物流管理,
@@ -37,14 +37,22 @@ namespace Sys.BLL.Users
         [Description("Home/index")]
         物流进度更新,
         [Description("System/RussiaCity")]
-        系统维护,
+        系统管理,
         [Description("User/Profile")]
         个人中心,
         [Description("User/index")]
         用户管理,
+        [Description("User/index")]
+        账号列表,
+        [Description("User/AgentInfo")]
+        代理商管理,
+        [Description("User/CustomerInfo")]
+        客户管理,
         [Description("User/Profile")]
         个人信息,
-        [Description("Home/index")]
-        密码修改
+        [Description("User/EditPassword")]
+        密码修改,
+        [Description("Order/MyOrderList")]
+        我的订单
     }
 }

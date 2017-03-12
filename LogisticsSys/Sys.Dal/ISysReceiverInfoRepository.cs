@@ -9,5 +9,6 @@ namespace Sys.Dal
 {
     public partial interface ISysReceiverInfoRepository : IBaseRepository<SysReceiverInfo>
     {
+        SysReceiverInfo GetByOrderId(long id);
     }
 }

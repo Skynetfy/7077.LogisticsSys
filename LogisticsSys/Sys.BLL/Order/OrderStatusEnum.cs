@@ -9,17 +9,26 @@ namespace Sys.BLL.Order
 {
     public enum OrderStatusEnum
     {
+        [Description("未提交")]
+        UnSubmit = 0,
+
         [Description("待处理")]
-        Processing = 0,
+        Processing,
 
         [Description("已处理")]
-        Processed = 1,
+        Processed,
 
         [Description("未付款")]
         UnPaing,
 
         [Description("已付款")]
         Paied,
+
+        [Description("未收款")]
+        UnReceiving,
+
+        [Description("已收款")]
+        Received,
 
         [Description("未发货")]
         Unfilled,

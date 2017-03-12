@@ -6,7 +6,7 @@
     <div class="col-md-3 complementary" role="complementary">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
-                @Html.LeftMeunHtmlString("订单管理", "订单列表", User.Identity.Name)
+                @Html.LeftMeunHtmlString("订单管理", "我的订单", User.Identity.Name)
             </ul>
         </nav>
     </div>
@@ -306,6 +306,10 @@
                 </div>
 
             </div>
+            <div class="modal-footer" id="payorder-foot">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <a href="@Url.Action("PayOrder")" target="_blank" style="display: none;" class="btn btn-success">确认付款</a>
+            </div>
         </div>
     </div>
 </div>
@@ -313,7 +317,7 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
     var $table = $('#table'),
-      $ok = $('#ok');
+        $ok = $('#ok');
     $(function () {
         $ok.click(function () {
             $table.bootstrapTable('refresh');
@@ -331,13 +335,7 @@
                 selections = getIdSelections();
                 // push or splice the selections if you want to save all data selections
             });
-        $(window)
-            .resize(function () {
-                $table.bootstrapTable('resetView',
-                {
-                    height: getHeight()
-                });
-            });
+      
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
             .click(function (e) {
                 e.stopPropagation();
@@ -360,24 +358,33 @@
                 });
         }
     });
+
     function queryParams(params) {
-        $('#toolbar').find('input[name],select').each(function () {
-            params[$(this).attr('name')] = $(this).val();
-        });
+        $('#toolbar')
+            .find('input[name],select')
+            .each(function () {
+                params[$(this).attr('name')] = $(this).val();
+            });
         return params;
     }
+
     function priceFormatter(v, r) { }
-    function paystateFormatter(value, row, index) {
-        return Status_7077.getPayStatus(row.PayStatus);
-    }
+
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
     }
+
+    function paystateFormatter(value, row, index) {
+        return Status_7077.getPayStatus(row.PayStatus);
+    }
+
     function actionFormatter(value, row, index) {
         var h = [];
-        h.push('<button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
-            JSON.stringify(row).replace(/\"/g, "\'") +
-            ')" value="">查看</button>');
+        h
+            .push('<button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">查看</button>');
+
         return h.join('');
     }
 
@@ -422,5 +429,14 @@
         $('#csjzl').html(row.RealWeight);
         $('#csjjg').html(row.RealPrice);
         $('#fkzt').html(Status_7077.getPackagingType(row.PayStatus));
+
+        var paylink = $('#payorder-foot>a');
+        if (row.PayStatus < 1) {
+            paylink.show();
+            paylink.prop('href', "/Order/PayOrder?id=" + row.Id);
+        } else {
+            paylink.hide();
+            paylink.prop('href', "#");
+        }
     }
 </script>

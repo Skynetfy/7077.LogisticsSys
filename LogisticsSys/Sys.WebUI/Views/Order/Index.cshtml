@@ -4,24 +4,16 @@
     Layout = null;
 }
 <div class="row">
-    <div class="col-md-3" role="complementary">
+    <div class="col-md-3 complementary" role="complementary">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
-                <li class="">
-                    <a href="#" class="current">创建订单</a>
-                </li>
-                <li class="">
-                    <a href="@Url.Action("OrderList")">订单列表</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("OrderManage")">订单处理</a>
-                </li>
+                @Html.LeftMeunHtmlString("订单管理", "创建订单", User.Identity.Name)
             </ul>
         </nav>
     </div>
-    <div class="col-md-9" role="main">
+    <div class="col-md-9 maincontent" role="main">
         <div class="bs-docs-section">
-            <h4 id="breadcrumbs" class="page-header">订单列表</h4>
+            <h4 id="breadcrumbs" class="page-header">创建订单</h4>
             <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>错误!</strong>
@@ -457,7 +449,6 @@
                         $('#alert-infor strong').html('错误！');
                     },
                     success: function (responseText, statusText) {
-                        alert(statusText.Status);
                         $('#alert-infor').removeClass('alert-danger');
                         $('#alert-infor').addClass('alert-success');
                         $('#alert-infor').show();

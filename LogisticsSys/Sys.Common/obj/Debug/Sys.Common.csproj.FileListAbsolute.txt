@@ -4,7 +4,6 @@ E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Co
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.pdb
-C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojResolveAssemblyReference.cache
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojResolveAssemblyReference.cache

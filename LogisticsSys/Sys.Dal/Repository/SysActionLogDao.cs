@@ -74,7 +74,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysActionLog">SysActionLog实体对象</param>
         /// <returns>新增的主键,如果有多个主键则返回第一个主键</returns>
-		public long InsertSysActionLog(SysActionLog sysActionLog)
+		public long Insert(SysActionLog sysActionLog)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysActionLog">SysActionLog实体对象</param>
         /// <returns>状态代码</returns>
-        public int UpdateSysActionLog(SysActionLog sysActionLog)
+        public int Update(SysActionLog sysActionLog)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysActionLog">SysActionLog实体对象</param>
         /// <returns>状态代码</returns>
-        public int DeleteSysActionLog(SysActionLog sysActionLog)
+        public int Delete(SysActionLog sysActionLog)
         {
             try
             {
@@ -199,23 +199,26 @@ namespace Sys.Dal.Repository
             }
         }
 
-       /// <summary>
-       ///  批量插入SysActionLog
-       /// </summary>
-       /// <param name="sysActionLog">SysActionLog实体对象列表</param>
-       /// <returns>状态代码</returns>
-        public bool BulkInsertSysActionLog(IList<SysActionLog> sysActionLogList)
-       	{
+        public bool BulkInsert(IList<SysActionLog> list)
+        {
             try
             {
-                return baseDao.BulkInsert<SysActionLog>(sysActionLogList);
+                return baseDao.BulkInsert<SysActionLog>(list);
             }
             catch (Exception ex)
             {
-                throw new DalException("调用SysActionLogDao时，访问BulkInsert时出错", ex);
+                throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
             }
         }
+        public int GetPagerCount(string search)
+        {
+            return 0;
+        }
 
-        
+        public IList<SysActionLog> GetPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            return null;
+        }
+
     }
 }

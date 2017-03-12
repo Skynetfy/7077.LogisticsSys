@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arch.Data;
+using Arch.Data.DbEngine;
 using Sys.Entities;
 
 namespace Sys.Dal.Repository
@@ -12,12 +14,12 @@ namespace Sys.Dal.Repository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
-        public int Insert(SysReceiverInfo entity)
+        public long Insert(SysReceiverInfo entity)
         {
             try
             {
                 Object result = baseDao.Insert<SysReceiverInfo>(entity);
-                int iReturn = Convert.ToInt32(result);
+                long iReturn = Convert.ToInt64(result);
                 return iReturn;
             }
             catch (Exception ex)
@@ -59,6 +61,22 @@ namespace Sys.Dal.Repository
             try
             {
                 return baseDao.GetByKey<SysReceiverInfo>(id);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);
+            }
+        }
+
+        public SysReceiverInfo GetByOrderId(long id)
+        {
+            try
+            {
+                string sql = @"select top 1 * from [dbo].[SysReceiverInfo](nolock)
+                            where [IsDelete]=0 and [OrderId]=@orderId";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@orderId", DbType.Int64, id);
+                return baseDao.SelectFirst<SysReceiverInfo>(sql, parameters);
             }
             catch (Exception ex)
             {

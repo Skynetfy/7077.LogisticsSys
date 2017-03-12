@@ -26,7 +26,7 @@ namespace Sys.BLL
             }
         }
 
-        public int AddRussiaCity(SysRussiaCity entity)
+        public long AddRussiaCity(SysRussiaCity entity)
         {
             return russiaCityRepository.Insert(entity);
         }
@@ -40,7 +40,7 @@ namespace Sys.BLL
         {
             return russiaCityRepository.Delete(entity);
         }
-
+        
         public int GetPagerCount(string search)
         {
             return russiaCityRepository.GetPagerCount(search);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,12 @@ namespace Sys.Dal.Repository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
-        public int Insert(SysAddresserInfo entity)
+        public long Insert(SysAddresserInfo entity)
         {
             try
             {
                 Object result = baseDao.Insert<SysAddresserInfo>(entity);
-                int iReturn = Convert.ToInt32(result);
+                long iReturn = Convert.ToInt64(result);
                 return iReturn;
             }
             catch (Exception ex)
@@ -66,7 +67,21 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);
             }
         }
-       
+        public SysAddresserInfo GetByOrderId(long id)
+        {
+            try
+            {
+                string sql = @"select top 1 * from [SysAddresserInfo](nolock)
+                            where [IsDelete]=0 and [OrderId]=@orderId";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@orderId", DbType.Int64, id);
+                return baseDao.SelectFirst<SysAddresserInfo>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);
+            }
+        }
         public IList<SysAddresserInfo> GetAll()
         {
             try

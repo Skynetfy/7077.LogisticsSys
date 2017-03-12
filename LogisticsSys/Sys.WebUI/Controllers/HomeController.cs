@@ -15,7 +15,16 @@ namespace Sys.WebUI.Controllers
     {
         public ActionResult Index()
         {
-           
+            var urlRefer = HttpContext.Request.UrlReferrer;
+            if (urlRefer != null)
+            {
+                var sege = urlRefer.Segments;
+                if (sege.Length > 0)
+                {
+                    if (sege[sege.Length - 1].Equals("SignUp", StringComparison.OrdinalIgnoreCase))
+                        ViewBag.refer = "1";
+                }
+            }
             return View();
         }
         public ActionResult Header()
@@ -23,7 +32,7 @@ namespace Sys.WebUI.Controllers
             var identity = User.Identity as FormsIdentity;
             var userDate = identity.Ticket.UserData;
             var users = userDate.Split('|');
-            ViewBag.DisplayName = users[1];
+            ViewBag.UserName = users[0];
             return View();
         }
         public ActionResult About()

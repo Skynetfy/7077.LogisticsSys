@@ -70,7 +70,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysAgentInfo">SysAgentInfo实体对象</param>
         /// <returns>新增的主键,如果有多个主键则返回第一个主键</returns>
-		public long InsertSysAgentInfo(SysAgentInfo sysAgentInfo)
+		public long Insert(SysAgentInfo sysAgentInfo)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysAgentInfo">SysAgentInfo实体对象</param>
         /// <returns>状态代码</returns>
-        public int UpdateSysAgentInfo(SysAgentInfo sysAgentInfo)
+        public int Update(SysAgentInfo sysAgentInfo)
         {
             try
             {
@@ -107,11 +107,16 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysAgentInfo">SysAgentInfo实体对象</param>
         /// <returns>状态代码</returns>
-        public int DeleteSysAgentInfo(SysAgentInfo sysAgentInfo)
+        public int Delete(SysAgentInfo sysAgentInfo)
         {
             try
             {
-                Object result = baseDao.Delete<SysAgentInfo>(sysAgentInfo);
+                string sql = @"UPdate [SysUser] set [isdelete]=1 where Id=@uid;
+                                Update [SysAgentInfo] set [isdelete]=1 where Id=@id";
+                StatementParameterCollection parameters=new StatementParameterCollection();
+                parameters.AddInParameter("@uid",DbType.Int64, sysAgentInfo.UserId);
+                parameters.AddInParameter("@id", DbType.Int64, sysAgentInfo.Id);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
                 int iReturn = Convert.ToInt32(result);
 
                 return iReturn;
@@ -145,13 +150,28 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                return baseDao.GetAll<SysAgentInfo>();
+                String sql = string.Format(@"SELECT * from SysAgentInfo  with (nolock) where [IsDelete]=0");
+                return baseDao.SelectList<SysAgentInfo>(sql);
             }
             catch (Exception ex)
             {
                 throw new DalException("调用SysAgentInfoDao时，访问GetAll时出错", ex);
             }
         }
+
+        public IList<SysAgentInfo> GetAgentInfoView()
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT * from v_AgentInfo  with (nolock) where [IsDelete]=0");
+                return baseDao.SelectList<SysAgentInfo>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用SysAgentInfoDao时，访问GetAll时出错", ex);
+            }
+        }
+
         /// <summary>
         /// 取得总记录数
         /// </summary>
@@ -195,23 +215,48 @@ namespace Sys.Dal.Repository
             }
         }
 
-       /// <summary>
-       ///  批量插入SysAgentInfo
-       /// </summary>
-       /// <param name="sysAgentInfo">SysAgentInfo实体对象列表</param>
-       /// <returns>状态代码</returns>
-        public bool BulkInsertSysAgentInfo(IList<SysAgentInfo> sysAgentInfoList)
-       	{
+
+        public bool BulkInsert(IList<SysAgentInfo> list)
+        {
             try
             {
-                return baseDao.BulkInsert<SysAgentInfo>(sysAgentInfoList);
+                return baseDao.BulkInsert<SysAgentInfo>(list);
             }
             catch (Exception ex)
             {
-                throw new DalException("调用SysAgentInfoDao时，访问BulkInsert时出错", ex);
+                throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
+            }
+        }
+        public int GetPagerCount(string search)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT count(1) from v_AgentInfo  with (nolock) where [IsDelete]=0 {0} ", search);
+                object obj = baseDao.ExecScalar(sql);
+                int ret = Convert.ToInt32(obj);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问Count时出错", ex);
             }
         }
 
-        
+        public IList<SysAgentInfo> GetPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT TOP {1} * from v_AgentInfo(nolock) where Id not in(
+                  SELECT TOP {4} Id FROM v_AgentInfo(NOLOCK)
+                  WHERE [IsDelete]=0 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
+                return baseDao.SelectList<SysAgentInfo>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
+        }
+
+
     }
 }

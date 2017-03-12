@@ -40,15 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionLogTypeEnum.cs" />
     <Compile Include="ChinaCityService.cs" />
     <Compile Include="GoodsTypeService.cs" />
     <Compile Include="LogisticsService.cs" />
     <Compile Include="Order\OrderInfoProvider.cs" />
     <Compile Include="Order\OrderNumberRandom.cs" />
+    <Compile Include="Order\OrderPayStatusEnum.cs" />
     <Compile Include="Order\OrderStatusEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RussiaCityService.cs" />
     <Compile Include="UnitPriceService.cs" />
+    <Compile Include="UserService.cs" />
     <Compile Include="Users\MenusEnum.cs" />
     <Compile Include="Users\RuleTypeEnum.cs" />
     <Compile Include="Users\UserLoginProvider.cs" />

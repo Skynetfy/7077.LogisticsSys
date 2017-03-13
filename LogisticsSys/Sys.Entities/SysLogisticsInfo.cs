@@ -31,6 +31,14 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "UpdateDate", ColumnType = DbType.DateTime)]
         public DateTime UpdateDate { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "OrderNos", ColumnType = DbType.AnsiString, Length = 2000)]
+        public string OrderNos { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "UserName", ColumnType = DbType.AnsiString, Length = 20)]
+        public string UserName { get; set; }
 
     }
 }

@@ -70,5 +70,21 @@ namespace Sys.WebUI.Models
                 }
             return MvcHtmlString.Create(sb.ToString());
         }
+
+        public static MvcHtmlString BindingOrderStatusSelectHtmlString(this HtmlHelper html)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<option value='' selected>全部</option>");
+            sb.AppendLine("<option value='1'>待处理</option>");
+            sb.AppendLine("<option value='2'>已处理</option>");
+            sb.AppendLine("<option value='3'>未付款</option>");
+            sb.AppendLine("<option value='4'>已付款</option>");
+            sb.AppendLine("<option value='5'>未收款</option>");
+            sb.AppendLine("<option value='6'>已收款</option>");
+            sb.AppendLine("<option value='7'>未发货</option>");
+            sb.AppendLine("<option value='8'>已发货</option>");
+            sb.AppendLine("<option value='9'>已完成</option>");
+            return MvcHtmlString.Create(sb.ToString());
+        }
     }
 }

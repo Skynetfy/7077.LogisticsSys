@@ -112,7 +112,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="form-control" id="dlcs" name="dlcs" required="required">
-                                <option selected="selected" value="" >请选择城市</option>
+                                <option selected="selected" value="">请选择城市</option>
                                 @{
                                     var RCityDataList = ViewData["RCityDataList"] as List<SelectBinding>;
 
@@ -186,11 +186,7 @@
                 });
             }
         });
-        $(window).resize(function () {
-            $table.bootstrapTable('resetView', {
-                height: getHeight()
-            });
-        });
+
 
         $('#btn-add').click(function (e) {
             @*$('#addModel .modal-body').load("@Url.Action("EditProfile")?username=admin&ww #form-main-page", function () {*@
@@ -200,31 +196,59 @@
             parslay.reset();
         });
         //});
-        $('#btn-save').click(function () {
-            if (parslay.validate() && parslay.isValid()) {
-                $('#addform').ajaxSubmit({
-                    resetForm: true,
-                    error: function (xhr, status, error, $form) {
-                        $('#alert-infor').removeClass('alert-success');
-                        $('#alert-infor').addClass('alert-danger');
-                        $('#alert-infor').show();
-                        $('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('错误！');
-                    },
-                    success: function (responseText, statusText) {
-                        //alert(statusText.Status);
-                        //$('#alert-infor').removeClass('alert-danger');
-                        //$('#alert-infor').addClass('alert-success');
-                        //$('#alert-infor').show();
-                        ////$('#alert-infor label').html(error);
-                        //$('#alert-infor strong').html('Successfully');
-                        $('#alert-infor').hide();
-                        $('[data-toggle="table"]').bootstrapTable('refresh');
-                        $('#addModel').modal('hide');
-                    }
-                });
-            }
-        });
+        $('#btn-save')
+            .click(function () {
+                if (parslay.validate() && parslay.isValid()) {
+                    $('#addform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            beforeSubmit: function (e) {
+                                var b = true;
+                                var uid = $('[name=id]').val();
+                                if (uid === '' && uid == null) {
+                                    var username = $('#username').val();
+                                    $.ajax({
+                                        url: "@Url.Action("CheckUser", "Login")",
+                                        type: "get",
+                                        data: { username: username },
+                                        async: false,
+                                        success: function (data) {
+                                            if (data === '1') {
+                                                b = false;
+                                                $('#alert-infor').removeClass('alert-success');
+                                                $('#alert-infor').addClass('alert-danger');
+                                                $('#alert-infor').show();
+                                                $('#alert-infor label').html("用户名已存在");
+                                                $('#alert-infor strong').html('错误！');
+                                            }
+                                            else
+                                                b = true;
+                                        }
+                                    });
+                                }
+                                return b;
+                            },
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                //alert(statusText.Status);
+                                //$('#alert-infor').removeClass('alert-danger');
+                                //$('#alert-infor').addClass('alert-success');
+                                //$('#alert-infor').show();
+                                ////$('#alert-infor label').html(error);
+                                //$('#alert-infor strong').html('Successfully');
+                                $('#alert-infor').hide();
+                                $('[data-toggle="table"]').bootstrapTable('refresh');
+                                $('#addModel').modal('hide');
+                            }
+                        });
+                }
+            });
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
            .click(function (e) {
                e.stopPropagation();

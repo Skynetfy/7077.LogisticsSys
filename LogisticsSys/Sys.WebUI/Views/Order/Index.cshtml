@@ -19,6 +19,9 @@
                 <strong>错误!</strong>
                 <label></label>
             </div>
+            <div class="alert alert-warning" role="alert" id="tips" style="display: none;">
+                <strong>温馨提示!</strong> 尊敬的客户：[@User.Identity.Name]，由于您的信息还不完整，暂时还不能下单，请先完善您的个人信息。
+            </div>
             <div id="wizard" class="form_wizard wizard_horizontal">
                 <ul class="wizard_steps">
                     <li>
@@ -123,7 +126,7 @@
                                     <select name="russiacityid" class="form-control col-md-7" onchange="rcChange()" id="russiacityid">
                                         @{
                                             var RCityDataList = ViewData["RCityDataList"] as List<SelectBinding>;
-                                            
+
                                         }
                                         @Html.BindingSelectHtmlString(RCityDataList)
                                     </select>
@@ -399,86 +402,93 @@
         var value = $('#russiacityid').val();
         if (value === '7') {
             $('#divwuliudanhao').show();
-            $('#divwuliudanhao #logisticsSingle').prop("required","required");
+            $('#divwuliudanhao #logisticsSingle').prop("required", "required");
         } else {
             $('#divwuliudanhao').hide();
             $('#divwuliudanhao #logisticsSingle').removeAttr("required");
         }
     }
-    $(document).ready(function () {
-        $('#pickupdate').daterangepicker({
-            "singleDatePicker": true,
-            "locale": {
-                "format": "YYYY-MM-DD"
-            }
-        });
-       
-        $('ul.bs-docs-sidenav>li>a').click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var href = $(this).attr('href');
-            if (href != null && href != "#") {
-                $('body').mLoading("show");//显示loading组件
-                $('#main-page').load(href, function () {
-                    $('body').mLoading("hide");//显示loading组件
-                });
-            }
-        });
-        // Smart Wizard
-        $('#wizard').smartWizard({
-            labelNext: '下一步', // label for Next button
-            labelPrevious: '上一步', // label for Previous button
-            labelFinish: '确认下单',  // label for Finish button
-            contentCache: false,
-            onLeaveStep: leaveAStepCallback,
-            onFinish: onFinishCallback
-        });
-        function leaveAStepCallback(obj, context) {
-            return validateSteps(context.fromStep, context.toStep > context.fromStep); // return false to stay on step and true to continue navigation
-        }
 
-        function onFinishCallback(objs, context) {
-            if (validateAllSteps()) {
-                $('form').ajaxSubmit({
-                    resetForm: true,
-                    error: function (xhr, status, error, $form) {
-                        $('#alert-infor').removeClass('alert-success');
-                        $('#alert-infor').addClass('alert-danger');
-                        $('#alert-infor').show();
-                        $('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('错误！');
-                    },
-                    success: function (responseText, statusText) {
-                        $('#alert-infor').removeClass('alert-danger');
-                        $('#alert-infor').addClass('alert-success');
-                        $('#alert-infor').show();
-                        //$('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('Successfully');
-                    }
-                });
+    $(document)
+        .ready(function() {
+            var bs = @ViewBag.disabled;
+            if (bs) {
+                $('#tips').show();
+                $('#wizard').hide();
             }
-        }
+            $('#pickupdate').daterangepicker({
+                "singleDatePicker": true,
+                "locale": {
+                    "format": "YYYY-MM-DD"
+                }
+            });
 
-        // Your Step validation logic
-        function validateSteps(stepnumber,vali) {
-            var isStepValid = true;
-            // validate step 1
-            if (stepnumber === 2 && vali) {
-                isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
-                // $('#form1').submit();
+            $('ul.bs-docs-sidenav>li>a').click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var href = $(this).attr('href');
+                if (href != null && href != "#") {
+                    $('body').mLoading("show");//显示loading组件
+                    $('#main-page').load(href, function () {
+                        $('body').mLoading("hide");//显示loading组件
+                    });
+                }
+            });
+            // Smart Wizard
+            $('#wizard').smartWizard({
+                labelNext: '下一步', // label for Next button
+                labelPrevious: '上一步', // label for Previous button
+                labelFinish: '确认下单',  // label for Finish button
+                contentCache: false,
+                onLeaveStep: leaveAStepCallback,
+                onFinish: onFinishCallback
+            });
+            function leaveAStepCallback(obj, context) {
+                return validateSteps(context.fromStep, context.toStep > context.fromStep); // return false to stay on step and true to continue navigation
             }
-            else if (stepnumber === 3 && vali) {
-                isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
+
+            function onFinishCallback(objs, context) {
+                if (validateAllSteps()) {
+                    $('form').ajaxSubmit({
+                        resetForm: true,
+                        error: function (xhr, status, error, $form) {
+                            $('#alert-infor').removeClass('alert-success');
+                            $('#alert-infor').addClass('alert-danger');
+                            $('#alert-infor').show();
+                            $('#alert-infor label').html(error);
+                            $('#alert-infor strong').html('错误！');
+                        },
+                        success: function (responseText, statusText) {
+                            $('#alert-infor').removeClass('alert-danger');
+                            $('#alert-infor').addClass('alert-success');
+                            $('#alert-infor').show();
+                            //$('#alert-infor label').html(error);
+                            $('#alert-infor strong').html('Successfully');
+                        }
+                    });
+                }
             }
-            else if (stepnumber === 4 && vali) {
-                isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
+
+            // Your Step validation logic
+            function validateSteps(stepnumber, vali) {
+                var isStepValid = true;
+                // validate step 1
+                if (stepnumber === 2 && vali) {
+                    isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
+                    // $('#form1').submit();
+                }
+                else if (stepnumber === 3 && vali) {
+                    isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
+                }
+                else if (stepnumber === 4 && vali) {
+                    isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
+                }
+                return isStepValid;
             }
-            return isStepValid;
-        }
-        function validateAllSteps() {
-            var isStepValid = $('#form').parsley().validate();
-            // all step validation logic
-            return isStepValid;
-        }
-    });
+            function validateAllSteps() {
+                var isStepValid = $('#form').parsley().validate();
+                // all step validation logic
+                return isStepValid;
+            }
+        });
 </script>

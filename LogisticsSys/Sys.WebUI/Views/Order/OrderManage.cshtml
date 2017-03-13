@@ -13,19 +13,16 @@
     <div class="col-md-9 maincontent" role="main">
         <h4 id="breadcrumbs" class="page-header">订单处理</h4>
         <div id="toolbar">
+
             <div class="form-inline" role="form">
                 <div class="form-group">
                     <span>状态: </span>
                     <select class="form-control" style="width: initial;" name="orderstatus">
-                        <option value="">全部</option>
-                        <option value="0">待处理</option>
-                        <option value="2">未付款</option>
-                        <option value="3">已付款</option>
-                        <option value="4">未发货</option>
-                        <option value="5">已完成</option>
+                        @Html.BindingOrderStatusSelectHtmlString()
                     </select>
                 </div>
                 <button id="ok" type="submit" class="btn btn-default">查询</button>
+                <button type="button" class="btn btn-success" id="fahuobtn" data-toggle="modal" data-target="#fahuoModel" onclick="fahuodate()" disabled>发货</button>
             </div>
         </div>
         <table id="table"
@@ -48,7 +45,7 @@
                data-pagination-last-text="尾页">
             <thead>
                 <tr>
-                    <th data-field="stats" data-checkbox="true"></th>
+                    <th data-field="stats" data-checkbox="true" data-formatter="checkboxstateFormatter"></th>
                     <th data-field="OrderNo">订单编号</th>
                     <th data-field="ShipperName">寄件人</th>
                     <th data-field="ShipperPhone">寄件人电话</th>
@@ -525,6 +522,14 @@
                 <form class="form-horizontal form-label-left" id="fahuoform" method="post" action="@Url.Action("Filled")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="fahuoid" />
                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gzdh">
+                            跟踪单号 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="gzdh" name="gzdh" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fhsj">
                             发货时间 <span class="required">*</span>
                         </label>
@@ -597,25 +602,25 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
     var $table = $('#table'),
-      $ok = $('#ok');
+        $fahuobtn = $('#fahuobtn'),
+         selections = [],
+        $ok = $('#ok');
     $(function () {
-        $('#fhsj,#shoukuanshijian').daterangepicker({
-            "singleDatePicker": true,
-            "locale": {
-                "format": "YYYY-MM-DD"
-            }
-        });
+        $('#fhsj,#shoukuanshijian')
+            .daterangepicker({
+                "singleDatePicker": true,
+                "locale": {
+                    "format": "YYYY-MM-DD"
+                }
+            });
         $ok.click(function () {
             $table.bootstrapTable('refresh');
         });
         $('[data-toggle="table"]').bootstrapTable();
-        var $table = $('#table'),
-            $remove = $('#remove'),
-            selections = [];
         $table.on('check.bs.table uncheck.bs.table ' +
             'check-all.bs.table uncheck-all.bs.table',
             function () {
-                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+                $fahuobtn.prop('disabled', !$table.bootstrapTable('getSelections').length);
 
                 // save your data, here just save the current page
                 selections = getIdSelections();
@@ -636,75 +641,82 @@
                             });
                 }
             });
-        $('#btn-save').click(function (e) {
-            if ($('#editorderform').parsley().validate() && $('#editorderform').parsley().isValid()) {
-                $('#editorderform').ajaxSubmit({
-                    resetForm: true,
-                    error: function (xhr, status, error, $form) {
-                        $('#alert-infor').removeClass('alert-success');
-                        $('#alert-infor').addClass('alert-danger');
-                        $('#alert-infor').show();
-                        $('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('错误！');
-                    },
-                    success: function (responseText, statusText) {
-                        //$('#alert-infor').removeClass('alert-danger');
-                        //$('#alert-infor').addClass('alert-success');
-                        //$('#alert-infor').show();
-                        ////$('#alert-infor label').html(error);
-                        //$('#alert-infor strong').html('Successfully');
-                        $table.bootstrapTable('refresh');
-                        $('#EditModel').modal('hide');
-                    }
-                });
-            }
-        });
-        $('#btn-savef-fahuo').click(function (e) {
-            if ($('#fahuoform').parsley().validate() && $('#fahuoform').parsley().isValid()) {
-                $('#fahuoform').ajaxSubmit({
-                    resetForm: true,
-                    error: function (xhr, status, error, $form) {
-                        $('#alert-infor').removeClass('alert-success');
-                        $('#alert-infor').addClass('alert-danger');
-                        $('#alert-infor').show();
-                        $('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('错误！');
-                    },
-                    success: function (responseText, statusText) {
-                        //$('#alert-infor').removeClass('alert-danger');
-                        //$('#alert-infor').addClass('alert-success');
-                        //$('#alert-infor').show();
-                        ////$('#alert-infor label').html(error);
-                        //$('#alert-infor strong').html('Successfully');
-                        $table.bootstrapTable('refresh');
-                        $('#fahuoModel').modal('hide');
-                    }
-                });
-            }
-        });
-        $('#btn-save-shoukuan').click(function (e) {
-            if ($('#shoukuanform').parsley().validate() && $('#shoukuanform').parsley().isValid()) {
-                $('#shoukuanform').ajaxSubmit({
-                    resetForm: true,
-                    error: function (xhr, status, error, $form) {
-                        $('#alert-infor').removeClass('alert-success');
-                        $('#alert-infor').addClass('alert-danger');
-                        $('#alert-infor').show();
-                        $('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('错误！');
-                    },
-                    success: function (responseText, statusText) {
-                        //$('#alert-infor').removeClass('alert-danger');
-                        //$('#alert-infor').addClass('alert-success');
-                        //$('#alert-infor').show();
-                        ////$('#alert-infor label').html(error);
-                        //$('#alert-infor strong').html('Successfully');
-                        $table.bootstrapTable('refresh');
-                        $('#shoukuanModel').modal('hide');
-                    }
-                });
-            }
-        });
+        $('#btn-save')
+            .click(function (e) {
+                if ($('#editorderform').parsley().validate() && $('#editorderform').parsley().isValid()) {
+                    $('#editorderform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                //$('#alert-infor').removeClass('alert-danger');
+                                //$('#alert-infor').addClass('alert-success');
+                                //$('#alert-infor').show();
+                                ////$('#alert-infor label').html(error);
+                                //$('#alert-infor strong').html('Successfully');
+                                $table.bootstrapTable('refresh');
+                                $('#EditModel').modal('hide');
+                            }
+                        });
+                }
+            });
+        $('#btn-savef-fahuo')
+            .click(function (e) {
+                if ($('#fahuoform').parsley().validate() && $('#fahuoform').parsley().isValid()) {
+                    $('#fahuoform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                //$('#alert-infor').removeClass('alert-danger');
+                                //$('#alert-infor').addClass('alert-success');
+                                //$('#alert-infor').show();
+                                ////$('#alert-infor label').html(error);
+                                //$('#alert-infor strong').html('Successfully');
+                                $table.bootstrapTable('refresh');
+                                $('#fahuoModel').modal('hide');
+                            }
+                        });
+                }
+            });
+        $('#btn-save-shoukuan')
+            .click(function (e) {
+                if ($('#shoukuanform').parsley().validate() && $('#shoukuanform').parsley().isValid()) {
+                    $('#shoukuanform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                //$('#alert-infor').removeClass('alert-danger');
+                                //$('#alert-infor').addClass('alert-success');
+                                //$('#alert-infor').show();
+                                ////$('#alert-infor label').html(error);
+                                //$('#alert-infor strong').html('Successfully');
+                                $table.bootstrapTable('refresh');
+                                $('#shoukuanModel').modal('hide');
+                            }
+                        });
+                }
+            });
+
         function getIdSelections() {
             return $.map($table.bootstrapTable('getSelections'),
                 function (row) {
@@ -712,38 +724,57 @@
                 });
         }
     });
+
     function queryParams(params) {
-        $('#toolbar').find('input[name],select').each(function () {
-            params[$(this).attr('name')] = $(this).val();
-        });
+        $('#toolbar')
+            .find('input[name],select')
+            .each(function () {
+                params[$(this).attr('name')] = $(this).val();
+            });
         return params;
     }
+
     function priceFormatter(v, r) { }
+
     function paystateFormatter(value, row, index) {
         return Status_7077.getPayStatus(row.PayStatus);
     }
+
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
     }
+
+    function checkboxstateFormatter(value, row, index) {
+        if (row.Status <= 1 || row.Status >= 8) {
+            return {
+                disabled: true
+            };
+        }
+        return value;
+    }
+
     function actionFormatter(value, row, index) {
         var h = [];
-        h.push('<button  type="button" class="btn btn-default btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
-            JSON.stringify(row).replace(/\"/g, "\'") +
-            ')" value="">查看</button>');
+        h
+            .push('<button  type="button" class="btn btn-default btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">查看</button>');
         if (row.Status <= 2)
-            h.push(' <button  type="button" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#EditModel" onclick="editdate(' +
-               JSON.stringify(row).replace(/\"/g, "\'") +
-               ')" value="">修改</button>');
+            h
+                .push(' <button  type="button" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#EditModel" onclick="editdate(' +
+                    JSON.stringify(row).replace(/\"/g, "\'") +
+                    ')" value="">修改</button>');
 
-        if (row.Status >= 2 && row.Status <= 7)
-            h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fahuoModel" onclick="fahuodate(' +
-               JSON.stringify(row).replace(/\"/g, "\'") +
-                ')" value="">发货</button>');
+        //if (row.Status >= 2 && row.Status <= 7)
+        //    h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fahuoModel" onclick="fahuodate(' +
+        //       JSON.stringify(row).replace(/\"/g, "\'") +
+        //        ')" value="">发货</button>');
 
         if (row.Status >= 2 && row.PayStatus <= 2)
-            h.push(' <button  type="button" class="btn btn-warning btn-xs"  data-toggle="modal" data-target="#shoukuanModel" onclick="shoukuandate(' +
-               JSON.stringify(row).replace(/\"/g, "\'") +
-                ')" value="">收款</button>');
+            h
+                .push(' <button  type="button" class="btn btn-warning btn-xs"  data-toggle="modal" data-target="#shoukuanModel" onclick="shoukuandate(' +
+                    JSON.stringify(row).replace(/\"/g, "\'") +
+                    ')" value="">收款</button>');
         return h.join('');
     }
 
@@ -834,9 +865,15 @@
     }
 
     function fahuodate(row) {
-        $('[name=fahuoid]').val(row.Id);
+        var ids = getIdSelections();
+        $('[name=fahuoid]').val(ids.join(','));
     }
-
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'),
+            function (row) {
+                return row.Id;
+            });
+    }
     function shoukuandate(row) {
         $('[name=shoukuanid]').val(row.Id);
     }

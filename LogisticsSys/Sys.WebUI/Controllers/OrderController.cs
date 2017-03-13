@@ -25,9 +25,17 @@ namespace Sys.WebUI.Controllers
             ViewData["CCityDataList"] = ChinaCityService.Current.GetChinaCities(0);
             ViewData["RoomTypeDataList"] = GoodsTypeService.Current.GetRoomTypeSelect(0);
 
-            if (!string.IsNullOrEmpty(id))
+            var username = User.Identity.Name;
+            var userProvider = new UserLoginProvider();
+            var _user = userProvider.GetUser(username);
+            ViewBag.disabled = "false";
+            if (_user != null)
             {
-
+                var cusmer = UserService.GetCustomerByUid(_user.Id);
+                if (cusmer == null || string.IsNullOrEmpty(_user.DisplayName) || string.IsNullOrEmpty(_user.Phone))
+                {
+                    ViewBag.disabled = "true";
+                }
             }
             return View();
         }
@@ -39,63 +47,77 @@ namespace Sys.WebUI.Controllers
             result.Status = 0;
             result.Message = "未知错误";
 
-            var orderinfo = new SysOrderInfo();
-            orderinfo.OrderNo = ordersingle.Trim();
-            orderinfo.PickupNumber = Convert.ToInt32(pickupnumber);
-            orderinfo.ShipperName = shappername.Trim();
-            orderinfo.ShipperPhone = shipperphone.Trim();
-            orderinfo.Status = (int)OrderStatusEnum.Processing;
-
-            var addresserInfo = new SysAddresserInfo();
-            addresserInfo.BoxHeight = Convert.ToDecimal(boxheight);
-            addresserInfo.BoxWidth = Convert.ToDecimal(boxwidth);
-            addresserInfo.BoxLong = Convert.ToDecimal(boxlong);
-            addresserInfo.GoodsWeight = Convert.ToDecimal(goodsweight);
-            addresserInfo.PolicyFee = Convert.ToDecimal(policyfee);
-            addresserInfo.ProtectPrice = Convert.ToDecimal(protectprice);
-            addresserInfo.TransportationWay = Convert.ToInt32(transportationway);
-            addresserInfo.GoodsType = Convert.ToInt32(goodstype);
-            addresserInfo.PickupWay = Convert.ToInt32(pickupWay);
-            addresserInfo.PickupDate = Convert.ToDateTime(pickupdate);
-            addresserInfo.CargoNumber = Convert.ToInt32(cargonumber);
-            addresserInfo.LogisticsSingle = logisticsSingle.Trim();
-            addresserInfo.RussiaAddress = russiaaddress.Trim();
-            addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
-
-            var receiverInfo = new SysReceiverInfo();
-            receiverInfo.ParcelSingle = parcelsingle.Trim();
-            receiverInfo.ChinaCityId = Convert.ToInt64(chinacityid);
-            receiverInfo.ChinaAddress = chinaaddress.Trim();
-            receiverInfo.ReceiverName = receivername.Trim();
-            receiverInfo.ReceiverPhone = receiverphone.Trim();
-            receiverInfo.PackagingWay = Convert.ToInt32(packagingway);
-            receiverInfo.ExpressWay = Convert.ToInt32(expressway);
-            receiverInfo.GoodsDesc = goodsdesc.Trim();
-            receiverInfo.ParcelWeight = Convert.ToDecimal(parcelweight);
-            receiverInfo.ChinaCourierNumber = chinacouriernumber.Trim();
-            receiverInfo.Desc = desc.Trim();
             var username = User.Identity.Name;
-            var status = 0;
-            var provider = new OrderInfoProvider();
-            var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfo, ref status);
-
-            if (status == 1)
+            var userProvider = new UserLoginProvider();
+            var _user = userProvider.GetUser(username);
+            if (_user != null)
             {
-                result.Status = 1;
-                if (!string.IsNullOrEmpty(addresserInfo.LogisticsSingle))
+                var cusmer = UserService.GetCustomerByUid(_user.Id);
+                if (cusmer != null && !string.IsNullOrEmpty(_user.DisplayName) && !string.IsNullOrEmpty(_user.Phone))
                 {
-                    var logistics = new SysLogisticsInfo();
-                    logistics.LogisticsDesc = "订单处理中";
-                    logistics.LogisticsSingle = addresserInfo.LogisticsSingle;
-                    logistics.Status = false;
-                    logistics.UpdateDate = DateTime.Now;
-                    logistics.CreateDate = DateTime.Now;
-                    logistics.IsDelete = false;
-                    ISysLogisticsInfoRepository logisticsInfo = DALFactory.SysLogisticsInfoDao;
-                    logisticsInfo.Insert(logistics);
+
+                    var orderinfo = new SysOrderInfo();
+                    orderinfo.OrderNo = ordersingle.Trim();
+                    orderinfo.PickupNumber = Convert.ToInt32(pickupnumber);
+                    orderinfo.ShipperName = shappername.Trim();
+                    orderinfo.ShipperPhone = shipperphone.Trim();
+                    orderinfo.Status = (int)OrderStatusEnum.Processing;
+
+                    var addresserInfo = new SysAddresserInfo();
+                    addresserInfo.BoxHeight = Convert.ToDecimal(boxheight);
+                    addresserInfo.BoxWidth = Convert.ToDecimal(boxwidth);
+                    addresserInfo.BoxLong = Convert.ToDecimal(boxlong);
+                    addresserInfo.GoodsWeight = Convert.ToDecimal(goodsweight);
+                    addresserInfo.PolicyFee = Convert.ToDecimal(policyfee);
+                    addresserInfo.ProtectPrice = Convert.ToDecimal(protectprice);
+                    addresserInfo.TransportationWay = Convert.ToInt32(transportationway);
+                    addresserInfo.GoodsType = Convert.ToInt32(goodstype);
+                    addresserInfo.PickupWay = Convert.ToInt32(pickupWay);
+                    addresserInfo.PickupDate = Convert.ToDateTime(pickupdate);
+                    addresserInfo.CargoNumber = Convert.ToInt32(cargonumber);
+                    addresserInfo.LogisticsSingle = logisticsSingle.Trim();
+                    addresserInfo.RussiaAddress = russiaaddress.Trim();
+                    addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
+
+                    var receiverInfo = new SysReceiverInfo();
+                    receiverInfo.ParcelSingle = parcelsingle.Trim();
+                    receiverInfo.ChinaCityId = Convert.ToInt64(chinacityid);
+                    receiverInfo.ChinaAddress = chinaaddress.Trim();
+                    receiverInfo.ReceiverName = receivername.Trim();
+                    receiverInfo.ReceiverPhone = receiverphone.Trim();
+                    receiverInfo.PackagingWay = Convert.ToInt32(packagingway);
+                    receiverInfo.ExpressWay = Convert.ToInt32(expressway);
+                    receiverInfo.GoodsDesc = goodsdesc.Trim();
+                    receiverInfo.ParcelWeight = Convert.ToDecimal(parcelweight);
+                    receiverInfo.ChinaCourierNumber = chinacouriernumber.Trim();
+                    receiverInfo.Desc = desc.Trim();
+                    var status = 0;
+                    var provider = new OrderInfoProvider();
+                    var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfo, ref status);
+
+                    if (status == 1)
+                    {
+                        result.Status = 1;
+                        if (!string.IsNullOrEmpty(addresserInfo.LogisticsSingle))
+                        {
+                            var logistics = new SysLogisticsInfo();
+                            logistics.LogisticsDesc = "订单处理中";
+                            logistics.LogisticsSingle = addresserInfo.LogisticsSingle;
+                            logistics.Status = false;
+                            logistics.UpdateDate = DateTime.Now;
+                            logistics.CreateDate = DateTime.Now;
+                            logistics.IsDelete = false;
+                            ISysLogisticsInfoRepository logisticsInfo = DALFactory.SysLogisticsInfoDao;
+                            logisticsInfo.Insert(logistics);
+                        }
+                    }
+                    result.Message = message;
                 }
             }
-            result.Message = message;
+            else
+            {
+                result.Message = "客户信息不完整，暂时不能下单";
+            }
             return Json(result);
         }
         public ActionResult EditOrder()
@@ -155,7 +177,7 @@ namespace Sys.WebUI.Controllers
             {
                 var orderprovider = new OrderInfoProvider();
                 var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
-                if (order != null )
+                if (order != null)
                 {
                     ViewBag.Id = order.Id;
                     ViewBag.SNO = order.OrderNo;
@@ -179,31 +201,37 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
         [HttpPost]
-        public ActionResult Filled(string fahuoid, string fhsj, string fhnr)
+        public ActionResult Filled(string fahuoid,string gzdh, string fhsj, string fhnr)
         {
             if (!string.IsNullOrEmpty(fahuoid))
             {
+
                 var userprovider = new UserLoginProvider();
                 var _user = userprovider.GetUser(User.Identity.Name);
                 if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()) || _user.RuleType.Equals(RuleTypeEnum.Admin.ToString()))
                 {
                     var orderprovider = new OrderInfoProvider();
-                    var order = orderprovider.GetOrderInfoById(Convert.ToInt16(fahuoid));
-                    if (order != null && order.Status < (int)OrderStatusEnum.Unfilled)
+                    var ids = fahuoid.Split(',');
+                    foreach (var id in ids)
                     {
-                        var alog = new SysActionLog();
-                        alog.ActionDate = Convert.ToDateTime(fhsj);
-                        alog.ActionDesc = fhnr.Trim();
-                        alog.LogType = (int)ActionLogTypeEnum.FilledAction;
-                        alog.OrderId = order.Id;
-                        alog.UserId = _user.Id;
-                        alog.CreateDate = DateTime.Now;
-                        alog.IsDelete = false;
-                        var i = DALFactory.ActionLogDao.Insert(alog);
-                        if (i > 0)
+                        var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
+                        if (order != null && order.Status < (int)OrderStatusEnum.Unfilled)
                         {
-                            order.Status = (int)OrderStatusEnum.Filled;
-                            orderprovider.UpdateOrderInfo(order);
+                            var alog = new SysLogisticsInfo();
+                            alog.UpdateDate = Convert.ToDateTime(fhsj);
+                            alog.LogisticsDesc = fhnr.Trim();
+                            alog.LogisticsSingle = gzdh.Trim();
+                            alog.OrderNos = fahuoid;
+                            alog.UserName = _user.UserName;
+                            alog.CreateDate = DateTime.Now;
+                            alog.Status = false;
+                            alog.IsDelete = false;
+                            var i = DALFactory.SysLogisticsInfoDao.Insert(alog);
+                            if (i > 0)
+                            {
+                                order.Status = (int)OrderStatusEnum.Filled;
+                                orderprovider.UpdateOrderInfo(order);
+                            }
                         }
                     }
                 }
@@ -270,7 +298,19 @@ namespace Sys.WebUI.Controllers
             if (!string.IsNullOrEmpty(search))
                 where += string.Format(@" and [OrderNo] Like '%{0}%'", search);
             if (!string.IsNullOrEmpty(orderstatus))
-                where += string.Format(@" and [Status]={0}", orderstatus);
+            {
+                int status = Convert.ToInt32(orderstatus);
+                if (status > 2 && status <= 6)
+                {
+                    where += string.Format(@" and [PayStatus]={0}", status - 3);
+                }
+                else
+                {
+                    where += string.Format(@" and [Status]={0}", orderstatus);
+                }
+
+            }
+
             btdata.total = provider.GetOrderViewPagerCount(where);
             btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
 

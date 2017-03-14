@@ -1,0 +1,149 @@
+﻿@using Sys.Common
+@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+             @Html.LeftMeunHtmlString("订单管理", "订单处理", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <div id="form-main-page">
+            <h4 id="breadcrumbs" class="page-header">完善个人信息</h4>
+            <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>错误!</strong>
+                <label></label>
+            </div>
+            <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("EditProfile")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                <input type="hidden" name="username" value="@ViewBag.username" />
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cid">
+                        客户编号 <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="cid" name="cid" required="required" readonly="readonly" value="@ViewBag.cid" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="displayname">
+                        姓 名 <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="displayname" name="displayname" value="@ViewBag.displaynane" required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                        邮 箱 <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="email" id="email" name="email" value="@ViewBag.email" required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city">
+                        所在城市 <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select type="text" id="city" name="city" required="required" class="form-control col-md-7 col-xs-12">
+                            <option value="">请选择城市</option>
+                            @{
+                                var cCityDataList = ViewData["CCityDataList"] as List<SelectBinding>;
+
+                            }
+                            @Html.BindingSelectHtmlString(cCityDataList)
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">
+                        详细地址 <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="address" name="address" value="@ViewBag.address" required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">
+                        电 话 <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="phone" name="phone" required="required" value="@ViewBag.phone" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qq">
+                        QQ
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="qq" name="qq" value="@ViewBag.qq" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="webchat">
+                        微信
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="webchat" name="webchat" value="@ViewBag.webchat" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button type="button" class="btn btn-success" id="btn-save">提 交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    $(function () {
+        var id = $('[name=id]').val();
+        if (id != "") {
+            $('#username').attr('readonly', 'readonly');
+            $('#passworddivd,#passworddiv').hide();
+            $('#ruletype').val("@ViewBag.ruletype");
+        }
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+
+        $('#btn-save')
+            .click(function () {
+                if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
+                    $('#addform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                $('#main-page').load("@Url.Action("Profile", "User")");
+                            }
+                        });
+                }
+            });
+    })
+</script>

@@ -1,0 +1,56 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("物流管理", "物流查询", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <h4 id="breadcrumbs" class="page-header">物流查询</h4>
+        <form class="form-inline">
+            <div class="form-group">
+                <p class="form-control-static">物流单号：</p>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword2" class="sr-only">物流单号</label>
+                <select class="form-control">
+                    <option value="">选择快递</option>
+                    <option value="shunfeng">顺丰快递</option>
+                    <option value="yuantong">圆通快递</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword2" class="sr-only">物流单号</label>
+                <input type="text" class="form-control" id="inputPassword2" placeholder="物流单号">
+            </div>
+            <button type="submit" class="btn btn-default">查询</button>
+        </form>
+
+        @Html.Action("LogisticsDetail")
+    </div>
+</div>
+<script>
+    $(function () {
+       
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+    });
+  
+</script>

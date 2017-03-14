@@ -1,0 +1,222 @@
+﻿
+/* DEFAULTS
+----------------------------------------------------------*/
+html {
+    /*height: 100%;*/
+}
+
+body {
+    background: #efefef;
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+    height: 100%;
+    text-align: center;
+}
+
+.page {
+    width: 70%;
+    height: 100%;
+    background-color: #fff;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px solid #34b1c4;
+    overflow: auto;
+}
+
+.page-login {
+    width: 400px;
+    background-color: #fff;
+    margin: 50px auto;
+    text-align: left;
+    border: 1px solid #34b1c4;
+    overflow: hidden;
+    height: initial;
+}
+
+.header {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    background: #34b1c4;
+    width: 100%;
+    height: auto;
+}
+
+    .header h1 {
+        font-weight: 700;
+        margin: 0px;
+        padding: 0px 0px 0px 20px;
+        color: #f9f9f9;
+        border: none;
+        line-height: 2em;
+        font-size: 2em;
+    }
+
+.main {
+    padding: 0px 12px;
+    background-color: #fff;
+    margin: 12px 8px 8px 8px;
+}
+
+.login label.login-input-label {
+    display: initial;
+    font-size: 1.25em;
+}
+
+a.login-pass-link:active {
+    text-decoration: underline;
+}
+
+a.login-pass-link {
+    float: right;
+    margin-right: 40px;
+    color: #999;
+    text-decoration: none;
+}
+
+
+.h-login {
+    text-align: center;
+    font-size: 2em;
+    color: #fff;
+    margin: 0px;
+    padding: 0px;
+    background: #34b1c4;
+    width: 100%;
+    height: auto;
+}
+
+.h-login-title {
+    text-align: center;
+    padding: 10px 0 10px;
+    margin: 0px auto;
+    width: 70%;
+    height: auto;
+    text-align: left;
+}
+
+h3.login-h3 {
+    margin: 20px auto 0;
+    text-align: center;
+    color: #34b1c4;
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+.btn-login {
+    background: #34b1c4;
+    display: block;
+    height: 44px;
+    line-height: 44px;
+    color: #fff;
+    text-align: center;
+    margin: 10px auto 10px;
+    font-size: 1.5em;
+    text-decoration: none;
+    clear: both;
+    width: 80%;
+    border: none;
+}
+
+a.register-link {
+    color: #34b1c4;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+    a.register-link:active {
+        color: #fff;
+    }
+
+fieldset {
+    margin: 1em 0px;
+    padding: 1em 40px;
+    border: 0px solid #ccc;
+    width: auto;
+}
+
+    fieldset p {
+        margin: 2px 12px 10px 10px;
+    }
+
+    fieldset.login label, fieldset.register label, fieldset.changePassword label {
+        display: block;
+    }
+
+    fieldset label.inline {
+        display: inline;
+    }
+
+input[type=submit] {
+    background-color: #34b1c4;
+    background-color: #34b1c4;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+input[type=text], input[type=password] {
+    padding: 4px;
+    font-size: 11px;
+    color: #333;
+}
+input.textEntry {
+    border: 2px solid #e1e1e1;
+    /*margin-bottom: 20px;*/
+    font-weight: normal;
+    text-indent: 8px;
+    outline: 0;
+    font-size: 1.25em;
+    padding: 5px 0;
+    color: black;
+    width: 220px;
+}
+
+input.passwordEntry {
+    margin-bottom: 0;
+}
+p.parsley-success {
+    color: #468847;
+    background-color: #DFF0D8;
+    border: 1px solid #D6E9C6;
+}
+
+p.parsley-error {
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border: 1px solid #EED3D7;
+}
+
+ul.parsley-errors-list {
+    list-style: none;
+    color: #E74C3C;
+    padding-left: 0;
+}
+
+input.parsley-error, textarea.parsley-error, select.parsley-error {
+    background: #FAEDEC;
+    border: 1px solid #E85445;
+}
+
+.btn-group .parsley-errors-list {
+    display: none;
+}
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}

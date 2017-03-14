@@ -1,0 +1,494 @@
+﻿@using Sys.Common
+@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("订单管理", "创建订单", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <div class="bs-docs-section">
+            <h4 id="breadcrumbs" class="page-header">创建订单</h4>
+            <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>错误!</strong>
+                <label></label>
+            </div>
+            <div class="alert alert-warning" role="alert" id="tips" style="display: none;">
+                <strong>温馨提示!</strong> 尊敬的客户：[@User.Identity.Name]，由于您的信息还不完整，暂时还不能下单，请先完善您的个人信息。
+            </div>
+            <div id="wizard" class="form_wizard wizard_horizontal">
+                <ul class="wizard_steps">
+                    <li>
+                        <a href="#step-1">
+                            <span class="step_no">1</span>
+                            <span class="step_descr">
+                                下单介绍<br />
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-2">
+                            <span class="step_no">2</span>
+                            <span class="step_descr">
+                                主订单信息<br />
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-3">
+                            <span class="step_no">3</span>
+                            <span class="step_descr">
+                                寄件信息<br />
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-4">
+                            <span class="step_no">4</span>
+                            <span class="step_descr">
+                                收件信息<br />
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-5">
+                            <span class="step_no">5</span>
+                            <span class="step_descr">
+                                订单确认<br />
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <form id="form" method="post" action="@Url.Action("CreateOrder")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                    <div id="step-1">
+                        <h2 class="StepTitle">Step 2 Content</h2>
+                        <p>
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                    <div id="step-2">
+                        <div id="form1" class="form-horizontal form-label-left" novalidate="">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ordersingle">
+                                    订单编号
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="ordersingle" name="ordersingle" value="@ViewBag.OrderNumber" readonly="readonly" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shappername">
+                                    寄件人姓名 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="shappername" name="shappername" required="required" data-parsley-group="form1" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shipperphone">
+                                    寄件人电话 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="shipperphone" name="shipperphone" required="required" data-parsley-type="alphanum" data-parsley-group="form1" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pickupnumber">
+                                    收货人数量 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="pickupnumber" name="pickupnumber" required="required" data-parsley-type="integer" data-parsley-group="form1"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="step-3">
+                        <div id="form2" class="form-horizontal form-label-left" novalidate="">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="russiacityid">
+                                    俄罗斯城市
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="russiacityid" class="form-control col-md-7" onchange="rcChange()" id="russiacityid">
+                                        @{
+                                            var RCityDataList = ViewData["RCityDataList"] as List<SelectBinding>;
+
+                                        }
+                                        @Html.BindingSelectHtmlString(RCityDataList)
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="russiaaddress">
+                                    俄罗斯详细地址 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="russiaaddress" name="russiaaddress" required="required" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group" id="divwuliudanhao" style="display: none;">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logisticsSingle">
+                                    物流单号 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="logisticsSingle" value="" name="logisticsSingle" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cargonumber">
+                                    货物箱数 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="cargonumber" name="cargonumber" required="required" data-parsley-type="integer" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pickupdate">
+                                    取货时间 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="pickupdate" name="pickupdate" required="required" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    取货方式
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label>
+                                        <input type="radio" checked="checked" value="1" name="pickupWay">自行送货
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="2" name="pickupWay"> 上午取货(9点-13点)
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="3" name="pickupWay"> 下午取货(13点-17点)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="goodstype">
+                                    货物类型: <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="goodstype" class="form-control col-md-7" id="goodstype">
+                                        @{
+                                            var roomTypeDataList = ViewData["RoomTypeDataList"] as List<SelectBinding>;
+
+                                        }
+                                        @Html.BindingSelectHtmlString(roomTypeDataList)
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    货物运输类型 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label>
+                                        <input type="radio" checked="checked" value="1" name="transportationway"> 陆运
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="2" name="transportationway"> 空运
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="3" name="transportationway"> 海运
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="protectprice">
+                                    保价价值(元) <span class="required">*</span>
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="policyfee">
+                                    保单费用(元)
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="policyfee" name="policyfee" value="3" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="goodsweight">
+                                    货物重量(kg)  <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12 col-sm-12 col-xs-12">
+                                    箱子外包装总体积   <span class="required">*</span>
+                                </label>
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    长(cm)
+                                </label>
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    <input type="text" id="boxlong" name="boxlong" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    宽(cm)
+                                </label>
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    <input type="text" id="boxwidth" name="boxwidth" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    高(cm)
+                                </label>
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    <input type="text" id="boxheight" name="boxheight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="step-4">
+                        <div id="form3" class="form-horizontal form-label-left" novalidate="">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelsingle">
+                                    包裹编号 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="parcelsingle" name="parcelsingle" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacityid">
+                                    订单省份 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control col-md-7 col-xs-12" name="chinacityid" id="chinacityid" required="required" data-parsley-group="form3">
+                                        @{
+                                            var cCityDataList = ViewData["CCityDataList"] as List<SelectBinding>;
+
+                                        }
+                                        @Html.BindingSelectHtmlString(cCityDataList)
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinaaddress">
+                                    订单详细地址 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="chinaaddress" name="chinaaddress" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="receivername">
+                                    收件人姓名 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="receivername" name="receivername" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="receiverphone">
+                                    收件人电话 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="receiverphone" name="receiverphone" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    打包方式 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label>
+                                        <input type="radio" checked="checked" value="1" name="packagingway">不打包
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="2" name="packagingway"> 普通打包
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="3" name="packagingway"> 特殊泡沫打包
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    快递方式 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label>
+                                        <input type="radio" checked="checked" value="1" name="expressway">普通正付
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="2" name="expressway"> 顺丰正付
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="3" name="expressway">普通到付
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="3" name="expressway">顺丰到付
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="goodsdesc">
+                                    货物明细 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="goodsdesc" name="goodsdesc" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelweight">
+                                    包裹重量(千克) <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
+                                    国内快递单号 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="chinacouriernumber" name="chinacouriernumber" required="required" data-parsley-type="alphanum" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="desc">
+                                    备注
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea type="text" id="desc" name="desc" class="form-control col-md-7 col-xs-12"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="step-5">
+                        <h2 class="StepTitle">Step 2 Content</h2>
+                        <p>
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- End SmartWizard Content -->
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/jquery.smartWizard.js"></script>
+
+<script>
+    function rcChange() {
+        var value = $('#russiacityid').val();
+        if (value === '7') {
+            $('#divwuliudanhao').show();
+            $('#divwuliudanhao #logisticsSingle').prop("required", "required");
+        } else {
+            $('#divwuliudanhao').hide();
+            $('#divwuliudanhao #logisticsSingle').removeAttr("required");
+        }
+    }
+
+    $(document)
+        .ready(function() {
+            var bs = @ViewBag.disabled;
+            if (bs) {
+                $('#tips').show();
+                $('#wizard').hide();
+            }
+            $('#pickupdate').daterangepicker({
+                "singleDatePicker": true,
+                "locale": {
+                    "format": "YYYY-MM-DD"
+                }
+            });
+
+            $('ul.bs-docs-sidenav>li>a').click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var href = $(this).attr('href');
+                if (href != null && href != "#") {
+                    $('body').mLoading("show");//显示loading组件
+                    $('#main-page').load(href, function () {
+                        $('body').mLoading("hide");//显示loading组件
+                    });
+                }
+            });
+            // Smart Wizard
+            $('#wizard').smartWizard({
+                labelNext: '下一步', // label for Next button
+                labelPrevious: '上一步', // label for Previous button
+                labelFinish: '确认下单',  // label for Finish button
+                contentCache: false,
+                onLeaveStep: leaveAStepCallback,
+                onFinish: onFinishCallback
+            });
+            function leaveAStepCallback(obj, context) {
+                return validateSteps(context.fromStep, context.toStep > context.fromStep); // return false to stay on step and true to continue navigation
+            }
+
+            function onFinishCallback(objs, context) {
+                if (validateAllSteps()) {
+                    $('form').ajaxSubmit({
+                        resetForm: true,
+                        error: function (xhr, status, error, $form) {
+                            $('#alert-infor').removeClass('alert-success');
+                            $('#alert-infor').addClass('alert-danger');
+                            $('#alert-infor').show();
+                            $('#alert-infor label').html(error);
+                            $('#alert-infor strong').html('错误！');
+                        },
+                        success: function (responseText, statusText) {
+                            $('#alert-infor').removeClass('alert-danger');
+                            $('#alert-infor').addClass('alert-success');
+                            $('#alert-infor').show();
+                            //$('#alert-infor label').html(error);
+                            $('#alert-infor strong').html('Successfully');
+                        }
+                    });
+                }
+            }
+
+            // Your Step validation logic
+            function validateSteps(stepnumber, vali) {
+                var isStepValid = true;
+                // validate step 1
+                if (stepnumber === 2 && vali) {
+                    isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
+                    // $('#form1').submit();
+                }
+                else if (stepnumber === 3 && vali) {
+                    isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
+                }
+                else if (stepnumber === 4 && vali) {
+                    isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
+                }
+                return isStepValid;
+            }
+            function validateAllSteps() {
+                var isStepValid = $('#form').parsley().validate();
+                // all step validation logic
+                return isStepValid;
+            }
+        });
+</script>

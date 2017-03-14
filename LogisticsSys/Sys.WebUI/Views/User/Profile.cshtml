@@ -1,0 +1,132 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("个人中心", "个人信息", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent">
+        <h4 id="breadcrumbs" class="page-header">基本信息</h4>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th style="width: 30%">客户编号：</th>
+                <td><span id="khbh">@ViewBag.CustomerID</span></td>
+            </tr>
+            <tr>
+                <th>用户名：</th>
+                <td><span id="yhm">@ViewBag.username</span></td>
+            </tr>
+            <tr>
+                <th>姓名：</th>
+                <td><span id="xm">@ViewBag.displayname</span></td>
+            </tr>
+            <tr>
+                <th>邮箱：</th>
+                <td><span id="yx">@ViewBag.Email</span></td>
+            </tr>
+            <tr>
+                <th>手机号码：</th>
+                <td><span id="sjhm">@ViewBag.phone</span></td>
+            </tr>
+            <tr>
+                <th>所在城市：</th>
+                <td><span id="szcs">@ViewBag.CityName</span></td>
+            </tr>
+            <tr>
+                <th>详细地址：</th>
+                <td><span id="xxdz">@ViewBag.Address</span></td>
+            </tr>
+            <tr>
+                <th>微信：</th>
+                <td><span id="wx">@ViewBag.WebChatNo</span></td>
+            </tr>
+            <tr>
+                <th>QQ：</th>
+                <td><span id="qq">@ViewBag.QQNumber</span></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><a class="btn btn-success btn-sm" id="editprofilelink"><i class="glyphicon glyphicon-edit"></i>编辑</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4 class="page-header">收获地址 <a class="btn btn-success btn-sm" style="float: right;"><i class="glyphicon glyphicon-edit"></i>添加地址</a></h4>
+        <div class="row">
+            <div class="col-xs-12 table">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 9%">收货人</th>
+                            <th  style="width: 19%">电话</th>
+                            <th style="width: 59%">收货地址</th>
+                            <th>默认地址</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Call of Duty</td>
+                            <td> El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson</td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Need for Speed IV</td>
+                            <td> El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson</td>
+                            <td>Wes Anderson umami biodiesel</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Monsters DVD</td>
+                            <td> El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Grown Ups Blue Ray</td>
+                            <td> El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+</div>
+<style>
+    .uservalue {
+        padding-top: 7px;
+        margin-top: 0;
+    }
+</style>
+<script>
+    $(function () {
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+
+        $('#editprofilelink')
+            .click(function (e) {
+                $('#main-page').load("@Url.Action("EditProfile")?username=@ViewBag.username", function (e) { });
+            });
+    })
+</script>

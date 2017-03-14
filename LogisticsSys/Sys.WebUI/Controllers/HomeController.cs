@@ -11,7 +11,7 @@ using System.Web.Security;
 namespace Sys.WebUI.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

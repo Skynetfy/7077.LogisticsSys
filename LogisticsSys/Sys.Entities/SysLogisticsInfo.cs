@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arch.Data.Orm;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Sys.Entities
 {
@@ -13,7 +15,7 @@ namespace Sys.Entities
     /// </summary>
     [Serializable]
     [Table(Name = "SysLogisticsInfo")]
-    public class SysLogisticsInfo:BaseEntity
+    public class SysLogisticsInfo : BaseEntity
     {
         /// <summary>
         /// </summary>
@@ -29,6 +31,7 @@ namespace Sys.Entities
         public bool Status { get; set; }
         /// <summary>
         /// </summary>
+        [JsonConverter(typeof(IsoDateTimeConverter))]
         [Column(Name = "UpdateDate", ColumnType = DbType.DateTime)]
         public DateTime UpdateDate { get; set; }
         /// <summary>

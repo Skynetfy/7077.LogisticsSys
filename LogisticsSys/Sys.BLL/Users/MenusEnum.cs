@@ -34,8 +34,8 @@ namespace Sys.BLL.Users
         单价信息维护,
         [Description("Home/index")]
         发货管理,
-        [Description("Home/index")]
-        物流进度更新,
+        [Description("Logistics/RussiaLogistics")]
+        物流信息更新,
         [Description("System/RussiaCity")]
         系统管理,
         [Description("User/Profile")]

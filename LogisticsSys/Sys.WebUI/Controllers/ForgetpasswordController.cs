@@ -7,10 +7,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Sys.BLL.Users;
 using Sys.Common;
+using Sys.WebUI.Models;
 
 namespace Sys.WebUI.Controllers
 {
-    public class ForgetpasswordController : Controller
+    public class ForgetpasswordController : BaseController
     {
         public string GetRandomStr(bool b, int n)
         {

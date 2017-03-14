@@ -7,11 +7,12 @@ using Sys.BLL;
 using Sys.BLL.Users;
 using Sys.Common;
 using Sys.Entities;
+using Sys.WebUI.Models;
 
 namespace Sys.WebUI.Controllers
 {
     [Authorize]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         // GET: User
         public ActionResult Index()

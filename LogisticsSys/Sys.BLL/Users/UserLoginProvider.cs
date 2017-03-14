@@ -67,7 +67,7 @@ namespace Sys.BLL.Users
 
                     var dic2=new Dictionary<string,string>();
                     dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
-                    dic2.Add(MenusEnum.物流进度更新.ToString(), MenusEnum.物流进度更新.GetDescription());
+                    dic2.Add(MenusEnum.物流信息更新.ToString(), MenusEnum.物流信息更新.GetDescription());
                     dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
                     dic.Add(MenusEnum.物流管理.ToString() , dic2);
 
@@ -107,7 +107,7 @@ namespace Sys.BLL.Users
 
                     var dic2 = new Dictionary<string, string>();
                     dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
-                    dic2.Add(MenusEnum.物流进度更新.ToString(), MenusEnum.物流进度更新.GetDescription());
+                    dic2.Add(MenusEnum.物流信息更新.ToString(), MenusEnum.物流信息更新.GetDescription());
                     dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
                     dic.Add(MenusEnum.物流管理.ToString() , dic2);
 

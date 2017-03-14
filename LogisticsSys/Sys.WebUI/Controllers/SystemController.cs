@@ -7,11 +7,12 @@ using System.Web.Mvc.Ajax;
 using Sys.BLL;
 using Sys.Common;
 using Sys.Entities;
+using Sys.WebUI.Models;
 
 namespace Sys.WebUI.Controllers
 {
     [Authorize]
-    public class SystemController : Controller
+    public class SystemController : BaseController
     {
         // GET: System
         public ActionResult Index()

@@ -2,11 +2,10 @@
 @{
     Layout = null;
 }
-
 <ul class="list-unstyled timeline" id="viewdemailul" style="border-top: 1px solid #e8e8e8;margin-top: 20px;">
     @{
         var data = ViewData["LogisticsInfoList"] as List<SysLogisticsInfo>;
-        if (data != null)
+        if (data != null && data.Count > 0)
         {
             foreach (var item in data)
             {
@@ -18,19 +17,23 @@
                                 @item.LogisticsDesc
                             </h2>
                             <div class="byline">
-                                <span>@item.UpdateDate.ToString("yyyy-MM-dd hh:mm:ss")</span> 
+                                <span>@item.UpdateDate.ToString("yyyy-MM-dd hh:mm:ss")</span>
                             </div>
-                           
+
                         </div>
                     </div>
                 </li>
             }
         }
+        else
+        {
+            <li>没有查找到任何信息</li>
+        }
     }
-    
+
 </ul>
 <script>
-    $(function() {
+    $(function () {
         $('#viewdemailul li:first h2').addClass('last');
     })
 </script>

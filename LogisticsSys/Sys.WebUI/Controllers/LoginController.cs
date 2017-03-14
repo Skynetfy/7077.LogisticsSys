@@ -10,10 +10,11 @@ using Sys.BLL;
 using Sys.BLL.Users;
 using Sys.Common;
 using Sys.Entities;
+using Sys.WebUI.Models;
 
 namespace Sys.WebUI.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         // GET: Login
         public ActionResult Index()

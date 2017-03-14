@@ -10,11 +10,12 @@ using Sys.BLL.Users;
 using Sys.Common;
 using Sys.Dal;
 using Sys.Entities;
+using Sys.WebUI.Models;
 
 namespace Sys.WebUI.Controllers
 {
     [Authorize]
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         // GET: Order
         public ActionResult Index(string id)

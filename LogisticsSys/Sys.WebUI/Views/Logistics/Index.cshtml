@@ -17,26 +17,32 @@
                 <p class="form-control-static">物流单号：</p>
             </div>
             <div class="form-group">
-                <label for="inputPassword2" class="sr-only">物流单号</label>
-                <select class="form-control">
-                    <option value="">选择快递</option>
-                    <option value="shunfeng">顺丰快递</option>
-                    <option value="yuantong">圆通快递</option>
-                </select>
+                <label for="wldh" class="sr-only">物流单号</label>
+                @*<select class="form-control">
+                        <option value="">选择快递</option>
+                        <option value="shunfeng">俄罗斯</option>
+                        <option value="shunfeng">顺丰快递</option>
+                        <option value="yuantong">圆通快递</option>
+                    </select>*@
             </div>
             <div class="form-group">
-                <label for="inputPassword2" class="sr-only">物流单号</label>
-                <input type="text" class="form-control" id="inputPassword2" placeholder="物流单号">
+                <input type="text" class="form-control" id="wldh" placeholder="物流单号">
             </div>
-            <button type="submit" class="btn btn-default">查询</button>
+            <button type="button" id="searchbtn" class="btn btn-default">查询</button>
         </form>
-
-        @Html.Action("LogisticsDetail")
+        <div id="wlcontent"></div>
+        @*@Html.Action("LogisticsDetail")*@
     </div>
 </div>
 <script>
     $(function () {
-       
+        $('#searchbtn').click(function () {
+            var no = $('#wldh').val();
+            if (no != null && no !== '') {
+                $('#wlcontent')
+                    .load('@Url.Action("LogisticsDetail")?single=' + no);
+            }
+        });
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
            .click(function (e) {
                e.stopPropagation();
@@ -52,5 +58,5 @@
                }
            });
     });
-  
+
 </script>

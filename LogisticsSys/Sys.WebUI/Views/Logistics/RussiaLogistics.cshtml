@@ -6,12 +6,12 @@
     <div class="col-md-3 complementary" role="complementary">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
             <ul class="nav bs-docs-sidenav">
-                @Html.LeftMeunHtmlString("用户管理", "物流更新", User.Identity.Name)
+                @Html.LeftMeunHtmlString("物流管理", "物流信息更新", User.Identity.Name)
             </ul>
         </nav>
     </div>
     <div class="col-md-9 maincontent" role="main">
-      
+
         <table id="table"
                data-toggle="table"
                data-show-refresh="true"
@@ -31,10 +31,10 @@
             <thead>
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
-                    <th data-field="LogisticsSingle">快递单号</th>
+                    <th data-field="LogisticsSingle">物流单号</th>
                     <th data-field="UpdateDate">最近更新时间</th>
                     <th data-field="LogisticsDesc">物流详情</th>
-                    <th data-field="Status">状态</th>
+                    <th data-field="Status" data-formatter="statusFormatter">状态</th>
                     <th data-field="Id" data-formatter="stateFormatter">操作</th>
                 </tr>
             </thead>
@@ -48,7 +48,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
                 <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
@@ -59,6 +59,14 @@
                 <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("AddLogistics")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="id" value="" />
                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wuliudanhao">
+                            物流单号
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="wuliudanhao" name="wuliudanhao" readonly="readonly" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
                             物流时间 <span class="required">*</span>
                         </label>
@@ -66,13 +74,27 @@
                             <input type="text" id="UpdateDate" name="UpdateDate" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
                         </div>
                     </div>
-                    
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LogisticsDesc">
-                            物流详情
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
+                            是否到货 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <textarea type="text" id="LogisticsDesc" name="LogisticsDesc"
+                            <div id="gender" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default parsley-success active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <input type="radio" name="gender" value="0" data-parsley-multiple="gender" data-parsley-id="2562"> &nbsp; 未到货 &nbsp;
+                                </label><ul class="parsley-errors-list" id="parsley-id-multiple-gender"></ul>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <input type="radio" name="gender" value="1" checked="" data-parsley-multiple="gender" data-parsley-id="2562"> 已到货
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LogisticsDesc">
+                            物流详情 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea type="text" id="LogisticsDesc" name="LogisticsDesc" required="required"
                                       class="form-control col-md-7 col-xs-12"></textarea>
                         </div>
                     </div>
@@ -89,12 +111,15 @@
 <div class="modal fade" id="viewModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">物流信息</h4>
+            </div>
             <div class="modal-body" id="logisticsview">
-            
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" onclick="" id="btn-save">保存</button>
             </div>
         </div>
     </div>
@@ -107,28 +132,29 @@
     }
 
     $(function () {
-        $('#UpdateDate').daterangepicker({
-            "singleDatePicker": true,
-            "timePicker": true,
-            "timePicker24Hour": true,
-            "locale": {
-                "format": "YYYY-MM-DD hh:mm"
-            }
-        });
+        $('#UpdateDate')
+            .daterangepicker({
+                "singleDatePicker": true,
+                "timePicker": true,
+                "timePicker24Hour": true,
+                "locale": {
+                    "format": "YYYY-MM-DD hh:mm"
+                }
+            });
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
-           .click(function (e) {
-               e.stopPropagation();
-               e.preventDefault();
-               var href = $(this).attr('href');
-               if (href != null && href != "#") {
-                   $('body').mLoading("show"); //显示loading组件
-                   $('#main-page')
-                       .load(href,
-                           function () {
-                               $('body').mLoading("hide"); //显示loading组件
-                           });
-               }
-           });
+            .click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var href = $(this).attr('href');
+                if (href != null && href != "#") {
+                    $('body').mLoading("show"); //显示loading组件
+                    $('#main-page')
+                        .load(href,
+                            function () {
+                                $('body').mLoading("hide"); //显示loading组件
+                            });
+                }
+            });
 
         $('[data-toggle="table"]').bootstrapTable();
         var $table = $('#table'),
@@ -143,37 +169,42 @@
                 selections = getIdSelections();
                 // push or splice the selections if you want to save all data selections
             });
-      
-        $(window).resize(function () {
-            $table.bootstrapTable('resetView', {
-                height: getHeight()
-            });
-        });
-        $('#btn-save').click(function () {
-            if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
-                $('#addform').ajaxSubmit({
-                    resetForm: true,
-                    error: function (xhr, status, error, $form) {
-                        $('#alert-infor').removeClass('alert-success');
-                        $('#alert-infor').addClass('alert-danger');
-                        $('#alert-infor').show();
-                        $('#alert-infor label').html(error);
-                        $('#alert-infor strong').html('错误！');
-                    },
-                    success: function (responseText, statusText) {
-                        //alert(statusText.Status);
-                        //$('#alert-infor').removeClass('alert-danger');
-                        //$('#alert-infor').addClass('alert-success');
-                        //$('#alert-infor').show();
-                        ////$('#alert-infor label').html(error);
-                        //$('#alert-infor strong').html('Successfully');
-                        $('#alert-infor').hide();
-                        $('[data-toggle="table"]').bootstrapTable('refresh');
-                        $('#addModel').modal('hide');
-                    }
+
+        $(window)
+            .resize(function () {
+                $table.bootstrapTable('resetView',
+                {
+                    height: getHeight()
                 });
-            }
-        });
+            });
+        $('#btn-save')
+            .click(function () {
+                if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
+                    $('#addform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                //alert(statusText.Status);
+                                //$('#alert-infor').removeClass('alert-danger');
+                                //$('#alert-infor').addClass('alert-success');
+                                //$('#alert-infor').show();
+                                ////$('#alert-infor label').html(error);
+                                //$('#alert-infor strong').html('Successfully');
+                                $('#alert-infor').hide();
+                                $('[data-toggle="table"]').bootstrapTable('refresh');
+                                $('#addModel').modal('hide');
+                            }
+                        });
+                }
+            });
+
         function getIdSelections() {
             return $.map($table.bootstrapTable('getSelections'),
                 function (row) {
@@ -181,20 +212,34 @@
                 });
         }
     });
-    function updatedate(row) {
 
+    function updatedate(row) {
+        $('form [name=wuliudanhao]').val(row.LogisticsSingle);
         $('form [name=id]').val(row.LogisticsSingle);
         $('#addModel').modal('show');
     }
+
     function showdate(row) {
         $('#viewModel').modal('show');
         $('#logisticsview').load("@Url.Action("LogisticsDetail")?single=" + row.LogisticsSingle);
     }
 
+    function statusFormatter(value, row, index) {
+        if (row.Status)
+            return '已到货';
+        else {
+            return '运送中';
+        }
+    }
+
     function stateFormatter(value, row, index) {
         var h = [];
-        h.push('<button  type="button" class="btn btn-default btn-xs" onclick="showdate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">查看</button>');
-        h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">更新</button>');
+        h.push('<button  type="button" class="btn btn-default btn-xs" onclick="showdate(' +
+            JSON.stringify(row).replace(/\"/g, "\'") +
+            ')" value="">查看</button>');
+        h.push(' <button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
+            JSON.stringify(row).replace(/\"/g, "\'") +
+            ')" value="">更新</button>');
 
         return h.join('');
     }

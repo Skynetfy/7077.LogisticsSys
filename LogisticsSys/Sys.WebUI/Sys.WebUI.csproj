@@ -209,6 +209,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AuthController.cs" />
+    <Compile Include="Models\BaseController.cs" />
+    <Compile Include="Models\FormatDateJsonResult.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MvcHtmlExtension.cs" />
@@ -261,6 +263,7 @@
     <Content Include="Scripts\modernizr-custom.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\parsley.min.js" />
+    <Content Include="Scripts\parsley.min1.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\responsive-menu.js" />

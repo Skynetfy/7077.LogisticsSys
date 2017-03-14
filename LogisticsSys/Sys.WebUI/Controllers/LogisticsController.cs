@@ -6,11 +6,12 @@ using System.Web.Mvc;
 using Sys.BLL;
 using Sys.Common;
 using Sys.Entities;
+using Sys.WebUI.Models;
 
 namespace Sys.WebUI.Controllers
 {
     [Authorize]
-    public class LogisticsController : Controller
+    public class LogisticsController : BaseController
     {
         // GET: Logistics
         public ActionResult Index()
@@ -30,13 +31,13 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddLogistics(string id, string UpdateDate, string LogisticsDesc)
+        public ActionResult AddLogistics(string id, string UpdateDate, string LogisticsDesc,string gender)
         {
             var entity = new SysLogisticsInfo();
             entity.LogisticsDesc = LogisticsDesc.Trim();
             entity.LogisticsSingle = id;
             entity.UpdateDate = Convert.ToDateTime(UpdateDate.Trim());
-            entity.Status = false;
+            entity.Status = gender.Equals("1");
             entity.CreateDate = DateTime.Now;
             entity.IsDelete = false;
             LogisticsService.Current.AddLogistics(entity);

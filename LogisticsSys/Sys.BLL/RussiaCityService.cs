@@ -51,6 +51,11 @@ namespace Sys.BLL
             return russiaCityRepository.GetPagerList(search, offset, limit, order, sort).ToList();
         }
 
+        public string GetCityName(long id)
+        {
+            return russiaCityRepository.FindByPk(id).CityName;
+        }
+
         public List<SelectBinding> GetBindings(long id)
         {
             return russiaCityRepository.GetAll().Where(x => !x.IsDelete).Select(x => new SelectBinding()

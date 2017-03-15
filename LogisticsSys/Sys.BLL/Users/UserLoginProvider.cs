@@ -61,14 +61,14 @@ namespace Sys.BLL.Users
 
                     var dic5 = new Dictionary<string, string>();
                     dic5.Add(MenusEnum.账号列表.ToString(), MenusEnum.账号列表.GetDescription());
-                    dic5.Add(MenusEnum.客户管理.ToString(), MenusEnum.客户管理.GetDescription());
+                    //dic5.Add(MenusEnum.客户管理.ToString(), MenusEnum.客户管理.GetDescription());
                     dic5.Add(MenusEnum.代理商管理.ToString(), MenusEnum.代理商管理.GetDescription());
                     dic.Add(MenusEnum.用户管理.ToString(), dic5);
 
                     var dic2=new Dictionary<string,string>();
                     dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
                     dic2.Add(MenusEnum.物流信息更新.ToString(), MenusEnum.物流信息更新.GetDescription());
-                    dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
+                    //dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
                     dic.Add(MenusEnum.物流管理.ToString() , dic2);
 
                     var dic3 = new Dictionary<string, string>();
@@ -112,7 +112,7 @@ namespace Sys.BLL.Users
                     dic.Add(MenusEnum.物流管理.ToString() , dic2);
 
                     var dic4 = new Dictionary<string, string>();
-                    //dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
+                    dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
                     dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
                     dic.Add(MenusEnum.个人中心.ToString() , dic4);
                 }

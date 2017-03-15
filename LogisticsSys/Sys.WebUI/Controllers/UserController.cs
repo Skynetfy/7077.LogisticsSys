@@ -179,7 +179,7 @@ namespace Sys.WebUI.Controllers
             var btdata = new BootstrapTableData<SysAgentInfo>();
             var where = string.Empty;
             if (!string.IsNullOrEmpty(search))
-                where = string.Format(@" and [CityName] Like '%{0}%'", search);
+                where = string.Format(@" and ([UserName] Like '%{0}%' or [DisplayName] Like '%{0}%' or [Phone] Like '%{0}%'  or [Email] Like '%{0}%')", search);
 
             btdata.rows = UserService.GetAgentPagerData(where, offset, limit, order, sort, out count);
             btdata.total = count;
@@ -225,9 +225,9 @@ namespace Sys.WebUI.Controllers
             return Content(message);
         }
 
-        public ActionResult Profile()
+        public ActionResult Profile(string name)
         {
-            var username = User.Identity.Name;
+            var username = name ?? User.Identity.Name;
 
             var provider = new UserLoginProvider();
             var _user = provider.GetUser(username);
@@ -239,16 +239,30 @@ namespace Sys.WebUI.Controllers
                 ViewBag.phone = _user.Phone;
                 ViewBag.createdate = _user.CreateDate.ToString("s");
                 ViewBag.status = _user.Status == 1 ? "正常" : "已无效";
-                var cusmer = UserService.GetCustomerByUid(_user.Id);
-                if (cusmer != null)
+                ViewBag.RuleType = _user.RuleType;
+                ViewBag.CreateDate = _user.CreateDate.ToString("yyyy-MM-dd hh:mm:ss");
+                if (_user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
                 {
-                    ViewData["CCityDataList"] = ChinaCityService.Current.GetChinaCities((int)cusmer.CityId);
-                    ViewBag.CustomerID = cusmer.CustomerID.Trim();
-                    ViewBag.CityId = cusmer.CityId;
-                    ViewBag.CityName = ChinaCityService.Current.GetCityName(cusmer.CityId);
-                    ViewBag.Address = cusmer.Address;
-                    ViewBag.QQNumber = cusmer.QQNumber;
-                    ViewBag.WebChatNo = cusmer.WebChatNo;
+                    var cusmer = UserService.GetCustomerByUid(_user.Id);
+                    if (cusmer != null)
+                    {
+                        ViewData["CCityDataList"] = ChinaCityService.Current.GetChinaCities((int)cusmer.CityId);
+                        ViewBag.CustomerID = cusmer.CustomerID.Trim();
+                        ViewBag.CityId = cusmer.CityId;
+                        ViewBag.CityName = ChinaCityService.Current.GetCityName(cusmer.CityId);
+                        ViewBag.Address = cusmer.Address;
+                        ViewBag.QQNumber = cusmer.QQNumber;
+                        ViewBag.WebChatNo = cusmer.WebChatNo;
+                    }
+                }
+                else if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))
+                {
+                    var agent = UserService.GetAgentInfoByUserId(_user.Id);
+                    if (agent != null)
+                    {
+                        ViewBag.QQNumber = agent.QQNumber;
+                        ViewBag.CityName = RussiaCityService.Current.GetCityName(agent.AgentCityId);
+                    }
                 }
             }
             return View();
@@ -260,7 +274,7 @@ namespace Sys.WebUI.Controllers
             var btdata = new BootstrapTableData<SysUser>();
             var where = string.Empty;
             if (!string.IsNullOrEmpty(search))
-                where = string.Format(@" and [CityName] Like '%{0}%'", search);
+                where = string.Format(@" and ([UserName] Like '%{0}%' or [DisplayName] Like '%{0}%' or [Phone] Like '%{0}%'  or [Email] Like '%{0}%')", search);
             btdata.total = provider.GetPagerCount(where);
             btdata.rows = provider.GetPagerDataList(where, offset, limit, order, sort);
 

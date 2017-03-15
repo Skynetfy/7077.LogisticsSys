@@ -267,7 +267,7 @@ namespace Sys.WebUI.Controllers
             var btdata = new BootstrapTableData<SysUnitPrice>();
             var where = string.Empty;
             if (!string.IsNullOrEmpty(search))
-                where = string.Format(@" and [GoodsType] Like '%{0}%'", search);
+                where = string.Format(@" and [AirPrice1] Like '%{0}%'", search);
             btdata.total = UnitPriceService.Current.GetPagerCount(where);
             btdata.rows = UnitPriceService.Current.GetPagerDataList(where, offset, limit, order, sort);
 

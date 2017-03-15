@@ -246,6 +246,7 @@
     <Content Include="DbConfig\Dal.config" />
     <Content Include="DbConfig\database.config" />
     <Content Include="fonts\fontawesome-webfont-7d65e022.woff" />
+    <None Include="Properties\PublishProfiles\Relse.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\daterangepicker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

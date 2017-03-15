@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-9 maincontent" role="main">
         <div id="toolbar">
-            <button type="button" class="btn btn-success btn-sm" id="btn-add" data-toggle="modal" data-target="#addModel">新增</button>
+            @*  <button type="button" class="btn btn-success btn-sm" id="btn-add" data-toggle="modal" data-target="#addModel">新增</button>*@
             <button type="button" class="btn btn-danger btn-sm" disabled id="remove">删除</button>
         </div>
         <table id="table"
@@ -187,13 +187,24 @@
         }
     });
     function updatedate(row) {
+        $('#addModel .modal-body').load("@Url.Action("Profile")?name=" + row.UserName + " #tableinfo", function () {
+            if (row.RuleType === 'Admin') {
+                $('#cusnotr').hide();
+                $('#qqtr').hide();
+                $('#shouhuodizhidiv').hide();
+                $('[tabindex=customer]').hide();
+                $('#suozaichengshitr').hide();
+            }
+            else if (row.RuleType === 'Agents') {
+                $('#cusnotr').hide();
+                $('#shouhuodizhidiv').hide();
+                $('[tabindex=customer]').hide();
+            }
+        });
 
-        $('form [name=id]').val(row.Id);
-        $('form [name=cityname]').val(row.CityName);
-        $('form [name=landtransporttime]').val(row.LandTransportTime);
-        $('form [name=airtransporttime]').val(row.AirTransportTime);
-        $('form [name=citydesc]').val(row.CityDesc);
+
         $('#addModel').modal('show');
+
     }
     function priceFormatter(v, r) { }
 
@@ -207,7 +218,7 @@
     }
     function actionFormatter(value, row, index) {
         var h = [];
-        h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">修改</button>');
+        h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">查看</button>');
         return h.join('');
     }
     function ruleFormatter(value, row, index) {

@@ -34,6 +34,7 @@ body {
     border: 1px solid #34b1c4;
     overflow: hidden;
     height: initial;
+    box-shadow: 0 1px 5px 0 rgba(70,70,70,.392);
 }
 
 .header {
@@ -142,9 +143,6 @@ fieldset {
         margin: 2px 12px 10px 10px;
     }
 
-    fieldset.login label, fieldset.register label, fieldset.changePassword label {
-        display: block;
-    }
 
     fieldset label.inline {
         display: inline;

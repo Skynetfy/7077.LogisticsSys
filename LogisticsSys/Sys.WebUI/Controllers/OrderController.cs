@@ -297,7 +297,7 @@ namespace Sys.WebUI.Controllers
             var provider = new OrderInfoProvider();
 
             if (!string.IsNullOrEmpty(search))
-                where += string.Format(@" and [OrderNo] Like '%{0}%'", search);
+                where += string.Format(@" and ([OrderNo] Like '%{0}%' or [ShipperName] Like '%{0}%' or [ShipperPhone] Like '%{0}%' or [RussiaCityId] Like '%{0}%')", search);
             if (!string.IsNullOrEmpty(orderstatus))
             {
                 int status = Convert.ToInt32(orderstatus);

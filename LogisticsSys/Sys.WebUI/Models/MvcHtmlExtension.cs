@@ -19,7 +19,17 @@ namespace Sys.WebUI.Models
             {
                 MenusEnum menu = (MenusEnum)Enum.Parse(typeof(MenusEnum), d.Key);
                 var url = menu.GetDescription();
-                sb.AppendLine(" <li role=\"presentation\"><a href=\"" + url + "\">" + d.Key + "</a></li>");
+                var userprovider = new UserLoginProvider();
+                var _user = userprovider.GetUser(HttpContext.Current.User.Identity.Name);
+                if (_user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
+                {
+                    if (d.Key.Equals(MenusEnum.订单管理.ToString()))
+                        sb.AppendLine(" <li role=\"presentation\"><a href=\"order/index\">" + d.Key + "</a></li>");
+                    else
+                        sb.AppendLine(" <li role=\"presentation\"><a href=\"" + url + "\">" + d.Key + "</a></li>");
+                }
+                else
+                    sb.AppendLine(" <li role=\"presentation\"><a href=\"" + url + "\">" + d.Key + "</a></li>");
             }
             return MvcHtmlString.Create(sb.ToString());
         }

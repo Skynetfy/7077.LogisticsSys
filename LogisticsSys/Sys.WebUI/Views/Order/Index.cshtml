@@ -32,17 +32,17 @@
                             </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#step-2">
-                            <span class="step_no">2</span>
-                            <span class="step_descr">
-                                主订单信息<br />
-                            </span>
-                        </a>
-                    </li>
+                    @*<li>
+                            <a href="#step-2">
+                                <span class="step_no">2</span>
+                                <span class="step_descr">
+                                    主订单信息<br />
+                                </span>
+                            </a>
+                        </li>*@
                     <li>
                         <a href="#step-3">
-                            <span class="step_no">3</span>
+                            <span class="step_no">2</span>
                             <span class="step_descr">
                                 寄件信息<br />
                             </span>
@@ -50,7 +50,7 @@
                     </li>
                     <li>
                         <a href="#step-4">
-                            <span class="step_no">4</span>
+                            <span class="step_no">3</span>
                             <span class="step_descr">
                                 收件信息<br />
                             </span>
@@ -58,7 +58,7 @@
                     </li>
                     <li>
                         <a href="#step-5">
-                            <span class="step_no">5</span>
+                            <span class="step_no">4</span>
                             <span class="step_descr">
                                 订单确认<br />
                             </span>
@@ -67,55 +67,50 @@
                 </ul>
                 <form id="form" method="post" action="@Url.Action("CreateOrder")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <div id="step-1">
-                        <h2 class="StepTitle">Step 2 Content</h2>
+                        <h4 class="StepTitle">下单介绍</h4>
                         <p>
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            ...
                         </p>
                     </div>
-                    <div id="step-2">
-                        <div id="form1" class="form-horizontal form-label-left" novalidate="">
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ordersingle">
-                                    订单编号
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="ordersingle" name="ordersingle" value="@ViewBag.OrderNumber" readonly="readonly" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                    @*<div id="step-2">
+                            <div id="form1" class="form-horizontal form-label-left" novalidate="">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ordersingle">
+                                        订单编号
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="ordersingle" name="ordersingle" value="@ViewBag.OrderNumber" readonly="readonly" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shappername">
-                                    寄件人姓名 <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="shappername" name="shappername" required="required" data-parsley-group="form1" class="form-control col-md-7 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shappername">
+                                        寄件人姓名 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="shappername" name="shappername" required="required" data-parsley-group="form1" class="form-control col-md-7 col-xs-12">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shipperphone">
-                                    寄件人电话 <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="shipperphone" name="shipperphone" required="required" data-parsley-type="alphanum" data-parsley-group="form1" class="form-control col-md-7 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shipperphone">
+                                        寄件人电话 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="shipperphone" name="shipperphone" required="required" data-parsley-type="alphanum" data-parsley-group="form1" class="form-control col-md-7 col-xs-12">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pickupnumber">
-                                    收货人数量 <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="pickupnumber" name="pickupnumber" required="required" data-parsley-type="integer" data-parsley-group="form1"
-                                           class="form-control col-md-7 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pickupnumber">
+                                        收货人数量 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="pickupnumber" name="pickupnumber" required="required" data-parsley-type="integer" data-parsley-group="form1"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
-
-                    </div>
+                        </div>*@
                     <div id="step-3">
                         <div id="form2" class="form-horizontal form-label-left" novalidate="">
                             <div class="form-group">
@@ -185,7 +180,8 @@
                                     货物类型: <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="goodstype" class="form-control col-md-7" id="goodstype">
+                                    <select name="goodstype" class="form-control col-md-7" required="required" id="goodstype" data-parsley-group="form2" onchange="goodstypeChange(this)">
+                                        <option value="">选择货物类型</option>
                                         @{
                                             var roomTypeDataList = ViewData["RoomTypeDataList"] as List<SelectBinding>;
 
@@ -196,7 +192,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    货物运输类型 <span class="required">*</span>
+                                    货物运输类型
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
@@ -205,9 +201,9 @@
                                     <label>
                                         <input type="radio" value="2" name="transportationway"> 空运
                                     </label>
-                                    <label>
-                                        <input type="radio" value="3" name="transportationway"> 海运
-                                    </label>
+                                    @*<label>
+                                            <input type="radio" value="3" name="transportationway"> 海运
+                                        </label>*@
                                 </div>
                             </div>
                             <div class="form-group">
@@ -215,13 +211,13 @@
                                     保价价值(元) <span class="required">*</span>
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-min="1" data-parsley-group="form2" onblur="goodstypeblur(this)" class="form-control col-md-7 col-xs-12">
                                 </div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="policyfee">
                                     保单费用(元)
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <input type="text" id="policyfee" name="policyfee" value="3" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="policyfee" name="policyfee" value="" readonly="readonly" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -229,7 +225,7 @@
                                     货物重量(kg)  <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="number" data-parsley-min="1" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -258,6 +254,30 @@
                         </div>
                     </div>
                     <div id="step-4">
+                        <h5>收件人列表</h5>
+                        <hr style="margin-top: 0;" />
+                        <table id="datatablelist" data-toggle="table" class="table table-striped table-bordered dt-responsive nowrap">
+                            <thead>
+                                <tr>
+                                    <th data-field="parcelsingle">编号</th>
+                                    <th data-field="chinacityid">省份</th>
+                                    <th data-field="chinaaddress">地址</th>
+                                    <th data-field="receivername">姓名</th>
+                                    <th data-field="receiverphone">电话</th>
+                                    <th data-field="packagingway">打包方式</th>
+                                    <th data-field="expressway">快递方式</th>
+                                    <th data-field="goodsdesc">明细</th>
+                                    <th data-field="parcelweight">重量</th>
+                                    <th data-field="chinacouriernumber">单号</th>
+                                    <th data-field="stats">预算价格</th>
+                                    <th data-field="desc">备注</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <br />
+                        <h5>添加收件人信息</h5>
+                        <hr style="margin-top: 0;" />
                         <div id="form3" class="form-horizontal form-label-left" novalidate="">
 
                             <div class="form-group">
@@ -274,6 +294,7 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control col-md-7 col-xs-12" name="chinacityid" id="chinacityid" required="required" data-parsley-group="form3">
+                                        <option value="">选择省份</option>
                                         @{
                                             var cCityDataList = ViewData["CCityDataList"] as List<SelectBinding>;
 
@@ -308,7 +329,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    打包方式 <span class="required">*</span>
+                                    打包方式
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
@@ -324,7 +345,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    快递方式 <span class="required">*</span>
+                                    快递方式
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
@@ -373,6 +394,14 @@
                                     <textarea type="text" id="desc" name="desc" class="form-control col-md-7 col-xs-12"></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <button type="button" class="btn btn-default" onclick="addReciverInfo()">添加收件信息</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="step-5">
@@ -386,6 +415,7 @@
                             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
                     </div>
+                    <input type="hidden" name="sjJson" />
                 </form>
             </div>
             <!-- End SmartWizard Content -->
@@ -398,6 +428,42 @@
 <script src="~/Scripts/jquery.smartWizard.js"></script>
 
 <script>
+    var $table;
+    function addReciverInfo() {
+        var  isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
+        if (isStepValid) {
+            var data=$table.bootstrapTable('getData');
+            var ix = data.length+1;
+            $table.bootstrapTable('insertRow', {index: 0, row: {
+                parcelsingle: ix,
+                chinacityid: $('#chinacityid').val(),
+                chinaaddress: $('#chinaaddress').val(),
+                receivername:$('#receivername').val(),
+                receiverphone:$('#receiverphone').val(),
+                packagingway:$('[name=packagingway]:checked').val(),
+                expressway:$('[name=expressway]:checked').val(),
+                goodsdesc:$('#goodsdesc').val(),
+                parcelweight:$('#parcelweight').val(),
+                chinacouriernumber:$('#chinacouriernumber').val(),
+                desc:$('#desc').val(),
+                stats:$('#receiverphone').val()
+            }});
+            $('#chinacityid').val('');
+            $('#chinaaddress').val('');
+            $('#receivername').val('');
+            $('#receiverphone').val('');
+            $('[name=packagingway]').val('1');
+            $('[name=expressway]').val('1');
+            $('#goodsdesc').val('');
+            $('#parcelweight').val('');
+            $('#chinacouriernumber').val('');
+            $('#desc').val('');
+            $('#receiverphone').val('');
+
+            data=$table.bootstrapTable('getData');
+            $('[name=sjJson]').val(JSON.stringify(data));
+        }
+    }
     function rcChange() {
         var value = $('#russiacityid').val();
         if (value === '7') {
@@ -409,8 +475,36 @@
         }
     }
 
+    function goodstypeChange(obj) {
+        var gid = $(obj).val();
+        if (gid != null && gid !== "")
+            $.getJSON("@Url.Action("GetGoodsTypeById", "System")",
+                { id: gid },
+                function(e) {
+                    if (e != null) {
+                        $(obj).data("GoodsType", e);
+                        $('#goodsweight').attr("data-parsley-min", e.MinWeight);
+                        var price = $('#protectprice').val();
+                        if (price !== ""&&checkRate(price)) {
+                            $('#policyfee').val(price*e.PremiumAmount/100);
+                        }
+                    }
+                });
+        else
+            $(obj).data("GoodsType", null);
+    }
+
+    function goodstypeblur(obj) {
+        var v = $(obj).val();
+        var data = $('#goodstype').data('GoodsType');
+        if (v !== ""&&data!=null&&checkRate(v)) {
+            $('#policyfee').val(v*data.PremiumAmount/100);
+        }
+    }
+
     $(document)
         .ready(function() {
+            $table = $('[data-toggle="table"]');
             var bs = @ViewBag.disabled;
             if (bs) {
                 $('#tips').show();
@@ -422,7 +516,7 @@
                     "format": "YYYY-MM-DD"
                 }
             });
-
+            $('[data-toggle="table"]').bootstrapTable();
             $('ul.bs-docs-sidenav>li>a').click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
@@ -473,22 +567,24 @@
             function validateSteps(stepnumber, vali) {
                 var isStepValid = true;
                 // validate step 1
+                //if (stepnumber === 2 && vali) {
+                //    isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
+                //    // $('#form1').submit();
+                //}
                 if (stepnumber === 2 && vali) {
-                    isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
-                    // $('#form1').submit();
-                }
-                else if (stepnumber === 3 && vali) {
                     isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
                 }
-                else if (stepnumber === 4 && vali) {
-                    isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
+                else if (stepnumber === 3 && vali) {
+                    //isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
+                    var data=$table.bootstrapTable('getData');
+                    isStepValid = data.length > 0;
                 }
                 return isStepValid;
             }
             function validateAllSteps() {
-                var isStepValid = $('#form').parsley().validate();
+                //var isStepValid = $('#form').parsley().validate();
                 // all step validation logic
-                return isStepValid;
+                return true;
             }
         });
 </script>

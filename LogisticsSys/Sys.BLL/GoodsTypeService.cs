@@ -27,6 +27,11 @@ namespace Sys.BLL
             }
         }
 
+        public SysGoodsType GetGoodsTypeById(long id)
+        {
+            return _dao.FindByPk(id);
+        }
+
         public long AddGoodsType(SysGoodsType entity)
         {
             return _dao.Insert(entity);

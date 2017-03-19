@@ -155,6 +155,16 @@ namespace Sys.WebUI.Controllers
             return View();
         }
 
+        public ActionResult GetGoodsTypeById(string id)
+        {
+            var data = new SysGoodsType();
+            if (!string.IsNullOrEmpty(id))
+            {
+                data = GoodsTypeService.Current.GetGoodsTypeById(Convert.ToInt64(id));
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult EditGoodsType(string id, string GoodsType, string GoodsTypeDesc, string MinWeight, string PremiumAmount)
         {
             if (string.IsNullOrEmpty(id))
@@ -217,12 +227,12 @@ namespace Sys.WebUI.Controllers
             return View();
         }
 
-        public ActionResult EditUnitPrice(string id, string RCityId, string GoodsType, string LandPrice1, string LandPrice2, string AirPrice1, string AirPrice2)
+        public ActionResult EditUnitPrice(string id, string RCityId, string GoodsTypeId, string LandPrice1, string LandPrice2, string AirPrice1, string AirPrice2)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) || id.Equals("0"))
             {
                 var entity = new SysUnitPrice();
-                entity.GoodsTypeId =Convert.ToInt64(GoodsType.Trim()) ;
+                entity.GoodsTypeId = Convert.ToInt64(GoodsTypeId.Trim());
                 entity.RCityId = Convert.ToInt32(RCityId.Trim());
                 entity.LandPrice1 = Convert.ToDecimal(LandPrice1.Trim());
                 entity.LandPrice2 = Convert.ToDecimal(LandPrice2.Trim());
@@ -236,7 +246,7 @@ namespace Sys.WebUI.Controllers
             {
                 var entity = new SysUnitPrice();
                 entity.Id = Convert.ToInt64(id);
-                entity.GoodsTypeId = Convert.ToInt64(GoodsType.Trim());
+                entity.GoodsTypeId = Convert.ToInt64(GoodsTypeId.Trim());
                 entity.RCityId = Convert.ToInt32(RCityId.Trim());
                 entity.LandPrice1 = Convert.ToDecimal(LandPrice1.Trim());
                 entity.LandPrice2 = Convert.ToDecimal(LandPrice2.Trim());

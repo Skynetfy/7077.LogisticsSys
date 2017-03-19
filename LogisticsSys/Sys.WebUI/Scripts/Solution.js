@@ -1,4 +1,10 @@
-﻿
+﻿function checkRate(nubmer) {
+    var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/ 
+    if (!re.test(nubmer)) {
+        return false;
+    }
+    return true;
+}
 
 var Status_7077 = {
     getOrderStatus: function (s) {

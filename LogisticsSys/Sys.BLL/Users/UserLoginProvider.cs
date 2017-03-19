@@ -54,7 +54,7 @@ namespace Sys.BLL.Users
                 if (user.RuleType.Equals(RuleTypeEnum.Admin.ToString()))
                 {
                     var dic1=new Dictionary<string,string>();
-                    dic1.Add(MenusEnum.创建订单.ToString(), MenusEnum.创建订单.GetDescription());
+                    //dic1.Add(MenusEnum.创建订单.ToString(), MenusEnum.创建订单.GetDescription());
                     dic1.Add(MenusEnum.订单列表.ToString(), MenusEnum.订单列表.GetDescription());
                     dic1.Add(MenusEnum.订单处理.ToString(), MenusEnum.订单处理.GetDescription());
                     dic.Add(MenusEnum.订单管理.ToString(), dic1);
@@ -102,13 +102,14 @@ namespace Sys.BLL.Users
                 else if (user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))
                 {
                     var dic1 = new Dictionary<string, string>();
+                    dic1.Add(MenusEnum.订单列表.ToString(), MenusEnum.订单列表.GetDescription());
                     dic1.Add(MenusEnum.订单处理.ToString(), MenusEnum.订单处理.GetDescription());
                     dic.Add(MenusEnum.订单管理.ToString(), dic1);
 
                     var dic2 = new Dictionary<string, string>();
                     dic2.Add(MenusEnum.物流查询.ToString(), MenusEnum.物流查询.GetDescription());
                     dic2.Add(MenusEnum.物流信息更新.ToString(), MenusEnum.物流信息更新.GetDescription());
-                    dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
+                    //dic2.Add(MenusEnum.发货管理.ToString(), MenusEnum.发货管理.GetDescription());
                     dic.Add(MenusEnum.物流管理.ToString() , dic2);
 
                     var dic4 = new Dictionary<string, string>();

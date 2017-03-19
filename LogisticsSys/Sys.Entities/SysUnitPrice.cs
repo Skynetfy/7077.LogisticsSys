@@ -15,29 +15,31 @@ namespace Sys.Entities
     [Table(Name = "SysUnitPrice")]
     public class SysUnitPrice : BaseEntity
     {
+        public string GoodsType { get; set; }
+        public string CityName { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "RCityId", ColumnType = DbType.Int32)]
-        public int RCityId { get; set; }
+        public int? RCityId { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "GoodsTypeId", ColumnType = DbType.Int64)]
-        public long GoodsTypeId { get; set; }
+        public long? GoodsTypeId { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "LandPrice1", ColumnType = DbType.Decimal)]
-        public decimal LandPrice1 { get; set; }
+        public decimal? LandPrice1 { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "LandPrice2", ColumnType = DbType.Decimal)]
-        public decimal LandPrice2 { get; set; }
+        public decimal? LandPrice2 { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "AirPrice1", ColumnType = DbType.Decimal)]
-        public decimal AirPrice1 { get; set; }
+        public decimal? AirPrice1 { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "AirPrice2", ColumnType = DbType.Decimal)]
-        public decimal AirPrice2 { get; set; }
+        public decimal? AirPrice2 { get; set; }
     }
 }

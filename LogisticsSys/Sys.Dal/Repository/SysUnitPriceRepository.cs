@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using Sys.Entities;
 
 namespace Sys.Dal.Repository
 {
-    public class SysUnitPriceRepository:ISysUnitPriceRepository
+    public class SysUnitPriceRepository : ISysUnitPriceRepository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
@@ -107,7 +108,7 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                String sql = string.Format(@"SELECT count(1) from SysChinaCity  with (nolock) where 1=1 {0} ", search);
+                String sql = string.Format(@"SELECT count(1) from v_UnitPrice  with (nolock) where 1=1 {0} ", search);
                 object obj = baseDao.ExecScalar(sql);
                 int ret = Convert.ToInt32(obj);
                 return ret;
@@ -122,10 +123,28 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                String sql = string.Format(@"SELECT TOP {1} * from SysUnitPrice(nolock) where Id not in(
-                  SELECT TOP {4} Id FROM SysUnitPrice(NOLOCK)
+                String sql = string.Format(@"SELECT TOP {1} * from v_UnitPrice(nolock) where Id not in(
+                  SELECT TOP {4} Id FROM v_UnitPrice(NOLOCK)
                   WHERE 1=1 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
-                return baseDao.SelectList<SysUnitPrice>(sql);
+                var dt = baseDao.SelectDataTable(sql);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    return dt.AsEnumerable().Select(x => new SysUnitPrice()
+                    {
+                        Id = x["Id"] == DBNull.Value ? 0 : x.Field<long>("Id"),
+                        CityName = x.Field<string>("CityName"),
+                        RCityId = x["Cid"] ==DBNull.Value?0:(int)x.Field<long>("Cid"),
+                        GoodsType = x.Field<string>("GoodsTypeName"),
+                        GoodsTypeId = x["Gid"] ==DBNull.Value?0:x.Field<long>("Gid"),
+                        LandPrice1=x["LandPrice1"]==DBNull.Value?0:x.Field<decimal>("LandPrice1"),
+                        LandPrice2=x["LandPrice2"]==DBNull.Value?0:x.Field<decimal>("LandPrice2"),
+                        AirPrice1=x["AirPrice1"]==DBNull.Value?0:x.Field<decimal>("AirPrice1"),
+                        AirPrice2=x["AirPrice2"]==DBNull.Value?0:x.Field<decimal>("AirPrice2"),
+                        CreateDate = x["CreateDate"]==DBNull.Value?DateTime.MinValue: x.Field<DateTime>("CreateDate"),
+                        IsDelete = x["IsDelete"]==DBNull.Value?false:x.Field<bool>("IsDelete")
+                    }).ToList();
+                }
+                return null;
             }
             catch (Exception ex)
             {

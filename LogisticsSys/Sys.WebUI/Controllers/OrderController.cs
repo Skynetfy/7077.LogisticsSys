@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using Sys.BLL;
 using Sys.BLL.Order;
 using Sys.BLL.Users;
@@ -42,12 +43,13 @@ namespace Sys.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(string ordersingle, string shappername, string shipperphone, string pickupnumber, string russiacityid, string russiaaddress, string logisticsSingle, string cargonumber, string pickupdate, string pickupWay, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string boxlong, string boxwidth, string boxheight, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string chinacouriernumber, string desc)
+        public ActionResult CreateOrder(string ordersingle, string shappername, string shipperphone, string pickupnumber, string russiacityid, string russiaaddress, string logisticsSingle, string cargonumber, string pickupdate, string pickupWay, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string boxlong, string boxwidth, string boxheight, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string chinacouriernumber, string desc, string sjJson)
         {
             var result = new ResponseJsonResult<string>();
             result.Status = 0;
             result.Message = "未知错误";
 
+            var provider = new OrderInfoProvider();
             var username = User.Identity.Name;
             var userProvider = new UserLoginProvider();
             var _user = userProvider.GetUser(username);
@@ -58,10 +60,10 @@ namespace Sys.WebUI.Controllers
                 {
 
                     var orderinfo = new SysOrderInfo();
-                    orderinfo.OrderNo = ordersingle.Trim();
-                    orderinfo.PickupNumber = Convert.ToInt32(pickupnumber);
-                    orderinfo.ShipperName = shappername.Trim();
-                    orderinfo.ShipperPhone = shipperphone.Trim();
+                    orderinfo.OrderNo = provider.GetOrderNumber(); ;
+                    orderinfo.PickupNumber = 0;
+                    orderinfo.ShipperName = _user.UserName;
+                    orderinfo.ShipperPhone = _user.Phone;
                     orderinfo.Status = (int)OrderStatusEnum.Processing;
 
                     var addresserInfo = new SysAddresserInfo();
@@ -80,21 +82,32 @@ namespace Sys.WebUI.Controllers
                     addresserInfo.RussiaAddress = russiaaddress.Trim();
                     addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
 
-                    var receiverInfo = new SysReceiverInfo();
-                    receiverInfo.ParcelSingle = parcelsingle.Trim();
-                    receiverInfo.ChinaCityId = Convert.ToInt64(chinacityid);
-                    receiverInfo.ChinaAddress = chinaaddress.Trim();
-                    receiverInfo.ReceiverName = receivername.Trim();
-                    receiverInfo.ReceiverPhone = receiverphone.Trim();
-                    receiverInfo.PackagingWay = Convert.ToInt32(packagingway);
-                    receiverInfo.ExpressWay = Convert.ToInt32(expressway);
-                    receiverInfo.GoodsDesc = goodsdesc.Trim();
-                    receiverInfo.ParcelWeight = Convert.ToDecimal(parcelweight);
-                    receiverInfo.ChinaCourierNumber = chinacouriernumber.Trim();
-                    receiverInfo.Desc = desc.Trim();
+                    List<dynamic> dysSjList = JsonConvert.DeserializeObject<List<dynamic>>(sjJson);
+
+                    var receiverInfos = new List<SysReceiverInfo>();
+                    foreach (var item in dysSjList)
+                    {
+                        var receiverInfo = new SysReceiverInfo();
+                        receiverInfo.ParcelSingle = item.parcelsingle.Value.ToString();
+                        receiverInfo.ChinaCityId = Convert.ToInt64(item.chinacityid.Value);
+                        receiverInfo.ChinaAddress = item.chinaaddress.Value.ToString();
+                        receiverInfo.ReceiverName = item.receivername.Value.ToString();
+                        receiverInfo.ReceiverPhone = item.receiverphone.Value.ToString();
+                        receiverInfo.PackagingWay = Convert.ToInt32(item.packagingway.Value);
+                        receiverInfo.ExpressWay = Convert.ToInt32(item.expressway.Value);
+                        receiverInfo.GoodsDesc = item.goodsdesc.Value.ToString();
+                        receiverInfo.ParcelWeight = Convert.ToDecimal(item.parcelweight.Value);
+                        receiverInfo.ChinaCourierNumber = item.chinacouriernumber.Value.ToString();
+                        receiverInfo.Desc = item.desc.Value.ToString();
+                        receiverInfo.CreateDate=DateTime.Now;
+                        receiverInfo.Id = 1;
+                        receiverInfos.Add(receiverInfo);
+                        
+                    }
+                  
                     var status = 0;
-                    var provider = new OrderInfoProvider();
-                    var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfo, ref status);
+                  
+                    var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfos, ref status);
 
                     if (status == 1)
                     {
@@ -202,7 +215,7 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
         [HttpPost]
-        public ActionResult Filled(string fahuoid,string gzdh, string fhsj, string fhnr)
+        public ActionResult Filled(string fahuoid, string gzdh, string fhsj, string fhnr)
         {
             if (!string.IsNullOrEmpty(fahuoid))
             {
@@ -285,8 +298,11 @@ namespace Sys.WebUI.Controllers
             {
                 if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))
                 {
-                    var cityid = UserService.GetAgentInfoByUserId(_user.Id).AgentCityId;
-                    where += " and [RussiaCityId]=" + cityid;
+                    var city = UserService.GetAgentInfoByUserId(_user.Id);
+                    if (city != null)
+                        where += " and [RussiaCityId]=" + city.AgentCityId;
+                    else
+                        where += " and [RussiaCityId]=0 ";
                 }
                 else if (_user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
                 {

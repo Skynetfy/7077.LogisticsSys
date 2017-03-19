@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-9 maincontent" role="main">
         <div id="toolbar">
-            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel" id="addbtn">新增</button>
             <button type="button" class="btn btn-danger btn-sm" disabled id="remove">删除</button>
         </div>
         <table id="table"
@@ -75,7 +75,7 @@
                             最低重量(千克) <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="MinWeight" name="MinWeight"  required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="MinWeight" name="MinWeight" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
@@ -83,7 +83,7 @@
                             保费额度(%) <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="PremiumAmount" name="PremiumAmount"  required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="PremiumAmount" name="PremiumAmount" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,78 +105,6 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="setupModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>错误!</strong>
-                    <label></label>
-                </div>
-                <form class="form-horizontal form-label-left" id="setupform" method="post" action="@Url.Action("EditUnitPrice")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
-                    <input type="hidden" name="id" value="" />
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RCityId">
-                            城市名称 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="RCityId" name="RCityId" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="GoodsType">
-                            货物类型
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="GoodsType" name="GoodsType" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LandPrice1">
-                            航空件(n&#60;=20kg)单价(元/千克
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="LandPrice1" name="LandPrice1" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LandPrice2">
-                            航空件(20kg&#60;n&#60;=50kg)单价(元/千克)
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="LandPrice2" name="LandPrice2" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AirPrice1">
-                            航空件(n&#62;50kg)单价(元/千克)
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="AirPrice1" name="AirPrice1" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AirPrice2">
-                            陆运(n&#62;=50kg)单价(元/千克)
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="AirPrice2" name="AirPrice2" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" onclick="" id="btn-save">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
@@ -184,9 +112,9 @@
         return $(window).height() - $('h1').outerHeight(true);
     }
 
-    $(function() {
+    $(function () {
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
-            .click(function(e) {
+            .click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 var href = $(this).attr('href');
@@ -194,7 +122,7 @@
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
                         .load(href,
-                            function() {
+                            function () {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
                 }
@@ -206,14 +134,14 @@
             selections = [];
         $table.on('check.bs.table uncheck.bs.table ' +
             'check-all.bs.table uncheck-all.bs.table',
-            function() {
+            function () {
                 $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
 
                 // save your data, here just save the current page
                 selections = getIdSelections();
                 // push or splice the selections if you want to save all data selections
             });
-        $remove.click(function() {
+        $remove.click(function () {
             if (confirm("你确定要删除吗？")) {
                 var ids = getIdSelections();
                 $.post("@Url.Action("DeleteGoodsTypes")", { ids: ids }, function (e) {
@@ -222,6 +150,9 @@
                     $('#addModel').modal('hide')
                 });
             }
+        });
+        $('#addbtn').click(function () {
+            $('#addform [name=id]').val("");
         });
         $(window).resize(function () {
             $table.bootstrapTable('resetView', {
@@ -261,14 +192,6 @@
         }
     });
 
-    function SetupPrice(row) {
-        $('#setupform [name=id]').val(row.Id);
-        $('#setupform [name=GoodsTypeId]').val(row.Id);
-        $('#setupform [name=GoodsTypeDesc]').val(row.GoodsTypeDesc);
-        $('#setupform [name=MinWeight]').val(row.MinWeight);
-        $('#setupform [name=PremiumAmount]').val(row.PremiumAmount);
-        $('#setupModel').modal('show');
-    }
     function updatedate(row) {
 
         $('#addform [name=id]').val(row.Id);

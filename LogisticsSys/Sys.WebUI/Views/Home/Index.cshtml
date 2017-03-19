@@ -4,16 +4,12 @@
 <div class="row">
     @* @Html.Action("EditProfile", "User", new { username = User.Identity.Name })*@
     <script>
-        $(function () {
-            var refer = "@ViewBag.refer";
-            if (refer === "1") {
-     
-                $('#main-page').load("@Url.Action("EditProfile", "User", new { username = User.Identity.Name })");
-            } else {
-
-                $('#main-page').load("@Url.Action("Contact")");
-            }
-        })
-
+        var refer = "@ViewBag.refer";
+        if (refer === "1") {
+            $('#main-page').load("@Url.Action("EditProfile", "User", new { username = User.Identity.Name })");
+        } else {
+            var url = $('#main-menu li:first>a').attr('href');
+            $('#main-page').load(window.location.origin + "/" + url);
+        }
     </script>
 </div>

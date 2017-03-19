@@ -12,7 +12,7 @@ namespace Sys.BLL.Users
     {
         [Description("Home/Contact")]
         主页,
-        [Description("Order/index")]
+        [Description("Order/OrderList")]
         订单管理,
         [Description("Order/index")]
         创建订单,
@@ -24,7 +24,7 @@ namespace Sys.BLL.Users
         俄罗斯城市管理,
         [Description("System/ChinaCity")]
         国内城市管理,
-        [Description("Home/index")]
+        [Description("Logistics/index")]
         物流查询,
         [Description("Order/OrderManage")]
         订单处理,

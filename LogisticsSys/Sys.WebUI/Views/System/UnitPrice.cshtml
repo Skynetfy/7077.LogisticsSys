@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-9 maincontent" role="main">
         <div id="toolbar">
-            @*<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>*@
+           @* <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel" id="addbtn">新增</button>*@
             <button type="button" class="btn btn-danger btn-sm" disabled id="remove">删除</button>
         </div>
         <table id="table"
@@ -36,11 +36,11 @@
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
                     <th data-field="CityName">城市名称</th>
-                    <th data-field="UnitPrice">货物类型</th>
-                    <th data-field="ExpressBeavyPrice">航空件(n&#60;=20kg)单价(元/千克</th>
-                    <th data-field="SfUnitPrice">航空件(20kg&#60;n&#60;=50kg)单价(元/千克)</th>
-                    <th data-field="SflogisticsBeavyPrice">航空件(n&#62;50kg)单价(元/千克)</th>
-                    <th data-field="SflogisticsBeavyPrice">陆运(n&#62;=50kg)单价(元/千克)</th>
+                    <th data-field="GoodsType">货物类型</th>
+                    <th data-field="LandPrice1">航空件(n&#60;=20kg)单价(元/千克</th>
+                    <th data-field="LandPrice2">航空件(20kg&#60;n&#60;=50kg)单价(元/千克)</th>
+                    <th data-field="AirPrice1">航空件(n&#62;50kg)单价(元/千克)</th>
+                    <th data-field="AirPrice2">陆运(n&#62;=50kg)单价(元/千克)</th>
                     <th data-field="Id" data-formatter="stateFormatter">操作</th>
                 </tr>
             </thead>
@@ -62,53 +62,55 @@
                     <strong>错误!</strong>
                     <label></label>
                 </div>
-                <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("AddChinaCity")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("EditUnitPrice")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="id" value="" />
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RCityId">
-                            城市名称 <span class="required">*</span>
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12" for="RCityId">
+                            城市名称
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="RCityId" name="RCityId" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <input type="hidden" id="RCityId" name="RCityId" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                            <input type="text" id="RCityName" name="RCityName" readonly="readonly" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="GoodsType">
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12" for="GoodsType">
                             货物类型
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="GoodsType" name="GoodsType" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <input type="hidden" id="GoodsTypeId" name="GoodsTypeId" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="GoodsType" name="GoodsType" readonly="readonly" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LandPrice1">
-                            航空件(n&#60;=20kg)单价(元/千克
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12" for="LandPrice1">
+                            航空件(n&#60;=20kg)单价(元/千克 <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
                             <input type="text" id="LandPrice1" name="LandPrice1" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LandPrice2">
-                            航空件(20kg&#60;n&#60;=50kg)单价(元/千克)
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12" for="LandPrice2">
+                            航空件(20kg&#60;n&#60;=50kg)单价(元/千克) <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
                             <input type="text" id="LandPrice2" name="LandPrice2" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AirPrice1">
-                            航空件(n&#62;50kg)单价(元/千克)
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12" for="AirPrice1">
+                            航空件(n&#62;50kg)单价(元/千克) <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
                             <input type="text" id="AirPrice1" name="AirPrice1" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AirPrice2">
-                            陆运(n&#62;=50kg)单价(元/千克)
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12" for="AirPrice2">
+                            陆运(n&#62;=50kg)单价(元/千克) <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
                             <input type="text" id="AirPrice2" name="AirPrice2" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
@@ -167,6 +169,7 @@
                 });
             }
         });
+        
         $(window).resize(function () {
             $table.bootstrapTable('resetView', {
                 height: getHeight()
@@ -205,9 +208,10 @@
         }
     });
     function updatedate(row) {
-
         $('form [name=id]').val(row.Id);
         $('form [name=RCityId]').val(row.RCityId);
+        $('form [name=RCityName]').val(row.CityName);
+        $('form [name=GoodsTypeId]').val(row.GoodsTypeId);
         $('form [name=GoodsType]').val(row.GoodsType);
         $('form [name=LandPrice1]').val(row.LandPrice1);
         $('form [name=LandPrice2]').val(row.LandPrice2);

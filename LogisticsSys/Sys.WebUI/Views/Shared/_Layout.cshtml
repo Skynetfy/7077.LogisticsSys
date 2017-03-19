@@ -19,7 +19,7 @@
     <script src="~/Scripts/daterangepicker.js"></script>
     <script src="~/Scripts/jquery.mloading.js"></script>
     @*<script src="~/Scripts/responsive-menu.js"></script>
-    <script src="~/Scripts/modernizr-custom.js"></script>*@
+        <script src="~/Scripts/modernizr-custom.js"></script>*@
     <script src="~/Scripts/Solution.js"></script>
 </head>
 <body>
@@ -54,7 +54,7 @@
                     $(this).parent().siblings('li').removeClass('nav-current');
                     var url = $(this).attr('href');
                     $('#main-page')
-                        .load(url,
+                        .load(loc.origin + "/" + url,
                             function (e) {
                                 $('body').mLoading("hide"); //显示loading组件
                             });

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,7 @@ namespace Sys.Dal
 {
     public partial interface ISysOrderInfoRepository : IBaseRepository<SysOrderInfo>
     {
-        string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo,
-            SysReceiverInfo receiverinfo,ref int status);
+        string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, List<SysReceiverInfo> receiverInfos, ref int status);
 
         SysOrderInfo GetOrderByNumber(string ordernumber);
 

@@ -68,15 +68,15 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public SysReceiverInfo GetByOrderId(long id)
+        public IList<SysReceiverInfo> GetByOrderId(long id)
         {
             try
             {
-                string sql = @"select top 1 * from [dbo].[SysReceiverInfo](nolock)
+                string sql = @"select * from [dbo].[SysReceiverInfo](nolock)
                             where [IsDelete]=0 and [OrderId]=@orderId";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@orderId", DbType.Int64, id);
-                return baseDao.SelectFirst<SysReceiverInfo>(sql, parameters);
+                return baseDao.SelectList<SysReceiverInfo>(sql, parameters);
             }
             catch (Exception ex)
             {

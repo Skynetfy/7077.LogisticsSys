@@ -4,12 +4,17 @@
 <div class="row">
     @* @Html.Action("EditProfile", "User", new { username = User.Identity.Name })*@
     <script>
+        $('body').mLoading("show");//显示loading组件
         var refer = "@ViewBag.refer";
         if (refer === "1") {
-            $('#main-page').load("@Url.Action("EditProfile", "User", new { username = User.Identity.Name })");
+            $('#main-page').load("@Url.Action("EditProfile", "User", new { username = User.Identity.Name })",function() {
+                $('body').mLoading("hide");//显示loading组件
+            });
         } else {
             var url = $('#main-menu li:first>a').attr('href');
-            $('#main-page').load(window.location.origin + "/" + url);
+            $('#main-page').load(window.location.origin + "/" + url,function() {
+                $('body').mLoading("hide");//显示loading组件
+            });
         }
     </script>
 </div>

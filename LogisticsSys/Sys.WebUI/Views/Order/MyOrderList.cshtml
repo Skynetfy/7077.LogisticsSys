@@ -376,7 +376,7 @@
     function actionFormatter(value, row, index) {
         var h = [];
         h
-            .push('<button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
+            .push('<button  type="button" class="btn btn-primary btn-xs"  onclick="updatedate(' +
                 JSON.stringify(row).replace(/\"/g, "\'") +
                 ')" value="">查看</button>');
 
@@ -384,6 +384,10 @@
     }
 
     function updatedate(row) {
+        $('body').mLoading("show"); //显示loading组件
+        $('.maincontent').load('@Url.Action("OrderView")?id=' + row.Id, function (e) {
+            $('body').mLoading("hide"); //显示loading组件
+        });
         $('#orderno').html(row.OrderNo);
         $('#jjxm').html(row.ShipperName);
         $('#jjdh').html(row.ShipperPhone);

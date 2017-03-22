@@ -8,17 +8,27 @@ body {
     background: none;
 }
 
+h5.h5 {
+    color: #aa6708;
+    font-size: 16px;
+}
+h5.h5>i {
+    font-size: 13px;
+}
 h4.page-header {
     margin-top: 0;
 }
+
 .complementary nav {
     background-color: #fff;
-    padding:30px 20px;
+    padding: 30px 20px;
 }
+
 .maincontent {
     background-color: #fff;
     padding: 30px 20px;
 }
+
 .form-control {
     border-radius: 0;
 }

@@ -28,6 +28,11 @@ namespace Sys.BLL
             }
         }
 
+        public SysChinaCity GetById(long id)
+        {
+            return _dao.FindByPk(id);
+        }
+
         public string GetCityName(long id)
         {
             var city = _dao.FindByPk(id);

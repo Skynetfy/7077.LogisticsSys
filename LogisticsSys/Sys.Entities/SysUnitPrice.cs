@@ -28,18 +28,18 @@ namespace Sys.Entities
         /// <summary>
         /// </summary>
         [Column(Name = "LandPrice1", ColumnType = DbType.Decimal)]
-        public decimal? LandPrice1 { get; set; }
+        public decimal LandPrice1 { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "LandPrice2", ColumnType = DbType.Decimal)]
-        public decimal? LandPrice2 { get; set; }
+        public decimal LandPrice2 { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "AirPrice1", ColumnType = DbType.Decimal)]
-        public decimal? AirPrice1 { get; set; }
+        public decimal AirPrice1 { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "AirPrice2", ColumnType = DbType.Decimal)]
-        public decimal? AirPrice2 { get; set; }
+        public decimal AirPrice2 { get; set; }
     }
 }

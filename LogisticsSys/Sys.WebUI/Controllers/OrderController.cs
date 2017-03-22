@@ -42,8 +42,95 @@ namespace Sys.WebUI.Controllers
             return View();
         }
 
+        public ActionResult OrderView(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var provider = new OrderInfoProvider();
+                var orderinfo = provider.GetOrderInfoById(Convert.ToInt64(id));
+                ViewData["OrderInfo"] = orderinfo;
+
+                var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
+                ViewData["AddressInfo"] = address;
+
+                var recivers = provider.GetReceiverInfo(Convert.ToInt64(id)).ToList();
+                ViewData["ReceiverInfo"] = recivers;
+            }
+            return View();
+        }
+
+        public ActionResult GetAddressBudgetPrice(string cityId, string goodstype, string transType, string weight)
+        {
+            var result = new ResponseJsonResult<decimal>();
+            result.Status = 1;
+            var unprice = UnitPriceService.Current.GetByCityIdGoodsTypeId(Convert.ToInt64(cityId),
+                Convert.ToInt64(goodstype));
+            if (unprice != null)
+            {
+                decimal w = Convert.ToDecimal(weight);
+                if (transType.Equals("1"))
+                {
+
+                    if (w <= 20)
+                    {
+                        result.Message = (unprice.AirPrice1 * w).ToString();
+                    }
+                    else if (20 < w && w <= 50)
+                    {
+                        result.Message = (unprice.AirPrice2 * w).ToString();
+                    }
+                    else
+                    {
+                        result.Message = (unprice.LandPrice1 * w).ToString();
+                    }
+                }
+                else
+                {
+                    result.Message = (unprice.LandPrice2 * w).ToString();
+                }
+            }
+            else
+            {
+                result.Message = "0";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetRBudgetPrice(string cid, string eway, string weight)
+        {
+            var result = new ResponseJsonResult<decimal>();
+            result.Status = 1;
+            var chnna = ChinaCityService.Current.GetById(Convert.ToInt64(cid));
+            if (chnna != null)
+            {
+                decimal w = Convert.ToDecimal(weight);
+                if (eway.Equals("1"))
+                {
+                    result.Message = (chnna.UnitPrice * w).ToString();
+                }
+                else if (eway.Equals("2"))
+                {
+                    result.Message = (chnna.ExpressBeavyPrice * w).ToString();
+                }
+                else if (eway.Equals("3"))
+                {
+                    result.Message = (chnna.SfUnitPrice * w).ToString();
+                }
+                else
+                {
+                    result.Message = (chnna.SflogisticsBeavyPrice * w).ToString();
+                }
+            }
+            else
+            {
+                result.Message = "0";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpPost]
-        public ActionResult CreateOrder(string ordersingle, string shappername, string shipperphone, string pickupnumber, string russiacityid, string russiaaddress, string logisticsSingle, string cargonumber, string pickupdate, string pickupWay, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string boxlong, string boxwidth, string boxheight, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string chinacouriernumber, string desc, string sjJson)
+        public ActionResult CreateOrder(string ordersingle, string shappername, string shipperphone, string pickupnumber, string russiacityid, string russiaaddress, string logisticsSingle, string cargonumber, string pickupdate, string pickupWay, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string boxlong, string boxwidth, string boxheight, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string abudgetprice, string chinacouriernumber, string desc, string sjJson)
         {
             var result = new ResponseJsonResult<string>();
             result.Status = 0;
@@ -81,6 +168,7 @@ namespace Sys.WebUI.Controllers
                     addresserInfo.LogisticsSingle = logisticsSingle.Trim();
                     addresserInfo.RussiaAddress = russiaaddress.Trim();
                     addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
+                    addresserInfo.BudgetPrice = Convert.ToDecimal(abudgetprice);
 
                     List<dynamic> dysSjList = JsonConvert.DeserializeObject<List<dynamic>>(sjJson);
 
@@ -99,14 +187,15 @@ namespace Sys.WebUI.Controllers
                         receiverInfo.ParcelWeight = Convert.ToDecimal(item.parcelweight.Value);
                         receiverInfo.ChinaCourierNumber = item.chinacouriernumber.Value.ToString();
                         receiverInfo.Desc = item.desc.Value.ToString();
-                        receiverInfo.CreateDate=DateTime.Now;
+                        receiverInfo.BudgetPrice = Convert.ToDecimal(item.budgetprice.Value.ToString());
+                        receiverInfo.CreateDate = DateTime.Now;
                         receiverInfo.Id = 1;
                         receiverInfos.Add(receiverInfo);
-                        
+
                     }
-                  
+
                     var status = 0;
-                  
+
                     var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfos, ref status);
 
                     if (status == 1)
@@ -125,7 +214,7 @@ namespace Sys.WebUI.Controllers
                             logisticsInfo.Insert(logistics);
                         }
                     }
-                    result.Message = message;
+                    result.Message = orderinfo.OrderNo;
                 }
             }
             else
@@ -165,9 +254,9 @@ namespace Sys.WebUI.Controllers
                         var rec = orderPrivder.GetReceiverInfo(order.Id);
                         if (rec != null)
                         {
-                            rec.RealWeight = Convert.ToDecimal(csjzl);
-                            rec.RealPrice = Convert.ToDecimal(csjjg);
-                            orderPrivder.UpdateReceiverInfo(rec);
+                            //rec.RealWeight = Convert.ToDecimal(csjzl);
+                            //rec.RealPrice = Convert.ToDecimal(csjjg);
+                            //orderPrivder.UpdateReceiverInfo(rec);
                         }
 
                     }

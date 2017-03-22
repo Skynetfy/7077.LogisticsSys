@@ -71,5 +71,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "Desc", ColumnType = DbType.String)]
         public string Desc { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "BudgetPrice", ColumnType = DbType.Decimal)]
+        public decimal BudgetPrice { get; set; }
     }
 }

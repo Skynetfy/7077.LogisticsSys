@@ -26,6 +26,11 @@ namespace Sys.BLL
             }
         }
 
+        public SysUnitPrice GetByCityIdGoodsTypeId(long cid,long rid)
+        {
+            return _dao.GetAll().FirstOrDefault(x => !x.IsDelete&&x.RCityId==cid&&x.GoodsTypeId==rid);
+        }
+
         public long AddUnitPrice(SysUnitPrice entity)
         {
             return _dao.Insert(entity);

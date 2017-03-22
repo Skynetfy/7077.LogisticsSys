@@ -15,7 +15,6 @@
         <div class="bs-docs-section">
             <h4 id="breadcrumbs" class="page-header">创建订单</h4>
             <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>错误!</strong>
                 <label></label>
             </div>
@@ -225,7 +224,15 @@
                                     货物重量(kg)  <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="number" data-parsley-min="1" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="goodsweight" name="goodsweight" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" onblur="aweightBlur(this)" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="abudgetprice">
+                                    预算价格(元)
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="abudgetprice" readonly="readonly" name="abudgetprice" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -260,16 +267,16 @@
                             <thead>
                                 <tr>
                                     <th data-field="parcelsingle">编号</th>
-                                    <th data-field="chinacityid">省份</th>
+                                    <th data-field="chinacityName">省份</th>
                                     <th data-field="chinaaddress">地址</th>
                                     <th data-field="receivername">姓名</th>
                                     <th data-field="receiverphone">电话</th>
-                                    <th data-field="packagingway">打包方式</th>
-                                    <th data-field="expressway">快递方式</th>
+                                    <th data-field="packagingwayName">打包方式</th>
+                                    <th data-field="expresswayName">快递方式</th>
                                     <th data-field="goodsdesc">明细</th>
                                     <th data-field="parcelweight">重量</th>
                                     <th data-field="chinacouriernumber">单号</th>
-                                    <th data-field="stats">预算价格</th>
+                                    <th data-field="budgetprice">预算价格</th>
                                     <th data-field="desc">备注</th>
                                 </tr>
                             </thead>
@@ -280,20 +287,20 @@
                         <hr style="margin-top: 0;" />
                         <div id="form3" class="form-horizontal form-label-left" novalidate="">
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelsingle">
-                                    包裹编号 <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="parcelsingle" name="parcelsingle" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
+                            @*<div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelsingle">
+                                        包裹编号 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="parcelsingle" name="parcelsingle" required="required" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>*@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacityid">
                                     订单省份 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control col-md-7 col-xs-12" name="chinacityid" id="chinacityid" required="required" data-parsley-group="form3">
+                                    <select class="form-control col-md-7 col-xs-12" name="chinacityid" id="chinacityid" required="required" onchange="parcelweightBlur()" data-parsley-group="form3">
                                         <option value="">选择省份</option>
                                         @{
                                             var cCityDataList = ViewData["CCityDataList"] as List<SelectBinding>;
@@ -333,13 +340,13 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
-                                        <input type="radio" checked="checked" value="1" name="packagingway">不打包
+                                        <input type="radio" checked="checked" value="1" name="packagingway" data-text="不打包">不打包
                                     </label>
                                     <label>
-                                        <input type="radio" value="2" name="packagingway"> 普通打包
+                                        <input type="radio" value="2" name="packagingway" data-text="普通打包"> 普通打包
                                     </label>
                                     <label>
-                                        <input type="radio" value="3" name="packagingway"> 特殊泡沫打包
+                                        <input type="radio" value="3" name="packagingway" data-text="特殊泡沫打包"> 特殊泡沫打包
                                     </label>
                                 </div>
                             </div>
@@ -349,16 +356,16 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
-                                        <input type="radio" checked="checked" value="1" name="expressway">普通正付
+                                        <input type="radio" checked="checked" value="1" onchange="parcelweightBlur()" name="expressway"  data-text="普通正付">普通正付
+                                    </label>
+                                    <label>                                               
+                                        <input type="radio" value="2" name="expressway" onchange="parcelweightBlur()" data-text="顺丰正付"> 顺丰正付
                                     </label>
                                     <label>
-                                        <input type="radio" value="2" name="expressway"> 顺丰正付
+                                        <input type="radio" value="3" name="expressway" onchange="parcelweightBlur()" data-text="普通到付">普通到付
                                     </label>
                                     <label>
-                                        <input type="radio" value="3" name="expressway">普通到付
-                                    </label>
-                                    <label>
-                                        <input type="radio" value="3" name="expressway">顺丰到付
+                                        <input type="radio" value="3" name="expressway" onchange="parcelweightBlur()" data-text="顺丰到付">顺丰到付
                                     </label>
                                 </div>
                             </div>
@@ -375,7 +382,15 @@
                                     包裹重量(千克) <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" onblur="parcelweightBlur()" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rbudgetprice">
+                                    预算价格(元)
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="rbudgetprice" name="rbudgetprice" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -437,16 +452,20 @@
             $table.bootstrapTable('insertRow', {index: 0, row: {
                 parcelsingle: ix,
                 chinacityid: $('#chinacityid').val(),
+                chinacityName:$("#chinacityid>option:selected").text(),
                 chinaaddress: $('#chinaaddress').val(),
                 receivername:$('#receivername').val(),
                 receiverphone:$('#receiverphone').val(),
                 packagingway:$('[name=packagingway]:checked').val(),
+                packagingwayName:$('[name=packagingway]:checked').attr("data-text"),
                 expressway:$('[name=expressway]:checked').val(),
+                expresswayName:$('[name=expressway]:checked').attr("data-text"),
                 goodsdesc:$('#goodsdesc').val(),
                 parcelweight:$('#parcelweight').val(),
                 chinacouriernumber:$('#chinacouriernumber').val(),
                 desc:$('#desc').val(),
-                stats:$('#receiverphone').val()
+                stats:$('#receiverphone').val(),
+                budgetprice:$('#rbudgetprice').val()
             }});
             $('#chinacityid').val('');
             $('#chinaaddress').val('');
@@ -459,7 +478,7 @@
             $('#chinacouriernumber').val('');
             $('#desc').val('');
             $('#receiverphone').val('');
-
+            $('#rbudgetprice').val('');
             data=$table.bootstrapTable('getData');
             $('[name=sjJson]').val(JSON.stringify(data));
         }
@@ -473,6 +492,7 @@
             $('#divwuliudanhao').hide();
             $('#divwuliudanhao #logisticsSingle').removeAttr("required");
         }
+        aweightBlur();
     }
 
     function goodstypeChange(obj) {
@@ -485,20 +505,47 @@
                         $(obj).data("GoodsType", e);
                         $('#goodsweight').attr("data-parsley-min", e.MinWeight);
                         var price = $('#protectprice').val();
-                        if (price !== ""&&checkRate(price)) {
-                            $('#policyfee').val(price*e.PremiumAmount/100);
+                        if (price !== "" && checkRate(price)) {
+                            $('#policyfee').val(price * e.PremiumAmount / 100);
                         }
                     }
                 });
         else
             $(obj).data("GoodsType", null);
+        aweightBlur();
     }
 
     function goodstypeblur(obj) {
         var v = $(obj).val();
         var data = $('#goodstype').data('GoodsType');
-        if (v !== ""&&data!=null&&checkRate(v)) {
-            $('#policyfee').val(v*data.PremiumAmount/100);
+        if (v !== "" && data != null && checkRate(v)) {
+            $('#policyfee').val(v * data.PremiumAmount / 100);
+        }
+    }
+
+    function aweightBlur() {
+        var v = $('#goodsweight').val();
+        var data = $('#goodstype').val();
+        if (v !== "" && data !== '' && checkRate(v)) {
+            var cityId = $('#russiacityid').val();
+            var trans = $('[name=transportationway]').val();
+            $.getJSON('@Url.Action("GetAddressBudgetPrice")',
+                { cityId: cityId, goodstype: data, transType: trans, weight: v },
+                function(e) {
+                    $('#abudgetprice').val(e.Message);
+                });
+
+        }
+    }
+
+    function parcelweightBlur() {
+        var cityId = $('#chinacityid').val();
+        var expressway = $('[name=expressway]').val();
+        var weight = $('#parcelweight').val();
+        if (cityId !== ''&&expressway!==''&&checkRate(weight)) {
+            $.getJSON('@Url.Action("GetRBudgetPrice")',{cid:cityId,eway:expressway,weight:weight}, function(e) {
+                $('#rbudgetprice').val(e.Message);
+            });
         }
     }
 
@@ -553,11 +600,21 @@
                             $('#alert-infor strong').html('错误！');
                         },
                         success: function (responseText, statusText) {
-                            $('#alert-infor').removeClass('alert-danger');
-                            $('#alert-infor').addClass('alert-success');
-                            $('#alert-infor').show();
-                            //$('#alert-infor label').html(error);
-                            $('#alert-infor strong').html('Successfully');
+                            var d = $.parseJSON(responseText);
+                            if (d.Status === 1) {
+                                $('#alert-infor').removeClass('alert-danger');
+                                $('#alert-infor').addClass('alert-success');
+                                $('#alert-infor').show();
+                                //$('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('<strong>恭喜您! 下单成功，</strong> 订单号：<a href="#" class="alert-link">'+d.Message+"</a>");
+                            } else {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(d.Message);
+                                $('#alert-infor strong').html('错误！');
+                            }
+                            $('#wizard').remove();
                         }
                     });
                 }
@@ -582,9 +639,11 @@
                 return isStepValid;
             }
             function validateAllSteps() {
-                //var isStepValid = $('#form').parsley().validate();
+                var isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
                 // all step validation logic
-                return true;
+                var data=$table.bootstrapTable('getData');
+                isStepValid = isStepValid&&data.length > 0;
+                return isStepValid;
             }
         });
 </script>

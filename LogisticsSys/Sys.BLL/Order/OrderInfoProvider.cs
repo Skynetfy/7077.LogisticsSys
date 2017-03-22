@@ -21,7 +21,7 @@ namespace Sys.BLL.Order
             return addresserInfoDao.GetByOrderId(id);
         }
 
-        public SysReceiverInfo GetReceiverInfo(long id)
+        public IList<SysReceiverInfo> GetReceiverInfo(long id)
         {
             return receiverInfoDao.GetByOrderId(id);
         }

@@ -87,5 +87,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "BoxHeight", ColumnType = DbType.Decimal)]
         public decimal BoxHeight { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "BudgetPrice", ColumnType = DbType.Decimal)]
+        public decimal BudgetPrice { get; set; }
     }
 }

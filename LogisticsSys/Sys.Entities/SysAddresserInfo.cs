@@ -29,6 +29,10 @@ namespace Sys.Entities
         public long RussiaCityId { get; set; }
         /// <summary>
         /// </summary>
+        [Column(Name = "CityName", ColumnType = DbType.String, Length = 500)]
+        public string CityName { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "RussiaAddress", ColumnType = DbType.String, Length = 500)]
         public string RussiaAddress { get; set; }
         /// <summary>
@@ -47,6 +51,10 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "GoodsType", ColumnType = DbType.Int32)]
         public int GoodsType { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "GoodsTypeName", ColumnType = DbType.String, Length = 500)]
+        public string GoodsTypeName { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "TransportationWay", ColumnType = DbType.Int32)]

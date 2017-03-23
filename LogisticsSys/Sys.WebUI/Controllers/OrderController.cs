@@ -52,11 +52,18 @@ namespace Sys.WebUI.Controllers
 
                 var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
                 ViewData["AddressInfo"] = address;
-
-                var recivers = provider.GetReceiverInfo(Convert.ToInt64(id)).ToList();
-                ViewData["ReceiverInfo"] = recivers;
             }
             return View();
+        }
+
+        public ActionResult GetRevicerInfos(string oid)
+        {
+            var provider = new OrderInfoProvider();
+            var data = provider.GetReceiverInfo(Convert.ToInt64(oid)).ToList();
+            var btdata = new BootstrapTableData<SysReceiverInfo>();
+            btdata.rows = data;
+            btdata.total = data.Count;
+            return Json(btdata, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetAddressBudgetPrice(string cityId, string goodstype, string transType, string weight)
@@ -223,9 +230,17 @@ namespace Sys.WebUI.Controllers
             }
             return Json(result);
         }
-        public ActionResult EditOrder()
+        public ActionResult EditOrder(string id)
         {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var provider = new OrderInfoProvider();
+                var orderinfo = provider.GetOrderInfoById(Convert.ToInt64(id));
+                ViewData["OrderInfo"] = orderinfo;
 
+                var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
+                ViewData["AddressInfo"] = address;
+            }
             return View();
         }
         [HttpPost]

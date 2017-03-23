@@ -29,6 +29,10 @@ namespace Sys.Entities
         public long ChinaCityId { get; set; }
         /// <summary>
         /// </summary>
+        [Column(Name = "CityName", ColumnType = DbType.String, Length = 100)]
+        public string CityName { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "ChinaAddress", ColumnType = DbType.String, Length = 500)]
         public string ChinaAddress { get; set; }
         /// <summary>

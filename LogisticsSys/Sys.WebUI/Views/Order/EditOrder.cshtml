@@ -1,149 +1,145 @@
-﻿@using Sys.Common
-@using Sys.WebUI.Models
+﻿@using Sys.Entities
 @{
     Layout = null;
 }
-<div class="row">
-    <div class="col-md-3 complementary" role="complementary">
-        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
-            <ul class="nav bs-docs-sidenav">
-             @Html.LeftMeunHtmlString("订单管理", "订单处理", User.Identity.Name)
-            </ul>
-        </nav>
-    </div>
-    <div class="col-md-9 maincontent" role="main">
-        <div id="form-main-page">
-            <h4 id="breadcrumbs" class="page-header">完善个人信息</h4>
-            <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>错误!</strong>
-                <label></label>
-            </div>
-            <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("EditProfile")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
-                <input type="hidden" name="username" value="@ViewBag.username" />
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cid">
-                        客户编号 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="cid" name="cid" required="required" readonly="readonly" value="@ViewBag.cid" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="displayname">
-                        姓 名 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="displayname" name="displayname" value="@ViewBag.displaynane" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
-                        邮 箱 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="email" id="email" name="email" value="@ViewBag.email" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city">
-                        所在城市 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select type="text" id="city" name="city" required="required" class="form-control col-md-7 col-xs-12">
-                            <option value="">请选择城市</option>
-                            @{
-                                var cCityDataList = ViewData["CCityDataList"] as List<SelectBinding>;
+<h4 id="breadcrumbs" class="page-header">修改订单</h4>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 主订单信息</h5>
+@{
+    var orderinfo = ViewData["OrderInfo"] as SysOrderInfo;
+    var addressinfo = ViewData["AddressInfo"] as SysAddresserInfo;
+}
 
-                            }
-                            @Html.BindingSelectHtmlString(cCityDataList)
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">
-                        详细地址 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="address" name="address" value="@ViewBag.address" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">
-                        电 话 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="phone" name="phone" required="required" value="@ViewBag.phone" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qq">
-                        QQ
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="qq" name="qq" value="@ViewBag.qq" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="webchat">
-                        微信
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="webchat" name="webchat" value="@ViewBag.webchat" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <button type="button" class="btn btn-success" id="btn-save">提 交</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script src="~/Scripts/parsley.min.js"></script>
-<script src="~/Scripts/jquery.form.js"></script>
+<table class="table">
+    <tbody>
+        <tr>
+            <td style="width:30%">订单号：</td>
+            <td>@orderinfo.OrderNo</td>
+        </tr>
+        <tr>
+            <td>下单人姓名：</td>
+            <td>@orderinfo.ShipperName</td>
+        </tr>
+        <tr>
+            <td>下单人电话：</td>
+            <td>@orderinfo.ShipperPhone</td>
+        </tr>
+        <tr>
+            <td>订单状态：</td>
+            <td id="orderstatus">@orderinfo.Status</td>
+        </tr>
+        <tr>
+            <td>下单时间：</td>
+            <td>@orderinfo.CreateDate</td>
+        </tr>
+    </tbody>
+</table>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 寄件人信息</h5>
+<table class="table">
+    <tbody>
+        <tr>
+            <td style="width:30%">俄罗斯城市：</td>
+            <td>@addressinfo.CityName</td>
+        </tr>
+        <tr>
+            <td>俄罗斯详细地址：</td>
+            <td>@addressinfo.RussiaAddress</td>
+        </tr>
+        <tr>
+            <td>货物箱数：</td>
+            <td>@addressinfo.CargoNumber</td>
+        </tr>
+        <tr>
+            <td>取货时间：</td>
+            <td>@addressinfo.PickupDate</td>
+        </tr>
+        <tr>
+            <td>取货方式：</td>
+            <td id="pickway">@addressinfo.PickupWay</td>
+        </tr>
+        <tr>
+            <td>货物类型：</td>
+            <td>@addressinfo.GoodsTypeName</td>
+        </tr>
+        <tr>
+            <td>货物运输类型：</td>
+            <td id="transway">@addressinfo.TransportationWay</td>
+        </tr>
+        <tr>
+            <td>保价价值(元)：</td>
+            <td>@addressinfo.ProtectPrice</td>
+        </tr>
+        <tr>
+            <td>保单费用(元)：</td>
+            <td>@addressinfo.PolicyFee</td>
+        </tr>
+        <tr>
+            <td>货物重量(kg) ：</td>
+            <td>@addressinfo.GoodsWeight</td>
+        </tr>
+        <tr>
+            <td>预算价格(元)：</td>
+            <td>@addressinfo.BudgetPrice</td>
+        </tr>
+        <tr>
+            <td>箱子外包装总体积：</td>
+            <td>长(cm)：@addressinfo.BoxLong  宽(cm)：@addressinfo.BoxWidth   高(cm)：@addressinfo.BoxHeight</td>
+        </tr>
+        <tr>
+            <td><font color="#c7254e">实际重量：<span class="required">*</span></font></td>
+            <td><input name="agrw" type="text" required=""  class="form-control" value="@addressinfo.GoodsRealWeight" style="width: 100px;"/></td>
+        </tr>
+        <tr>
+            <td><font color="#c7254e">实际价格：<span class="required">*</span></font></td>
+            <td><input name="arp" type="text" class="form-control" required="" value="@addressinfo.AddressRealPrice" style="width: 100px;"/></td>
+        </tr>
+
+    </tbody>
+</table>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 收件信息</h5>
+<table id="datatablelist"
+       data-toggle="table"
+       data-url="@Url.Action("GetRevicerInfos")"
+       data-side-pagination="server"
+       data-click-edit="true"
+       data-show-columns="true"
+       data-query-params="queryParams">
+    <thead>
+        <tr>
+            <th data-field="ParcelSingle">编号</th>
+            <th data-field="CityName">省份</th>
+            <th data-field="ChinaAddress" data-visible="false">地址</th>
+            <th data-field="ReceiverName">姓名</th>
+            <th data-field="ReceiverPhone" data-visible="false">电话</th>
+            <th data-field="PackagingWay" data-formatter="PackagingWayFormatter">打包方式</th>
+            <th data-field="ExpressWay" data-formatter="ExpressWayFormatter">快递方式</th>
+            <th data-field="GoodsDesc" data-visible="false">明细</th>
+            <th data-field="ChinaCourierNumber">快递单号</th>
+            <th data-field="ParcelWeight">重量</th>
+            <th data-field="RealWeight" data-editable="input">真实重量</th>
+            <th data-field="BudgetPrice">预算价格</th>
+            <th data-field="RealPrice" data-editable="input">真实价格</th>
+            <th data-field="Desc" data-visible="false">备注</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
 <script>
-    $(function () {
-        var id = $('[name=id]').val();
-        if (id != "") {
-            $('#username').attr('readonly', 'readonly');
-            $('#passworddivd,#passworddiv').hide();
-            $('#ruletype').val("@ViewBag.ruletype");
-        }
-        $('[role=complementary] ul.bs-docs-sidenav>li>a')
-           .click(function (e) {
-               e.stopPropagation();
-               e.preventDefault();
-               var href = $(this).attr('href');
-               if (href != null && href != "#") {
-                   $('body').mLoading("show"); //显示loading组件
-                   $('#main-page')
-                       .load(href,
-                           function () {
-                               $('body').mLoading("hide"); //显示loading组件
-                           });
-               }
-           });
+    function queryParams(params) {
+        params["oid"]=@orderinfo.Id;
+        return params;
+    }
+    function PackagingWayFormatter(value, row, index) {
+        return Status_7077.getPackagingType(row.PackagingWay);
+    }
+    function ExpressWayFormatter(value, row, index) {
+        return Status_7077.getExpressWay(row.ExpressWay);
+    }
+    $(function() {
+        $('[data-toggle="table"]').bootstrapTable();
+        $('#orderstatus').html(Status_7077.getOrderStatus(@orderinfo.Status));
+        $('#pickway').html(Status_7077.getPickupWay(@addressinfo.PickupWay));
+        $('#transway').html(Status_7077.getCargoTransWay(@addressinfo.TransportationWay));
+    });
 
-        $('#btn-save')
-            .click(function () {
-                if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
-                    $('#addform')
-                        .ajaxSubmit({
-                            resetForm: true,
-                            error: function (xhr, status, error, $form) {
-                                $('#alert-infor').removeClass('alert-success');
-                                $('#alert-infor').addClass('alert-danger');
-                                $('#alert-infor').show();
-                                $('#alert-infor label').html(error);
-                                $('#alert-infor strong').html('错误！');
-                            },
-                            success: function (responseText, statusText) {
-                                $('#main-page').load("@Url.Action("Profile", "User")");
-                            }
-                        });
-                }
-            });
-    })
 </script>

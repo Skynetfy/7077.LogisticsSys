@@ -756,12 +756,12 @@
     function actionFormatter(value, row, index) {
         var h = [];
         h
-            .push('<button  type="button" class="btn btn-default btn-xs"  data-toggle="modal" data-target="#ViewModel" onclick="updatedate(' +
+            .push('<button  type="button" class="btn btn-default btn-xs" onclick="updatedate(' +
                 JSON.stringify(row).replace(/\"/g, "\'") +
                 ')" value="">查看</button>');
         if (row.Status <= 2)
             h
-                .push(' <button  type="button" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#EditModel" onclick="editdate(' +
+                .push(' <button  type="button" class="btn btn-success btn-xs" onclick="editdate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">修改</button>');
 
@@ -779,6 +779,10 @@
     }
 
     function updatedate(row) {
+        $('body').mLoading("show"); //显示loading组件
+        $('.maincontent').load('@Url.Action("OrderView")?id=' + row.Id, function (e) {
+            $('body').mLoading("hide"); //显示loading组件
+        });
         $('#orderno').html(row.OrderNo);
         $('#jjxm').html(row.ShipperName);
         $('#jjdh').html(row.ShipperPhone);
@@ -822,46 +826,50 @@
     }
 
     function editdate(row) {
-        $('[data-id=orderno]').html(row.OrderNo);
-        $('[data-id=jjxm]').html(row.ShipperName);
-        $('[data-id=jjdh]').html(row.ShipperPhone);
-        $('[data-id=shrshl]').html(row.PickupNumber);
-        $('[data-id=xdr]').html(row.DisplayName);
-        $('[data-id=ddzt]').html(Status_7077.getOrderStatus(row.Status));
-        $('[data-id=xdsj]').html(row.CreateDate);
-        $('[data-id=elscs]').html(row.RussiaCityName);
-        $('[data-id=elsdz]').html(row.RussiaAddress);
-        $('[data-id=wldh]').html(row.LogisticsSingle);
-        $('[data-id=hwxs]').html(row.CargoNumber);
-        $('[data-id=qhsj]').html(row.PickupDate);
-        $('[data-id=qhfs]').html(Status_7077.getPickupWay(row.PickupWay));
-        $('[data-id=hwlx]').html(Status_7077.getGoodsType(row.GoodsType));
-        $('[data-id=hwyslx]').html(Status_7077.getCargoTransWay(row.TransportationWay));
-        $('[data-id=bjjg]').html(row.ProtectPrice);
-        $('[data-id=bdfy]').html(row.PolicyFee);
-        $('[data-id=hwzl]').html(row.GoodsWeight);
-        $('[data-id=chang]').html(row.BoxLong);
-        $('[data-id=kuan]').html(row.BoxWidth);
-        $('[data-id=gao]').html(row.BoxHeight);
-        $('[data-id=bgbh]').html(row.ParcelSingle);
-        $('[data-id=ddsf]').html(row.ChinaCityId);
-        $('[data-id=ddxxdz]').html(row.ChinaAddress);
-        $('[data-id=sjrxm]').html(row.ReceiverName);
-        $('[data-id=sjrdh]').html(row.ReceiverPhone);
-        $('[data-id=dbfs]').html(Status_7077.getPackagingType(row.PackagingWay));
-        $('[data-id=kdfs]').html(Status_7077.getExpressWay(row.ExpressWay));
-        $('[data-id=hwmx]').html(row.GoodsDesc);
-        $('[data-id=bgzl]').html(row.ParcelWeight);
-        $('[data-id=gnkddh]').html(row.ChinaCourierNumber);
-        $('[data-id=bz]').html(row.Desc);
+        $('body').mLoading("show"); //显示loading组件
+        $('.maincontent').load('@Url.Action("EditOrder")?id=' + row.Id, function (e) {
+            $('body').mLoading("hide"); //显示loading组件
+        });
+        //$('[data-id=orderno]').html(row.OrderNo);
+        //$('[data-id=jjxm]').html(row.ShipperName);
+        //$('[data-id=jjdh]').html(row.ShipperPhone);
+        //$('[data-id=shrshl]').html(row.PickupNumber);
+        //$('[data-id=xdr]').html(row.DisplayName);
+        //$('[data-id=ddzt]').html(Status_7077.getOrderStatus(row.Status));
+        //$('[data-id=xdsj]').html(row.CreateDate);
+        //$('[data-id=elscs]').html(row.RussiaCityName);
+        //$('[data-id=elsdz]').html(row.RussiaAddress);
+        //$('[data-id=wldh]').html(row.LogisticsSingle);
+        //$('[data-id=hwxs]').html(row.CargoNumber);
+        //$('[data-id=qhsj]').html(row.PickupDate);
+        //$('[data-id=qhfs]').html(Status_7077.getPickupWay(row.PickupWay));
+        //$('[data-id=hwlx]').html(Status_7077.getGoodsType(row.GoodsType));
+        //$('[data-id=hwyslx]').html(Status_7077.getCargoTransWay(row.TransportationWay));
+        //$('[data-id=bjjg]').html(row.ProtectPrice);
+        //$('[data-id=bdfy]').html(row.PolicyFee);
+        //$('[data-id=hwzl]').html(row.GoodsWeight);
+        //$('[data-id=chang]').html(row.BoxLong);
+        //$('[data-id=kuan]').html(row.BoxWidth);
+        //$('[data-id=gao]').html(row.BoxHeight);
+        //$('[data-id=bgbh]').html(row.ParcelSingle);
+        //$('[data-id=ddsf]').html(row.ChinaCityId);
+        //$('[data-id=ddxxdz]').html(row.ChinaAddress);
+        //$('[data-id=sjrxm]').html(row.ReceiverName);
+        //$('[data-id=sjrdh]').html(row.ReceiverPhone);
+        //$('[data-id=dbfs]').html(Status_7077.getPackagingType(row.PackagingWay));
+        //$('[data-id=kdfs]').html(Status_7077.getExpressWay(row.ExpressWay));
+        //$('[data-id=hwmx]').html(row.GoodsDesc);
+        //$('[data-id=bgzl]').html(row.ParcelWeight);
+        //$('[data-id=gnkddh]').html(row.ChinaCourierNumber);
+        //$('[data-id=bz]').html(row.Desc);
 
-        $('[name=orderId]').val(row.Id);
-        $('[name=sjjg]').val(row.OrderRealPrice);
-        $('[name=hwsjzl]').val(row.GoodsRealWeight);
-        $('[name=hwsjtjzl]').val(row.GoodsVolumeWeight);
-        $('[name=ddsjjg]').val(row.AddressRealPrice);
-        $('[name=csjzl]').val(row.RealWeight);
-        $('[name=csjjg]').val(row.RealPrice);
+        //$('[name=orderId]').val(row.Id);
+        //$('[name=sjjg]').val(row.OrderRealPrice);
+        //$('[name=hwsjzl]').val(row.GoodsRealWeight);
+        //$('[name=hwsjtjzl]').val(row.GoodsVolumeWeight);
+        //$('[name=ddsjjg]').val(row.AddressRealPrice);
+        //$('[name=csjzl]').val(row.RealWeight);
+        //$('[name=csjjg]').val(row.RealPrice);
     }
 
     function fahuodate(row) {

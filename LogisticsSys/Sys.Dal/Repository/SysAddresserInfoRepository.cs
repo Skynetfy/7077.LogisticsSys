@@ -71,12 +71,14 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                string sql = @"select top 1 * from [SysAddresserInfo](nolock)
-                            where [IsDelete]=0 and [OrderId]=@orderId";
+                string sql = @"select top 1 A.*,B.[CityName],C.[GoodsType] as GoodsTypeName from [SysAddresserInfo](nolock) A
+                            left join [dbo].[SysRussiaCity](nolock) B on A.[RussiaCityId]=B.Id
+                            left join [dbo].[SysGoodsType](nolock) C on A.[GoodsType]=C.Id
+                            where A.[IsDelete]=0 and A.[OrderId]=@orderId";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@orderId", DbType.Int64, id);
                 return baseDao.SelectFirst<SysAddresserInfo>(sql, parameters);
-            }
+            } 
             catch (Exception ex)
             {
                 throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);

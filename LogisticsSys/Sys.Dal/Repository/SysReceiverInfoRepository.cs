@@ -72,8 +72,9 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                string sql = @"select * from [dbo].[SysReceiverInfo](nolock)
-                            where [IsDelete]=0 and [OrderId]=@orderId";
+                string sql = @"select A.*,B.[CityName] from [dbo].[SysReceiverInfo](nolock) A
+                              left join [dbo].[SysChinaCity](nolock) B on A.ChinaCityId=B.Id
+                            where A.[IsDelete]=0 and A.[OrderId]=@orderId";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@orderId", DbType.Int64, id);
                 return baseDao.SelectList<SysReceiverInfo>(sql, parameters);

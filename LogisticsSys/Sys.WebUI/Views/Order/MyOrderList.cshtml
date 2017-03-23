@@ -313,8 +313,8 @@
 <script>
     var $table = $('#table'),
         $ok = $('#ok');
-    $(function () {
-        $ok.click(function () {
+    $(function() {
+        $ok.click(function() {
             $table.bootstrapTable('refresh');
         });
         $('[data-toggle="table"]').bootstrapTable();
@@ -323,16 +323,16 @@
             selections = [];
         $table.on('check.bs.table uncheck.bs.table ' +
             'check-all.bs.table uncheck-all.bs.table',
-            function () {
+            function() {
                 $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
 
                 // save your data, here just save the current page
                 selections = getIdSelections();
                 // push or splice the selections if you want to save all data selections
             });
-      
+
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
-            .click(function (e) {
+            .click(function(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 var href = $(this).attr('href');
@@ -340,7 +340,7 @@
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
                         .load(href,
-                            function () {
+                            function() {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
                 }
@@ -348,7 +348,7 @@
 
         function getIdSelections() {
             return $.map($table.bootstrapTable('getSelections'),
-                function (row) {
+                function(row) {
                     return row.Id;
                 });
         }
@@ -357,13 +357,13 @@
     function queryParams(params) {
         $('#toolbar')
             .find('input[name],select')
-            .each(function () {
+            .each(function() {
                 params[$(this).attr('name')] = $(this).val();
             });
         return params;
     }
 
-    function priceFormatter(v, r) { }
+    function priceFormatter(v, r) {}
 
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
@@ -375,8 +375,7 @@
 
     function actionFormatter(value, row, index) {
         var h = [];
-        h
-            .push('<button  type="button" class="btn btn-primary btn-xs"  onclick="updatedate(' +
+        h.push('<button  type="button" class="btn btn-primary btn-xs"  onclick="updatedate(' +
                 JSON.stringify(row).replace(/\"/g, "\'") +
                 ')" value="">查看</button>');
 

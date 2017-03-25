@@ -275,9 +275,11 @@
                                     <th data-field="expresswayName">快递方式</th>
                                     <th data-field="goodsdesc">明细</th>
                                     <th data-field="parcelweight">重量</th>
+                                    <th data-field="CourierComName">快递公司</th>
                                     <th data-field="chinacouriernumber">单号</th>
                                     <th data-field="budgetprice">预算价格</th>
                                     <th data-field="desc">备注</th>
+                                    <th data-field="parcelsingle" data-formatter="actionFormatter">操作</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -356,16 +358,16 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
-                                        <input type="radio" checked="checked" value="1" onchange="parcelweightBlur()" name="expressway"  data-text="普通正付">普通正付
+                                        <input type="radio" checked="checked" value="1" name="expressway"  data-text="普通正付">普通正付
                                     </label>
                                     <label>                                               
-                                        <input type="radio" value="2" name="expressway" onchange="parcelweightBlur()" data-text="顺丰正付"> 顺丰正付
+                                        <input type="radio" value="2" name="expressway" data-text="顺丰正付"> 顺丰正付
                                     </label>
                                     <label>
-                                        <input type="radio" value="3" name="expressway" onchange="parcelweightBlur()" data-text="普通到付">普通到付
+                                        <input type="radio" value="3" name="expressway" data-text="普通到付">普通到付
                                     </label>
                                     <label>
-                                        <input type="radio" value="3" name="expressway" onchange="parcelweightBlur()" data-text="顺丰到付">顺丰到付
+                                        <input type="radio" value="3" name="expressway" data-text="顺丰到付">顺丰到付
                                     </label>
                                 </div>
                             </div>
@@ -391,6 +393,21 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="rbudgetprice" name="rbudgetprice" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kdgs">
+                                    快递公司 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control col-md-7 col-xs-12" name="kdgs" id="kdgs" required="required" onchange="parcelweightBlur()" data-parsley-group="form3">
+                                        <option value="">选择快递公司</option>
+                                        @{
+                                            var CourierComData = ViewData["CourierComData"] as List<SelectBinding>;
+
+                                        }
+                                        @Html.BindingSelectHtmlString(CourierComData)
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -444,6 +461,16 @@
 
 <script>
     var $table;
+    function actionFormatter(value, row, index) {
+        return "<a class='btn btn-danger btn-xs' href='javascript:void(0)' onclick='deleteTableRow("+value+")'>删除</a>";
+    }
+    function deleteTableRow(index) {
+        var ix = [];
+        ix.push(index);
+        $table.bootstrapTable('remove', {field: 'parcelsingle', values: ix});
+        var data=$table.bootstrapTable('getData');
+        $('[name=sjJson]').val(JSON.stringify(data));
+    }
     function addReciverInfo() {
         var  isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
         if (isStepValid) {
@@ -465,7 +492,9 @@
                 chinacouriernumber:$('#chinacouriernumber').val(),
                 desc:$('#desc').val(),
                 stats:$('#receiverphone').val(),
-                budgetprice:$('#rbudgetprice').val()
+                budgetprice:$('#rbudgetprice').val(),
+                CourierComId:$('#kdgs').val(),
+                CourierComName:$('#kdgs>option:selected').text()
             }});
             $('#chinacityid').val('');
             $('#chinaaddress').val('');
@@ -479,6 +508,7 @@
             $('#desc').val('');
             $('#receiverphone').val('');
             $('#rbudgetprice').val('');
+            $('#kdgs').val('');
             data=$table.bootstrapTable('getData');
             $('[name=sjJson]').val(JSON.stringify(data));
         }
@@ -528,7 +558,7 @@
         var data = $('#goodstype').val();
         if (v !== "" && data !== '' && checkRate(v)) {
             var cityId = $('#russiacityid').val();
-            var trans = $('[name=transportationway]').val();
+            var trans = $('[name=transportationway]:checked').val();
             $.getJSON('@Url.Action("GetAddressBudgetPrice")',
                 { cityId: cityId, goodstype: data, transType: trans, weight: v },
                 function(e) {
@@ -540,7 +570,7 @@
 
     function parcelweightBlur() {
         var cityId = $('#chinacityid').val();
-        var expressway = $('[name=expressway]').val();
+        var expressway = $('[name=expressway]:checked').val();
         var weight = $('#parcelweight').val();
         if (cityId !== ''&&expressway!==''&&checkRate(weight)) {
             $.getJSON('@Url.Action("GetRBudgetPrice")',{cid:cityId,eway:expressway,weight:weight}, function(e) {
@@ -562,6 +592,12 @@
                 "locale": {
                     "format": "YYYY-MM-DD"
                 }
+            });
+            $('[name=transportationway]').change(function(e) {
+                aweightBlur();
+            });
+            $('[name=expressway]').change(function() {
+                parcelweightBlur();
             });
             $('[data-toggle="table"]').bootstrapTable();
             $('ul.bs-docs-sidenav>li>a').click(function (e) {

@@ -85,6 +85,10 @@
             <td>长(cm)：@addressinfo.BoxLong  宽(cm)：@addressinfo.BoxWidth   高(cm)：@addressinfo.BoxHeight</td>
         </tr>
         <tr>
+            <td>实际体积：</td>
+            <td>@addressinfo.GoodsVolumeWeight</td>
+        </tr>
+        <tr>
             <td>实际重量：</td>
             <td>@addressinfo.GoodsRealWeight</td>
         </tr>
@@ -112,6 +116,7 @@
             <th data-field="PackagingWay" data-formatter="PackagingWayFormatter">打包方式</th>
             <th data-field="ExpressWay" data-formatter="ExpressWayFormatter">快递方式</th>
             <th data-field="GoodsDesc" data-visible="false">明细</th>
+            <th data-field="CourierComName">快递公司</th>
             <th data-field="ChinaCourierNumber">快递单号</th>
             <th data-field="ParcelWeight">重量</th>
             <th data-field="RealWeight">真实重量</th>

@@ -56,6 +56,7 @@
     <Compile Include="ISysChinaCityRepository.cs" />
     <Compile Include="ISysCustomerInfoDao.cs" />
     <Compile Include="ISysGoodsTypeRepository.cs" />
+    <Compile Include="ISysKuaiDiComRepository.cs" />
     <Compile Include="ISysLogisticsInfoRepository.cs" />
     <Compile Include="ISysOrderInfoRepository.cs" />
     <Compile Include="ISysReceiverInfoRepository.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Repository\SysChinaCityRepository.cs" />
     <Compile Include="Repository\SysCustomerInfoDao.cs" />
     <Compile Include="Repository\SysGoodsTypeRepository.cs" />
+    <Compile Include="Repository\SysKuaiDiComRepository.cs" />
     <Compile Include="Repository\SysLogisticsInfoRepository.cs" />
     <Compile Include="Repository\SysOrderInfoRepository.cs" />
     <Compile Include="Repository\SysReceiverInfoRepository.cs" />

@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <span>状态: </span>
                     <select class="form-control" style="width: initial;" name="orderstatus">
-                      @Html.BindingOrderStatusSelectHtmlString()
+                        @Html.BindingOrderStatusSelectHtmlString()
                     </select>
                 </div>
                 <button id="ok" type="submit" class="btn btn-default">查询</button>
@@ -48,9 +48,10 @@
                     <th data-field="ShipperName">寄件人</th>
                     <th data-field="ShipperPhone">寄件人电话</th>
                     <th data-field="RussiaCityName">俄罗斯城市</th>
-                    <th data-field="ReceiverName">收件人</th>
-                    <th data-field="ReceiverPhone">收件人电话</th>
+                    <th data-field="CargoNumber">货物箱数</th>
+                    <th data-field="PickupDate">取货时间</th>
                     <th data-field="DisplayName">下单人</th>
+                    <th data-field="CreateDate">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter">状态</th>
                     <th data-field="Status" data-formatter="paystateFormatter">付款状态</th>
                     <th data-field="Id" data-formatter="actionFormatter">操作</th>
@@ -313,8 +314,8 @@
 <script>
     var $table = $('#table'),
         $ok = $('#ok');
-    $(function() {
-        $ok.click(function() {
+    $(function () {
+        $ok.click(function () {
             $table.bootstrapTable('refresh');
         });
         $('[data-toggle="table"]').bootstrapTable();
@@ -323,7 +324,7 @@
             selections = [];
         $table.on('check.bs.table uncheck.bs.table ' +
             'check-all.bs.table uncheck-all.bs.table',
-            function() {
+            function () {
                 $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
 
                 // save your data, here just save the current page
@@ -332,7 +333,7 @@
             });
 
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
-            .click(function(e) {
+            .click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 var href = $(this).attr('href');
@@ -340,7 +341,7 @@
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
                         .load(href,
-                            function() {
+                            function () {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
                 }
@@ -348,7 +349,7 @@
 
         function getIdSelections() {
             return $.map($table.bootstrapTable('getSelections'),
-                function(row) {
+                function (row) {
                     return row.Id;
                 });
         }
@@ -357,13 +358,13 @@
     function queryParams(params) {
         $('#toolbar')
             .find('input[name],select')
-            .each(function() {
+            .each(function () {
                 params[$(this).attr('name')] = $(this).val();
             });
         return params;
     }
 
-    function priceFormatter(v, r) {}
+    function priceFormatter(v, r) { }
 
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
@@ -376,9 +377,11 @@
     function actionFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs"  onclick="updatedate(' +
-                JSON.stringify(row).replace(/\"/g, "\'") +
-                ')" value="">查看</button>');
-
+            JSON.stringify(row).replace(/\"/g, "\'") +
+            ')" value="">查看</button>');
+        if (row.PayStatus < 1 && row.Status >= 2) {
+            h.push('<a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款</a>');
+        }
         return h.join('');
     }
 

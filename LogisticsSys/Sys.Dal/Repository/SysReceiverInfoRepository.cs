@@ -28,6 +28,28 @@ namespace Sys.Dal.Repository
             }
         }
 
+        public int UpdateReciverInfo(SysReceiverInfo entity)
+        {
+            try
+            {
+                string sql = @"Update [dbo].[SysReceiverInfo] set
+                               [RealWeight]=@RealWeight,
+                               [RealPrice]=@RealPrice
+                              where Id=@id";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@id", DbType.Int64, entity.Id);
+                parameters.AddInParameter("@RealWeight", DbType.Decimal, entity.RealWeight);
+                parameters.AddInParameter("@RealPrice", DbType.Decimal, entity.RealPrice);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
+                int iReturn = Convert.ToInt32(result);
+                return iReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
+            }
+        }
+
         public int Update(SysReceiverInfo entity)
         {
             try
@@ -68,16 +90,68 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public IList<SysReceiverInfo> GetByOrderId(long id)
+        public SysReceiverInfo GetByCourierNo(string no)
         {
             try
             {
-                string sql = @"select A.*,B.[CityName] from [dbo].[SysReceiverInfo](nolock) A
+                string sql = @"Select Top 1 * from [SysReceiverInfo](nolock)
+                             where [ChinaCourierNumber]=@no and [IsDelete]=0";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@no", DbType.AnsiString, no);
+                var dt = baseDao.SelectDataTable(sql, parameters);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    return new SysReceiverInfo()
+                    {
+                        Id = Convert.ToInt64(dt.Rows[0]["Id"]),
+                        OrderId = Convert.ToInt64(dt.Rows[0]["OrderId"])
+                    };
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);
+            }
+        }
+
+        public IList<SysReceiverInfo> GetByOrderId(long id)
+        {
+            var list = new List<SysReceiverInfo>();
+            try
+            {
+                string sql = @"select A.*,B.[CityName],C.[ComName] from [dbo].[SysReceiverInfo](nolock) A
                               left join [dbo].[SysChinaCity](nolock) B on A.ChinaCityId=B.Id
+                              left join [dbo].[SysKuaiDiCom] C on A.CourierComId=C.Id
                             where A.[IsDelete]=0 and A.[OrderId]=@orderId";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@orderId", DbType.Int64, id);
-                return baseDao.SelectList<SysReceiverInfo>(sql, parameters);
+                var dt = baseDao.SelectDataTable(sql, parameters);
+                return dt.AsEnumerable().Select(x => new SysReceiverInfo()
+                {
+                    Id = x.Field<Int64>("Id"),
+                    OrderId = x.Field<Int64>("OrderId"),
+                    ParcelSingle = x.Field<string>("ParcelSingle"),
+                    ChinaCityId = x.Field<long>("ChinaCityId"),
+                    CityName = x.Field<string>("CityName"),
+                    ChinaAddress = x.Field<string>("ChinaAddress"),
+                    ReceiverName = x.Field<string>("ReceiverName"),
+                    ReceiverPhone = x.Field<string>("ReceiverPhone"),
+                    PackagingWay = x.Field<int>("PackagingWay"),
+                    ExpressWay = x.Field<int>("ExpressWay"),
+                    GoodsDesc = x.Field<string>("GoodsDesc"),
+                    ParcelWeight = x.Field<decimal>("ParcelWeight"),
+                    RealWeight = x.Field<decimal>("RealWeight"),
+                    RealPrice = x.Field<decimal>("RealPrice"),
+                    CourierComId = x.Field<long>("CourierComId"),
+                    CourierComName = x.Field<string>("ComName"),
+                    ChinaCourierNumber = x.Field<string>("ChinaCourierNumber"),
+                    Desc = x.Field<string>("Desc"),
+                    BudgetPrice = x.Field<decimal>("BudgetPrice")
+                }).ToList();
             }
             catch (Exception ex)
             {

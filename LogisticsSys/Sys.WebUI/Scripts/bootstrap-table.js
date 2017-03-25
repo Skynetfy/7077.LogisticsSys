@@ -1913,6 +1913,7 @@
 
     BootstrapTable.prototype.initServer = function (silent, query, url) {
         var that = this,
+            t = new Date().getTime(),
             data = {},
             params = {
                 searchText: this.searchText,
@@ -1935,7 +1936,8 @@
             params = {
                 search: params.searchText,
                 sort: params.sortName,
-                order: params.sortOrder
+                order: params.sortOrder,
+                t:t
             };
 
             if (this.options.pagination) {

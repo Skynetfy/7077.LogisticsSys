@@ -30,6 +30,11 @@ namespace Sys.BLL
             return logisticsInfoRepository.Insert(entity);
         }
 
+        public SysLogisticsInfo GetById(long id)
+        {
+            return logisticsInfoRepository.FindByPk(id);
+        }
+
         public List<SysLogisticsInfo> GetLogisticsPagerData(string search, int offset, int limit, string order, string sort)
         {
             return logisticsInfoRepository.GetPagerList(search, offset, limit, order, sort).ToList();
@@ -42,6 +47,15 @@ namespace Sys.BLL
 
         public IList<SysLogisticsInfo> GetLogisticsInfoList(string single)
         {
+            ISysReceiverInfoRepository receiverInfo = DALFactory.SysReceiverInfoDao;
+            if (!string.IsNullOrEmpty(single))
+            {
+                var receiver = receiverInfo.GetByCourierNo(single);
+                if (receiver != null)
+                {
+
+                }
+            }
             return logisticsInfoRepository.GetLogisticsInfoList(single);
         }
     }

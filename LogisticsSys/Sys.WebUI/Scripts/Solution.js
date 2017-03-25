@@ -52,11 +52,11 @@ var Status_7077 = {
     },
     getPickupWay: function(s) {
         switch (s) {
-            case 0:
-                return "自行送货";
             case 1:
-                return "上午取货(9点-13点)";
+                return "自行送货";
             case 2:
+                return "上午取货(9点-13点)";
+            case 3:
                 return "下午取货(13点-17点)";
             default:
                 return "未知";
@@ -74,9 +74,9 @@ var Status_7077 = {
     },
     getCargoTransWay: function(s) {
         switch (s) {
-            case 0:
-                return "陆运";
             case 1:
+                return "陆运";
+            case 2:
                 return "空运";
             case 2:
                 return "海运";
@@ -86,11 +86,11 @@ var Status_7077 = {
     },
     getPackagingType: function(s) {
         switch (s) {
-            case 0:
-                return "不打包";
             case 1:
-                return "普通打包";
+                return "不打包";
             case 2:
+                return "普通打包";
+            case 3:
                 return "特殊泡沫打包";
             default:
                 return "未知";
@@ -98,13 +98,13 @@ var Status_7077 = {
     },
     getExpressWay: function(s) {
         switch (s) {
-            case 0:
-                return "普通正付";
             case 1:
-                return "顺丰正付";
+                return "普通正付";
             case 2:
-                return "普通到付";
+                return "顺丰正付";
             case 3:
+                return "普通到付";
+            case 4:
                 return "顺丰到付";
             default:
                 return "未知";

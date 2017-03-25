@@ -205,7 +205,7 @@
                             beforeSubmit: function (e) {
                                 var b = true;
                                 var uid = $('[name=id]').val();
-                                if (uid === '' && uid == null) {
+                                if (uid === '' || uid == undefined) {
                                     var username = $('#username').val();
                                     $.ajax({
                                         url: "@Url.Action("CheckUser", "Login")",
@@ -219,7 +219,7 @@
                                                 $('#alert-infor').addClass('alert-danger');
                                                 $('#alert-infor').show();
                                                 $('#alert-infor label').html("用户名已存在");
-                                                $('#alert-infor strong').html('错误！');
+                                                $('#alert-infor strong').html('');
                                             }
                                             else
                                                 b = true;
@@ -272,6 +272,7 @@
         }
     });
     function updatedate(row) {
+        $('#alert-infor').hide();
         $('#username').attr('readonly', 'readonly');
         $('#passworddivd,#passworddiv').hide();
         $('form [name=id]').val(row.Id);

@@ -21,12 +21,17 @@ namespace Sys.WebUI.Controllers
         // GET: Order
         public ActionResult Index(string id)
         {
+            ISysKuaiDiComRepository kuaidiDao = DALFactory.KuaiDiDao;
             var provider = new OrderInfoProvider();
             ViewBag.OrderNumber = provider.GetOrderNumber();
             ViewData["RCityDataList"] = RussiaCityService.Current.GetBindings(0);
             ViewData["CCityDataList"] = ChinaCityService.Current.GetChinaCities(0);
             ViewData["RoomTypeDataList"] = GoodsTypeService.Current.GetRoomTypeSelect(0);
-
+            ViewData["CourierComData"] = kuaidiDao.GetAll().Select(x => new SelectBinding()
+            {
+                Value = x.Id.ToString(),
+                Text = x.ComName
+            }).ToList();
             var username = User.Identity.Name;
             var userProvider = new UserLoginProvider();
             var _user = userProvider.GetUser(username);
@@ -192,6 +197,7 @@ namespace Sys.WebUI.Controllers
                         receiverInfo.ExpressWay = Convert.ToInt32(item.expressway.Value);
                         receiverInfo.GoodsDesc = item.goodsdesc.Value.ToString();
                         receiverInfo.ParcelWeight = Convert.ToDecimal(item.parcelweight.Value);
+                        receiverInfo.CourierComId = Convert.ToInt64(item.CourierComId.Value);
                         receiverInfo.ChinaCourierNumber = item.chinacouriernumber.Value.ToString();
                         receiverInfo.Desc = item.desc.Value.ToString();
                         receiverInfo.BudgetPrice = Convert.ToDecimal(item.budgetprice.Value.ToString());
@@ -244,7 +250,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult EditOrder(string orderId, string sjjg, string hwsjzl, string hwsjtjzl, string ddsjjg, string csjzl, string csjjg)
+        public ActionResult EditOrder(string orderId, string astj, string agrw, string arp)
         {
             if (!string.IsNullOrEmpty(orderId))
             {
@@ -252,7 +258,7 @@ namespace Sys.WebUI.Controllers
                 var order = orderPrivder.GetOrderInfoById(Convert.ToInt64(orderId));
                 if (order != null)
                 {
-                    order.OrderRealPrice = Convert.ToDecimal(sjjg);
+                    //order.OrderRealPrice = Convert.ToDecimal(sjjg);
                     order.Status = (int)OrderStatusEnum.Processed;
                     var i = orderPrivder.UpdateOrderInfo(order);
                     if (i > 0)
@@ -260,25 +266,42 @@ namespace Sys.WebUI.Controllers
                         var addressinfo = orderPrivder.GetAddressInfoByOid(order.Id);
                         if (addressinfo != null)
                         {
-                            addressinfo.GoodsRealWeight = Convert.ToDecimal(hwsjzl);
-                            addressinfo.GoodsVolumeWeight = Convert.ToDecimal(hwsjtjzl);
-                            addressinfo.AddressRealPrice = Convert.ToDecimal(ddsjjg);
+                            addressinfo.GoodsRealWeight = Convert.ToDecimal(agrw);
+                            addressinfo.GoodsVolumeWeight = Convert.ToDecimal(astj);
+                            addressinfo.AddressRealPrice = Convert.ToDecimal(arp);
                             orderPrivder.UpdateAddressInfo(addressinfo);
                         }
 
-                        var rec = orderPrivder.GetReceiverInfo(order.Id);
-                        if (rec != null)
-                        {
-                            //rec.RealWeight = Convert.ToDecimal(csjzl);
-                            //rec.RealPrice = Convert.ToDecimal(csjjg);
-                            //orderPrivder.UpdateReceiverInfo(rec);
-                        }
+                        //var rec = orderPrivder.GetReceiverInfo(order.Id);
+                        //if (rec != null)
+                        //{
+                        //    //rec.RealWeight = Convert.ToDecimal(csjzl);
+                        //    //rec.RealPrice = Convert.ToDecimal(csjjg);
+                        //    //orderPrivder.UpdateReceiverInfo(rec);
+                        //}
 
                     }
                 }
             }
             return Content("ok");
         }
+        [HttpPost]
+        public ActionResult EiditRevecierInfo(string shoujianId, string realweight, string realprice)
+        {
+            if (!string.IsNullOrEmpty(shoujianId))
+            {
+                ISysReceiverInfoRepository dao_ = DALFactory.SysReceiverInfoDao;
+                var reinfo = dao_.FindByPk(Convert.ToInt64(shoujianId));
+                if (reinfo != null)
+                {
+                    reinfo.RealWeight = Convert.ToDecimal(realweight);
+                    reinfo.RealPrice = Convert.ToDecimal(realprice);
+                    dao_.Update(reinfo);
+                }
+            }
+            return Content("ok");
+        }
+
         public ActionResult OrderList()
         {
             return View();

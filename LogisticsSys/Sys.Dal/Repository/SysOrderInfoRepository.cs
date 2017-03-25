@@ -31,6 +31,7 @@ namespace Sys.Dal.Repository
             dt.Columns.Add("ExpressWay", Type.GetType("System.Int32"));
             dt.Columns.Add("GoodsDesc", Type.GetType("System.String"));
             dt.Columns.Add("ParcelWeight", Type.GetType("System.Decimal"));
+            dt.Columns.Add("CourierComId", Type.GetType("System.Int64"));
             dt.Columns.Add("ChinaCourierNumber", Type.GetType("System.String"));
             dt.Columns.Add("Desc", Type.GetType("System.String"));
             dt.Columns.Add("RealWeight", Type.GetType("System.Decimal"));
@@ -58,6 +59,7 @@ namespace Sys.Dal.Repository
                 dr["ExpressWay"] = item.ExpressWay;
                 dr["GoodsDesc"] = item.GoodsDesc;
                 dr["ParcelWeight"] = item.ParcelWeight;
+                dr["CourierComId"] = item.CourierComId;
                 dr["ChinaCourierNumber"] = item.ChinaCourierNumber;
                 dr["Desc"] = item.Desc;
                 dr["RealWeight"] = item.RealWeight;

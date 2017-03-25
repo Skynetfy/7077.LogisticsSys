@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="DeliveryMessage.cs" />
     <Compile Include="OrderView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysActionLog.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="SysChinaCity.cs" />
     <Compile Include="SysCustomerInfo.cs" />
     <Compile Include="SysGoodsType.cs" />
+    <Compile Include="SysKuaiDiCom.cs" />
     <Compile Include="SysLogisticsInfo.cs" />
     <Compile Include="SysOrderInfo.cs" />
     <Compile Include="SysReceiverInfo.cs" />

@@ -262,3 +262,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\Microsoft.Owi
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.csprojResolveAssemblyReference.cache
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\RestSharp.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\RestSharp.xml

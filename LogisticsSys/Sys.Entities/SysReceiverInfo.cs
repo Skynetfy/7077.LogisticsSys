@@ -29,7 +29,7 @@ namespace Sys.Entities
         public long ChinaCityId { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "CityName", ColumnType = DbType.String, Length = 100)]
+        //[Column(Name = "CityName", ColumnType = DbType.String, Length = 100)]
         public string CityName { get; set; }
         /// <summary>
         /// </summary>
@@ -67,6 +67,11 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "RealPrice", ColumnType = DbType.Decimal)]
         public decimal RealPrice { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "CourierComId", ColumnType = DbType.Int64)]
+        public long CourierComId { get; set; }
+        public string CourierComName { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "ChinaCourierNumber", ColumnType = DbType.AnsiString, Length = 50)]

@@ -1,4 +1,5 @@
-﻿@using Sys.WebUI.Models
+﻿@using Sys.Common
+@using Sys.WebUI.Models
 @{
     Layout = null;
 }
@@ -18,12 +19,15 @@
             </div>
             <div class="form-group">
                 <label for="wldh" class="sr-only">物流单号</label>
-                @*<select class="form-control">
-                        <option value="">选择快递</option>
-                        <option value="shunfeng">俄罗斯</option>
-                        <option value="shunfeng">顺丰快递</option>
-                        <option value="yuantong">圆通快递</option>
-                    </select>*@
+                <select class="form-control">
+                    <option value="">选择快递</option>
+                    @{
+                        var comList = ViewData["KuaiDiData"] as List<SelectBinding>;
+
+                    }
+                    @Html.BindingSelectHtmlString(comList)
+                    <option value="other">其他</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="wldh" placeholder="物流单号">
@@ -37,10 +41,13 @@
 <script>
     $(function () {
         $('#searchbtn').click(function () {
+            $('body').mLoading("show"); //显示loading组件
             var no = $('#wldh').val();
+            var com = $('select').val();
             if (no != null && no !== '') {
-                $('#wlcontent')
-                    .load('@Url.Action("LogisticsDetail")?single=' + no);
+                $('#wlcontent').load('@Url.Action("LogisticsDetail")?single=' + no + "&com=" + com,function(e) {
+                    $('body').mLoading("hide"); //显示loading组件
+                });
             }
         });
         $('[role=complementary] ul.bs-docs-sidenav>li>a')

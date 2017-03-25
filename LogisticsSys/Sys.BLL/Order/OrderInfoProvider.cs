@@ -28,7 +28,7 @@ namespace Sys.BLL.Order
 
         public int UpdateAddressInfo(SysAddresserInfo entity)
         {
-            return addresserInfoDao.Update(entity);
+            return addresserInfoDao.UpdateAddresser(entity);
         }
 
         public int UpdateReceiverInfo(SysReceiverInfo entity)

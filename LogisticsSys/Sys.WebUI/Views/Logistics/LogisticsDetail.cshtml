@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 俄罗斯境内物流信息</h5>
 <ul class="list-unstyled timeline" id="viewdemailul" style="border-top: 1px solid #e8e8e8;margin-top: 20px;">
     @{
         var data = ViewData["LogisticsInfoList"] as List<SysLogisticsInfo>;
@@ -28,6 +29,44 @@
         else
         {
             <li>没有查找到任何信息</li>
+        }
+    }
+
+</ul>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 中国境内物流信息</h5>
+<ul class="list-unstyled timeline" id="viewdemailul" style="border-top: 1px solid #e8e8e8;margin-top: 20px;">
+    @{
+        var chinalogistics = ViewData["chinalogistics"] as DeliveryMessage;
+        if (chinalogistics != null && chinalogistics.data != null)
+        {
+            foreach (var item in chinalogistics.data)
+            {
+                <li>
+                    <div class="block">
+
+                        <div class="block_content">
+                            <h2 class="title">
+                                @item.context
+                            </h2>
+                            <div class="byline">
+                                <span>@item.time.ToString("yyyy-MM-dd hh:mm:ss")</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+        else if (chinalogistics != null)
+        {
+            if (chinalogistics.status == 0)
+            {
+                <li>物流单暂无结果</li>
+            }
+            else if (chinalogistics.status == 2)
+            {
+                <li>@chinalogistics.message</li>
+            }
         }
     }
 

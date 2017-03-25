@@ -21,7 +21,12 @@ namespace Sys.Dal
         private static readonly ISysAgentInfoDao _SysAgentInfoDao = new SysAgentInfoDao();
         private static readonly ISysCustomerInfoDao _CustomerInfoDao = new SysCustomerInfoDao();
         private static readonly ISysActionLogDao _ActionLogDao=new SysActionLogDao();
+        private static readonly ISysKuaiDiComRepository _KuaiDiComDao=new SysKuaiDiComRepository();
 
+        public static ISysKuaiDiComRepository KuaiDiDao
+        {
+            get { return _KuaiDiComDao; }
+        }
         public static ISysActionLogDao ActionLogDao
         {
             get { return _ActionLogDao; }

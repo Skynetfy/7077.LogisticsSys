@@ -107,14 +107,38 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public IList<SysLogisticsInfo> GetLogisticsInfoList(string single)
+        public IList<SysLogisticsInfo> GetLogisticsListBySingle(string single)
         {
             try
             {
                 string sql = @"select * from [SysLogisticsInfo] (nolock)
-                             where [IsDelete]=0 and [LogisticsSingle]=@single order by [UpdateDate] desc";
+                             where [IsDelete]=0 and [LogisticsSingle]=@single 
+                             and [UpdateDate]=(select max(UpdateDate) from [SysLogisticsInfo] (nolock)
+                             where [IsDelete]=0 and [LogisticsSingle]=@single 
+                             group by [LogisticsSingle],[LogisticsDesc]
+      ,[Status]
+      ,[UpdateDate]
+      ,[UserName],[IsDelete],[OrderNos])
+                             order by [UpdateDate] desc";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@single", DbType.AnsiString, single);
+                return baseDao.SelectList<SysLogisticsInfo>(sql,parameters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IList<SysLogisticsInfo> GetLogisticsInfoList(string orderId)
+        {
+            try
+            {
+                string sql = @"select * from [SysLogisticsInfo] (nolock)
+                             where [IsDelete]=0 and [OrderNos]=@single order by [UpdateDate] desc";
                 StatementParameterCollection parameters=new StatementParameterCollection();
-                parameters.AddInParameter("@single",DbType.AnsiString, single);
+                parameters.AddInParameter("@single",DbType.AnsiString, orderId);
                 return baseDao.SelectList<SysLogisticsInfo>(sql, parameters);
             }
             catch (Exception)
@@ -145,22 +169,34 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                string sql = string.Format(@"select top {0} [Id]
-      ,[LogisticsSingle]
+                string sql = string.Format(@"select top {0}
+      [LogisticsSingle]
       ,[LogisticsDesc]
-      ,[CreateDate]
       ,[IsDelete]
       ,[Status]
-      ,[UpdateDate] from v_LogisticsInfo (nolock)
-                             where [IsDelete]=0 and [Id] not in (select top {1} id from v_LogisticsInfo (nolock) where [IsDelete]=0 {2} ORDER BY {3} {4}) {2} ORDER BY {3} {4}", limit, offset, search, sort, order);
-                return baseDao.SelectList<SysLogisticsInfo>(sql);
+      ,[UpdateDate]
+,UserName from v_LogisticsInfo (nolock)
+                             where [IsDelete]=0 and [UpdateDate] not in (select top {1} UpdateDate from v_LogisticsInfo (nolock) where [IsDelete]=0 {2} ORDER BY {3} {4}) {2} ORDER BY {3} {4}", limit, offset, search, sort, order);
+                var dt = baseDao.SelectDataTable(sql);
+                if (dt != null)
+                {
+                    return dt.AsEnumerable().Select(x => new SysLogisticsInfo()
+                    {
+                        LogisticsSingle = x.Field<string>("LogisticsSingle"),
+                        LogisticsDesc = x.Field<string>("LogisticsDesc"),
+                        Status = x.Field<bool>("Status"),
+                        UpdateDate = x.Field<DateTime>("UpdateDate"),
+                        UserName = x.Field<string>("UserName"),
+                        IsDelete = x.Field<bool>("IsDelete")
+                    }).ToList();
+                }
+                return null;
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return null;
         }
     }
 }

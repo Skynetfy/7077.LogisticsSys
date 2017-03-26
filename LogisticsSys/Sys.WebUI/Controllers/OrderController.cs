@@ -362,7 +362,7 @@ namespace Sys.WebUI.Controllers
                             alog.UpdateDate = Convert.ToDateTime(fhsj);
                             alog.LogisticsDesc = fhnr.Trim();
                             alog.LogisticsSingle = gzdh.Trim();
-                            alog.OrderNos = fahuoid;
+                            alog.OrderNos = id;
                             alog.UserName = _user.UserName;
                             alog.CreateDate = DateTime.Now;
                             alog.Status = false;

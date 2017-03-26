@@ -31,7 +31,7 @@ namespace Sys.WebUI.Controllers
         {
             if (!string.IsNullOrEmpty(single))
             {
-                if (!com.Equals("other"))
+                if (com!=null&&!com.Equals("other"))
                 {
                     var host = ConfigHelper.GetValue("KD100Host");
                     var apiKey = ConfigHelper.GetValue("KD100ApiKey");
@@ -64,16 +64,22 @@ namespace Sys.WebUI.Controllers
         {
             if (!string.IsNullOrEmpty(id))
             {
-                var entity = LogisticsService.Current.GetById(Convert.ToInt64(id));
-                entity.LogisticsDesc = LogisticsDesc.Trim();
-                entity.LogisticsSingle = id;
-                entity.UpdateDate = Convert.ToDateTime(UpdateDate.Trim());
-                entity.Status = gender.Equals("1");
-                entity.OrderNos = entity.OrderNos;
-                entity.UserName = entity.UserName;
-                entity.CreateDate = DateTime.Now;
-                entity.IsDelete = false;
-                LogisticsService.Current.AddLogistics(entity);
+                var logins= LogisticsService.Current.GetListBySingle(id);
+               
+                foreach (var d in logins)
+                {
+                    var entity = new SysLogisticsInfo();
+                    entity.LogisticsDesc = LogisticsDesc.Trim();
+                    entity.LogisticsSingle = d.LogisticsSingle;
+                    entity.UpdateDate = Convert.ToDateTime(UpdateDate.Trim());
+                    entity.Status = gender.Equals("1");
+                    entity.OrderNos = d.OrderNos;
+                    entity.UserName = d.UserName;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    LogisticsService.Current.AddLogistics(entity);
+                }
+               
             }
             return Content("ok");
         }

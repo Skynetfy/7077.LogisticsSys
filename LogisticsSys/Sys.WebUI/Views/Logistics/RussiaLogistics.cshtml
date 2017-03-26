@@ -20,7 +20,7 @@
                data-url="@Url.Action("GetLogisticsPagerList")"
                data-pagination="true"
                data-side-pagination="server"
-               data-sort-name="CreateDate"
+               data-sort-name="UpdateDate"
                data-sort-order="desc"
                data-page-size="50"
                data-page-list="[20,50,100]"
@@ -221,7 +221,7 @@
 
     function showdate(row) {
         $('#viewModel').modal('show');
-        $('#logisticsview').load("@Url.Action("LogisticsDetail")?single=" + row.LogisticsSingle);
+        $('#logisticsview').load("@Url.Action("LogisticsDetail")?single=" + row.OrderNos + " #viewdemailul");
     }
 
     function statusFormatter(value, row, index) {

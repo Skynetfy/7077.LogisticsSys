@@ -30,6 +30,16 @@ namespace Sys.BLL
             return logisticsInfoRepository.Insert(entity);
         }
 
+        public List<SysLogisticsInfo> GetLogisticsBySingle(string single)
+        {
+            return logisticsInfoRepository.GetLogisticsInfoList(single).ToList();
+        }
+
+        public List<SysLogisticsInfo> GetListBySingle(string single)
+        {
+            return logisticsInfoRepository.GetLogisticsListBySingle(single).ToList();
+        }
+
         public SysLogisticsInfo GetById(long id)
         {
             return logisticsInfoRepository.FindByPk(id);
@@ -53,10 +63,12 @@ namespace Sys.BLL
                 var receiver = receiverInfo.GetByCourierNo(single);
                 if (receiver != null)
                 {
-
+                    var logics = DALFactory.SysLogisticsInfoDao;
+                    return logics.GetLogisticsInfoList(receiver.Id.ToString());
                 }
             }
-            return logisticsInfoRepository.GetLogisticsInfoList(single);
+            return new List<SysLogisticsInfo>();
+            //return logisticsInfoRepository.GetLogisticsInfoList(single);
         }
     }
 }

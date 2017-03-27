@@ -54,7 +54,10 @@ namespace Sys.BLL
         {
             return logisticsInfoRepository.GetPagerCount(search);
         }
-
+        public IList<SysLogisticsInfo> GetLogisticsListBySingleGroup(string single)
+        {
+            return logisticsInfoRepository.GetLogisticsListBySingleGroup(single);
+        }
         public IList<SysLogisticsInfo> GetLogisticsInfoList(string single)
         {
             ISysReceiverInfoRepository receiverInfo = DALFactory.SysReceiverInfoDao;
@@ -64,7 +67,7 @@ namespace Sys.BLL
                 if (receiver != null)
                 {
                     var logics = DALFactory.SysLogisticsInfoDao;
-                    return logics.GetLogisticsInfoList(receiver.Id.ToString());
+                    return logics.GetLogisticsInfoList(receiver.OrderId.ToString());
                 }
             }
             return new List<SysLogisticsInfo>();

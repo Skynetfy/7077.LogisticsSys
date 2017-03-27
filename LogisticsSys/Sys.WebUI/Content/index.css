@@ -404,7 +404,7 @@ input.parsley-error, textarea.parsley-error, select.parsley-error {
 /*====================================================
 	header
 ====================================================*/
-a {
+.nav a {
     color: #505050;
 }
 

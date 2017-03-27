@@ -55,6 +55,7 @@
     <Compile Include="Users\MenusEnum.cs" />
     <Compile Include="Users\RuleTypeEnum.cs" />
     <Compile Include="Users\UserLoginProvider.cs" />
+    <Compile Include="WuliuGenZongInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sys.Common\Sys.Common.csproj">

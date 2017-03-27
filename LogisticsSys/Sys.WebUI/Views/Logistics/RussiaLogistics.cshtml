@@ -31,7 +31,7 @@
             <thead>
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
-                    <th data-field="LogisticsSingle">物流跟踪号</th>
+                    <th data-field="LogisticsSingle" data-formatter="LogisticsSingleFormatter">物流跟踪号</th>
                     <th data-field="UpdateDate">最近更新时间</th>
                     <th data-field="LogisticsDesc">物流详情</th>
                     <th data-field="Status" data-formatter="statusFormatter">状态</th>
@@ -81,10 +81,10 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div id="gender" class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-default parsley-success active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                    <input type="radio" name="gender" value="0" data-parsley-multiple="gender" data-parsley-id="2562"> &nbsp; 未到货 &nbsp;
+                                    <input type="radio" name="gender" value="0" data-parsley-multiple="gender" checked="" data-parsley-id="2562"> &nbsp; 未到货 &nbsp;
                                 </label><ul class="parsley-errors-list" id="parsley-id-multiple-gender"></ul>
                                 <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                    <input type="radio" name="gender" value="1" checked="" data-parsley-multiple="gender" data-parsley-id="2562"> 已到货
+                                    <input type="radio" name="gender" value="1" data-parsley-multiple="gender" data-parsley-id="2562"> 已到货
                                 </label>
                             </div>
                         </div>
@@ -124,6 +124,117 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="viewOrders" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">物流跟踪与订单关系图</h4>
+            </div>
+            <div class="modal-body" id="orderview">
+                <div class="tree well">
+
+                    @*<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 somewhere</span> 
+
+                            <ul>
+
+                                <li>
+
+                                    <span><i class="icon-minus-sign"></i> 订单号 somewhere</span> 
+
+                                    <ul>
+
+                                        <li>
+
+                                            <span><i class="icon-leaf"></i> 物流单号 somewhere</span> <a href=""></a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                                <li>
+
+                                    <span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+
+                                    <ul>
+
+                                        <li>
+
+                                            <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <span><i class="icon-minus-sign"></i> Grand Child</span> <a href="">Goes somewhere</a>
+
+                                            <ul>
+
+                                                <li>
+
+                                                    <span><i class="icon-minus-sign"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                    <ul>
+
+                                                        <li>
+
+                                                            <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                        </li>
+
+                                                        <li>
+
+                                                            <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                        </li>
+
+                                                    </ul>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                </li>
+
+                                                <li>
+
+                                                    <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
+
+                                        <li>
+
+                                            <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+                    </ul>*@
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/bootstrap-tree.css" rel="stylesheet" />
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
@@ -131,6 +242,10 @@
         return $(window).height() - $('h1').outerHeight(true);
     }
 
+    $(function () {
+
+    
+    });
     $(function () {
         $('#UpdateDate')
             .daterangepicker({
@@ -221,9 +336,55 @@
 
     function showdate(row) {
         $('#viewModel').modal('show');
-        $('#logisticsview').load("@Url.Action("LogisticsDetail")?single=" + row.OrderNos + " #viewdemailul");
+        $('#logisticsview').empty();
+        $('#logisticsview').load("@Url.Action("LogisticsDetail")?type=1&single=" + row.LogisticsSingle + " #viewdemailul", function (e) {
+            $('#viewdemailul li:first h2').addClass('last');
+        });
     }
+    function viewOrders(single) {
+        $('#viewOrders').modal('show');
+        $.getJSON('@Url.Action("GetLogisticsList")', { single: single }, function (e) {
+            var h = [];
+            h.push('<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 ' + single + '</span> <ul> ');
+            $.each(e.Orders, function (x, v) {
+                h.push(' <li> <span><i class="icon-minus-sign"></i> 订单号 ' + v.OrderNumber + '</span> ');
+                h.push(' <ul>');
+                $.each(v.LoginsNo, function (y,z) {
+                    h.push('<li><span><i class="icon-leaf"></i> 物流单号 ' + z + '</span> <a href=""></a></li>');
+                })
+                h.push(' </ul></li>');
+            })
+            h.push('</li></ul>');
+            $('.tree').empty();
+            $('.tree').html(h.join(''));
+            $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
 
+            $('.tree li.parent_li > span').on('click', function (e) {
+
+                var children = $(this).parent('li.parent_li').find(' > ul > li');
+
+                if (children.is(":visible")) {
+
+                    children.hide('fast');
+
+                    $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+
+                } else {
+
+                    children.show('fast');
+
+                    $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+
+                }
+
+                e.stopPropagation();
+
+            });
+        })
+    }
+    function LogisticsSingleFormatter(value, row, index) {
+        return '<a href="javascript:void(0)" onclick="viewOrders(' + value + ')">' + value + '</a>';
+    }
     function statusFormatter(value, row, index) {
         if (row.Status)
             return '已到货';
@@ -237,9 +398,11 @@
         h.push('<button  type="button" class="btn btn-default btn-xs" onclick="showdate(' +
             JSON.stringify(row).replace(/\"/g, "\'") +
             ')" value="">查看</button>');
-        h.push(' <button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
-            JSON.stringify(row).replace(/\"/g, "\'") +
-            ')" value="">更新</button>');
+        if (row.Status == false) {
+            h.push(' <button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
+                    JSON.stringify(row).replace(/\"/g, "\'") +
+                    ')" value="">更新</button>');
+        }
 
         return h.join('');
     }

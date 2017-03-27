@@ -45,7 +45,7 @@
             var no = $('#wldh').val();
             var com = $('select').val();
             if (no != null && no !== '') {
-                $('#wlcontent').load('@Url.Action("LogisticsDetail")?single=' + no + "&com=" + com,function(e) {
+                $('#wlcontent').load('@Url.Action("LogisticsDetail")?type=2&single=' + no + "&com=" + com,function(e) {
                     $('body').mLoading("hide"); //显示loading组件
                 });
             }

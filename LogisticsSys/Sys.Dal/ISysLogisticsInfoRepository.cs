@@ -12,5 +12,7 @@ namespace Sys.Dal
         IList<SysLogisticsInfo> GetLogisticsInfoList(string single);
 
         IList<SysLogisticsInfo> GetLogisticsListBySingle(string single);
+
+        IList<SysLogisticsInfo> GetLogisticsListBySingleGroup(string single);
     }
 }

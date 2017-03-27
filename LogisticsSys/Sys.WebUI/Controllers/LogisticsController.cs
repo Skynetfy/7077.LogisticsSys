@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RestSharp;
 using Sys.BLL;
+using Sys.BLL.Order;
 using Sys.Common;
 using Sys.Dal;
 using Sys.Entities;
@@ -26,12 +27,31 @@ namespace Sys.WebUI.Controllers
             }).ToList();
             return View();
         }
-
-        public ActionResult LogisticsDetail(string single, string com)
+        public ActionResult GetLogisticsList(string single)
+        {
+            var dataList = new WuliuGenZongInfo();
+            if (!string.IsNullOrEmpty(single))
+            {
+                var logins = LogisticsService.Current.GetListBySingle(single);
+                dataList.Single = single;
+                foreach (var i in logins)
+                {
+                    var order = new WuliuGenZongOrderNos();
+                    var orderProvider = new OrderInfoProvider();
+                    var re = orderProvider.GetReceiverInfo(Convert.ToInt64(i.OrderNos));
+                    order.OrderNumber = orderProvider.GetOrderInfoById(Convert.ToInt64(i.OrderNos)).OrderNo;
+                    order.LoginsNo = re.Select(x => x.ChinaCourierNumber).ToList();
+                    dataList.Orders.Add(order);
+                }
+                return Json(dataList, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+        public ActionResult LogisticsDetail(string type, string single, string com)
         {
             if (!string.IsNullOrEmpty(single))
             {
-                if (com!=null&&!com.Equals("other"))
+                if (com != null && !com.Equals("other"))
                 {
                     var host = ConfigHelper.GetValue("KD100Host");
                     var apiKey = ConfigHelper.GetValue("KD100ApiKey");
@@ -51,7 +71,15 @@ namespace Sys.WebUI.Controllers
                     }
                 }
             }
-            ViewData["LogisticsInfoList"] = LogisticsService.Current.GetLogisticsInfoList(single);
+            if (type.Equals("1"))
+            {
+                ViewData["LogisticsInfoList"] = LogisticsService.Current.GetLogisticsListBySingleGroup(single);
+            }
+            else if (type.Equals("2"))
+            {
+                ViewData["LogisticsInfoList"] = LogisticsService.Current.GetLogisticsInfoList(single);
+            }
+
             return View();
         }
 
@@ -64,8 +92,8 @@ namespace Sys.WebUI.Controllers
         {
             if (!string.IsNullOrEmpty(id))
             {
-                var logins= LogisticsService.Current.GetListBySingle(id);
-               
+                var logins = LogisticsService.Current.GetListBySingle(id);
+
                 foreach (var d in logins)
                 {
                     var entity = new SysLogisticsInfo();
@@ -79,7 +107,7 @@ namespace Sys.WebUI.Controllers
                     entity.IsDelete = false;
                     LogisticsService.Current.AddLogistics(entity);
                 }
-               
+
             }
             return Content("ok");
         }

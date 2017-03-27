@@ -24,7 +24,7 @@ namespace Sys.WebUI.Controllers
             ISysKuaiDiComRepository kuaidiDao = DALFactory.KuaiDiDao;
             var provider = new OrderInfoProvider();
             ViewBag.OrderNumber = provider.GetOrderNumber();
-            ViewData["RCityDataList"] = RussiaCityService.Current.GetBindings(0);
+            ViewData["RCityDataList"] = RussiaCityService.Current.GetBindings(0).OrderByDescending(x=>x.Value).ToList();
             ViewData["CCityDataList"] = ChinaCityService.Current.GetChinaCities(0);
             ViewData["RoomTypeDataList"] = GoodsTypeService.Current.GetRoomTypeSelect(0);
             ViewData["CourierComData"] = kuaidiDao.GetAll().Select(x => new SelectBinding()

@@ -106,19 +106,50 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问BulkInsert时出错", ex);
             }
         }
+        public IList<SysLogisticsInfo> GetLogisticsListBySingleGroup(string single)
+        {
+            try
+            {
+                string sql = @"select [Status]
+                             ,[LogisticsDesc]
+                             ,[UpdateDate]
+                             ,[UserName] from [SysLogisticsInfo] (nolock)
+                             where [IsDelete]=0 and [LogisticsSingle]=@single 
+                             group by [Status]
+                             ,[LogisticsDesc]
+                             ,[UpdateDate]
+                             ,[UserName]
+                             order by [UpdateDate] desc";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@single", DbType.AnsiString, single);
+                var dt = baseDao.SelectDataTable(sql, parameters);
+                if (dt != null)
+                {
+                    return dt.AsEnumerable().Select(x => new SysLogisticsInfo()
+                    {
+                        LogisticsDesc = x.Field<string>("LogisticsDesc"),
+                        Status = x.Field<bool>("Status"),
+                        UpdateDate = x.Field<DateTime>("UpdateDate"),
+                        UserName = x.Field<string>("UserName")
+                    }).ToList();
+                }
+                return null;
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
         public IList<SysLogisticsInfo> GetLogisticsListBySingle(string single)
         {
             try
             {
                 string sql = @"select * from [SysLogisticsInfo] (nolock)
                              where [IsDelete]=0 and [LogisticsSingle]=@single 
-                             and [UpdateDate]=(select max(UpdateDate) from [SysLogisticsInfo] (nolock)
+                             and Id in(select max(Id) from [SysLogisticsInfo] (nolock)
                              where [IsDelete]=0 and [LogisticsSingle]=@single 
-                             group by [LogisticsSingle],[LogisticsDesc]
-      ,[Status]
-      ,[UpdateDate]
-      ,[UserName],[IsDelete],[OrderNos])
+                             group by [OrderNos])
                              order by [UpdateDate] desc";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@single", DbType.AnsiString, single);

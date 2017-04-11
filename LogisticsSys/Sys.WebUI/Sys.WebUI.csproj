@@ -220,6 +220,13 @@
     <Compile Include="Models\MvcHtmlExtension.cs" />
     <Compile Include="Models\SysUserPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql.aspx.cs">
+      <DependentUpon>Sql.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sql.aspx.designer.cs">
+      <DependentUpon>Sql.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +283,7 @@
     <Content Include="Scripts\responsive-menu.js" />
     <Content Include="Scripts\Solution.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Sql.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

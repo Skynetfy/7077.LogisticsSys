@@ -12,7 +12,7 @@
 <table class="table">
     <tbody>
         <tr>
-            <td style="width:30%">订单号：</td>
+            <td style="width:20%">订单号：</td>
             <td>@orderinfo.OrderNo</td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
 <table class="table">
     <tbody>
         <tr>
-            <td style="width:30%">俄罗斯城市：</td>
+            <td style="width:20%">俄罗斯城市：</td>
             <td>@addressinfo.CityName</td>
         </tr>
         <tr>
@@ -107,26 +107,65 @@
        data-show-columns="true"
        data-query-params="queryParams">
     <thead>
-        <tr>
-            <th data-field="ParcelSingle">编号</th>
-            <th data-field="CityName">省份</th>
-            <th data-field="ChinaAddress" data-visible="false">地址</th>
-            <th data-field="ReceiverName">姓名</th>
-            <th data-field="ReceiverPhone" data-visible="false">电话</th>
-            <th data-field="PackagingWay" data-formatter="PackagingWayFormatter">打包方式</th>
-            <th data-field="ExpressWay" data-formatter="ExpressWayFormatter">快递方式</th>
-            <th data-field="GoodsDesc" data-visible="false">明细</th>
-            <th data-field="CourierComName">快递公司</th>
-            <th data-field="ChinaCourierNumber">快递单号</th>
-            <th data-field="ParcelWeight">重量</th>
-            <th data-field="RealWeight">真实重量</th>
-            <th data-field="BudgetPrice">预算价格</th>
-            <th data-field="RealPrice">真实价格</th>
-            <th data-field="Desc" data-visible="false">备注</th>
-        </tr>
+    <tr>
+        <th data-field="ParcelSingle">编号</th>
+        <th data-field="CityName">省份</th>
+        <th data-field="ChinaAddress" data-visible="false">地址</th>
+        <th data-field="ReceiverName">姓名</th>
+        <th data-field="ReceiverPhone" data-visible="false">电话</th>
+        <th data-field="PackagingWay" data-formatter="PackagingWayFormatter">打包方式</th>
+        <th data-field="ExpressWay" data-formatter="ExpressWayFormatter">快递方式</th>
+        <th data-field="GoodsDesc" data-visible="false">明细</th>
+        <th data-field="CourierComName">快递公司</th>
+        <th data-field="ChinaCourierNumber">快递单号</th>
+        <th data-field="ParcelWeight">重量</th>
+        <th data-field="RealWeight">真实重量</th>
+        <th data-field="BudgetPrice">预算价格</th>
+        <th data-field="RealPrice">真实价格</th>
+        <th data-field="Desc" data-visible="false">备注</th>
+    </tr>
     </thead>
     <tbody></tbody>
 </table>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 收款信息</h5>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td style="width:20%">收款时间：</td>
+            <td>@orderinfo.OrderNo</td>
+        </tr>
+        <tr>
+            <td>收款人：</td>
+            <td>@orderinfo.ShipperName</td>
+        </tr>
+        <tr>
+            <td>收款详细：</td>
+            <td>@orderinfo.ShipperPhone</td>
+        </tr>
+      
+    </tbody>
+</table>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 发货信息</h5>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td style="width:20%">发货时间：</td>
+            <td>@orderinfo.OrderNo</td>
+        </tr>
+        <tr>
+            <td>发货人：</td>
+            <td>@orderinfo.ShipperName</td>
+        </tr>
+        <tr>
+            <td>发货详细：</td>
+            <td>@orderinfo.ShipperPhone</td>
+        </tr>
+
+    </tbody>
+</table>
+
 <script>
     function queryParams(params) {
         params["oid"]=@orderinfo.Id;

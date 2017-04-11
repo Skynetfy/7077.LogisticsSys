@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sys.Dal.Repository;
+using Arch.Data;
+
 namespace Sys.Dal
 {
     public partial class DALFactory
@@ -20,9 +22,21 @@ namespace Sys.Dal
         private static readonly ISysUnitPriceRepository _sysUnitPriceDao = new SysUnitPriceRepository();
         private static readonly ISysAgentInfoDao _SysAgentInfoDao = new SysAgentInfoDao();
         private static readonly ISysCustomerInfoDao _CustomerInfoDao = new SysCustomerInfoDao();
-        private static readonly ISysActionLogDao _ActionLogDao=new SysActionLogDao();
-        private static readonly ISysKuaiDiComRepository _KuaiDiComDao=new SysKuaiDiComRepository();
-
+        private static readonly ISysActionLogDao _ActionLogDao = new SysActionLogDao();
+        private static readonly ISysKuaiDiComRepository _KuaiDiComDao = new SysKuaiDiComRepository();
+        public static string SqlAction(string sql)
+        {
+            try
+            {
+                BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
+                baseDao.ExecNonQuery(sql);
+                return "执行成功";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
         public static ISysKuaiDiComRepository KuaiDiDao
         {
             get { return _KuaiDiComDao; }

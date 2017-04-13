@@ -264,3 +264,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\obj\Debug\Sys.Web
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.pdb
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\RestSharp.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\RestSharp.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\RestSharp.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\RestSharp.xml

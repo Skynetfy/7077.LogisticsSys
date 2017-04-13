@@ -38,8 +38,8 @@ namespace Sys.Dal.Repository
                               where Id=@id";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@id", DbType.Int64, entity.Id);
-                parameters.AddInParameter("@RealWeight", DbType.Decimal, entity.RealWeight);
-                parameters.AddInParameter("@RealPrice", DbType.Decimal, entity.RealPrice);
+                //parameters.AddInParameter("@RealWeight", DbType.Decimal, entity.RealWeight);
+                //parameters.AddInParameter("@RealPrice", DbType.Decimal, entity.RealPrice);
                 Object result = baseDao.ExecNonQuery(sql, parameters);
                 int iReturn = Convert.ToInt32(result);
                 return iReturn;
@@ -144,13 +144,13 @@ namespace Sys.Dal.Repository
                     ExpressWay = x.Field<int>("ExpressWay"),
                     GoodsDesc = x.Field<string>("GoodsDesc"),
                     ParcelWeight = x.Field<decimal>("ParcelWeight"),
-                    RealWeight = x.Field<decimal>("RealWeight"),
-                    RealPrice = x.Field<decimal>("RealPrice"),
-                    CourierComId = x.Field<long>("CourierComId"),
-                    CourierComName = x.Field<string>("ComName"),
-                    ChinaCourierNumber = x.Field<string>("ChinaCourierNumber"),
-                    Desc = x.Field<string>("Desc"),
-                    BudgetPrice = x.Field<decimal>("BudgetPrice")
+                    //RealWeight = x.Field<decimal>("RealWeight"),
+                    //RealPrice = x.Field<decimal>("RealPrice"),
+                    //CourierComId = x.Field<long>("CourierComId"),
+                    //CourierComName = x.Field<string>("ComName"),
+                    //ChinaCourierNumber = x.Field<string>("ChinaCourierNumber"),
+                    //Desc = x.Field<string>("Desc"),
+                    //BudgetPrice = x.Field<decimal>("BudgetPrice")
                 }).ToList();
             }
             catch (Exception ex)

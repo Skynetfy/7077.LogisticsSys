@@ -24,3 +24,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.d
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.pdb
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.xml

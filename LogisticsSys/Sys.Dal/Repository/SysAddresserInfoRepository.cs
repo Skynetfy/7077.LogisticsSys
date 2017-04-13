@@ -51,10 +51,10 @@ namespace Sys.Dal.Repository
                              [GoodsRealWeight]=@GoodsRealWeight
                              where Id=@id";
                 StatementParameterCollection parameters=new StatementParameterCollection();
-                parameters.AddInParameter("@id",DbType.Int64,entity.Id);
-                parameters.AddInParameter("@AddressRealPrice", DbType.Decimal, entity.AddressRealPrice);
-                parameters.AddInParameter("@GoodsVolumeWeight", DbType.Decimal, entity.GoodsVolumeWeight);
-                parameters.AddInParameter("@GoodsRealWeight", DbType.Decimal, entity.GoodsRealWeight);
+                //parameters.AddInParameter("@id",DbType.Int64,entity.Id);
+                //parameters.AddInParameter("@AddressRealPrice", DbType.Decimal, entity.AddressRealPrice);
+                //parameters.AddInParameter("@GoodsVolumeWeight", DbType.Decimal, entity.GoodsVolumeWeight);
+                //parameters.AddInParameter("@GoodsRealWeight", DbType.Decimal, entity.GoodsRealWeight);
                 Object result = baseDao.ExecNonQuery(sql, parameters);
                 int iReturn = Convert.ToInt32(result);
                 return iReturn;

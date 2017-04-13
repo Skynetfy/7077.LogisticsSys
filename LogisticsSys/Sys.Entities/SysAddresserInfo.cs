@@ -37,16 +37,16 @@ namespace Sys.Entities
         public string RussiaAddress { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "CargoNumber", ColumnType = DbType.Int32)]
-        public int CargoNumber { get; set; }
+        //[Column(Name = "CargoNumber", ColumnType = DbType.Int32)]
+        //public int CargoNumber { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "PickupDate", ColumnType = DbType.DateTime)]
         public DateTime PickupDate { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "PickupWay", ColumnType = DbType.Int32)]
-        public int PickupWay { get; set; }
+        //[Column(Name = "PickupWay", ColumnType = DbType.Int32)]
+        //public int PickupWay { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "GoodsType", ColumnType = DbType.Int32)]
@@ -73,31 +73,51 @@ namespace Sys.Entities
         public decimal GoodsWeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "GoodsVolumeWeight", ColumnType = DbType.Decimal)]
-        public decimal GoodsVolumeWeight { get; set; }
+        //[Column(Name = "GoodsVolumeWeight", ColumnType = DbType.Decimal)]
+        //public decimal GoodsVolumeWeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "GoodsRealWeight", ColumnType = DbType.Decimal)]
-        public decimal GoodsRealWeight { get; set; }
+        //[Column(Name = "GoodsRealWeight", ColumnType = DbType.Decimal)]
+        //public decimal GoodsRealWeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "AddressRealPrice", ColumnType = DbType.Decimal)]
-        public decimal AddressRealPrice { get; set; }
+        //[Column(Name = "AddressRealPrice", ColumnType = DbType.Decimal)]
+        //public decimal AddressRealPrice { get; set; }
+        ///// <summary>
+        ///// </summary>
+        //[Column(Name = "BoxLong", ColumnType = DbType.Decimal)]
+        //public decimal BoxLong { get; set; }
+        ///// <summary>
+        ///// </summary>
+        //[Column(Name = "BoxWidth", ColumnType = DbType.Decimal)]
+        //public decimal BoxWidth { get; set; }
+        ///// <summary>
+        ///// </summary>
+        //[Column(Name = "BoxHeight", ColumnType = DbType.Decimal)]
+        //public decimal BoxHeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BoxLong", ColumnType = DbType.Decimal)]
-        public decimal BoxLong { get; set; }
+        [Column(Name = "OrderFrees", ColumnType = DbType.Decimal)]
+        public decimal OrderFrees { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BoxWidth", ColumnType = DbType.Decimal)]
-        public decimal BoxWidth { get; set; }
+        [Column(Name = "IsArrivePay", ColumnType = DbType.Boolean)]
+        public bool IsArrivePay { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BoxHeight", ColumnType = DbType.Decimal)]
-        public decimal BoxHeight { get; set; }
+        [Column(Name = "ArrivePayValue", ColumnType = DbType.Decimal)]
+        public decimal ArrivePayValue { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BudgetPrice", ColumnType = DbType.Decimal)]
-        public decimal BudgetPrice { get; set; }
+        [Column(Name = "IsOutPhoto", ColumnType = DbType.Boolean)]
+        public bool IsOutPhoto { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ExchangeRate", ColumnType = DbType.Decimal)]
+        public decimal ExchangeRate { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "WebUrl", ColumnType = DbType.AnsiString,Length = 200)]
+        public string WebUrl { get; set; }
     }
 }

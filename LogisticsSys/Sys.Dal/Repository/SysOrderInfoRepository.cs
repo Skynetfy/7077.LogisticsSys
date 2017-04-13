@@ -62,9 +62,9 @@ namespace Sys.Dal.Repository
                 dr["CourierComId"] = item.CourierComId;
                 dr["ChinaCourierNumber"] = item.ChinaCourierNumber;
                 dr["Desc"] = item.Desc;
-                dr["RealWeight"] = item.RealWeight;
-                dr["RealPrice"] = item.RealPrice;
-                dr["BudgetPrice"] = item.BudgetPrice;
+                //dr["RealWeight"] = item.RealWeight;
+                //dr["RealPrice"] = item.RealPrice;
+                //dr["BudgetPrice"] = item.BudgetPrice;
                 dt.Rows.Add(dr);
             }
             return dt;
@@ -191,18 +191,18 @@ namespace Sys.Dal.Repository
                 cmd.Parameters.AddWithValue("@LogisticsSingle", addresserinfo.LogisticsSingle);
                 cmd.Parameters.AddWithValue("@RussiaCityId", addresserinfo.RussiaCityId);
                 cmd.Parameters.AddWithValue("@RussiaAddress", addresserinfo.RussiaAddress);
-                cmd.Parameters.AddWithValue("@CargoNumber", addresserinfo.CargoNumber);
-                cmd.Parameters.AddWithValue("@PickupDate", addresserinfo.PickupDate);
-                cmd.Parameters.AddWithValue("@PickupWay", addresserinfo.PickupWay);
-                cmd.Parameters.AddWithValue("@GoodsType", addresserinfo.GoodsType);
-                cmd.Parameters.AddWithValue("@TransportationWay", addresserinfo.TransportationWay);
-                cmd.Parameters.AddWithValue("@ProtectPrice", addresserinfo.ProtectPrice);
-                cmd.Parameters.AddWithValue("@BudgetPrice", addresserinfo.BudgetPrice);
-                cmd.Parameters.AddWithValue("@PolicyFee", addresserinfo.PolicyFee);
-                cmd.Parameters.AddWithValue("@GoodsWeight", addresserinfo.GoodsWeight);
-                cmd.Parameters.AddWithValue("@BoxLong", addresserinfo.BoxLong);
-                cmd.Parameters.AddWithValue("@BoxWidth", addresserinfo.BoxWidth);
-                cmd.Parameters.AddWithValue("@BoxHeight", addresserinfo.BoxHeight);
+                //cmd.Parameters.AddWithValue("@CargoNumber", addresserinfo.CargoNumber);
+                //cmd.Parameters.AddWithValue("@PickupDate", addresserinfo.PickupDate);
+                //cmd.Parameters.AddWithValue("@PickupWay", addresserinfo.PickupWay);
+                //cmd.Parameters.AddWithValue("@GoodsType", addresserinfo.GoodsType);
+                //cmd.Parameters.AddWithValue("@TransportationWay", addresserinfo.TransportationWay);
+                //cmd.Parameters.AddWithValue("@ProtectPrice", addresserinfo.ProtectPrice);
+                //cmd.Parameters.AddWithValue("@BudgetPrice", addresserinfo.BudgetPrice);
+                //cmd.Parameters.AddWithValue("@PolicyFee", addresserinfo.PolicyFee);
+                //cmd.Parameters.AddWithValue("@GoodsWeight", addresserinfo.GoodsWeight);
+                //cmd.Parameters.AddWithValue("@BoxLong", addresserinfo.BoxLong);
+                //cmd.Parameters.AddWithValue("@BoxWidth", addresserinfo.BoxWidth);
+                //cmd.Parameters.AddWithValue("@BoxHeight", addresserinfo.BoxHeight);
                 cmd.Parameters.AddWithValue("@ReciverList", dt1);
                 cmd.Parameters.Add(new SqlParameter()
                 {

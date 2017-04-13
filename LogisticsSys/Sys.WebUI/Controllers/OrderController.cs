@@ -142,7 +142,7 @@ namespace Sys.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(string ordersingle, string shappername, string shipperphone, string pickupnumber, string russiacityid, string russiaaddress, string logisticsSingle, string cargonumber, string pickupdate, string pickupWay, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string boxlong, string boxwidth, string boxheight, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string abudgetprice, string chinacouriernumber, string desc, string sjJson)
+        public ActionResult CreateOrder( string russiacityid, string russiaaddress, string logisticsSingle, string weburl, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string isarrivepay, string isoutphoto, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string abudgetprice, string chinacouriernumber, string desc, string sjJson)
         {
             var result = new ResponseJsonResult<string>();
             result.Status = 0;
@@ -166,21 +166,21 @@ namespace Sys.WebUI.Controllers
                     orderinfo.Status = (int)OrderStatusEnum.Processing;
 
                     var addresserInfo = new SysAddresserInfo();
-                    addresserInfo.BoxHeight = Convert.ToDecimal(boxheight);
-                    addresserInfo.BoxWidth = Convert.ToDecimal(boxwidth);
-                    addresserInfo.BoxLong = Convert.ToDecimal(boxlong);
-                    addresserInfo.GoodsWeight = Convert.ToDecimal(goodsweight);
-                    addresserInfo.PolicyFee = Convert.ToDecimal(policyfee);
-                    addresserInfo.ProtectPrice = Convert.ToDecimal(protectprice);
-                    addresserInfo.TransportationWay = Convert.ToInt32(transportationway);
-                    addresserInfo.GoodsType = Convert.ToInt32(goodstype);
-                    addresserInfo.PickupWay = Convert.ToInt32(pickupWay);
-                    addresserInfo.PickupDate = Convert.ToDateTime(pickupdate);
-                    addresserInfo.CargoNumber = Convert.ToInt32(cargonumber);
-                    addresserInfo.LogisticsSingle = logisticsSingle.Trim();
-                    addresserInfo.RussiaAddress = russiaaddress.Trim();
-                    addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
-                    addresserInfo.BudgetPrice = Convert.ToDecimal(abudgetprice);
+                    //addresserInfo.BoxHeight = Convert.ToDecimal(boxheight);
+                    //addresserInfo.BoxWidth = Convert.ToDecimal(boxwidth);
+                    //addresserInfo.BoxLong = Convert.ToDecimal(boxlong);
+                    //addresserInfo.GoodsWeight = Convert.ToDecimal(goodsweight);
+                    //addresserInfo.PolicyFee = Convert.ToDecimal(policyfee);
+                    //addresserInfo.ProtectPrice = Convert.ToDecimal(protectprice);
+                    //addresserInfo.TransportationWay = Convert.ToInt32(transportationway);
+                    //addresserInfo.GoodsType = Convert.ToInt32(goodstype);
+                    //addresserInfo.PickupWay = Convert.ToInt32(pickupWay);
+                    //addresserInfo.PickupDate = Convert.ToDateTime(pickupdate);
+                    //addresserInfo.CargoNumber = Convert.ToInt32(cargonumber);
+                    //addresserInfo.LogisticsSingle = logisticsSingle.Trim();
+                    //addresserInfo.RussiaAddress = russiaaddress.Trim();
+                    //addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
+                    //addresserInfo.BudgetPrice = Convert.ToDecimal(abudgetprice);
 
                     List<dynamic> dysSjList = JsonConvert.DeserializeObject<List<dynamic>>(sjJson);
 
@@ -200,7 +200,7 @@ namespace Sys.WebUI.Controllers
                         receiverInfo.CourierComId = Convert.ToInt64(item.CourierComId.Value);
                         receiverInfo.ChinaCourierNumber = item.chinacouriernumber.Value.ToString();
                         receiverInfo.Desc = item.desc.Value.ToString();
-                        receiverInfo.BudgetPrice = Convert.ToDecimal(item.budgetprice.Value.ToString());
+                        //receiverInfo.BudgetPrice = Convert.ToDecimal(item.budgetprice.Value.ToString());
                         receiverInfo.CreateDate = DateTime.Now;
                         receiverInfo.Id = 1;
                         receiverInfos.Add(receiverInfo);
@@ -266,9 +266,9 @@ namespace Sys.WebUI.Controllers
                         var addressinfo = orderPrivder.GetAddressInfoByOid(order.Id);
                         if (addressinfo != null)
                         {
-                            addressinfo.GoodsRealWeight = Convert.ToDecimal(agrw);
-                            addressinfo.GoodsVolumeWeight = Convert.ToDecimal(astj);
-                            addressinfo.AddressRealPrice = Convert.ToDecimal(arp);
+                            //addressinfo.GoodsRealWeight = Convert.ToDecimal(agrw);
+                            //addressinfo.GoodsVolumeWeight = Convert.ToDecimal(astj);
+                            //addressinfo.AddressRealPrice = Convert.ToDecimal(arp);
                             orderPrivder.UpdateAddressInfo(addressinfo);
                         }
 
@@ -294,8 +294,8 @@ namespace Sys.WebUI.Controllers
                 var reinfo = dao_.FindByPk(Convert.ToInt64(shoujianId));
                 if (reinfo != null)
                 {
-                    reinfo.RealWeight = Convert.ToDecimal(realweight);
-                    reinfo.RealPrice = Convert.ToDecimal(realprice);
+                    //reinfo.RealWeight = Convert.ToDecimal(realweight);
+                    //reinfo.RealPrice = Convert.ToDecimal(realprice);
                     dao_.Update(reinfo);
                 }
             }

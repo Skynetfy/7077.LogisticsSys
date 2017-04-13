@@ -61,12 +61,12 @@ namespace Sys.Entities
         public decimal ParcelWeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "RealWeight", ColumnType = DbType.Decimal)]
-        public decimal RealWeight { get; set; }
+        //[Column(Name = "RealWeight", ColumnType = DbType.Decimal)]
+        //public decimal RealWeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "RealPrice", ColumnType = DbType.Decimal)]
-        public decimal RealPrice { get; set; }
+        [Column(Name = "CourierFees", ColumnType = DbType.Decimal)]
+        public decimal CourierFees { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "CourierComId", ColumnType = DbType.Int64)]
@@ -82,7 +82,7 @@ namespace Sys.Entities
         public string Desc { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BudgetPrice", ColumnType = DbType.Decimal)]
-        public decimal BudgetPrice { get; set; }
+        //[Column(Name = "BudgetPrice", ColumnType = DbType.Decimal)]
+        //public decimal BudgetPrice { get; set; }
     }
 }

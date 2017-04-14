@@ -155,7 +155,7 @@
                                     订单号 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="cargonumber" name="cargonumber" required="required" data-parsley-type="integer" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="cargonumber" name="cargonumber" required="required" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -231,23 +231,22 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isarrivepay">
                                     是否到付 
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-3 col-sm-3 col-xs-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="isarrivepay" name="isarrivepay" value="1">
-                                        <input type="text" id="arrivepayvalue" name="arrivepayvalue" value="" class="form-control col-md-7 col-xs-12">
+                                        <input type="checkbox" id="isarrivepay" name="isarrivepay" value="1" style="margin-top: 0px;">
+                                        <input type="text" id="arrivepayvalue" name="arrivepayvalue" data-parsley-min="0" data-parsley-group="form2" value="" style="display: none; width: 100px;" class="form-control col-md-7 col-xs-12">
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isoutphoto">
-                                    是否开箱拍照 
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="isoutphoto">
+                                    是否开箱拍照
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="isoutphoto" name="isoutphoto" value="option1"> 1
+                                        <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1" style="margin-top: -5px;">
                                     </label>
                                 </div>
                             </div>
+                           
                            @* <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="abudgetprice">
             预算价格(元)
@@ -392,11 +391,11 @@
                             </div>*@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kdgs">
-                                    快递公司 <span class="required">*</span>
+                                    快递公司
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control col-md-7 col-xs-12" name="kdgs" id="kdgs" required="required" onchange="parcelweightBlur()" data-parsley-group="form3">
-                                        <option value="">选择快递公司</option>
+                                    <select class="form-control col-md-7 col-xs-12" name="kdgs" id="kdgs" onchange="parcelweightBlur()" data-parsley-group="form3">
+                                        <option value="0">选择快递公司</option>
                                         @{
                                             var CourierComData = ViewData["CourierComData"] as List<SelectBinding>;
 
@@ -447,21 +446,7 @@
 <script src="~/Content/bootstrap-fileinput/themes/fa/theme.js"></script>
 <script src="~/Scripts/locales/zh.js"></script>
 <script>
-    function addReciverInfo() {
-            $('#chinacityid').val('');
-            $('#chinaaddress').val('');
-            $('#receivername').val('');
-            $('#receiverphone').val('');
-            $('[name=packagingway]').val('1');
-            $('[name=expressway]').val('1');
-            $('#goodsdesc').val('');
-            $('#parcelweight').val('');
-            $('#chinacouriernumber').val('');
-            $('#desc').val('');
-            $('#receiverphone').val('');
-            $('#rbudgetprice').val('');
-            $('#kdgs').val('');
-    }
+  
     function rcChange() {
         var value = $('#russiacityid').val();
         if (value === '1') {
@@ -530,6 +515,15 @@
 
     $(document)
         .ready(function() {
+            $('#isarrivepay').change(function(e) {
+                if ($(this).is(':checked')) {
+                    $('#arrivepayvalue').show();
+                    $('#arrivepayvalue').prop("required", "required");
+                } else {
+                    $('#arrivepayvalue').hide();
+                    $('#arrivepayvalue').removeAttr("required");
+                }
+            });
             // with plugin options
             $("#input-1a").fileinput({'showUpload':false, 'previewFileType':'any'});
             var bs = @ViewBag.disabled;
@@ -609,11 +603,6 @@
             // Your Step validation logic
             function validateSteps(stepnumber, vali) {
                 var isStepValid = true;
-                // validate step 1
-                //if (stepnumber === 2 && vali) {
-                //    isStepValid = $('#form').parsley().validate('form1') && $('#form').parsley().isValid('form1');
-                //    // $('#form1').submit();
-                //}
                 if (stepnumber === 2 && vali) {
                     isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
                 }

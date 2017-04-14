@@ -26,20 +26,28 @@ namespace Sys.Entities
         public string ShipperPhone { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "PickupNumber", ColumnType = DbType.Int32)]
-        public int PickupNumber { get; set; }
+        [Column(Name = "UserId", ColumnType = DbType.Int64)]
+        public long UserId { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "Status", ColumnType = DbType.Int32)]
         public int Status { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "UserName", ColumnType = DbType.AnsiString, Length = 50)]
         public string UserName { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "DisplayName", ColumnType = DbType.String, Length = 150)]
         public string DisplayName { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "OrderRealPrice", ColumnType = DbType.Decimal)]
         public decimal OrderRealPrice { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Bid", ColumnType = DbType.Int64)]
+        public long Bid { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "LogisticsSingle", ColumnType = DbType.AnsiString, Length = 100)]
@@ -56,18 +64,11 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "RussiaAddress", ColumnType = DbType.String, Length = 500)]
         public string RussiaAddress { get; set; }
-        /// <summary>
-        /// </summary>
-        [Column(Name = "CargoNumber", ColumnType = DbType.Int32)]
-        public int CargoNumber { get; set; }
+       
         /// <summary>
         /// </summary>
         [Column(Name = "PickupDate", ColumnType = DbType.DateTime)]
         public DateTime PickupDate { get; set; }
-        /// <summary>
-        /// </summary>
-        [Column(Name = "PickupWay", ColumnType = DbType.Int32)]
-        public int PickupWay { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "GoodsType", ColumnType = DbType.Int32)]
@@ -90,80 +91,84 @@ namespace Sys.Entities
         public decimal GoodsWeight { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "AddressRealPrice", ColumnType = DbType.Decimal)]
-        public decimal AddressRealPrice { get; set; }
+        [Column(Name = "OrderFrees", ColumnType = DbType.Decimal)]
+        public decimal OrderFrees { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "GoodsVolumeWeight", ColumnType = DbType.Decimal)]
-        public decimal GoodsVolumeWeight { get; set; }
+        [Column(Name = "IsArrivePay", ColumnType = DbType.Boolean)]
+        public bool IsArrivePay { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "GoodsRealWeight", ColumnType = DbType.Decimal)]
-        public decimal GoodsRealWeight { get; set; }
+        [Column(Name = "ArrivePayValue", ColumnType = DbType.Decimal)]
+        public decimal ArrivePayValue { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BoxLong", ColumnType = DbType.Decimal)]
-        public decimal BoxLong { get; set; }
+        [Column(Name = "IsOutPhoto", ColumnType = DbType.Boolean)]
+        public bool IsOutPhoto { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BoxWidth", ColumnType = DbType.Decimal)]
-        public decimal BoxWidth { get; set; }
+        [Column(Name = "ExchangeRate", ColumnType = DbType.Decimal)]
+        public decimal ExchangeRate { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "BoxHeight", ColumnType = DbType.Decimal)]
-        public decimal BoxHeight { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ParcelSingle", ColumnType = DbType.AnsiString, Length = 100)]
-        //public string ParcelSingle { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ChinaCityId", ColumnType = DbType.Int64)]
-        //public long ChinaCityId { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ChinaAddress", ColumnType = DbType.String, Length = 500)]
-        //public string ChinaAddress { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ReceiverName", ColumnType = DbType.String, Length = 100)]
-        //public string ReceiverName { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ReceiverPhone", ColumnType = DbType.AnsiString, Length = 50)]
-        //public string ReceiverPhone { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "PackagingWay", ColumnType = DbType.Int32)]
-        //public int PackagingWay { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ExpressWay", ColumnType = DbType.Int32)]
-        //public int ExpressWay { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "GoodsDesc", ColumnType = DbType.String, Length = 2000)]
-        //public string GoodsDesc { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ParcelWeight", ColumnType = DbType.Decimal)]
-        //public decimal ParcelWeight { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "RealWeight", ColumnType = DbType.Decimal)]
-        //public decimal RealWeight { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "RealPrice", ColumnType = DbType.Decimal)]
-        //public decimal RealPrice { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "ChinaCourierNumber", ColumnType = DbType.AnsiString, Length = 50)]
-        //public string ChinaCourierNumber { get; set; }
-        ///// <summary>
-        ///// </summary>
-        //[Column(Name = "Desc", ColumnType = DbType.String)]
-        //public string Desc { get; set; }
+        [Column(Name = "WebUrl", ColumnType = DbType.AnsiString,Length = 200)]
+        public string WebUrl { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Cid", ColumnType = DbType.Int64)]
+        public long Cid { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ChinaCityId", ColumnType = DbType.Int64)]
+        public long ChinaCityId { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ChinaCityName", ColumnType = DbType.String, Length = 100)]
+        public string ChinaCityName { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ChinaAddress", ColumnType = DbType.String, Length = 500)]
+        public string ChinaAddress { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ReceiverName", ColumnType = DbType.String, Length = 100)]
+        public string ReceiverName { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ReceiverPhone", ColumnType = DbType.AnsiString, Length = 50)]
+        public string ReceiverPhone { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "PackagingWay", ColumnType = DbType.Int32)]
+        public int PackagingWay { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ExpressWay", ColumnType = DbType.Int32)]
+        public int ExpressWay { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "GoodsDesc", ColumnType = DbType.String, Length = 2000)]
+        public string GoodsDesc { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ParcelWeight", ColumnType = DbType.Decimal)]
+        public decimal ParcelWeight { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ChinaCourierNumber", ColumnType = DbType.AnsiString, Length = 50)]
+        public string ChinaCourierNumber { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Desc", ColumnType = DbType.String)]
+        public string Desc { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "CourierFees", ColumnType = DbType.Decimal)]
+        public decimal CourierFees { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "CourierComId", ColumnType = DbType.Int64)]
+        public long CourierComId { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "PayStatus", ColumnType = DbType.Int32)]

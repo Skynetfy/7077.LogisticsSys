@@ -56,9 +56,9 @@ namespace Sys.BLL.Order
             return neworder;
         }
 
-        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo,List<SysReceiverInfo> receiverInfos, ref int status)
+        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref int status)
         {
-            return orderDao.AddOrderInfo(username, orderinfo, addresserinfo, receiverInfos, ref status);
+            return orderDao.AddOrderInfo(username, orderinfo, addresserinfo, receiverInfo, ref status);
         }
 
         public int GetOrderViewPagerCount(string search)

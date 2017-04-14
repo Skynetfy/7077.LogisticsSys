@@ -17,98 +17,6 @@ namespace Sys.Dal.Repository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
-        public DataTable CreateTableColumns()
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id", Type.GetType("System.Int64"));
-            dt.Columns.Add("OrderId", Type.GetType("System.Int64"));
-            dt.Columns.Add("ParcelSingle", Type.GetType("System.String"));
-            dt.Columns.Add("ChinaCityId", Type.GetType("System.Int64"));
-            dt.Columns.Add("ChinaAddress", Type.GetType("System.String"));
-            dt.Columns.Add("ReceiverName", Type.GetType("System.String"));
-            dt.Columns.Add("ReceiverPhone", Type.GetType("System.String"));
-            dt.Columns.Add("PackagingWay", Type.GetType("System.Int32"));
-            dt.Columns.Add("ExpressWay", Type.GetType("System.Int32"));
-            dt.Columns.Add("GoodsDesc", Type.GetType("System.String"));
-            dt.Columns.Add("ParcelWeight", Type.GetType("System.Decimal"));
-            dt.Columns.Add("CourierComId", Type.GetType("System.Int64"));
-            dt.Columns.Add("ChinaCourierNumber", Type.GetType("System.String"));
-            dt.Columns.Add("Desc", Type.GetType("System.String"));
-            dt.Columns.Add("RealWeight", Type.GetType("System.Decimal"));
-            dt.Columns.Add("RealPrice", Type.GetType("System.Decimal"));
-            dt.Columns.Add("BudgetPrice", Type.GetType("System.Decimal"));
-         
-            return dt;
-        }
-
-        public DataTable ListToTable(List<SysReceiverInfo> list)
-        {
-            var dt = CreateTableColumns();
-            //取出第一个实体的所有Propertie
-            foreach (var item in list)
-            {
-                var dr = dt.NewRow();
-                dr["Id"] = item.Id;
-                dr["OrderId"] = item.OrderId;
-                dr["ParcelSingle"] = item.ParcelSingle;
-                dr["ChinaCityId"] = item.ChinaCityId;
-                dr["ChinaAddress"] = item.ChinaAddress;
-                dr["ReceiverName"] = item.ReceiverName;
-                dr["ReceiverPhone"] = item.ReceiverPhone;
-                dr["PackagingWay"] = item.PackagingWay;
-                dr["ExpressWay"] = item.ExpressWay;
-                dr["GoodsDesc"] = item.GoodsDesc;
-                dr["ParcelWeight"] = item.ParcelWeight;
-                dr["CourierComId"] = item.CourierComId;
-                dr["ChinaCourierNumber"] = item.ChinaCourierNumber;
-                dr["Desc"] = item.Desc;
-                //dr["RealWeight"] = item.RealWeight;
-                //dr["RealPrice"] = item.RealPrice;
-                //dr["BudgetPrice"] = item.BudgetPrice;
-                dt.Rows.Add(dr);
-            }
-            return dt;
-        }
-
-        public DataTable ListToDataTable<T>(List<T> entitys)
-        {
-            //检查实体集合不能为空
-            if (entitys == null || entitys.Count < 1)
-            {
-                throw new Exception("需转换的集合为空");
-            }
-            //取出第一个实体的所有Propertie
-            Type entityType = entitys[0].GetType();
-            PropertyInfo[] entityProperties = entityType.GetProperties();
-
-            //生成DataTable的structure
-            //生产代码中，应将生成的DataTable结构Cache起来，此处略
-            DataTable dt = new DataTable();
-            for (int i = 0; i < entityProperties.Length; i++)
-            {
-                if(!entityProperties[i].Name.Equals("IsDelete")&& !entityProperties[i].Name.Equals("CreateDate"))
-                dt.Columns.Add(entityProperties[i].Name, entityProperties[i].PropertyType);
-                //dt.Columns.Add(entityProperties[i].Name);
-            }
-            //将所有entity添加到DataTable中
-            foreach (object entity in entitys)
-            {
-                //检查所有的的实体都为同一类型
-                if (entity.GetType() != entityType)
-                {
-                    throw new Exception("要转换的集合元素类型不一致");
-                }
-                object[] entityValues = new object[entityProperties.Length-2];
-                for (int i = 0; i < entityProperties.Length; i++)
-                {
-                    if (!entityProperties[i].Name.Equals("IsDelete") && !entityProperties[i].Name.Equals("CreateDate"))
-                        entityValues[i] = entityProperties[i].GetValue(entity, null);
-                }
-                dt.Rows.Add(entityValues);
-            }
-            
-            return dt;
-        }
         public long Insert(SysOrderInfo entity)
         {
             try
@@ -139,95 +47,52 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, List<SysReceiverInfo> receiverInfos, ref int status)
+        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref int status)
         {
-            //var param = new StatementParameterCollection();
-            //param.AddInParameter("@OrderNo", DbType.AnsiString, orderinfo.OrderNo);
-            //param.AddInParameter("@ShipperName", DbType.String, orderinfo.ShipperName);
-            //param.AddInParameter("@ShipperPhone", DbType.AnsiString, orderinfo.ShipperPhone);
-            //param.AddInParameter("@UserName", DbType.AnsiString, username);
+            var param = new StatementParameterCollection();
+            param.AddInParameter("@OrderNo", DbType.AnsiString, orderinfo.OrderNo);
+            param.AddInParameter("@ShipperName", DbType.String, orderinfo.ShipperName);
+            param.AddInParameter("@ShipperPhone", DbType.AnsiString, orderinfo.ShipperPhone);
+            param.AddInParameter("@UserName", DbType.AnsiString, username);
             //param.AddInParameter("@PickupNumber", DbType.Int32, orderinfo.PickupNumber);
-            //param.AddInParameter("@Status", DbType.Int32, orderinfo.Status);
-            //param.AddInParameter("@LogisticsSingle", DbType.AnsiString, addresserinfo.LogisticsSingle);
-            //param.AddInParameter("@RussiaCityId", DbType.Int64, addresserinfo.RussiaCityId);
-            //param.AddInParameter("@RussiaAddress", DbType.String, addresserinfo.RussiaAddress);
+            param.AddInParameter("@Status", DbType.Int32, orderinfo.Status);
+            param.AddInParameter("@OrderRealPrice",DbType.Decimal, orderinfo.OrderRealPrice);
+            param.AddInParameter("@LogisticsSingle", DbType.AnsiString, addresserinfo.LogisticsSingle);
+            param.AddInParameter("@RussiaCityId", DbType.Int64, addresserinfo.RussiaCityId);
+            param.AddInParameter("@RussiaAddress", DbType.String, addresserinfo.RussiaAddress);
             //param.AddInParameter("@CargoNumber", DbType.Int32, addresserinfo.CargoNumber);
-            //param.AddInParameter("@PickupDate", DbType.DateTime, addresserinfo.PickupDate);
-            //param.AddInParameter("@PickupWay", DbType.Int32, addresserinfo.PickupWay);
-            //param.AddInParameter("@GoodsType", DbType.Int32, addresserinfo.GoodsType);
-            //param.AddInParameter("@TransportationWay", DbType.AnsiString, addresserinfo.TransportationWay);
-            //param.AddInParameter("@ProtectPrice", DbType.Decimal, addresserinfo.ProtectPrice);
-            //param.AddInParameter("@PolicyFee", DbType.Decimal, addresserinfo.PolicyFee);
-            //param.AddInParameter("@GoodsWeight", DbType.Decimal, addresserinfo.GoodsWeight);
-            //param.AddInParameter("@BoxLong", DbType.Decimal, addresserinfo.BoxLong);
-            //param.AddInParameter("@BoxWidth", DbType.Decimal, addresserinfo.BoxWidth);
-            //param.AddInParameter("@BoxHeight", DbType.Decimal, addresserinfo.BoxHeight);
-            //param.AddInParameter("@ParcelSingle", DbType.AnsiString, receiverinfo.ParcelSingle);
-            //param.AddInParameter("@ChinaCityId", DbType.Int64, receiverinfo.ChinaCityId);
-            //param.AddInParameter("@ChinaAddress", DbType.String, receiverinfo.ChinaAddress);
-            //param.AddInParameter("@ReceiverName", DbType.String, receiverinfo.ReceiverName);
-            //param.AddInParameter("@ReceiverPhone", DbType.AnsiString, receiverinfo.ReceiverPhone);
-            //param.AddInParameter("@PackagingWay", DbType.Int32, receiverinfo.PackagingWay);
-            //param.AddInParameter("@ExpressWay", DbType.Int32, receiverinfo.ExpressWay);
-            //param.AddInParameter("@GoodsDesc", DbType.String, receiverinfo.GoodsDesc);
-            //param.AddInParameter("@ParcelWeight", DbType.Decimal, receiverinfo.ParcelWeight);
-            //param.AddInParameter("@ChinaCourierNumber", DbType.AnsiString, receiverinfo.ChinaCourierNumber);
-            //param.AddInParameter("@Desc", DbType.String, receiverinfo.Desc);
-            var dt1 = ListToTable(receiverInfos);
-            //param.AddInParameter("@Reciviertable", DbType.Xml, dt1);
-            //param.AddOutParameter("@result", DbType.String, 100);
-            //param.AddParameter("@message", DbType.Int32, 0, 32, ParameterDirection.ReturnValue);
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString))
-            {
-                SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "CreateOrder_Proc";
-                cmd.Parameters.AddWithValue("@OrderNo", orderinfo.OrderNo);
-                cmd.Parameters.AddWithValue("@ShipperName", orderinfo.ShipperName);
-                cmd.Parameters.AddWithValue("@ShipperPhone", orderinfo.ShipperPhone);
-                cmd.Parameters.AddWithValue("@UserName", username);
-                cmd.Parameters.AddWithValue("@PickupNumber", orderinfo.PickupNumber);
-                cmd.Parameters.AddWithValue("@Status", orderinfo.Status);
-                cmd.Parameters.AddWithValue("@LogisticsSingle", addresserinfo.LogisticsSingle);
-                cmd.Parameters.AddWithValue("@RussiaCityId", addresserinfo.RussiaCityId);
-                cmd.Parameters.AddWithValue("@RussiaAddress", addresserinfo.RussiaAddress);
-                //cmd.Parameters.AddWithValue("@CargoNumber", addresserinfo.CargoNumber);
-                //cmd.Parameters.AddWithValue("@PickupDate", addresserinfo.PickupDate);
-                //cmd.Parameters.AddWithValue("@PickupWay", addresserinfo.PickupWay);
-                //cmd.Parameters.AddWithValue("@GoodsType", addresserinfo.GoodsType);
-                //cmd.Parameters.AddWithValue("@TransportationWay", addresserinfo.TransportationWay);
-                //cmd.Parameters.AddWithValue("@ProtectPrice", addresserinfo.ProtectPrice);
-                //cmd.Parameters.AddWithValue("@BudgetPrice", addresserinfo.BudgetPrice);
-                //cmd.Parameters.AddWithValue("@PolicyFee", addresserinfo.PolicyFee);
-                //cmd.Parameters.AddWithValue("@GoodsWeight", addresserinfo.GoodsWeight);
-                //cmd.Parameters.AddWithValue("@BoxLong", addresserinfo.BoxLong);
-                //cmd.Parameters.AddWithValue("@BoxWidth", addresserinfo.BoxWidth);
-                //cmd.Parameters.AddWithValue("@BoxHeight", addresserinfo.BoxHeight);
-                cmd.Parameters.AddWithValue("@ReciverList", dt1);
-                cmd.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@result",
-                    Value = 100,
-                    SqlDbType = SqlDbType.NVarChar,
-                    Size = 100,
-                    Direction = ParameterDirection.Output
-                });
-                cmd.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@message",
-                    Value = 0,
-                    SqlDbType = SqlDbType.Int,
-                    Size = 32,
-                    Direction = ParameterDirection.ReturnValue
-                });
-                conn.Open();
-                var cs = cmd.ExecuteNonQuery();
-                status = Convert.ToInt32(cmd.Parameters["@message"].Value);
-                return cmd.Parameters["@result"].Value.ToString();
-            }
-            //baseDao.ExecSp("CreateOrder_Proc", param);
-            //status = Convert.ToInt32(param["@message"].Value);
-            //return cmd.Parameters[31].Value.ToString();
+            param.AddInParameter("@PickupDate", DbType.DateTime, addresserinfo.PickupDate);
+            param.AddInParameter("@WebUrl", DbType.AnsiString, addresserinfo.WebUrl);
+            param.AddInParameter("@GoodsType", DbType.Int32, addresserinfo.GoodsType);
+            param.AddInParameter("@TransportationWay", DbType.AnsiString, addresserinfo.TransportationWay);
+            param.AddInParameter("@ProtectPrice", DbType.Decimal, addresserinfo.ProtectPrice);
+            param.AddInParameter("@PolicyFee", DbType.Decimal, addresserinfo.PolicyFee);
+            param.AddInParameter("@GoodsWeight", DbType.Decimal, addresserinfo.GoodsWeight);
+            param.AddInParameter("@OrderFrees", DbType.Decimal, addresserinfo.OrderFrees);
+            param.AddInParameter("@IsArrivePay", DbType.Boolean, addresserinfo.IsArrivePay);
+            param.AddInParameter("@ArrivePayValue", DbType.Decimal, addresserinfo.ArrivePayValue);
+            param.AddInParameter("@IsOutPhoto", DbType.Boolean, addresserinfo.IsOutPhoto);
+            param.AddInParameter("@ExchangeRate", DbType.Decimal, addresserinfo.ExchangeRate);
+
+            //param.AddInParameter("@ChinaCityId", DbType.Int64, receiverInfo.ChinaCityId);
+            param.AddInParameter("@ChinaCityId", DbType.Int64, receiverInfo.ChinaCityId);
+            param.AddInParameter("@ChinaAddress", DbType.String, receiverInfo.ChinaAddress);
+            param.AddInParameter("@ReceiverName", DbType.String, receiverInfo.ReceiverName);
+            param.AddInParameter("@ReceiverPhone", DbType.AnsiString, receiverInfo.ReceiverPhone);
+            param.AddInParameter("@PackagingWay", DbType.Int32, receiverInfo.PackagingWay);
+            param.AddInParameter("@ExpressWay", DbType.Int32, receiverInfo.ExpressWay);
+            param.AddInParameter("@GoodsDesc", DbType.String, receiverInfo.GoodsDesc);
+            param.AddInParameter("@ParcelWeight", DbType.Decimal, receiverInfo.ParcelWeight);
+            param.AddInParameter("@ChinaCourierNumber", DbType.AnsiString, receiverInfo.ChinaCourierNumber);
+            param.AddInParameter("@Desc", DbType.String, receiverInfo.Desc);
+            param.AddInParameter("@CourierFees", DbType.Decimal, receiverInfo.CourierFees);
+            param.AddInParameter("@CourierComId", DbType.Int64, receiverInfo.CourierComId);
+            param.AddOutParameter("@result", DbType.String, 100);
+            param.AddParameter("@message", DbType.Int32, 0, 32, ParameterDirection.ReturnValue);
+           
+            baseDao.ExecSp("CreateOrder_Proc", param);
+            status = Convert.ToInt32(param["@message"].Value);
+            return param[32].Value.ToString();
         }
 
         public int Update(SysOrderInfo entity)

@@ -10,7 +10,7 @@ namespace Sys.Dal
 {
     public partial interface ISysOrderInfoRepository : IBaseRepository<SysOrderInfo>
     {
-        string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, List<SysReceiverInfo> receiverInfos, ref int status);
+        string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref int status);
 
         SysOrderInfo GetOrderByNumber(string ordernumber);
 

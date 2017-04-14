@@ -24,7 +24,7 @@ namespace Sys.WebUI.Controllers
             ISysKuaiDiComRepository kuaidiDao = DALFactory.KuaiDiDao;
             var provider = new OrderInfoProvider();
             ViewBag.OrderNumber = provider.GetOrderNumber();
-            ViewData["RCityDataList"] = RussiaCityService.Current.GetBindings(0).OrderByDescending(x=>x.Value).ToList();
+            ViewData["RCityDataList"] = RussiaCityService.Current.GetBindings(0).OrderByDescending(x => x.Value).ToList();
             ViewData["CCityDataList"] = ChinaCityService.Current.GetChinaCities(0);
             ViewData["RoomTypeDataList"] = GoodsTypeService.Current.GetRoomTypeSelect(0);
             ViewData["CourierComData"] = kuaidiDao.GetAll().Select(x => new SelectBinding()
@@ -142,7 +142,7 @@ namespace Sys.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateOrder( string russiacityid, string russiaaddress, string logisticsSingle, string weburl, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string goodsweight, string isarrivepay, string isoutphoto, string parcelsingle, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string parcelweight, string abudgetprice, string chinacouriernumber, string desc, string sjJson)
+        public ActionResult CreateOrder(string russiacityid, string russiaaddress, string weburl, string logisticsSingle, string cargonumber, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string isarrivepay, string arrivepayvalue, string isoutphoto, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string kdgs, string desc)
         {
             var result = new ResponseJsonResult<string>();
             result.Status = 0;
@@ -164,52 +164,41 @@ namespace Sys.WebUI.Controllers
                     orderinfo.ShipperName = _user.UserName;
                     orderinfo.ShipperPhone = _user.Phone;
                     orderinfo.Status = (int)OrderStatusEnum.Processing;
+                    orderinfo.PayStatus = (int)OrderPayStatusEnum.UnPaying;
+                    orderinfo.OrderRealPrice = 0;
 
                     var addresserInfo = new SysAddresserInfo();
-                    //addresserInfo.BoxHeight = Convert.ToDecimal(boxheight);
-                    //addresserInfo.BoxWidth = Convert.ToDecimal(boxwidth);
-                    //addresserInfo.BoxLong = Convert.ToDecimal(boxlong);
-                    //addresserInfo.GoodsWeight = Convert.ToDecimal(goodsweight);
-                    //addresserInfo.PolicyFee = Convert.ToDecimal(policyfee);
-                    //addresserInfo.ProtectPrice = Convert.ToDecimal(protectprice);
-                    //addresserInfo.TransportationWay = Convert.ToInt32(transportationway);
-                    //addresserInfo.GoodsType = Convert.ToInt32(goodstype);
-                    //addresserInfo.PickupWay = Convert.ToInt32(pickupWay);
-                    //addresserInfo.PickupDate = Convert.ToDateTime(pickupdate);
-                    //addresserInfo.CargoNumber = Convert.ToInt32(cargonumber);
-                    //addresserInfo.LogisticsSingle = logisticsSingle.Trim();
-                    //addresserInfo.RussiaAddress = russiaaddress.Trim();
-                    //addresserInfo.RussiaCityId = Convert.ToInt64(russiacityid);
-                    //addresserInfo.BudgetPrice = Convert.ToDecimal(abudgetprice);
+                    addresserInfo.LogisticsSingle = !string.IsNullOrEmpty(logisticsSingle) ? logisticsSingle.Trim() : "";
+                    addresserInfo.RussiaCityId = !string.IsNullOrEmpty(russiacityid) ? Convert.ToInt64(russiacityid) : 0;
+                    addresserInfo.RussiaAddress = !string.IsNullOrEmpty(russiaaddress) ? russiaaddress.Trim() : "";
+                    addresserInfo.PickupDate = !string.IsNullOrEmpty(pickupdate) ? Convert.ToDateTime(pickupdate) : DateTime.MinValue;
+                    addresserInfo.GoodsType = !string.IsNullOrEmpty(goodstype) ? Convert.ToInt32(goodstype) : 0;
+                    addresserInfo.TransportationWay = !string.IsNullOrEmpty(transportationway) ? Convert.ToInt32(transportationway) : 0;
+                    addresserInfo.GoodsWeight = 0;
+                    addresserInfo.ProtectPrice = !string.IsNullOrEmpty(protectprice) ? Convert.ToDecimal(protectprice) : 0;
+                    addresserInfo.PolicyFee = !string.IsNullOrEmpty(policyfee) ? Convert.ToDecimal(policyfee):0;
+                    addresserInfo.IsArrivePay = !string.IsNullOrEmpty(isarrivepay);
+                    addresserInfo.ArrivePayValue = addresserInfo.IsArrivePay ? Convert.ToDecimal(arrivepayvalue) : 0;
+                    addresserInfo.IsOutPhoto = !string.IsNullOrEmpty(isoutphoto);
+                    addresserInfo.WebUrl = !string.IsNullOrEmpty(weburl) ? weburl.Trim() : "";
+                    addresserInfo.OrderFrees = 0;
 
-                    List<dynamic> dysSjList = JsonConvert.DeserializeObject<List<dynamic>>(sjJson);
-
-                    var receiverInfos = new List<SysReceiverInfo>();
-                    foreach (var item in dysSjList)
-                    {
-                        var receiverInfo = new SysReceiverInfo();
-                        receiverInfo.ParcelSingle = item.parcelsingle.Value.ToString();
-                        receiverInfo.ChinaCityId = Convert.ToInt64(item.chinacityid.Value);
-                        receiverInfo.ChinaAddress = item.chinaaddress.Value.ToString();
-                        receiverInfo.ReceiverName = item.receivername.Value.ToString();
-                        receiverInfo.ReceiverPhone = item.receiverphone.Value.ToString();
-                        receiverInfo.PackagingWay = Convert.ToInt32(item.packagingway.Value);
-                        receiverInfo.ExpressWay = Convert.ToInt32(item.expressway.Value);
-                        receiverInfo.GoodsDesc = item.goodsdesc.Value.ToString();
-                        receiverInfo.ParcelWeight = Convert.ToDecimal(item.parcelweight.Value);
-                        receiverInfo.CourierComId = Convert.ToInt64(item.CourierComId.Value);
-                        receiverInfo.ChinaCourierNumber = item.chinacouriernumber.Value.ToString();
-                        receiverInfo.Desc = item.desc.Value.ToString();
-                        //receiverInfo.BudgetPrice = Convert.ToDecimal(item.budgetprice.Value.ToString());
-                        receiverInfo.CreateDate = DateTime.Now;
-                        receiverInfo.Id = 1;
-                        receiverInfos.Add(receiverInfo);
-
-                    }
+                    var receiverInfo = new SysReceiverInfo();
+                    receiverInfo.ChinaCityId = !string.IsNullOrEmpty(chinacityid) ? Convert.ToInt64(chinacityid) : 0;
+                    receiverInfo.ChinaAddress = !string.IsNullOrEmpty(chinaaddress) ? chinaaddress.Trim() : "";
+                    receiverInfo.ReceiverName = !string.IsNullOrEmpty(receivername) ? receivername.Trim() : "";
+                    receiverInfo.ReceiverPhone = !string.IsNullOrEmpty(receiverphone) ? receiverphone.Trim() : "";
+                    receiverInfo.PackagingWay = !string.IsNullOrEmpty(packagingway) ? Convert.ToInt32(packagingway) : 0;
+                    receiverInfo.ExpressWay = !string.IsNullOrEmpty(expressway) ? Convert.ToInt32(expressway) : 0;
+                    receiverInfo.GoodsDesc = !string.IsNullOrEmpty(goodsdesc) ? goodsdesc.Trim() : "";
+                    receiverInfo.ParcelWeight = 0;
+                    receiverInfo.CourierComId = !string.IsNullOrEmpty(kdgs) ? Convert.ToInt64(kdgs) : 0;
+                    receiverInfo.ChinaCourierNumber = "";
+                    receiverInfo.Desc = !string.IsNullOrEmpty(desc) ? desc.Trim() : "";
+                    receiverInfo.CourierFees = 0;
 
                     var status = 0;
-
-                    var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfos, ref status);
+                    var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfo, ref status);
 
                     if (status == 1)
                     {

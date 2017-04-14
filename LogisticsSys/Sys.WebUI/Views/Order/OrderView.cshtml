@@ -2,169 +2,176 @@
 @{
     Layout = null;
 }
+
 <h4 id="breadcrumbs" class="page-header">订单详情</h4>
-<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 主订单信息</h5>
-@{
-    var orderinfo = ViewData["OrderInfo"] as SysOrderInfo;
-    var addressinfo = ViewData["AddressInfo"] as SysAddresserInfo;
-}
+<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+    <ul id="myTabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#control1" id="tab1" role="tab" data-toggle="tab" aria-controls="control1" aria-expanded="true">主订单信息</a></li>
+        <li role="presentation"><a href="#control2" role="tab" id="tab2" data-toggle="tab" aria-controls="control2">寄件人信息</a></li>
+        <li role="presentation"><a href="#control3" role="tab" id="tab3" data-toggle="tab" aria-controls="control3">收件人信息</a></li>
+        <li role="presentation"><a href="#control4" role="tab" id="tab4" data-toggle="tab" aria-controls="control4">付款信息</a></li>
+        <li role="presentation"><a href="#control5" role="tab" id="tab5" data-toggle="tab" aria-controls="control5">发货信息</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="control1" aria-labelledby="home-tab">
+            @{
+                var orderinfo = ViewData["OrderInfo"] as SysOrderInfo;
+                var addressinfo = ViewData["AddressInfo"] as SysAddresserInfo;
+            }
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 20%">订单号：</td>
+                        <td>@orderinfo.OrderNo</td>
+                    </tr>
+                    <tr>
+                        <td>下单人姓名：</td>
+                        <td>@orderinfo.ShipperName</td>
+                    </tr>
+                    <tr>
+                        <td>下单人电话：</td>
+                        <td>@orderinfo.ShipperPhone</td>
+                    </tr>
+                    <tr>
+                        <td>订单状态：</td>
+                        <td id="orderstatus">@orderinfo.Status</td>
+                    </tr>
+                    <tr>
+                        <td>支付状态：</td>
+                        <td id="orderpaystatus">@orderinfo.PayStatus</td>
+                    </tr>
+                    <tr>
+                        <td>下单时间：</td>
+                        <td>@orderinfo.CreateDate</td>
+                    </tr>
+                    <tr>
+                        <td>订单总金额：</td>
+                        <td>@orderinfo.OrderRealPrice</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control2" aria-labelledby="profile-tab">
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 20%">俄罗斯城市：</td>
+                        <td>@addressinfo.CityName</td>
+                    </tr>
+                    <tr>
+                        <td>俄罗斯详细地址：</td>
+                        <td>@addressinfo.RussiaAddress</td>
+                    </tr>
+                    <tr>
+                        <td>取货时间：</td>
+                        <td>@addressinfo.PickupDate</td>
+                    </tr>
+                    <tr>
+                        <td>货物类型：</td>
+                        <td>@addressinfo.GoodsTypeName</td>
+                    </tr>
+                    <tr>
+                        <td>货物运输类型：</td>
+                        <td id="transway">@addressinfo.TransportationWay</td>
+                    </tr>
+                    <tr>
+                        <td>保价价值(元)：</td>
+                        <td>@addressinfo.ProtectPrice</td>
+                    </tr>
+                    <tr>
+                        <td>保单费用(元)：</td>
+                        <td>@addressinfo.PolicyFee</td>
+                    </tr>
+                    <tr>
+                        <td>货物重量(kg) ：</td>
+                        <td>@addressinfo.GoodsWeight</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control3" aria-labelledby="dropdown1-tab">
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 20%">俄罗斯城市：</td>
+                        <td>@addressinfo.CityName</td>
+                    </tr>
+                    <tr>
+                        <td>俄罗斯详细地址：</td>
+                        <td>@addressinfo.RussiaAddress</td>
+                    </tr>
+                    <tr>
+                        <td>取货时间：</td>
+                        <td>@addressinfo.PickupDate</td>
+                    </tr>
+                    <tr>
+                        <td>货物类型：</td>
+                        <td>@addressinfo.GoodsTypeName</td>
+                    </tr>
+                    <tr>
+                        <td>货物运输类型：</td>
+                        <td id="transway">@addressinfo.TransportationWay</td>
+                    </tr>
+                    <tr>
+                        <td>保价价值(元)：</td>
+                        <td>@addressinfo.ProtectPrice</td>
+                    </tr>
+                    <tr>
+                        <td>保单费用(元)：</td>
+                        <td>@addressinfo.PolicyFee</td>
+                    </tr>
+                    <tr>
+                        <td>货物重量(kg) ：</td>
+                        <td>@addressinfo.GoodsWeight</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control4" aria-labelledby="dropdown2-tab">
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 20%">发货时间：</td>
+                        <td>无</td>
+                    </tr>
+                    <tr>
+                        <td>发货人：</td>
+                        <td>无</td>
+                    </tr>
+                    <tr>
+                        <td>发货详细：</td>
+                        <td>无</td>
+                    </tr>
 
-<table class="table">
-    <tbody>
-        <tr>
-            <td style="width:20%">订单号：</td>
-            <td>@orderinfo.OrderNo</td>
-        </tr>
-        <tr>
-            <td>下单人姓名：</td>
-            <td>@orderinfo.ShipperName</td>
-        </tr>
-        <tr>
-            <td>下单人电话：</td>
-            <td>@orderinfo.ShipperPhone</td>
-        </tr>
-        <tr>
-            <td>订单状态：</td>
-            <td id="orderstatus">@orderinfo.Status</td>
-        </tr>
-        <tr>
-            <td>下单时间：</td>
-            <td>@orderinfo.CreateDate</td>
-        </tr>
-    </tbody>
-</table>
-<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 寄件人信息</h5>
-<table class="table">
-    <tbody>
-        <tr>
-            <td style="width:20%">俄罗斯城市：</td>
-            <td>@addressinfo.CityName</td>
-        </tr>
-        <tr>
-            <td>俄罗斯详细地址：</td>
-            <td>@addressinfo.RussiaAddress</td>
-        </tr>
-        <tr>
-            <td>货物箱数：</td>
-            <td>@addressinfo.CargoNumber</td>
-        </tr>
-        <tr>
-            <td>取货时间：</td>
-            <td>@addressinfo.PickupDate</td>
-        </tr>
-        <tr>
-            <td>取货方式：</td>
-            <td id="pickway">@addressinfo.PickupWay</td>
-        </tr>
-        <tr>
-            <td>货物类型：</td>
-            <td>@addressinfo.GoodsTypeName</td>
-        </tr>
-        <tr>
-            <td>货物运输类型：</td>
-            <td id="transway">@addressinfo.TransportationWay</td>
-        </tr>
-        <tr>
-            <td>保价价值(元)：</td>
-            <td>@addressinfo.ProtectPrice</td>
-        </tr>
-        <tr>
-            <td>保单费用(元)：</td>
-            <td>@addressinfo.PolicyFee</td>
-        </tr>
-        <tr>
-            <td>货物重量(kg) ：</td>
-            <td>@addressinfo.GoodsWeight</td>
-        </tr>
-        <tr>
-            <td>预算价格(元)：</td>
-            <td>@addressinfo.BudgetPrice</td>
-        </tr>
-        <tr>
-            <td>箱子外包装总体积：</td>
-            <td>长(cm)：@addressinfo.BoxLong  宽(cm)：@addressinfo.BoxWidth   高(cm)：@addressinfo.BoxHeight</td>
-        </tr>
-        <tr>
-            <td>实际体积：</td>
-            <td>@addressinfo.GoodsVolumeWeight</td>
-        </tr>
-        <tr>
-            <td>实际重量：</td>
-            <td>@addressinfo.GoodsRealWeight</td>
-        </tr>
-        <tr>
-            <td>实际价格：</td>
-            <td>@addressinfo.AddressRealPrice</td>
-        </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control5" aria-labelledby="dropdown2-tab">
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 20%">发货时间：</td>
+                        <td>无</td>
+                    </tr>
+                    <tr>
+                        <td>发货人：</td>
+                        <td>无</td>
+                    </tr>
+                    <tr>
+                        <td>发货详细：</td>
+                        <td>无</td>
+                    </tr>
 
-    </tbody>
-</table>
-<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 收件信息</h5>
-<table id="datatablelist"
-       data-toggle="table"
-       data-url="@Url.Action("GetRevicerInfos")"
-       data-side-pagination="server"
-       data-show-columns="true"
-       data-query-params="queryParams">
-    <thead>
-    <tr>
-        <th data-field="ParcelSingle">编号</th>
-        <th data-field="CityName">省份</th>
-        <th data-field="ChinaAddress" data-visible="false">地址</th>
-        <th data-field="ReceiverName">姓名</th>
-        <th data-field="ReceiverPhone" data-visible="false">电话</th>
-        <th data-field="PackagingWay" data-formatter="PackagingWayFormatter">打包方式</th>
-        <th data-field="ExpressWay" data-formatter="ExpressWayFormatter">快递方式</th>
-        <th data-field="GoodsDesc" data-visible="false">明细</th>
-        <th data-field="CourierComName">快递公司</th>
-        <th data-field="ChinaCourierNumber">快递单号</th>
-        <th data-field="ParcelWeight">重量</th>
-        <th data-field="RealWeight">真实重量</th>
-        <th data-field="BudgetPrice">预算价格</th>
-        <th data-field="RealPrice">真实价格</th>
-        <th data-field="Desc" data-visible="false">备注</th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 收款信息</h5>
-
-<table class="table">
-    <tbody>
-        <tr>
-            <td style="width:20%">收款时间：</td>
-            <td>无</td>
-        </tr>
-        <tr>
-            <td>收款人：</td>
-            <td>无</td>
-        </tr>
-        <tr>
-            <td>收款详细：</td>
-            <td>无</td>
-        </tr>
-      
-    </tbody>
-</table>
-<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 发货信息</h5>
-
-<table class="table">
-    <tbody>
-        <tr>
-            <td style="width:20%">发货时间：</td>
-            <td>无</td>
-        </tr>
-        <tr>
-            <td>发货人：</td>
-            <td>无</td>
-        </tr>
-        <tr>
-            <td>发货详细：</td>
-            <td>无</td>
-        </tr>
-
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!-- /example -->
 
 <script>
     function queryParams(params) {
@@ -180,7 +187,6 @@
     $(function() {
         $('[data-toggle="table"]').bootstrapTable();
         $('#orderstatus').html(Status_7077.getOrderStatus(@orderinfo.Status));
-        $('#pickway').html(Status_7077.getPickupWay(@addressinfo.PickupWay));
         $('#transway').html(Status_7077.getCargoTransWay(@addressinfo.TransportationWay));
     });
 

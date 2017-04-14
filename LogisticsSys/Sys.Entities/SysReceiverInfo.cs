@@ -21,8 +21,8 @@ namespace Sys.Entities
         public long OrderId { get; set; }
         /// <summary>
         /// </summary>
-        [Column(Name = "ParcelSingle", ColumnType = DbType.AnsiString, Length = 100)]
-        public string ParcelSingle { get; set; }
+        //[Column(Name = "ParcelSingle", ColumnType = DbType.AnsiString, Length = 100)]
+        //public string ParcelSingle { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "ChinaCityId", ColumnType = DbType.Int64)]

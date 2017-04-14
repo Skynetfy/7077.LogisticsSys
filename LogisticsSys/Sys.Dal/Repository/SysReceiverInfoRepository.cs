@@ -134,7 +134,7 @@ namespace Sys.Dal.Repository
                 {
                     Id = x.Field<Int64>("Id"),
                     OrderId = x.Field<Int64>("OrderId"),
-                    ParcelSingle = x.Field<string>("ParcelSingle"),
+                    //ParcelSingle = x.Field<string>("ParcelSingle"),
                     ChinaCityId = x.Field<long>("ChinaCityId"),
                     CityName = x.Field<string>("CityName"),
                     ChinaAddress = x.Field<string>("ChinaAddress"),

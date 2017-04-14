@@ -39,7 +39,7 @@
         </div>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
-                <div class="panel-heading" role="tab" >
+                <div class="panel-heading" role="tab">
                     <a class="collapsed" role="button" aria-expanded="true" aria-controls="collapseOne">
                         <div class="radio">
                             <label>
@@ -51,7 +51,22 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <div class="col-md-6">
+                            <div class="col-md-8" style="margin-top: 20px;">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">支付宝账号</label> <span class="required">*</span>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="支付宝账号">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="姓 名">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="text-align: center;">
+                            <img src="~/images/005y2uAZzy78gEpnXtbd5&690.jpg" width="50%" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,7 +83,21 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <div class="col-md-6">
+                                <div class="col-md-8" style="margin-top: 20px;">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">微信号</label> <span class="required">*</span>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="微信号">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="姓 名">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="text-align: center;">
+                                <img src="~/images/004ddad11cbaad2f7081c30c94d7772a30.png" width="50%" />
+                            </div>
                     </div>
                 </div>
             </div>
@@ -85,7 +114,19 @@
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <div class="col-md-4" style="margin-top: 20px;">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">卡 号</label> <span class="required">*</span>
+                                <input type="text" class="form-control" placeholder="卡 号">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
+                                <input type="text" class="form-control" placeholder="姓 名">
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align: center;">
+                           
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,7 +134,7 @@
         <div class="row text-right">
             <div class="col-md-12">
                 <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
-                    确 认
+                    确认付款
                 </button>
 
             </div>
@@ -107,7 +148,9 @@
                 // do something…
                 var id = $(this).attr('aria-controls');
                 $('.panel-collapse').removeClass('in');
-                $('#'+id).addClass('in');
+                $('.panel-collapse').css('height', 0);
+                $('#' + id).addClass('in');
+                $('#' + id).removeAttr('style');
             })
             $('#btn-save').click(function (e) {
                 $.post('@Url.Action("PayOrder")', { id: "@ViewBag.Id", pay: 1 }, function (e) {

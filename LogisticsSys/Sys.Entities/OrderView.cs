@@ -64,7 +64,10 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "RussiaAddress", ColumnType = DbType.String, Length = 500)]
         public string RussiaAddress { get; set; }
-       
+        ///// <summary>
+        ///// </summary>
+        //[Column(Name = "OrderNumbers", ColumnType = DbType.AnsiString, Length = 2000)]
+        public string OrderNumbers { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "PickupDate", ColumnType = DbType.DateTime)]
@@ -73,6 +76,10 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "GoodsType", ColumnType = DbType.Int32)]
         public int GoodsType { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "GoodsTypeName", ColumnType = DbType.String, Length = 200)]
+        public string GoodsTypeName { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "TransportationWay", ColumnType = DbType.Int32)]
@@ -169,6 +176,10 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "CourierComId", ColumnType = DbType.Int64)]
         public long CourierComId { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "CourierComName", ColumnType = DbType.String)]
+        public string CourierComName { get; set; }
         /// <summary>
         /// </summary>
         [Column(Name = "PayStatus", ColumnType = DbType.Int32)]

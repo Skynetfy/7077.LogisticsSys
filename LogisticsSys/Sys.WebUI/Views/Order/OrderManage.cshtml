@@ -46,12 +46,9 @@
             <thead>
                 <tr>
                     <th data-field="stats" data-formatter="checkboxstateFormatter" data-checkbox="true"></th>
-                    <th data-field="OrderNo">订单编号</th>
+                    <th data-field="OrderNo" data-formatter="OrderNoFormatter">订单编号</th>
                     <th data-field="ShipperName">寄件人</th>
-                    <th data-field="ShipperPhone">寄件人电话</th>
                     <th data-field="RussiaCityName">俄罗斯城市</th>
-                    <th data-field="CargoNumber">货物箱数</th>
-                    <th data-field="PickupDate">取货时间</th>
                     <th data-field="DisplayName">下单人</th>
                     <th data-field="CreateDate">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter">状态</th>
@@ -507,6 +504,49 @@
     </div>
 </div>
 <!-- Modal -->
+<div class="modal fade" id="updateModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">订单修改</h4>
+            </div>
+            <div class="modal-body">
+                <div id="alert-infor-edit" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>错误!</strong>
+                    <label></label>
+                </div>
+                <form class="form-horizontal form-label-left" id="updateform" method="post" action="@Url.Action("UpdateOrder")" enctype="multipart/form-data" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                    <input type="hidden" name="updateorderid" id="updateorderid" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="editgoodsdesc">
+                            货物明细 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" id="editgoodsdesc" name="editgoodsdesc" class="form-control col-md-7 col-xs-12">
+                            <a href="~/ExcelFiles/" target="_blank" id="editgoodsdesclink"></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="editguoneidingdanhao">
+                            国内订单号
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="editguoneidingdanhao" name="editguoneidingdanhao" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-success" id="btn-edit">确认修改</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="fahuoModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -522,14 +562,14 @@
                 </div>
                 <form class="form-horizontal form-label-left" id="fahuoform" method="post" action="@Url.Action("Filled")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="fahuoid" />
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gzdh">
                             跟踪单号 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="gzdh" name="gzdh" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
-                    </div>
+                    </div>*@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fhsj">
                             发货时间 <span class="required">*</span>
@@ -607,6 +647,25 @@
          selections = [],
         $ok = $('#ok');
     $(function () {
+        $('#updateform').ajaxForm({
+            resetForm: true,
+            error: function (xhr, status, error, $form) {
+                $('#alert-infor').removeClass('alert-success');
+                $('#alert-infor').addClass('alert-danger');
+                $('#alert-infor').show();
+                $('#alert-infor label').html(error);
+                $('#alert-infor strong').html('错误！');
+            },
+            success: function (responseText, statusText) {
+                //$('#alert-infor').removeClass('alert-danger');
+                //$('#alert-infor').addClass('alert-success');
+                //$('#alert-infor').show();
+                ////$('#alert-infor label').html(error);
+                //$('#alert-infor strong').html('Successfully');
+                $table.bootstrapTable('refresh');
+                $('#updateModel').modal('hide');
+            }
+        });
         $('#fhsj,#shoukuanshijian')
             .daterangepicker({
                 "singleDatePicker": true,
@@ -688,6 +747,7 @@
                                 //$('#alert-infor strong').html('Successfully');
                                 $table.bootstrapTable('refresh');
                                 $('#fahuoModel').modal('hide');
+                                $('#fahuobtn').prop('disabled');
                             }
                         });
                 }
@@ -740,7 +800,11 @@
     function paystateFormatter(value, row, index) {
         return Status_7077.getPayStatus(row.PayStatus);
     }
-
+    function OrderNoFormatter(value, row, index) {
+        return '<a href="javascript:void(0)" onclick="viewOrder(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')">' + value + '</a>';
+    }
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
     }
@@ -756,74 +820,90 @@
 
     function actionFormatter(value, row, index) {
         var h = [];
-        h
-            .push('<button  type="button" class="btn btn-default btn-xs" onclick="updatedate(' +
+        if (row.Status < 9)
+        h.push('<button  type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateModel" onclick="updatedate(' +
                 JSON.stringify(row).replace(/\"/g, "\'") +
-                ')" value="">查看</button>');
-        if (row.Status <= 2)
+                ')" value="">修改</button>');
+        if (row.Status < 2)
             h
                 .push(' <button  type="button" class="btn btn-success btn-xs" onclick="editdate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
-                    ')" value="">修改</button>');
+                    ')" value="">处理</button>');
 
         //if (row.Status >= 2 && row.Status <= 7)
-        //    h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fahuoModel" onclick="fahuodate(' +
+        //    h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#editModel" onclick="fahuodate(' +
         //       JSON.stringify(row).replace(/\"/g, "\'") +
         //        ')" value="">发货</button>');
 
-        if (row.Status >= 2 && row.PayStatus <= 2)
+        if (row.Status >= 2 && row.PayStatus == 2 && '@ViewBag.Role' == 'Admin')
             h
                 .push(' <button  type="button" class="btn btn-warning btn-xs"  data-toggle="modal" data-target="#shoukuanModel" onclick="shoukuandate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">收款</button>');
+        if (row.Status < 9 && row.PayStatus == 3 && '@ViewBag.Role' == 'Admin')
+            h
+                .push(' <button  type="button" class="btn btn-success btn-xs"  onclick="Completedate(' +
+                    JSON.stringify(row).replace(/\"/g, "\'") +
+                    ')" value="">完成</button>');
         return h.join('');
     }
-
-    function updatedate(row) {
+    function Completedate(row) {
+        if (confirm('确认订单已完成'))
+            $.post('@Url.Action("Complete")',{id:row.Id},function(e) {
+                $table.bootstrapTable('refresh');
+            });
+    }
+    function viewOrder(row) {
         $('body').mLoading("show"); //显示loading组件
         $('.maincontent').load('@Url.Action("OrderView")?id=' + row.Id, function (e) {
             $('body').mLoading("hide"); //显示loading组件
         });
-        $('#orderno').html(row.OrderNo);
-        $('#jjxm').html(row.ShipperName);
-        $('#jjdh').html(row.ShipperPhone);
-        $('#shrshl').html(row.PickupNumber);
-        $('#xdr').html(row.DisplayName);
-        $('#ddzt').html(Status_7077.getOrderStatus(row.Status));
-        $('#xdsj').html(row.CreateDate);
-        $('#elscs').html(row.RussiaCityName);
-        $('#elsdz').html(row.RussiaAddress);
-        $('#wldh').html(row.LogisticsSingle);
-        $('#hwxs').html(row.CargoNumber);
-        $('#qhsj').html(row.PickupDate);
-        $('#qhfs').html(Status_7077.getPickupWay(row.PickupWay));
-        $('#hwlx').html(Status_7077.getGoodsType(row.GoodsType));
-        $('#hwyslx').html(Status_7077.getCargoTransWay(row.TransportationWay));
-        $('#bjjg').html(row.ProtectPrice);
-        $('#bdfy').html(row.PolicyFee);
-        $('#hwzl').html(row.GoodsWeight);
-        $('#chang').html(row.BoxLong);
-        $('#kuan').html(row.BoxWidth);
-        $('#gao').html(row.BoxHeight);
-        $('#bgbh').html(row.ParcelSingle);
-        $('#ddsf').html(row.ChinaCityId);
-        $('#ddxxdz').html(row.ChinaAddress);
-        $('#sjrxm').html(row.ReceiverName);
-        $('#sjrdh').html(row.ReceiverPhone);
-        $('#dbfs').html(Status_7077.getPackagingType(row.PackagingWay));
-        $('#kdfs').html(Status_7077.getExpressWay(row.ExpressWay));
-        $('#hwmx').html(row.GoodsDesc);
-        $('#bgzl').html(row.ParcelWeight);
-        $('#gnkddh').html(row.ChinaCourierNumber);
-        $('#bz').html(row.Desc);
-        $('#orderId').html(row.Id);
-        $('#sjjg').html(row.OrderRealPrice);
-        $('#hwsjzl').html(row.GoodsRealWeight);
-        $('#hwsjtjzl').html(row.GoodsVolumeWeight);
-        $('#ddsjjg').html(row.AddressRealPrice);
-        $('#csjzl').html(row.RealWeight);
-        $('#csjjg').html(row.RealPrice);
-        $('#fkzt').html(Status_7077.getPackagingType(row.PayStatus));
+    }
+    function updatedate(row) {
+        $('#editgoodsdesclink').prop('href', '~/ExcelFiles/' + row.GoodsDesc);
+        $('#editgoodsdesclink').html(row.GoodsDesc);
+        $('#editguoneidingdanhao').val(row.ChinaCourierNumber);
+        $('#updateorderid').val(row.Id);
+        //$('#orderno').html(row.OrderNo);
+        //$('#jjxm').html(row.ShipperName);
+        //$('#jjdh').html(row.ShipperPhone);
+        //$('#shrshl').html(row.PickupNumber);
+        //$('#xdr').html(row.DisplayName);
+        //$('#ddzt').html(Status_7077.getOrderStatus(row.Status));
+        //$('#xdsj').html(row.CreateDate);
+        //$('#elscs').html(row.RussiaCityName);
+        //$('#elsdz').html(row.RussiaAddress);
+        //$('#wldh').html(row.LogisticsSingle);
+        //$('#hwxs').html(row.CargoNumber);
+        //$('#qhsj').html(row.PickupDate);
+        //$('#qhfs').html(Status_7077.getPickupWay(row.PickupWay));
+        //$('#hwlx').html(Status_7077.getGoodsType(row.GoodsType));
+        //$('#hwyslx').html(Status_7077.getCargoTransWay(row.TransportationWay));
+        //$('#bjjg').html(row.ProtectPrice);
+        //$('#bdfy').html(row.PolicyFee);
+        //$('#hwzl').html(row.GoodsWeight);
+        //$('#chang').html(row.BoxLong);
+        //$('#kuan').html(row.BoxWidth);
+        //$('#gao').html(row.BoxHeight);
+        //$('#bgbh').html(row.ParcelSingle);
+        //$('#ddsf').html(row.ChinaCityId);
+        //$('#ddxxdz').html(row.ChinaAddress);
+        //$('#sjrxm').html(row.ReceiverName);
+        //$('#sjrdh').html(row.ReceiverPhone);
+        //$('#dbfs').html(Status_7077.getPackagingType(row.PackagingWay));
+        //$('#kdfs').html(Status_7077.getExpressWay(row.ExpressWay));
+        //$('#hwmx').html(row.GoodsDesc);
+        //$('#bgzl').html(row.ParcelWeight);
+        //$('#gnkddh').html(row.ChinaCourierNumber);
+        //$('#bz').html(row.Desc);
+        //$('#orderId').html(row.Id);
+        //$('#sjjg').html(row.OrderRealPrice);
+        //$('#hwsjzl').html(row.GoodsRealWeight);
+        //$('#hwsjtjzl').html(row.GoodsVolumeWeight);
+        //$('#ddsjjg').html(row.AddressRealPrice);
+        //$('#csjzl').html(row.RealWeight);
+        //$('#csjjg').html(row.RealPrice);
+        //$('#fkzt').html(Status_7077.getPackagingType(row.PayStatus));
     }
 
     function editdate(row) {

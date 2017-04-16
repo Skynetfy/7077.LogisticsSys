@@ -24,6 +24,9 @@ namespace Sys.Dal
         private static readonly ISysCustomerInfoDao _CustomerInfoDao = new SysCustomerInfoDao();
         private static readonly ISysActionLogDao _ActionLogDao = new SysActionLogDao();
         private static readonly ISysKuaiDiComRepository _KuaiDiComDao = new SysKuaiDiComRepository();
+
+        private static readonly ISysOrderNumberRepository _OrderNumberDao = new SysOrderNumberRepository();
+        private static readonly ISysOrderPayInfoRepository _orderpayDao=new SysOrderPayInfoRepository();
         public static string SqlAction(string sql)
         {
             try
@@ -37,6 +40,8 @@ namespace Sys.Dal
                 return e.Message;
             }
         }
+        public static ISysOrderPayInfoRepository OrderPayInfoDao { get { return _orderpayDao; } }
+        public static ISysOrderNumberRepository OrderNumberDao { get { return _OrderNumberDao; } }
         public static ISysKuaiDiComRepository KuaiDiDao
         {
             get { return _KuaiDiComDao; }

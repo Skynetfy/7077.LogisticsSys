@@ -260,6 +260,10 @@
     <Content Include="images\005y2uAZzy78gEpnXtbd5&amp;690.jpg" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="Scripts\bootstrap-select\bootstrap-select.css" />
+    <Content Include="Scripts\bootstrap-select\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Scripts\bootstrap-select\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap-table-click-edit-row.js" />
     <Content Include="Scripts\bootstrap-table-zh-CN.min.js" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -276,6 +280,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
     <None Include="Properties\PublishProfiles\Relse.pubxml" />
+    <Content Include="Scripts\bootstrap-select\.jshintrc" />
+    <Content Include="Scripts\bootstrap-select\bootstrap-select.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -343,6 +349,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\responsive-menu.js" />
     <Content Include="Scripts\Solution.js" />
+    <Content Include="Scripts\tags\jquery.tagsinput.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Sql.aspx" />
     <Content Include="Web.config" />
@@ -406,6 +413,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ExcelFiles\" />
+    <Folder Include="Scripts\bootstrap-select\i18n\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -66,6 +66,8 @@
     <Compile Include="SysKuaiDiCom.cs" />
     <Compile Include="SysLogisticsInfo.cs" />
     <Compile Include="SysOrderInfo.cs" />
+    <Compile Include="SysOrderNumber.cs" />
+    <Compile Include="SysOrderPayInfo.cs" />
     <Compile Include="SysReceiverInfo.cs" />
     <Compile Include="SysRussiaCity.cs" />
     <Compile Include="SysUnitPrice.cs" />

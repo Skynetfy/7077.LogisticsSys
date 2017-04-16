@@ -118,12 +118,12 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public IList<SysReceiverInfo> GetByOrderId(long id)
+        public SysReceiverInfo GetByOrderId(long id)
         {
             var list = new List<SysReceiverInfo>();
             try
             {
-                string sql = @"select A.*,B.[CityName],C.[ComName] from [dbo].[SysReceiverInfo](nolock) A
+                string sql = @"select top 1 A.*,B.[CityName],C.[ComName] from [dbo].[SysReceiverInfo](nolock) A
                               left join [dbo].[SysChinaCity](nolock) B on A.ChinaCityId=B.Id
                               left join [dbo].[SysKuaiDiCom] C on A.CourierComId=C.Id
                             where A.[IsDelete]=0 and A.[OrderId]=@orderId";
@@ -144,6 +144,7 @@ namespace Sys.Dal.Repository
                     ExpressWay = x.Field<int>("ExpressWay"),
                     GoodsDesc = x.Field<string>("GoodsDesc"),
                     ParcelWeight = x.Field<decimal>("ParcelWeight"),
+                    CreateDate = x.Field<DateTime>("CreateDate")
                     //RealWeight = x.Field<decimal>("RealWeight"),
                     //RealPrice = x.Field<decimal>("RealPrice"),
                     //CourierComId = x.Field<long>("CourierComId"),
@@ -151,7 +152,7 @@ namespace Sys.Dal.Repository
                     //ChinaCourierNumber = x.Field<string>("ChinaCourierNumber"),
                     //Desc = x.Field<string>("Desc"),
                     //BudgetPrice = x.Field<decimal>("BudgetPrice")
-                }).ToList();
+                }).ToList().FirstOrDefault();
             }
             catch (Exception ex)
             {

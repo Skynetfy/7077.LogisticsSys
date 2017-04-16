@@ -10,7 +10,7 @@ namespace Sys.Dal
 {
     public partial interface ISysReceiverInfoRepository : IBaseRepository<SysReceiverInfo>
     {
-        IList<SysReceiverInfo> GetByOrderId(long id);
+        SysReceiverInfo GetByOrderId(long id);
 
         int UpdateReciverInfo(SysReceiverInfo entity);
 

@@ -64,7 +64,7 @@
                         </a>
                     </li>
                 </ul>
-                <form id="form" method="post" action="@Url.Action("CreateOrder")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                <form id="form" method="post" action="@Url.Action("CreateOrder")" enctype="multipart/form-data"  data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <div id="step-1">
                         <h4 class="StepTitle">下单介绍</h4>
                         <p>
@@ -234,19 +234,39 @@
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <label class="checkbox-inline">
                                         <input type="checkbox" id="isarrivepay" name="isarrivepay" value="1" style="margin-top: 0px;">
-                                        <input type="text" id="arrivepayvalue" name="arrivepayvalue" data-parsley-min="0" data-parsley-group="form2" value="" style="display: none; width: 100px;" class="form-control col-md-7 col-xs-12">
+                                      
                                     </label>
-                                </div>
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="isoutphoto">
-                                    是否开箱拍照
-                                </label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1" style="margin-top: -5px;">
-                                    </label>
+                                   
                                 </div>
                             </div>
-                           
+                            <div class="form-group" id="daofujinegroup" style="display: none;">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arrivepayvalue">
+                                    到付金额（卢布）
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="arrivepayvalue" name="arrivepayvalue" data-parsley-min="0" data-parsley-group="form2" value=""  class="form-control col-md-7 col-xs-12">
+                                </div>
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="exchangerate">
+                                    今日汇率
+                                </label>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <input type="text" id="exchangerate" name="exchangerate" value="6.6" readonly="readonly" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isoutphoto">
+                                    是否开箱拍照
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1" style="margin-top: -5px;">
+                                       
+                                    </label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <code><small>如果开箱，每个订单结算时+5元</small></code>
+                                </div>
+                            </div>
                            @* <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="abudgetprice">
             预算价格(元)
@@ -370,7 +390,7 @@
                                     货物明细 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="input-1a" type="file" class="file" data-show-preview="false">
+                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" data-show-preview="false">
                                 </div>
                             </div>
                             @*<div class="form-group">
@@ -445,6 +465,7 @@
 <script src="~/Scripts/jquery.smartWizard.js"></script>
 <script src="~/Content/bootstrap-fileinput/themes/fa/theme.js"></script>
 <script src="~/Scripts/locales/zh.js"></script>
+<script src="~/Scripts/tags/jquery.tagsinput.min.js"></script>
 <script>
   
     function rcChange() {
@@ -515,17 +536,21 @@
 
     $(document)
         .ready(function() {
+            $('#cargonumber').tagsInput({
+                width: 'auto'
+            });
+
             $('#isarrivepay').change(function(e) {
                 if ($(this).is(':checked')) {
-                    $('#arrivepayvalue').show();
+                    $('#daofujinegroup').show();
                     $('#arrivepayvalue').prop("required", "required");
                 } else {
-                    $('#arrivepayvalue').hide();
+                    $('#daofujinegroup').hide();
                     $('#arrivepayvalue').removeAttr("required");
                 }
             });
             // with plugin options
-            $("#input-1a").fileinput({'showUpload':false, 'previewFileType':'any'});
+            $("#goodsdesc").fileinput({'showUpload':false, 'previewFileType':'any'});
             var bs = @ViewBag.disabled;
             if (bs) {
                 $('#tips').show();

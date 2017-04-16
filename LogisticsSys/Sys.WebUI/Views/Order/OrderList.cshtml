@@ -44,17 +44,14 @@
             <thead>
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
-                    <th data-field="OrderNo">订单编号</th>
+                    <th data-field="OrderNo" data-formatter="OrderNoFormatter">订单编号</th>
                     <th data-field="ShipperName">寄件人</th>
-                    <th data-field="ShipperPhone">寄件人电话</th>
                     <th data-field="RussiaCityName">俄罗斯城市</th>
-                    <th data-field="CargoNumber">货物箱数</th>
-                    <th data-field="PickupDate">取货时间</th>
                     <th data-field="DisplayName">下单人</th>
                     <th data-field="CreateDate">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter">状态</th>
                     <th data-field="Status" data-formatter="paystateFormatter">付款状态</th>
-                    <th data-field="Id" data-formatter="actionFormatter">操作</th>
+                    @*<th data-field="Id" data-formatter="actionFormatter">操作</th>*@
                 </tr>
             </thead>
         </table>
@@ -373,6 +370,11 @@
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
     }
+    function OrderNoFormatter(value, row, index) {
+        return '<a href="javascript:void(0)" onclick="viewOrder(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')">' + value + '</a>';
+    }
     function actionFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
@@ -380,7 +382,12 @@
             ')" value="">查看</button>');
         return h.join('');
     }
-
+    function viewOrder(row) {
+        $('body').mLoading("show"); //显示loading组件
+        $('.maincontent').load('@Url.Action("OrderView")?id=' + row.Id, function (e) {
+            $('body').mLoading("hide"); //显示loading组件
+        });
+    }
     function updatedate(row) {
         $('body').mLoading("show"); //显示loading组件
         $('.maincontent').load('@Url.Action("OrderView")?id='+row.Id, function(e) {

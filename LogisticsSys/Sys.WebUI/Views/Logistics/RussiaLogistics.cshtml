@@ -11,10 +11,13 @@
         </nav>
     </div>
     <div class="col-md-9 maincontent" role="main">
-
+        <div id="toolbar">
+            <button type="button" id="addbtn" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>
+        </div>
         <table id="table"
                data-toggle="table"
                data-show-refresh="true"
+               data-toolbar="#toolbar"
                data-show-toggle="true"
                data-search="true"
                data-url="@Url.Action("GetLogisticsPagerList")"
@@ -63,12 +66,25 @@
                             物流跟踪号
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="wuliudanhao" name="wuliudanhao" readonly="readonly" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                            <input type="text" id="wuliudanhao" name="wuliudanhao" required="required"  class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        </div>
+                    </div>
+                    <div class="form-group" id="orderlistdiv">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
+                            订单列表 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="selectpicker" id="ordernumbers" name="ordernumbers" required="required" multiple>
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </select>
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
-                            物流时间 <span class="required">*</span>
+                            更新时间 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="UpdateDate" name="UpdateDate" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
@@ -134,96 +150,96 @@
             <div class="modal-body" id="orderview">
                 <div class="tree well">
 
-                    @*<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 somewhere</span> 
+                    @*<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 somewhere</span>
 
-                            <ul>
+                                <ul>
 
-                                <li>
+                                    <li>
 
-                                    <span><i class="icon-minus-sign"></i> 订单号 somewhere</span> 
+                                        <span><i class="icon-minus-sign"></i> 订单号 somewhere</span>
 
-                                    <ul>
+                                        <ul>
 
-                                        <li>
+                                            <li>
 
-                                            <span><i class="icon-leaf"></i> 物流单号 somewhere</span> <a href=""></a>
+                                                <span><i class="icon-leaf"></i> 物流单号 somewhere</span> <a href=""></a>
 
-                                        </li>
+                                            </li>
 
-                                    </ul>
+                                        </ul>
 
-                                </li>
+                                    </li>
 
-                                <li>
+                                    <li>
 
-                                    <span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+                                        <span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
 
-                                    <ul>
+                                        <ul>
 
-                                        <li>
+                                            <li>
 
-                                            <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                                                <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
 
-                                        </li>
+                                            </li>
 
-                                        <li>
+                                            <li>
 
-                                            <span><i class="icon-minus-sign"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                                                <span><i class="icon-minus-sign"></i> Grand Child</span> <a href="">Goes somewhere</a>
 
-                                            <ul>
+                                                <ul>
 
-                                                <li>
+                                                    <li>
 
-                                                    <span><i class="icon-minus-sign"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+                                                        <span><i class="icon-minus-sign"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
 
-                                                    <ul>
+                                                        <ul>
 
-                                                        <li>
+                                                            <li>
 
-                                                            <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+                                                                <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
 
-                                                        </li>
+                                                            </li>
 
-                                                        <li>
+                                                            <li>
 
-                                                            <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+                                                                <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
 
-                                                        </li>
+                                                            </li>
 
-                                                    </ul>
+                                                        </ul>
 
-                                                </li>
+                                                    </li>
 
-                                                <li>
+                                                    <li>
 
-                                                    <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+                                                        <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
 
-                                                </li>
+                                                    </li>
 
-                                                <li>
+                                                    <li>
 
-                                                    <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+                                                        <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
 
-                                                </li>
+                                                    </li>
 
-                                            </ul>
+                                                </ul>
 
-                                        </li>
+                                            </li>
 
-                                        <li>
+                                            <li>
 
-                                            <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                                                <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
 
-                                        </li>
+                                            </li>
 
-                                    </ul>
+                                        </ul>
 
-                                </li>
+                                    </li>
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                    </ul>*@
+                            </li>
+                        </ul>*@
 
                 </div>
             </div>
@@ -233,20 +249,29 @@
         </div>
     </div>
 </div>
-
+<link href="~/Scripts/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-tree.css" rel="stylesheet" />
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/bootstrap-select/bootstrap-select.min.js"></script>
 <script>
     function getHeight() {
         return $(window).height() - $('h1').outerHeight(true);
     }
 
     $(function () {
-
-    
-    });
-    $(function () {
+        $('#ordernumbers').selectpicker();
+        $('#addbtn').click(function () {
+            $('#wuliudanhao').prop('disabled', false);
+            $('#orderlistdiv').show();
+            $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
+                $('#ordernumbers').empty();
+                $.each(e,function(x, v) {
+                    $('#ordernumbers').append('<option value="'+v.Id+'">'+v.Number+'</option>');
+                });
+                $('#ordernumbers').selectpicker('refresh');
+            });
+        })
         $('#UpdateDate')
             .daterangepicker({
                 "singleDatePicker": true,
@@ -285,13 +310,7 @@
                 // push or splice the selections if you want to save all data selections
             });
 
-        $(window)
-            .resize(function () {
-                $table.bootstrapTable('resetView',
-                {
-                    height: getHeight()
-                });
-            });
+       
         $('#btn-save')
             .click(function () {
                 if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
@@ -329,6 +348,9 @@
     });
 
     function updatedate(row) {
+        $('#wuliudanhao').prop('disabled', true);
+        $('#ordernumbers').val('1');
+        $('#orderlistdiv').hide();
         $('form [name=wuliudanhao]').val(row.LogisticsSingle);
         $('form [name=id]').val(row.LogisticsSingle);
         $('#addModel').modal('show');
@@ -348,11 +370,8 @@
             h.push('<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 ' + single + '</span> <ul> ');
             $.each(e.Orders, function (x, v) {
                 h.push(' <li> <span><i class="icon-minus-sign"></i> 订单号 ' + v.OrderNumber + '</span> ');
-                h.push(' <ul>');
-                $.each(v.LoginsNo, function (y,z) {
-                    h.push('<li><span><i class="icon-leaf"></i> 物流单号 ' + z + '</span> <a href=""></a></li>');
-                })
-                h.push(' </ul></li>');
+               
+                h.push('</li>');
             })
             h.push('</li></ul>');
             $('.tree').empty();

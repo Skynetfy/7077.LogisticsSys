@@ -47,7 +47,7 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref int status)
+        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref long status)
         {
             var param = new StatementParameterCollection();
             param.AddInParameter("@OrderNo", DbType.AnsiString, orderinfo.OrderNo);
@@ -91,7 +91,7 @@ namespace Sys.Dal.Repository
             param.AddParameter("@message", DbType.Int32, 0, 32, ParameterDirection.ReturnValue);
            
             baseDao.ExecSp("CreateOrder_Proc", param);
-            status = Convert.ToInt32(param["@message"].Value);
+            status = Convert.ToInt64(param["@message"].Value);
             return param[32].Value.ToString();
         }
 
@@ -128,6 +128,18 @@ namespace Sys.Dal.Repository
             try
             {
                 return baseDao.GetByKey<SysOrderInfo>(id);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问FindByPk时出错", ex);
+            }
+        }
+
+        public OrderView GetOrderViewById(long id)
+        {
+            try
+            {
+                return baseDao.GetByKey<OrderView>(id);
             }
             catch (Exception ex)
             {

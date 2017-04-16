@@ -21,7 +21,7 @@ namespace Sys.BLL.Order
             return addresserInfoDao.GetByOrderId(id);
         }
 
-        public IList<SysReceiverInfo> GetReceiverInfo(long id)
+        public SysReceiverInfo GetReceiverInfo(long id)
         {
             return receiverInfoDao.GetByOrderId(id);
         }
@@ -41,6 +41,11 @@ namespace Sys.BLL.Order
             return orderDao.FindByPk(id);
         }
 
+        public OrderView GetOrderViewById(long id)
+        {
+            return orderDao.GetOrderViewById(id);
+        }
+
         public int UpdateOrderInfo(SysOrderInfo entity)
         {
             return orderDao.Update(entity);
@@ -56,7 +61,7 @@ namespace Sys.BLL.Order
             return neworder;
         }
 
-        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref int status)
+        public string AddOrderInfo(string username, SysOrderInfo orderinfo, SysAddresserInfo addresserinfo, SysReceiverInfo receiverInfo, ref long status)
         {
             return orderDao.AddOrderInfo(username, orderinfo, addresserinfo, receiverInfo, ref status);
         }

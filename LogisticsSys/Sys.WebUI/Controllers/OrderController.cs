@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,24 +53,40 @@ namespace Sys.WebUI.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 var provider = new OrderInfoProvider();
-                var orderinfo = provider.GetOrderInfoById(Convert.ToInt64(id));
+                var orderinfo = provider.GetOrderViewById(Convert.ToInt64(id));
+
+                orderinfo.OrderNumbers = string.Join(",", DALFactory.OrderNumberDao.GetAll()
+                        .Where(x => x.OrderId == Convert.ToInt64(id))
+                        .Select(x => x.Number)
+                        .ToList());
                 ViewData["OrderInfo"] = orderinfo;
 
-                var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
-                ViewData["AddressInfo"] = address;
+                var orderpayinfo =
+                    DALFactory.OrderPayInfoDao.GetAll().FirstOrDefault(x => !x.IsDelete && x.OrderId == orderinfo.Id);
+                ViewData["OrderPayInfo"] = orderpayinfo;
+
+                var filledinfo =
+                    DALFactory.ActionLogDao.GetAll()
+                        .FirstOrDefault(
+                            x =>
+                                !x.IsDelete && x.OrderId == orderinfo.Id &&
+                                x.LogType == (int) ActionLogTypeEnum.FilledAction);
+                ViewData["SysActionLog"] = filledinfo;
+                //var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
+                //ViewData["AddressInfo"] = address;
             }
             return View();
         }
 
-        public ActionResult GetRevicerInfos(string oid)
-        {
-            var provider = new OrderInfoProvider();
-            var data = provider.GetReceiverInfo(Convert.ToInt64(oid)).ToList();
-            var btdata = new BootstrapTableData<SysReceiverInfo>();
-            btdata.rows = data;
-            btdata.total = data.Count;
-            return Json(btdata, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult GetRevicerInfos(string oid)
+        //{
+        //    var provider = new OrderInfoProvider();
+        //    var data = provider.GetReceiverInfo(Convert.ToInt64(oid)).ToList();
+        //    var btdata = new BootstrapTableData<SysReceiverInfo>();
+        //    btdata.rows = data;
+        //    btdata.total = data.Count;
+        //    return Json(btdata, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult GetAddressBudgetPrice(string cityId, string goodstype, string transType, string weight)
         {
@@ -142,7 +159,7 @@ namespace Sys.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(string russiacityid, string russiaaddress, string weburl, string logisticsSingle, string cargonumber, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string isarrivepay, string arrivepayvalue, string isoutphoto, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, string goodsdesc, string kdgs, string desc)
+        public ActionResult CreateOrder(string russiacityid, string russiaaddress, string weburl, string logisticsSingle, string cargonumber, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string isarrivepay, string arrivepayvalue, string isoutphoto,string exchangerate, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, HttpPostedFileBase goodsdesc, string kdgs, string desc)
         {
             var result = new ResponseJsonResult<string>();
             result.Status = 0;
@@ -176,11 +193,14 @@ namespace Sys.WebUI.Controllers
                     addresserInfo.TransportationWay = !string.IsNullOrEmpty(transportationway) ? Convert.ToInt32(transportationway) : 0;
                     addresserInfo.GoodsWeight = 0;
                     addresserInfo.ProtectPrice = !string.IsNullOrEmpty(protectprice) ? Convert.ToDecimal(protectprice) : 0;
-                    addresserInfo.PolicyFee = !string.IsNullOrEmpty(policyfee) ? Convert.ToDecimal(policyfee):0;
+                    addresserInfo.PolicyFee = !string.IsNullOrEmpty(policyfee) ? Convert.ToDecimal(policyfee) : 0;
                     addresserInfo.IsArrivePay = !string.IsNullOrEmpty(isarrivepay);
                     addresserInfo.ArrivePayValue = addresserInfo.IsArrivePay ? Convert.ToDecimal(arrivepayvalue) : 0;
                     addresserInfo.IsOutPhoto = !string.IsNullOrEmpty(isoutphoto);
                     addresserInfo.WebUrl = !string.IsNullOrEmpty(weburl) ? weburl.Trim() : "";
+                    addresserInfo.ExchangeRate = !string.IsNullOrEmpty(exchangerate)
+                        ? Convert.ToDecimal(exchangerate)
+                        : 0;
                     addresserInfo.OrderFrees = 0;
 
                     var receiverInfo = new SysReceiverInfo();
@@ -190,18 +210,43 @@ namespace Sys.WebUI.Controllers
                     receiverInfo.ReceiverPhone = !string.IsNullOrEmpty(receiverphone) ? receiverphone.Trim() : "";
                     receiverInfo.PackagingWay = !string.IsNullOrEmpty(packagingway) ? Convert.ToInt32(packagingway) : 0;
                     receiverInfo.ExpressWay = !string.IsNullOrEmpty(expressway) ? Convert.ToInt32(expressway) : 0;
-                    receiverInfo.GoodsDesc = !string.IsNullOrEmpty(goodsdesc) ? goodsdesc.Trim() : "";
+                    //HttpPostedFileBase goodsdesc = Request.Files[0];
+                    if (goodsdesc != null)
+                    {
+                        string fileSave = Server.MapPath("~/ExcelFiles/");
+                        //获取文件的扩展名
+                        string extName = Path.GetExtension(goodsdesc.FileName);
+                        //得到一个新的文件名称
+                        string newName = orderinfo.OrderNo + extName;
+                        receiverInfo.GoodsDesc = newName;
+                        goodsdesc.SaveAs(Path.Combine(fileSave, newName));
+                    }
+                    //receiverInfo.GoodsDesc = !string.IsNullOrEmpty(goodsdesc) ? goodsdesc.Trim() : "";
                     receiverInfo.ParcelWeight = 0;
                     receiverInfo.CourierComId = !string.IsNullOrEmpty(kdgs) ? Convert.ToInt64(kdgs) : 0;
                     receiverInfo.ChinaCourierNumber = "";
                     receiverInfo.Desc = !string.IsNullOrEmpty(desc) ? desc.Trim() : "";
                     receiverInfo.CourierFees = 0;
 
-                    var status = 0;
+                    long status = 0;
                     var message = provider.AddOrderInfo(username, orderinfo, addresserInfo, receiverInfo, ref status);
 
-                    if (status == 1)
+                    if (status > 0)
                     {
+                        if (!string.IsNullOrEmpty(cargonumber))
+                        {
+                            var args = cargonumber.Split(',');
+                            foreach (var arg in args)
+                            {
+                                var ordernumber = new SysOrderNumber();
+                                ordernumber.Number = arg.Trim();
+                                ordernumber.OrderId = status;
+                                ordernumber.Status = false;
+                                ordernumber.IsDelete = false;
+                                ordernumber.CreateDate = DateTime.Now;
+                                DALFactory.OrderNumberDao.Insert(ordernumber);
+                            }
+                        }
                         result.Status = 1;
                         if (!string.IsNullOrEmpty(addresserInfo.LogisticsSingle))
                         {
@@ -227,19 +272,20 @@ namespace Sys.WebUI.Controllers
         }
         public ActionResult EditOrder(string id)
         {
+
             if (!string.IsNullOrEmpty(id))
             {
                 var provider = new OrderInfoProvider();
-                var orderinfo = provider.GetOrderInfoById(Convert.ToInt64(id));
+                var orderinfo = provider.GetOrderViewById(Convert.ToInt64(id));
                 ViewData["OrderInfo"] = orderinfo;
 
-                var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
-                ViewData["AddressInfo"] = address;
+                //var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
+                //ViewData["AddressInfo"] = address;
             }
             return View();
         }
         [HttpPost]
-        public ActionResult EditOrder(string orderId, string astj, string agrw, string arp)
+        public ActionResult EditOrder(string orderId, string goodsweight, string parcelweight, string orderfrees, string gjdfy, string kdfy)
         {
             if (!string.IsNullOrEmpty(orderId))
             {
@@ -247,7 +293,7 @@ namespace Sys.WebUI.Controllers
                 var order = orderPrivder.GetOrderInfoById(Convert.ToInt64(orderId));
                 if (order != null)
                 {
-                    //order.OrderRealPrice = Convert.ToDecimal(sjjg);
+                    order.OrderRealPrice = Convert.ToDecimal(orderfrees);
                     order.Status = (int)OrderStatusEnum.Processed;
                     var i = orderPrivder.UpdateOrderInfo(order);
                     if (i > 0)
@@ -255,20 +301,48 @@ namespace Sys.WebUI.Controllers
                         var addressinfo = orderPrivder.GetAddressInfoByOid(order.Id);
                         if (addressinfo != null)
                         {
-                            //addressinfo.GoodsRealWeight = Convert.ToDecimal(agrw);
-                            //addressinfo.GoodsVolumeWeight = Convert.ToDecimal(astj);
-                            //addressinfo.AddressRealPrice = Convert.ToDecimal(arp);
+                            addressinfo.GoodsWeight = Convert.ToDecimal(goodsweight);
+                            addressinfo.OrderFrees = Convert.ToDecimal(gjdfy);
                             orderPrivder.UpdateAddressInfo(addressinfo);
                         }
 
-                        //var rec = orderPrivder.GetReceiverInfo(order.Id);
-                        //if (rec != null)
-                        //{
-                        //    //rec.RealWeight = Convert.ToDecimal(csjzl);
-                        //    //rec.RealPrice = Convert.ToDecimal(csjjg);
-                        //    //orderPrivder.UpdateReceiverInfo(rec);
-                        //}
+                        var rec = orderPrivder.GetReceiverInfo(order.Id);
+                        if (rec != null)
+                        {
+                            rec.ParcelWeight = Convert.ToDecimal(parcelweight);
+                            rec.CourierFees = Convert.ToDecimal(kdfy);
+                            orderPrivder.UpdateReceiverInfo(rec);
+                        }
 
+                    }
+                }
+            }
+            return Content("ok");
+        }
+        [HttpPost]
+        public ActionResult UpdateOrder(string updateorderid, string editguoneidingdanhao, HttpPostedFileBase editgoodsdesc)
+        {
+            if (!string.IsNullOrEmpty(updateorderid))
+            {
+                var orderPrivder = new OrderInfoProvider();
+                var order = orderPrivder.GetOrderInfoById(Convert.ToInt64(updateorderid));
+                if (order != null)
+                {
+                    var rec = orderPrivder.GetReceiverInfo(order.Id);
+                    if (rec != null)
+                    {
+                        rec.ChinaCourierNumber = !string.IsNullOrEmpty(editguoneidingdanhao) ? editguoneidingdanhao.Trim() : "";
+                        if (editgoodsdesc != null)
+                        {
+                            string fileSave = Server.MapPath("~/ExcelFiles/");
+                            //获取文件的扩展名
+                            string extName = Path.GetExtension(editgoodsdesc.FileName);
+                            //得到一个新的文件名称
+                            string newName = order.OrderNo + extName;
+                            rec.GoodsDesc = newName;
+                            editgoodsdesc.SaveAs(Path.Combine(fileSave, newName));
+                        }
+                        orderPrivder.UpdateReceiverInfo(rec);
                     }
                 }
             }
@@ -311,21 +385,31 @@ namespace Sys.WebUI.Controllers
                 {
                     ViewBag.Id = order.Id;
                     ViewBag.SNO = order.OrderNo;
+                    ViewBag.OrderPrice = order.OrderRealPrice;
                 }
             }
             return View();
         }
         [HttpPost]
-        public ActionResult PayOrder(string id, string pay)
+        public ActionResult PayOrder(string orderId, string cardnumber, string cardusername,string optionsRadios)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(orderId))
             {
                 var orderprovider = new OrderInfoProvider();
-                var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
+                var order = orderprovider.GetOrderInfoById(Convert.ToInt16(orderId));
                 if (order != null && order.PayStatus <= (int)OrderPayStatusEnum.Recivied)
                 {
                     order.PayStatus = (int)OrderPayStatusEnum.Paied;
                     orderprovider.UpdateOrderInfo(order);
+
+                    var payinfo = new SysOrderPayInfo();
+                    payinfo.Type = Convert.ToInt32(optionsRadios);
+                    payinfo.OrderId = order.Id;
+                    payinfo.CardNumber = !string.IsNullOrEmpty(Request.Form["cardnumber"+ optionsRadios]) ? Request.Form["cardnumber" + optionsRadios] : "";
+                    payinfo.PayAmount = order.OrderRealPrice;
+                    payinfo.PayUserName = !string.IsNullOrEmpty(Request.Form["cardusername" + optionsRadios]) ? Request.Form["cardusername" + optionsRadios] : "";
+                    payinfo.CreateDate=DateTime.Now;
+                    DALFactory.OrderPayInfoDao.Insert(payinfo);
                 }
             }
             return Content("ok");
@@ -347,16 +431,16 @@ namespace Sys.WebUI.Controllers
                         var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
                         if (order != null && order.Status < (int)OrderStatusEnum.Unfilled)
                         {
-                            var alog = new SysLogisticsInfo();
-                            alog.UpdateDate = Convert.ToDateTime(fhsj);
-                            alog.LogisticsDesc = fhnr.Trim();
-                            alog.LogisticsSingle = gzdh.Trim();
-                            alog.OrderNos = id;
-                            alog.UserName = _user.UserName;
+                            var alog = new SysActionLog();
+                            alog.ActionDate = Convert.ToDateTime(fhsj);
+                            alog.ActionDesc = fhnr.Trim();
+                            //alog.LogisticsSingle = gzdh.Trim();
+                            alog.LogType = (int)ActionLogTypeEnum.FilledAction;
+                            alog.OrderId = order.Id;
                             alog.CreateDate = DateTime.Now;
-                            alog.Status = false;
+                            alog.UserId = _user.Id;
                             alog.IsDelete = false;
-                            var i = DALFactory.SysLogisticsInfoDao.Insert(alog);
+                            var i = DALFactory.ActionLogDao.Insert(alog);
                             if (i > 0)
                             {
                                 order.Status = (int)OrderStatusEnum.Filled;
@@ -400,8 +484,32 @@ namespace Sys.WebUI.Controllers
             }
             return Content("ok");
         }
+        [HttpPost]
+        public ActionResult Complete(string id)
+        {
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                var userprovider = new UserLoginProvider();
+                var _user = userprovider.GetUser(User.Identity.Name);
+                if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()) || _user.RuleType.Equals(RuleTypeEnum.Admin.ToString()))
+                {
+                    var orderprovider = new OrderInfoProvider();
+                    var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
+                    if (order != null && order.PayStatus ==(int)OrderPayStatusEnum.Recivied)
+                    {
+                        order.Status = (int)OrderStatusEnum.Successed;
+                        orderprovider.UpdateOrderInfo(order);
+                    }
+                }
+            }
+            return Content("ok");
+        }
         public ActionResult OrderManage()
         {
+            var userprovider = new UserLoginProvider();
+            var _user = userprovider.GetUser(User.Identity.Name);
+            ViewBag.Role = _user.RuleType;
             return View();
         }
 

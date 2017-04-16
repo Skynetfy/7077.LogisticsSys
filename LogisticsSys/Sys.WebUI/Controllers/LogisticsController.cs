@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using RestSharp;
 using Sys.BLL;
 using Sys.BLL.Order;
+using Sys.BLL.Users;
 using Sys.Common;
 using Sys.Dal;
 using Sys.Entities;
@@ -37,10 +38,8 @@ namespace Sys.WebUI.Controllers
                 foreach (var i in logins)
                 {
                     var order = new WuliuGenZongOrderNos();
-                    var orderProvider = new OrderInfoProvider();
-                    var re = orderProvider.GetReceiverInfo(Convert.ToInt64(i.OrderNos));
-                    order.OrderNumber = orderProvider.GetOrderInfoById(Convert.ToInt64(i.OrderNos)).OrderNo;
-                    order.LoginsNo = re.Select(x => x.ChinaCourierNumber).ToList();
+
+                    order.OrderNumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(i.OrderNos)).Number;
                     dataList.Orders.Add(order);
                 }
                 return Json(dataList, JsonRequestBehavior.AllowGet);
@@ -88,7 +87,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddLogistics(string id, string UpdateDate, string LogisticsDesc, string gender)
+        public ActionResult AddLogistics(string id,string ordernumbers, string UpdateDate, string LogisticsDesc,string wuliudanhao, string gender)
         {
             if (!string.IsNullOrEmpty(id))
             {
@@ -109,9 +108,38 @@ namespace Sys.WebUI.Controllers
                 }
 
             }
+            else
+            {
+                if (!string.IsNullOrEmpty(ordernumbers))
+                {
+                    var args = ordernumbers.Split(',');
+                    foreach (var arg in args)
+                    {
+                        var entity = new SysLogisticsInfo();
+                        entity.LogisticsDesc = LogisticsDesc.Trim();
+                        entity.LogisticsSingle = wuliudanhao.Trim();
+                        entity.UpdateDate = Convert.ToDateTime(UpdateDate.Trim());
+                        entity.Status = gender.Equals("1");
+                        entity.OrderNos = arg;
+                        entity.UserName = User.Identity.Name;
+                        entity.CreateDate = DateTime.Now;
+                        entity.IsDelete = false;
+                        LogisticsService.Current.AddLogistics(entity);
+
+                        var ordernumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(arg));
+                        ordernumber.Status = true;
+                        DALFactory.OrderNumberDao.Update(ordernumber);
+                    }
+                }
+            }
             return Content("ok");
         }
 
+        public ActionResult GetOrderNumberList()
+        {
+            var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && !x.Status).ToList();
+            return Json(list,JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetLogisticsPagerList(string search, int offset, int limit, string order, string sort)
         {
             var btdata = new BootstrapTableData<SysLogisticsInfo>();

@@ -6,6 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using Sys.BLL;
 using Sys.BLL.Order;
 using Sys.BLL.Users;
@@ -70,7 +73,7 @@ namespace Sys.WebUI.Controllers
                         .FirstOrDefault(
                             x =>
                                 !x.IsDelete && x.OrderId == orderinfo.Id &&
-                                x.LogType == (int) ActionLogTypeEnum.FilledAction);
+                                x.LogType == (int)ActionLogTypeEnum.FilledAction);
                 ViewData["SysActionLog"] = filledinfo;
                 //var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
                 //ViewData["AddressInfo"] = address;
@@ -159,7 +162,7 @@ namespace Sys.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(string russiacityid, string russiaaddress, string weburl, string logisticsSingle, string cargonumber, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string isarrivepay, string arrivepayvalue, string isoutphoto,string exchangerate, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, HttpPostedFileBase goodsdesc, string kdgs, string desc)
+        public ActionResult CreateOrder(string russiacityid, string russiaaddress, string weburl, string logisticsSingle, string cargonumber, string pickupdate, string goodstype, string transportationway, string protectprice, string policyfee, string isarrivepay, string arrivepayvalue, string isoutphoto, string exchangerate, string chinacityid, string chinaaddress, string receivername, string receiverphone, string packagingway, string expressway, HttpPostedFileBase goodsdesc, string kdgs, string desc)
         {
             var result = new ResponseJsonResult<string>();
             result.Status = 0;
@@ -391,7 +394,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PayOrder(string orderId, string cardnumber, string cardusername,string optionsRadios)
+        public ActionResult PayOrder(string orderId, string cardnumber, string cardusername, string optionsRadios)
         {
             if (!string.IsNullOrEmpty(orderId))
             {
@@ -405,10 +408,10 @@ namespace Sys.WebUI.Controllers
                     var payinfo = new SysOrderPayInfo();
                     payinfo.Type = Convert.ToInt32(optionsRadios);
                     payinfo.OrderId = order.Id;
-                    payinfo.CardNumber = !string.IsNullOrEmpty(Request.Form["cardnumber"+ optionsRadios]) ? Request.Form["cardnumber" + optionsRadios] : "";
+                    payinfo.CardNumber = !string.IsNullOrEmpty(Request.Form["cardnumber" + optionsRadios]) ? Request.Form["cardnumber" + optionsRadios] : "";
                     payinfo.PayAmount = order.OrderRealPrice;
                     payinfo.PayUserName = !string.IsNullOrEmpty(Request.Form["cardusername" + optionsRadios]) ? Request.Form["cardusername" + optionsRadios] : "";
-                    payinfo.CreateDate=DateTime.Now;
+                    payinfo.CreateDate = DateTime.Now;
                     DALFactory.OrderPayInfoDao.Insert(payinfo);
                 }
             }
@@ -496,7 +499,7 @@ namespace Sys.WebUI.Controllers
                 {
                     var orderprovider = new OrderInfoProvider();
                     var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
-                    if (order != null && order.PayStatus ==(int)OrderPayStatusEnum.Recivied)
+                    if (order != null && order.PayStatus == (int)OrderPayStatusEnum.Recivied)
                     {
                         order.Status = (int)OrderStatusEnum.Successed;
                         orderprovider.UpdateOrderInfo(order);
@@ -556,6 +559,25 @@ namespace Sys.WebUI.Controllers
             btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
 
             return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ExportOrderExcel()
+        {
+            var provider = new OrderInfoProvider();
+            //provider.ExportOrderDataList(null);
+            IWorkbook workbook = new XSSFWorkbook();
+            workbook.CreateSheet("Sheet A1");
+            workbook.CreateSheet("Sheet A2");
+            workbook.CreateSheet("Sheet A3");
+
+            byte[] buffer = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                workbook.Write(ms);
+                buffer = ms.GetBuffer();
+            }
+
+            return File(buffer, "application/ms-excel", Server.UrlEncode(DateTime.Now.ToString("yyyyNNddhhmmss") + ".xlsx"));
         }
     }
 }

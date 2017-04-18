@@ -266,3 +266,9 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\RestSharp.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\RestSharp.xml
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\RestSharp.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\RestSharp.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\ICSharpCode.SharpZipLib.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.OOXML.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXml4Net.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXmlFormats.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.xml

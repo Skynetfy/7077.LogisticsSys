@@ -26,3 +26,9 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Newtonsof
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.xml
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\Newtonsoft.Json.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NPOI.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NPOI.OOXML.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NPOI.OpenXml4Net.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NPOI.OpenXmlFormats.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NPOI.xml

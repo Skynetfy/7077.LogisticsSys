@@ -16,7 +16,6 @@
         <div role="tabpanel" class="tab-pane fade in active" id="control1" aria-labelledby="home-tab">
             @{
                 var orderinfo = ViewData["OrderInfo"] as OrderView;
-
             }
             <br />
             <table class="table">
@@ -193,7 +192,7 @@
                         </tr>
                         <tr>
                             <td>支付类型：</td>
-                            <td id="zhifuleixing">@orderpayinfo.CardNumber</td>
+                            <td id="zhifuleixing">@orderpayinfo.Type</td>
                         </tr>
                         <tr>
                             <td>账号：</td>
@@ -262,7 +261,8 @@
         $('#orderpaystatus').html(Status_7077.getPayStatus(@orderinfo.PayStatus));
         $('#IsArrivePay').html('@orderinfo.IsArrivePay'=='True'?"是":"否");
         $('#IsOutPhoto').html('@orderinfo.IsOutPhoto'=='True'?"是":"否");
-        var paytype = @orderpayinfo.Type;
+
+        var paytype = $('#zhifuleixing').html();
         if (paytype == 1)
             $('#zhifuleixing').html('支付宝支付');
         if (paytype == 2)

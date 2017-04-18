@@ -272,3 +272,9 @@ E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.OOXML.dl
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXml4Net.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXmlFormats.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NPOI.xml
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\ICSharpCode.SharpZipLib.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OOXML.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXml4Net.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXmlFormats.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.xml

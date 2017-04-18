@@ -20,6 +20,7 @@
                     <select class="form-control" style="width: initial;" name="orderstatus">
                         @Html.BindingOrderStatusSelectHtmlString()
                     </select>
+                    <input type="text" class="form-control" id="orderdate" name="orderdate" placeholder="日期段" style="width: initial;" />
                 </div>
                 <button id="ok" type="submit" class="btn btn-default">查询</button>
                 <button type="button" class="btn btn-success" id="fahuobtn" data-toggle="modal" data-target="#fahuoModel" onclick="fahuodate()" disabled>发货</button>
@@ -521,7 +522,7 @@
                     <input type="hidden" name="updateorderid" id="updateorderid" />
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="editgoodsdesc">
-                            货物明细 
+                            货物明细
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="file" id="editgoodsdesc" name="editgoodsdesc" class="form-control col-md-7 col-xs-12">
@@ -563,13 +564,13 @@
                 <form class="form-horizontal form-label-left" id="fahuoform" method="post" action="@Url.Action("Filled")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="fahuoid" />
                     @*<div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gzdh">
-                            跟踪单号 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="gzdh" name="gzdh" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>*@
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gzdh">
+                                跟踪单号 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="gzdh" name="gzdh" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>*@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fhsj">
                             发货时间 <span class="required">*</span>
@@ -647,6 +648,17 @@
          selections = [],
         $ok = $('#ok');
     $(function () {
+        $('#orderdate').daterangepicker({
+            autoApply: true,
+            autoUpdateInput: false,
+        });
+        $('#orderdate').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        $('#orderdate').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
         $('#updateform').ajaxForm({
             resetForm: true,
             error: function (xhr, status, error, $form) {
@@ -820,11 +832,11 @@
 
     function actionFormatter(value, row, index) {
         var h = [];
-        if (row.Status < 9)
-        h.push('<button  type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateModel" onclick="updatedate(' +
-                JSON.stringify(row).replace(/\"/g, "\'") +
-                ')" value="">修改</button>');
-        if (row.Status < 2)
+        if (row.Status < 9 && row.Status > 0)
+            h.push('<button  type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateModel" onclick="updatedate(' +
+                    JSON.stringify(row).replace(/\"/g, "\'") +
+                    ')" value="">修改</button>');
+        if (row.Status < 2 && row.Status > 0)
             h
                 .push(' <button  type="button" class="btn btn-success btn-xs" onclick="editdate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
@@ -840,7 +852,7 @@
                 .push(' <button  type="button" class="btn btn-warning btn-xs"  data-toggle="modal" data-target="#shoukuanModel" onclick="shoukuandate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">收款</button>');
-        if (row.Status < 9 && row.PayStatus == 3 && '@ViewBag.Role' == 'Admin')
+        if (row.Status < 9 && row.Status > 0 && row.PayStatus == 3 && '@ViewBag.Role' == 'Admin')
             h
                 .push(' <button  type="button" class="btn btn-success btn-xs"  onclick="Completedate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
@@ -849,7 +861,7 @@
     }
     function Completedate(row) {
         if (confirm('确认订单已完成'))
-            $.post('@Url.Action("Complete")',{id:row.Id},function(e) {
+            $.post('@Url.Action("Complete")', { id: row.Id }, function (e) {
                 $table.bootstrapTable('refresh');
             });
     }

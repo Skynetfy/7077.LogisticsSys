@@ -377,7 +377,22 @@ namespace Sys.WebUI.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        public ActionResult DeleteOrdeer(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var orderprovider = new OrderInfoProvider();
+                var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
+                if (order != null)
+                {
+                    order.Status = (int)OrderStatusEnum.Deleted;
+                    //order.IsDelete = true;
+                    orderprovider.UpdateOrderInfo(order);
+                }
+            }
+            return Content("ok");
+        }
         public ActionResult PayOrder(string id)
         {
             if (!string.IsNullOrEmpty(id))
@@ -516,7 +531,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
 
-        public ActionResult GetOrderViewPagerData(string type, string orderstatus, string search, int offset, int limit, string order, string sort)
+        public ActionResult GetOrderViewPagerData(string type, string orderstatus, string orderdate, string search, int offset, int limit, string order, string sort)
         {
             var where = string.Empty;
             var userprovider = new UserLoginProvider();
@@ -554,30 +569,123 @@ namespace Sys.WebUI.Controllers
                 }
 
             }
-
+            if (!string.IsNullOrEmpty(orderdate))
+            {
+                var ds = orderdate.Split('-');
+                where += string.Format(" and [CreateDate] BETWEEN '{0}' AND '{1}'", ds[0], ds[1]);
+            }
             btdata.total = provider.GetOrderViewPagerCount(where);
             btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
 
             return Json(btdata, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ExportOrderExcel()
+        public void ExportOrderExcel()
         {
-            var provider = new OrderInfoProvider();
-            //provider.ExportOrderDataList(null);
-            IWorkbook workbook = new XSSFWorkbook();
-            workbook.CreateSheet("Sheet A1");
-            workbook.CreateSheet("Sheet A2");
-            workbook.CreateSheet("Sheet A3");
+            string filename = "订单列表.xlsx";
 
-            byte[] buffer = null;
-            using (MemoryStream ms = new MemoryStream())
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", filename));
+
+            var where = string.Empty;
+            var userprovider = new UserLoginProvider();
+            var _user = userprovider.GetUser(User.Identity.Name);
+            if (_user != null)
             {
-                workbook.Write(ms);
-                buffer = ms.GetBuffer();
+                if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))
+                {
+                    var city = UserService.GetAgentInfoByUserId(_user.Id);
+                    if (city != null)
+                        where += " and [RussiaCityId]=" + city.AgentCityId;
+                    else
+                        where += " and [RussiaCityId]=0 ";
+                }
+                else if (_user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
+                {
+                    where += " and [UserId]=" + _user.Id;
+                }
             }
+            var provider = new OrderInfoProvider();
+            var count = provider.GetOrderViewPagerCount(where);
+            var data = provider.GetOrderViewPagerList(where, 0, count, "Desc", "Createdate");
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            ISheet sheet1 = workbook.CreateSheet("Sheet1");
 
-            return File(buffer, "application/ms-excel", Server.UrlEncode(DateTime.Now.ToString("yyyyNNddhhmmss") + ".xlsx"));
+            IRow row0 = sheet1.CreateRow(0);
+            row0.CreateCell(0).SetCellValue("订单号");
+            row0.CreateCell(1).SetCellValue("收件人");
+            row0.CreateCell(2).SetCellValue("收件人电话");
+            row0.CreateCell(3).SetCellValue("俄罗斯城市");
+            row0.CreateCell(4).SetCellValue("商店地址");
+            row0.CreateCell(5).SetCellValue("到达国外仓时间");
+            row0.CreateCell(6).SetCellValue("货物类型");
+            row0.CreateCell(7).SetCellValue("货物运输类型");
+            row0.CreateCell(8).SetCellValue("报价价值");
+            row0.CreateCell(9).SetCellValue("报价费用");
+            row0.CreateCell(10).SetCellValue("货物重量");
+            row0.CreateCell(11).SetCellValue("是否到付");
+            row0.CreateCell(12).SetCellValue("到付金额");
+            row0.CreateCell(13).SetCellValue("当日汇率");
+            row0.CreateCell(14).SetCellValue("是否开箱");
+            row0.CreateCell(15).SetCellValue("订单省份");
+            row0.CreateCell(16).SetCellValue("订单详细地址");
+            row0.CreateCell(17).SetCellValue("收件人姓名");
+            row0.CreateCell(18).SetCellValue("收件人电话");
+            row0.CreateCell(19).SetCellValue("打包方式");
+            row0.CreateCell(20).SetCellValue("快递方式");
+            row0.CreateCell(21).SetCellValue("快递公司");
+            row0.CreateCell(22).SetCellValue("包裹重量");
+            row0.CreateCell(23).SetCellValue("快递费用");
+            row0.CreateCell(24).SetCellValue("国内快递单号");
+            row0.CreateCell(25).SetCellValue("备注");
+            row0.CreateCell(26).SetCellValue("订单状态");
+            row0.CreateCell(27).SetCellValue("付款状态");
+            int x = 27;
+            for (var c = 0; c < data.Count; c++)
+            {
+                var item = data[c];
+                IRow row = sheet1.CreateRow(c + 1);
+                row.CreateCell(0).SetCellValue(item.OrderNo);
+                row.CreateCell(1).SetCellValue(item.ShipperName);
+                row.CreateCell(2).SetCellValue(item.ShipperName);
+                row.CreateCell(3).SetCellValue(item.ReceiverName);
+                row.CreateCell(4).SetCellValue(item.RussiaAddress);
+                row.CreateCell(5).SetCellValue(item.PickupDate.ToString("d"));
+                row.CreateCell(6).SetCellValue(item.GoodsTypeName);
+                row.CreateCell(7).SetCellValue(OrderInfoProvider.GetCargoTransWayString(item.TransportationWay));
+                row.CreateCell(8).SetCellValue(Convert.ToDouble(item.ProtectPrice));
+                row.CreateCell(9).SetCellValue(Convert.ToDouble(item.PolicyFee));
+                row.CreateCell(10).SetCellValue(Convert.ToDouble(item.GoodsWeight));
+                row.CreateCell(11).SetCellValue(item.IsArrivePay);
+                row.CreateCell(12).SetCellValue(Convert.ToDouble(item.ArrivePayValue));
+                row.CreateCell(13).SetCellValue(Convert.ToDouble(item.ExchangeRate));
+                row.CreateCell(14).SetCellValue(item.IsOutPhoto);
+                row.CreateCell(15).SetCellValue(item.ChinaCityName);
+                row.CreateCell(16).SetCellValue(item.ChinaAddress);
+                row.CreateCell(17).SetCellValue(item.ReceiverName);
+                row.CreateCell(18).SetCellValue(item.ReceiverPhone);
+                row.CreateCell(19).SetCellValue(OrderInfoProvider.GetPackagingTypeString(item.PackagingWay));
+                row.CreateCell(20).SetCellValue(OrderInfoProvider.GetExpressWayString(item.ExpressWay));
+                row.CreateCell(21).SetCellValue(item.CourierComName);
+                row.CreateCell(22).SetCellValue(Convert.ToDouble(item.ParcelWeight));
+                row.CreateCell(23).SetCellValue(Convert.ToDouble(item.CourierFees));
+                row.CreateCell(24).SetCellValue(item.ChinaCourierNumber);
+                row.CreateCell(25).SetCellValue(item.Desc);
+                row.CreateCell(26).SetCellValue(OrderInfoProvider.GetStatusString(item.Status));
+                row.CreateCell(27).SetCellValue(OrderInfoProvider.GetPayStatusString(item.PayStatus));
+            }
+            var path = Server.MapPath("~/ExcelFiles/订单列表.xlsx");
+            using (var f = System.IO.File.Create(path))
+            {
+                workbook.Write(f);
+            }
+            Response.WriteFile(path);
+            //http://social.msdn.microsoft.com/Forums/en-US/3a7bdd79-f926-4a5e-bcb0-ef81b6c09dcf/responseoutputstreamwrite-writes-all-but-insetrs-a-char-every-64k?forum=ncl
+            //workbook.Write(Response.OutputStream); cannot be used 
+            //root cause: Response.OutputStream will insert unnecessary byte into the response bytes.
+            Response.Flush();
+            Response.End();
         }
     }
 }

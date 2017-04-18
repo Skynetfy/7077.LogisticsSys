@@ -231,7 +231,7 @@ namespace Sys.Dal.Repository
         {
             try
             {
-                String sql = string.Format(@"SELECT count(1) from v_AgentInfo  with (nolock) where [IsDelete]=0 {0} ", search);
+                String sql = string.Format(@"SELECT count(1) from v_AgentInfo  with (nolock) where 0=0 {0} ", search);
                 object obj = baseDao.ExecScalar(sql);
                 int ret = Convert.ToInt32(obj);
                 return ret;
@@ -248,7 +248,7 @@ namespace Sys.Dal.Repository
             {
                 String sql = string.Format(@"SELECT TOP {1} * from v_AgentInfo(nolock) where Id not in(
                   SELECT TOP {4} Id FROM v_AgentInfo(NOLOCK)
-                  WHERE [IsDelete]=0 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
+                  WHERE 0=0 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
                 return baseDao.SelectList<SysAgentInfo>(sql);
             }
             catch (Exception ex)

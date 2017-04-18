@@ -9,6 +9,8 @@ namespace Sys.BLL.Order
 {
     public enum OrderStatusEnum
     {
+        [Description("已删除")]
+        Deleted = -1,
         [Description("未提交")]
         UnSubmit = 0,
 

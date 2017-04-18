@@ -9,6 +9,8 @@
 var Status_7077 = {
     getOrderStatus: function (s) {
         switch (s) {
+            case -1:
+                return "已删除";
             case 0:
                 return "未提交";
             case 1:
@@ -78,7 +80,7 @@ var Status_7077 = {
                 return "陆运";
             case 2:
                 return "空运";
-            case 2:
+            case 3:
                 return "海运";
             default:
                 return "未知";

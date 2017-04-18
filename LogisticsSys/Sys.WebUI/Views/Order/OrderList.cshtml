@@ -13,22 +13,24 @@
     <div class="col-md-9 maincontent" role="main">
         <h4 id="breadcrumbs" class="page-header">订单列表</h4>
         <div id="toolbar">
-            <a href="@Url.Action("ExportOrderExcel")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出</a>
             <div class="form-inline" role="form">
                 <div class="form-group">
                     <span>状态: </span>
                     <select class="form-control" style="width: initial;" name="orderstatus">
                         @Html.BindingOrderStatusSelectHtmlString()
                     </select>
+                    <input type="text" class="form-control" id="orderdate" name="orderdate" placeholder="日期段" style="width: initial;"/>
                 </div>
-                <button id="ok" type="submit" class="btn btn-default">查询</button>
+                <button id="ok" type="submit" class="btn btn-warning">查询</button>
+                <a href="@Url.Action("ExportOrderExcel")" class="btn btn-success"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出</a>
+
             </div>
         </div>
         <table id="table"
                data-toggle="table"
                data-toolbar="#toolbar"
                data-show-refresh="true"
-               data-show-export="true"
+               @*data-show-export="true"*@
                data-show-toggle="true"
                data-search="true"
                data-url="@Url.Action("GetOrderViewPagerData")"
@@ -316,6 +318,17 @@
     var $table = $('#table'),
       $ok = $('#ok');
     $(function () {
+        $('#orderdate').daterangepicker({
+            autoApply: true,
+            autoUpdateInput: false,
+        });
+        $('#orderdate').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        $('#orderdate').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
         $ok.click(function () {
             $table.bootstrapTable('refresh');
         });

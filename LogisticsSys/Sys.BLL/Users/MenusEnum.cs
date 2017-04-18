@@ -43,11 +43,11 @@ namespace Sys.BLL.Users
         [Description("User/index")]
         用户管理,
         [Description("User/index")]
-        账号列表,
+        客户管理,
         [Description("User/AgentInfo")]
         代理商管理,
-        [Description("User/CustomerInfo")]
-        客户管理,
+        //[Description("User/CustomerInfo")]
+        //客户管理,
         [Description("User/Profile")]
         个人信息,
         [Description("User/EditPassword")]

@@ -103,8 +103,10 @@ namespace Sys.WebUI.Controllers
                     var entity = UserService.GetAgentInfoByUserId(user.Id); ;
                     if (entity != null)
                     {
-                        entity.Id = Convert.ToInt64(id);
-                        UserService.DeleteAgent(entity);
+                        user.Status = 0;
+                        UserService.UpdateUser(user);
+                        entity.IsDelete = true;
+                        UserService.UpdateAgentInfo(entity);
                     }
                 }
             }
@@ -272,7 +274,7 @@ namespace Sys.WebUI.Controllers
         {
             var provider = new UserLoginProvider();
             var btdata = new BootstrapTableData<SysUser>();
-            var where = string.Empty;
+            var where = " and [RuleType]='Customer' ";
             if (!string.IsNullOrEmpty(search))
                 where = string.Format(@" and ([UserName] Like '%{0}%' or [DisplayName] Like '%{0}%' or [Phone] Like '%{0}%'  or [Email] Like '%{0}%')", search);
             btdata.total = provider.GetPagerCount(where);

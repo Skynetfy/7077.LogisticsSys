@@ -19,6 +19,7 @@
                     <select class="form-control" style="width: initial;" name="orderstatus">
                         @Html.BindingOrderStatusSelectHtmlString()
                     </select>
+                    <input type="text" class="form-control" id="orderdate" name="orderdate" placeholder="日期段" style="width: initial;" />
                 </div>
                 <button id="ok" type="submit" class="btn btn-default">查询</button>
             </div>
@@ -27,6 +28,8 @@
                data-toggle="table"
                data-toolbar="#toolbar"
                data-show-refresh="true"
+               @*data-show-columns="true"
+               data-show-export="true"*@
                data-show-toggle="true"
                data-search="true"
                data-url="@Url.Action("GetOrderViewPagerData")"
@@ -308,10 +311,23 @@
 </div>
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/bootstrap-table-export.js"></script>
+<script src="~/Scripts/tableExport.js"></script>
 <script>
     var $table = $('#table'),
         $ok = $('#ok');
     $(function () {
+        $('#orderdate').daterangepicker({
+            autoApply: true,
+            autoUpdateInput: false,
+        });
+        $('#orderdate').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        $('#orderdate').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
         $ok.click(function () {
             $table.bootstrapTable('refresh');
         });
@@ -365,8 +381,11 @@
     function OrderNoFormatter(value, row, index) {
         return '<a href="javascript:void(0)" onclick="viewOrder(' +
                 JSON.stringify(row).replace(/\"/g, "\'") +
-                ')">' + value + '</a>';
+            ')">' +
+            value +
+            '</a>';
     }
+
     function stateFormatter(value, row, index) {
         return Status_7077.getOrderStatus(row.Status);
     }
@@ -375,11 +394,21 @@
         return Status_7077.getPayStatus(row.PayStatus);
     }
 
+    function deleteOrder(row) {
+        if (confirm("确定要删除该订单吗？")) {
+            $.post("@Url.Action("DeleteOrdeer")", { id: row.Id }, function (e) {
+                $table.bootstrapTable('refresh');
+            });
+        }
+    }
+
     function actionFormatter(value, row, index) {
         var h = [];
-        //h.push('<button  type="button" class="btn btn-primary btn-xs"  onclick="updatedate(' +
-        //    JSON.stringify(row).replace(/\"/g, "\'") +
-        //    ')" value="">查看</button>');
+        if (row.Status < 2 && row.Status > 0) {
+            h.push('<button  type="button" class="btn btn-danger btn-xs"  onclick="deleteOrder(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">删除</button>');
+        }
         if (row.PayStatus < 1 && row.Status >= 2) {
             h.push('<a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款</a>');
         }

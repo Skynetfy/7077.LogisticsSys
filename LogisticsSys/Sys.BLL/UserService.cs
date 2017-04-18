@@ -34,6 +34,10 @@ namespace Sys.BLL
             return userDao.FindByPk(id);
         }
 
+        public static int UpdateUser(SysUser entity)
+        {
+            return userDao.Update(entity);
+        }
         public static SysCustomerInfo GetCustomerByUid(long id)
         {
             return customerDao.GetAll().FirstOrDefault(x => !x.IsDelete && x.UserId == id);

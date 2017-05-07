@@ -64,7 +64,7 @@
                         </a>
                     </li>
                 </ul>
-                <form id="form" method="post" action="@Url.Action("CreateOrder")" enctype="multipart/form-data"  data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                <form id="form" method="post" action="@Url.Action("CreateOrder")" enctype="multipart/form-data" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <div id="step-1">
                         <h4 class="StepTitle">下单介绍</h4>
                         <p>
@@ -128,7 +128,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="russiaaddress">
-                                    俄罗斯详细地址
+                                    俄罗斯需要自提地址
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="russiaaddress" name="russiaaddress" class="form-control col-md-7 col-xs-12">
@@ -136,7 +136,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="weburl">
-                                    购物网站地址
+                                    购物网站网址
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="weburl" name="weburl" class="form-control col-md-7 col-xs-12">
@@ -167,21 +167,21 @@
                                 </div>
                             </div>
                             @*<div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    取货方式
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <label>
-                                        <input type="radio" checked="checked" value="1" name="pickupWay">自行送货
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        取货方式
                                     </label>
-                                    <label>
-                                        <input type="radio" value="2" name="pickupWay"> 上午取货(9点-13点)
-                                    </label>
-                                    <label>
-                                        <input type="radio" value="3" name="pickupWay"> 下午取货(13点-17点)
-                                    </label>
-                                </div>
-                            </div>*@
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label>
+                                            <input type="radio" checked="checked" value="1" name="pickupWay">自行送货
+                                        </label>
+                                        <label>
+                                            <input type="radio" value="2" name="pickupWay"> 上午取货(9点-13点)
+                                        </label>
+                                        <label>
+                                            <input type="radio" value="3" name="pickupWay"> 下午取货(13点-17点)
+                                        </label>
+                                    </div>
+                                </div>*@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="goodstype">
                                     货物类型: <span class="required">*</span>
@@ -219,6 +219,7 @@
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" onblur="goodstypeblur(this)" class="form-control col-md-7 col-xs-12">
+                                    <code><small>如不报价，金额填0</small></code>
                                 </div>
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="policyfee">
                                     保单费用(元)
@@ -229,14 +230,14 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isarrivepay">
-                                    是否到付 
+                                    是否到付
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <label class="checkbox-inline">
                                         <input type="checkbox" id="isarrivepay" name="isarrivepay" value="1" style="margin-top: 0px;">
-                                      
+
                                     </label>
-                                   
+
                                 </div>
                             </div>
                             <div class="form-group" id="daofujinegroup" style="display: none;">
@@ -244,7 +245,7 @@
                                     到付金额（卢布）
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <input type="text" id="arrivepayvalue" name="arrivepayvalue" data-parsley-min="0" data-parsley-group="form2" value=""  class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="arrivepayvalue" name="arrivepayvalue" data-parsley-min="0" data-parsley-group="form2" value="" class="form-control col-md-7 col-xs-12">
                                 </div>
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="exchangerate">
                                     今日汇率
@@ -260,44 +261,44 @@
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <label class="checkbox-inline">
                                         <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1" style="margin-top: -5px;">
-                                       
+
                                     </label>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <code><small>如果开箱，每个订单结算时+5元</small></code>
                                 </div>
                             </div>
-                           @* <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="abudgetprice">
-            预算价格(元)
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="abudgetprice" readonly="readonly" name="abudgetprice" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-12 col-sm-12 col-xs-12">
-            箱子外包装总体积   <span class="required">*</span>
-        </label>
-        <label class="control-label col-md-2 col-sm-2 col-xs-12">
-            长(cm)
-        </label>
-        <div class="col-md-2 col-sm-2 col-xs-12">
-            <input type="text" id="boxlong" name="boxlong" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
-        </div>
-        <label class="control-label col-md-2 col-sm-2 col-xs-12">
-            宽(cm)
-        </label>
-        <div class="col-md-2 col-sm-2 col-xs-12">
-            <input type="text" id="boxwidth" name="boxwidth" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
-        </div>
-        <label class="control-label col-md-2 col-sm-2 col-xs-12">
-            高(cm)
-        </label>
-        <div class="col-md-2 col-sm-2 col-xs-12">
-            <input type="text" id="boxheight" name="boxheight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
-        </div>
-    </div>*@
+                            @* <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="abudgetprice">
+                                        预算价格(元)
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="abudgetprice" readonly="readonly" name="abudgetprice" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12 col-sm-12 col-xs-12">
+                                        箱子外包装总体积   <span class="required">*</span>
+                                    </label>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        长(cm)
+                                    </label>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input type="text" id="boxlong" name="boxlong" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        宽(cm)
+                                    </label>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input type="text" id="boxwidth" name="boxwidth" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        高(cm)
+                                    </label>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input type="text" id="boxheight" name="boxheight" required="required" data-parsley-type="number" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
                     <div id="step-4">
@@ -355,9 +356,9 @@
                                     打包方式
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <label>
-                                        <input type="radio" checked="checked" value="1" name="packagingway" data-text="不打包">不打包
-                                    </label>
+                                    @*<label>
+                                            <input type="radio" checked="checked" value="1" name="packagingway" data-text="不打包">不打包
+                                        </label>*@
                                     <label>
                                         <input type="radio" value="2" name="packagingway" data-text="普通打包"> 普通打包
                                     </label>
@@ -372,9 +373,9 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
-                                        <input type="radio" checked="checked" value="1" name="expressway"  data-text="普通正付">普通正付
+                                        <input type="radio" checked="checked" value="1" name="expressway" data-text="普通正付">普通正付
                                     </label>
-                                    <label>                                               
+                                    <label>
                                         <input type="radio" value="2" name="expressway" data-text="顺丰正付"> 顺丰正付
                                     </label>
                                     <label>
@@ -394,21 +395,21 @@
                                 </div>
                             </div>
                             @*<div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelweight">
-                                    包裹重量(千克) <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" onblur="parcelweightBlur()" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>*@
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelweight">
+                                        包裹重量(千克) <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" onblur="parcelweightBlur()" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>*@
                             @*<div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rbudgetprice">
-                                    预算价格(元)
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="rbudgetprice" name="rbudgetprice" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>*@
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rbudgetprice">
+                                        预算价格(元)
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="rbudgetprice" name="rbudgetprice" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>*@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kdgs">
                                     快递公司
@@ -425,13 +426,13 @@
                                 </div>
                             </div>
                             @*<div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
-                                    国内快递单号 <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="chinacouriernumber" name="chinacouriernumber" required="required" data-parsley-type="alphanum" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>*@
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
+                                        国内快递单号 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="chinacouriernumber" name="chinacouriernumber" required="required" data-parsley-type="alphanum" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>*@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="desc">
                                     备注
@@ -467,7 +468,7 @@
 <script src="~/Scripts/locales/zh.js"></script>
 <script src="~/Scripts/tags/jquery.tagsinput.min.js"></script>
 <script>
-  
+
     function rcChange() {
         var value = $('#russiacityid').val();
         if (value === '1') {
@@ -586,13 +587,41 @@
                 labelPrevious: '上一步', // label for Previous button
                 labelFinish: '确认下单',  // label for Finish button
                 contentCache: false,
+                //enableFinishButton: false,
+                //includeFinishButton : false,
+                reverseButtonsOrder:false,
                 onLeaveStep: leaveAStepCallback,
-                onFinish: onFinishCallback
+                onFinish: onFinishCallback,
+                onShowStep:onShowStepCallback
             });
             function leaveAStepCallback(obj, context) {
                 return validateSteps(context.fromStep, context.toStep > context.fromStep); // return false to stay on step and true to continue navigation
             }
-
+            function onShowStepCallback(obj, context) {
+                switch (context.toStep) {
+                    case 1:
+                        $('#wizard .actionBar .btn-default').hide();
+                        $('#wizard .actionBar .btn-success').show();
+                        $('#wizard .actionBar .btn-primary').hide();
+                        break;
+                    case 2:
+                        $('#wizard .actionBar .btn-default').hide();
+                        $('#wizard .actionBar .btn-success').show();
+                        $('#wizard .actionBar .btn-primary').show();
+                        break;
+                    case 3:
+                        $('#wizard .actionBar .btn-default').hide();
+                        $('#wizard .actionBar .btn-success').show();
+                        $('#wizard .actionBar .btn-primary').show();
+                        break;
+                    case 4:
+                        $('#wizard .actionBar .btn-default').show();
+                        $('#wizard .actionBar .btn-success').hide();
+                        $('#wizard .actionBar .btn-primary').show();
+                        break;
+                    default:
+                }
+            }
             function onFinishCallback(objs, context) {
                 if (validateAllSteps()) {
                     $('form').ajaxSubmit({
@@ -627,13 +656,14 @@
 
             // Your Step validation logic
             function validateSteps(stepnumber, vali) {
+
                 var isStepValid = true;
                 if (stepnumber === 2 && vali) {
                     isStepValid = $('#form').parsley().validate('form2') && $('#form').parsley().isValid('form2');
                 }
                 else if (stepnumber === 3 && vali) {
                     isStepValid = $('#form').parsley().validate('form3') && $('#form').parsley().isValid('form3');
-                   
+
                 }
                 return isStepValid;
             }

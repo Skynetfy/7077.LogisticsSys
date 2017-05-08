@@ -12,4 +12,5 @@ namespace Sys.BLL.Order
         WeChatPay=2,
         Unionpay=3
     }
+    
 }

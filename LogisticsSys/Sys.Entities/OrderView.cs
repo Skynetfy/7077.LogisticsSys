@@ -188,5 +188,17 @@ namespace Sys.Entities
         // </summary>
         [Column(Name = "PackagingCosts", ColumnType = DbType.Decimal)]
         public decimal PackagingCosts { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ArrivePayStatus", ColumnType = DbType.Int32)]
+        public int ArrivePayStatus { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "WorldPayStatus", ColumnType = DbType.Int32)]
+        public int WorldPayStatus { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "ChinaPayStatus", ColumnType = DbType.Int32)]
+        public int ChinaPayStatus { get; set; }
     }
 }

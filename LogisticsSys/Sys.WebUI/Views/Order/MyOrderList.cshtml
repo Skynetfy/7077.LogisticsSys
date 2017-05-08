@@ -48,12 +48,14 @@
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
                     <th data-field="OrderNo" data-formatter="OrderNoFormatter">订单编号</th>
-                    <th data-field="ShipperName">寄件人</th>
-                    <th data-field="RussiaCityName">俄罗斯城市</th>
+                    @*<th data-field="ShipperName">寄件人</th>
+                    <th data-field="RussiaCityName">俄罗斯城市</th>*@
                     <th data-field="DisplayName">下单人</th>
                     <th data-field="CreateDate">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter">状态</th>
-                    <th data-field="Status" data-formatter="paystateFormatter">付款状态</th>
+                    <th data-field="ArrivePayStatus" data-formatter="ArrivePayFormatter">到付金额</th>
+                    <th data-field="WorldPayStatus" data-formatter="WorldPayFormatter">国际段费用</th>
+                    <th data-field="ChinaPayStatus" data-formatter="ChinaPayStatusFormatter">国内费用</th>
                     <th data-field="Id" data-formatter="actionFormatter">操作</th>
                 </tr>
             </thead>
@@ -390,10 +392,54 @@
         return Status_7077.getOrderStatus(row.Status);
     }
 
-    function paystateFormatter(value, row, index) {
-        return Status_7077.getPayStatus(row.PayStatus);
+    function ArrivePayFormatter(value, row, index) {
+        var h = [];
+        if (value === 0) {
+            h.push(row.ArrivePayValue);
+            h.push(' <a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
+        }
+        else if (value === 1) {
+            h.push(row.ArrivePayValue);
+            //h.push(' <a class="btn btn-success btn-xs" target="_blank">支付</a>');
+        }
+        else if (value === -1) {
+            h.push(row.ArrivePayValue);
+            h.push(' <a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
+        }
+        return h.join('');
     }
-
+    function WorldPayFormatter(value, row, index) {
+        var h = [];
+        if (value === 0) {
+            h.push(row.OrderFrees);
+            h.push(' <a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
+        }
+        else if (value === 1) {
+            h.push(row.OrderFrees);
+            //h.push(' <a class="btn btn-success btn-xs" target="_blank">支付</a>');
+        }
+        else if (value === -1) {
+            h.push(row.OrderFrees);
+            h.push(' <a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
+        }
+        return h.join('');
+    }
+    function ChinaPayStatusFormatter(value, row, index) {
+        var h = [];
+        if (value === 0) {
+            h.push(row.CourierFees);
+            h.push(' <a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
+        }
+        else if (value === 1) {
+            h.push(row.CourierFees);
+            //h.push(' <a class="btn btn-success btn-xs" target="_blank">支付</a>');
+        }
+        else if (value === -1) {
+            h.push(row.CourierFees);
+            h.push(' <a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
+        }
+        return h.join('');
+    }
     function deleteOrder(row) {
         if (confirm("确定要删除该订单吗？")) {
             $.post("@Url.Action("DeleteOrdeer")", { id: row.Id }, function (e) {
@@ -409,9 +455,9 @@
                 JSON.stringify(row).replace(/\"/g, "\'") +
                 ')" value="">删除</button>');
         }
-        if (row.PayStatus < 1 && row.Status >= 2) {
+        @*if (row.PayStatus < 1 && row.Status >= 2) {
             h.push('<a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款</a>');
-        }
+        }*@
         return h.join('');
     }
     function viewOrder(row) {

@@ -91,8 +91,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="packagingway">
-            打包费用
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="packagingCosts">
+            打包费用(元)
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="packagingCosts" value="@orderview.PackagingCosts" disabled class="form-control col-md-7 col-xs-12">
@@ -180,10 +180,10 @@
         if (Number(weight) <= 1) {
             dbf = 5;
         }
-        if (1 < Number(weight) <= 2) {
+        if (1 < Number(weight)&&Number(weight) <= 2) {
             dbf = 7;
         }
-        if (2 < Number(weight) <= 5) {
+        if (2 < Number(weight)&&Number(weight) <= 5) {
             dbf = 10;
         }
         if (5 < Number(weight)) {

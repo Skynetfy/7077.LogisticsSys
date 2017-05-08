@@ -49,28 +49,28 @@
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isoutphoto">
-            是否开箱
+            开箱费（元）
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="isoutphoto" value="@orderview.IsOutPhoto" disabled class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     @*<div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="exchangerate">
-            当日汇率
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="exchangerate" value="@orderview.ExchangeRate" disabled class="form-control col-md-7 col-xs-12">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="exchangerate">
+                当日汇率
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="exchangerate" value="@orderview.ExchangeRate" disabled class="form-control col-md-7 col-xs-12">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arrivepayvalue">
-            到付金额
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="arrivepayvalue" value="@orderview.ArrivePayValue" disabled class="form-control col-md-7 col-xs-12">
-        </div>
-    </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arrivepayvalue">
+                到付金额
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="arrivepayvalue" value="@orderview.ArrivePayValue" disabled class="form-control col-md-7 col-xs-12">
+            </div>
+        </div>*@
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gjdfy">
             国际段费用(元)
@@ -92,10 +92,10 @@
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="packagingway">
-            打包方式
+            打包费用
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="packagingway" value="@orderview.PackagingWay" disabled class="form-control col-md-7 col-xs-12">
+            <input type="text" id="packagingCosts" value="@orderview.PackagingCosts" disabled class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <div class="form-group">
@@ -107,11 +107,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelweight">
-            包裹重量(千克) <span class="required">*</span>
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
+            国内快递单号 <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="parcelweight" name="parcelweight" onblur="parcelweightblur()" value="@orderview.ParcelWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="chinacouriernumber" name="chinacouriernumber" value="@orderview.ChinaCourierNumber" required="required" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <div class="form-group">
@@ -119,7 +119,15 @@
             快递费用(元)
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="kdfy" name="kdfy" readonly="" onblur="parcelweightblur()" value="@orderview.CourierFees" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="kdfy" name="kdfy" readonly onblur="parcelweightblur()" value="@orderview.CourierFees" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="domesticcost">
+            国内段费用(元) <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="domesticcost" name="domesticcost" value="@orderview.ParcelWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <br />
@@ -149,7 +157,7 @@
         var goodstype=@orderview.GoodsType;
         var transType=@orderview.TransportationWay;
         var isopen = '@orderview.IsOutPhoto';
-        var daifujine=@orderview.ArrivePayValue;
+        @*var daifujine=@orderview.ArrivePayValue;*@
         var weight = $('#goodsweight').val();
         $.getJSON('@Url.Action("GetAddressBudgetPrice")',
             { cityId: cityId, goodstype: goodstype, transType: transType, weight: weight },
@@ -157,27 +165,44 @@
                 var s = Number(e.Message);
                 if (isopen == 'True')
                     s = s + 5;
-                s = s + Number(daifujine);
+                //s = s + Number(daifujine);
                 $('#gjdfy').val(s);
                 sumprice();
             });
+        parcelweightblur();
     }
 
     function parcelweightblur() {
         var cityId = @orderview.ChinaCityId;
         var expressway = @orderview.ExpressWay;
-        var weight = $('#parcelweight').val();
+        var weight = $('#goodsweight').val();
+        var dbf = 0;
+        if (Number(weight) <= 1) {
+            dbf = 5;
+        }
+        if (1 < Number(weight) <= 2) {
+            dbf = 7;
+        }
+        if (2 < Number(weight) <= 5) {
+            dbf = 10;
+        }
+        if (5 < Number(weight)) {
+            dbf = 15;
+        }
+        $('#packagingCosts').val(dbf);
+
         $.getJSON('@Url.Action("GetRBudgetPrice")',
             { cid: cityId, eway: expressway, weight: weight },
             function(e) {
                 $('#kdfy').val(e.Message);
+                $('#domesticcost').val(dbf+Number(e.Message));
                 sumprice();
             });
     }
 
     function sumprice() {
         var p1=$('#gjdfy').val();
-        var p2=$('#kdfy').val();
+        var p2=$('#domesticcost').val();
         if (p1.length <= 0)
             p1 = 0;
         if (p2.length <= 0)
@@ -189,7 +214,7 @@
         $('#transportationway').val(Status_7077.getCargoTransWay(@orderview.TransportationWay));
         $('#packagingway').val(Status_7077.getPackagingType(@orderview.PackagingWay));
         $('#expressway').val(Status_7077.getExpressWay(@orderview.ExpressWay));
-        $('#isoutphoto').val('@orderview.IsOutPhoto'=='True'?'是':'否');
+        $('#isoutphoto').val('@orderview.IsOutPhoto'=='True'?'5':'无');
         $('form').ajaxForm({
             resetForm: true,
             error: function (xhr, status, error, $form) {

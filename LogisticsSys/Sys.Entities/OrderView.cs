@@ -184,5 +184,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "PayStatus", ColumnType = DbType.Int32)]
         public int PayStatus { get; set; }
+        // <summary>
+        // </summary>
+        [Column(Name = "PackagingCosts", ColumnType = DbType.Decimal)]
+        public decimal PackagingCosts { get; set; }
     }
 }

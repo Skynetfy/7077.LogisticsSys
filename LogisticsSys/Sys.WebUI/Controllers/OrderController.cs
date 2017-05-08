@@ -288,7 +288,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult EditOrder(string orderId, string goodsweight, string parcelweight, string orderfrees, string gjdfy, string kdfy)
+        public ActionResult EditOrder(string orderId, string goodsweight, string chinacouriernumber, string packagingCosts, string orderfrees, string gjdfy, string kdfy)
         {
             if (!string.IsNullOrEmpty(orderId))
             {
@@ -312,7 +312,9 @@ namespace Sys.WebUI.Controllers
                         var rec = orderPrivder.GetReceiverInfo(order.Id);
                         if (rec != null)
                         {
-                            rec.ParcelWeight = Convert.ToDecimal(parcelweight);
+                            //rec.ParcelWeight = Convert.ToDecimal(parcelweight);
+                            rec.ChinaCourierNumber = chinacouriernumber ?? "";
+                            rec.PackagingCosts = Convert.ToDecimal(packagingCosts);
                             rec.CourierFees = Convert.ToDecimal(kdfy);
                             orderPrivder.UpdateReceiverInfo(rec);
                         }

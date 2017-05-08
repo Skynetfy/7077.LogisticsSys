@@ -203,10 +203,10 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label>
-                                        <input type="radio" checked="checked" value="1" name="transportationway"> 陆运
+                                        <input type="radio" checked="checked" value="1" name="transportationway" data-text="陆运"> 陆运
                                     </label>
                                     <label>
-                                        <input type="radio" value="2" name="transportationway"> 空运
+                                        <input type="radio" value="2" name="transportationway" data-text="空运"> 空运
                                     </label>
                                     @*<label>
                                             <input type="radio" value="3" name="transportationway"> 海运
@@ -362,9 +362,9 @@
                                     <label>
                                         <input type="radio" value="2" name="packagingway" data-text="普通打包"> 普通打包
                                     </label>
-                                    <label>
+                                    @*<label>
                                         <input type="radio" value="3" name="packagingway" data-text="特殊泡沫打包"> 特殊泡沫打包
-                                    </label>
+                                    </label>*@
                                 </div>
                             </div>
                             <div class="form-group">
@@ -443,17 +443,84 @@
                             </div>
                         </div>
                     </div>
-                    <div id="step-5">
-                        <h2 class="StepTitle">Step 2 Content</h2>
-                        <p>
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                    </div>
+                <div id="step-5">
+                    <h5>寄件人信息</h5>
+                    <hr/>
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                        <tr>
+                            <td class="col-xs-3">俄罗斯城市：</td>
+                            <td><span id="td1"></span></td>
+                            <td class="col-xs-3">俄罗斯需要自提地址：</td>
+                            <td><span id="td2"></span></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">购物网站网址：</td>
+                            <td><span id="td3"></span></td>
+                            <td>预计到达国外仓时间：</td>
+                            <td><span id="td4"></span></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">订单号：</td>
+                            <td colspan="3"><span id="td5"></span></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">货物类型：</td>
+                            <td><span id="td6"></span></td>
+                            <td>货物运输类型：</td>
+                            <td><span id="td7"></span></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">保价价值(元)： </td>
+                            <td><span id="td8"></span></td>
+                            <td>保单费用(元)：</td>
+                            <td><span id="td9"></span></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">是否到付：</td>
+                            <td colspan="3"><span id="td10"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h5>收件人信息</h5>
+                    <hr />
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="col-xs-3">订单省份：</td>
+                                <td><span id="td11"></span></td>
+                                <td class="col-xs-3">订单详细地址：</td>
+                                <td><span id="td12"></span></td>
+                            </tr>
+                            <tr>
+                                <td scope="row">收件人姓名：</td>
+                                <td><span id="td13"></span></td>
+                                <td>收件人电话：</td>
+                                <td><span id="td14"></span></td>
+                            </tr>
+                            @*<tr>
+                                <td scope="row">打包方式</td>
+                                <td colspan="3"><span id="td15"></span></td>
+                            </tr>*@
+                            <tr>
+                                <td scope="row">打包方式：</td>
+                                <td><span id="td16"></span></td>
+                                <td>快递方式：</td>
+                                <td><span id="td17"></span></td>
+                            </tr>
+                            <tr>
+                                <td scope="row">货物明细： </td>
+                                <td><span id="td18"></span></td>
+                                <td>快递公司：</td>
+                                <td><span id="td19"></span></td>
+                            </tr>
+                            <tr>
+                                <td scope="row">备注：</td>
+                                <td colspan="3"><span id="td20"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 </form>
             </div>
             <!-- End SmartWizard Content -->
@@ -468,7 +535,28 @@
 <script src="~/Scripts/locales/zh.js"></script>
 <script src="~/Scripts/tags/jquery.tagsinput.min.js"></script>
 <script>
-
+    function initData() {
+        $('#td1').html($('#russiacityid>option:selected').text());
+        $('#td2').html($('#russiaaddress').val());
+        $('#td3').html($('#weburl').val());
+        $('#td4').html($('#pickupdate').val());
+        $('#td5').html($('#cargonumber').val());
+        $('#td6').html($('#goodstype>option:selected').text());
+        $('#td7').html($('[name=transportationway]:checked').attr('data-text'));
+        $('#td8').html($('#protectprice').val());
+        $('#td9').html($('#policyfee').val());
+        $('#td10').html($('#russiacityid>option:selected').text());
+        $('#td11').html($('#chinacityid>option:selected').text());
+        $('#td12').html($('#chinaaddress').val());
+        $('#td13').html($('#receivername').val());
+        $('#td14').html($('#receiverphone').val());
+        $('#td15').html($('[name=packagingway]:checked').attr('data-text'));
+        $('#td16').html($('[name=packagingway]:checked').attr('data-text'));
+        $('#td17').html($('[name=expressway]:checked').attr('data-text'));
+        $('#td18').html($('#goodsdesc').val());
+        $('#td19').html($('#kdgs>option:selected').val());
+        $('#td20').html($('#desc').val());
+    }
     function rcChange() {
         var value = $('#russiacityid').val();
         if (value === '1') {
@@ -618,6 +706,7 @@
                         $('#wizard .actionBar .btn-default').show();
                         $('#wizard .actionBar .btn-success').hide();
                         $('#wizard .actionBar .btn-primary').show();
+                        initData();
                         break;
                     default:
                 }

@@ -8,9 +8,15 @@ namespace Sys.BLL.Order
 {
     public enum PayTypeEnums
     {
-        AllPay=1,
-        WeChatPay=2,
-        Unionpay=3
+        AllPay = 1,
+        WeChatPay = 2,
+        Unionpay = 3
     }
-    
+
+    public enum CostTypeEnums
+    {
+        ArrivePay,
+        WorldPay,
+        ChinaPay
+    }
 }

@@ -44,7 +44,15 @@
             货物重量(千克) <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="goodsweight" name="goodsweight" onblur="goodsweightblur()" value="@orderview.GoodsWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="goodsweight" name="goodsweight" onblur="goodsweightblur()" value="@orderview.GoodsWeight" required="required" data-parsley-type="number" data-parsley-min="0" class="form-control col-md-7 col-xs-12">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ArrivePayValue">
+            到付金额（元）
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="ArrivePayValue" value="@orderview.ArrivePayValue" disabled class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <div class="form-group">
@@ -53,6 +61,14 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="isoutphoto" value="@orderview.IsOutPhoto" disabled class="form-control col-md-7 col-xs-12">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="insuranceCost">
+            保险费（元） <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="insuranceCost" name="insuranceCost" value="@orderview.InsuranceCost" onblur="insuranceCostblur()" required="required" data-parsley-type="number" data-parsley-min="0" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     @*<div class="form-group">
@@ -73,10 +89,10 @@
         </div>*@
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gjdfy">
-            国际段费用(元)
+            国际段费用(元) <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="gjdfy" name="gjdfy" readonly="readonly" value="@orderview.OrderFrees" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="gjdfy" name="gjdfy" onblur="sumprice()" value="@orderview.OrderFrees" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <br />
@@ -108,10 +124,10 @@
     </div>
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
-            国内快递单号 <span class="required">*</span>
+            国内快递单号
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="chinacouriernumber" name="chinacouriernumber" value="@orderview.ChinaCourierNumber" required="required" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="chinacouriernumber" name="chinacouriernumber" value="@orderview.ChinaCourierNumber" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <div class="form-group">
@@ -127,7 +143,7 @@
             国内段费用(元) <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="domesticcost" name="domesticcost" value="@orderview.ParcelWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="domesticcost" name="domesticcost" onblur="sumprice()" value="@orderview.ParcelWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     <br />
@@ -147,16 +163,26 @@
             <button type="submit" class="btn btn-success">提 交</button>
         </div>
     </div>
-
+    <input type="hidden" id="fy" />
 </form>
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
+    function insuranceCostblur() {
+        var cost=$('#insuranceCost').val();
+        var gjfy=$('#fy').val();
+        $('#gjdfy').val(Number(cost)+Number(gjfy));
+        sumprice();
+    }
+
     function goodsweightblur() {
         var cityId = @orderview.RussiaCityId;
-        var goodstype=@orderview.GoodsType;
-        var transType=@orderview.TransportationWay;
+        var goodstype = @orderview.GoodsType;
+        var transType = @orderview.TransportationWay;
         var isopen = '@orderview.IsOutPhoto';
+        var cost=$('#insuranceCost').val();
+        if (cost.length <= 0)
+            cost = 0;
         @*var daifujine=@orderview.ArrivePayValue;*@
         var weight = $('#goodsweight').val();
         $.getJSON('@Url.Action("GetAddressBudgetPrice")',
@@ -166,7 +192,8 @@
                 if (isopen == 'True')
                     s = s + 5;
                 //s = s + Number(daifujine);
-                $('#gjdfy').val(s);
+                $('#fy').val(s);
+                $('#gjdfy').val(s+Number(cost));
                 sumprice();
             });
         parcelweightblur();
@@ -203,11 +230,14 @@
     function sumprice() {
         var p1=$('#gjdfy').val();
         var p2=$('#domesticcost').val();
+        var p3 = $('#ArrivePayValue').val();
         if (p1.length <= 0)
             p1 = 0;
         if (p2.length <= 0)
-            p1 = 0;
-        $('#orderfrees').val(Number(p1)+Number(p2));
+            p2 = 0;
+        if (p3.length <= 0)
+            p3 = 0;
+        $('#orderfrees').val(Number(p1)+Number(p2)+Number(p3));
     }
 
     $(function() {
@@ -226,10 +256,10 @@
             },
             success: function (responseText, statusText) {
                 $('#main-page')
-                         .load("@Url.Action("OrderManage")",
-                             function (e) {
-                                 $('body').mLoading("hide"); //显示loading组件
-                             });
+                    .load("@Url.Action("OrderManage")",
+                        function (e) {
+                            $('body').mLoading("hide"); //显示loading组件
+                        });
             }
         });
     })

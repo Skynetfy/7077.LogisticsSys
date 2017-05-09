@@ -119,5 +119,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "WebUrl", ColumnType = DbType.AnsiString,Length = 200)]
         public string WebUrl { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "InsuranceCost", ColumnType = DbType.Decimal)]
+        public decimal InsuranceCost { get; set; }
     }
 }

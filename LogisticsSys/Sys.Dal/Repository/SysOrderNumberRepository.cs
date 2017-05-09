@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arch.Data;
+using Arch.Data.DbEngine;
 using Sys.Entities;
 
 namespace Sys.Dal.Repository
 {
-    public class SysOrderNumberRepository: ISysOrderNumberRepository
+    public class SysOrderNumberRepository : ISysOrderNumberRepository
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
@@ -137,6 +139,22 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用SysActionLogDao时，访问FindByPk时出错", ex);
             }
         }
+
+        public SysOrderNumber FindBySingle(string single)
+        {
+            try
+            {
+                String sql = "SELECT top 1 * from SysOrderNumber  with (nolock) where [Number]=@Number  ";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@Number", DbType.AnsiString, single);
+                return baseDao.SelectFirst<SysOrderNumber>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用SysActionLogDao时，访问Count时出错", ex);
+            }
+        }
+
         /// <summary>
         /// 获取所有SysActionLog信息
         /// </summary>

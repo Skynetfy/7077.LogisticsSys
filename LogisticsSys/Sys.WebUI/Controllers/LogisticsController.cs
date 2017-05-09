@@ -87,7 +87,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddLogistics(string id,string ordernumbers, string UpdateDate, string LogisticsDesc,string wuliudanhao, string gender)
+        public ActionResult AddLogistics(string id, string[] ordernumbers, string UpdateDate, string LogisticsDesc, string wuliudanhao, string gender)
         {
             if (!string.IsNullOrEmpty(id))
             {
@@ -110,10 +110,9 @@ namespace Sys.WebUI.Controllers
             }
             else
             {
-                if (!string.IsNullOrEmpty(ordernumbers))
+                if (ordernumbers != null)
                 {
-                    var args = ordernumbers.Split(',');
-                    foreach (var arg in args)
+                    foreach (var arg in ordernumbers)
                     {
                         var entity = new SysLogisticsInfo();
                         entity.LogisticsDesc = LogisticsDesc.Trim();
@@ -138,7 +137,7 @@ namespace Sys.WebUI.Controllers
         public ActionResult GetOrderNumberList()
         {
             var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && !x.Status).ToList();
-            return Json(list,JsonRequestBehavior.AllowGet);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetLogisticsPagerList(string search, int offset, int limit, string order, string sort)
         {

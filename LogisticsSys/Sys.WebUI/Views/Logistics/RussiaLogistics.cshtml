@@ -262,7 +262,10 @@
     $(function () {
         $('#ordernumbers').selectpicker();
         $('#addbtn').click(function () {
+            $('[name=id]').val('');
+            $('#wuliudanhao').val('');
             $('#wuliudanhao').prop('disabled', false);
+            $('#ordernumbers').attr('required');
             $('#orderlistdiv').show();
             $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
                 $('#ordernumbers').empty();
@@ -336,7 +339,7 @@
                                 $('#addModel').modal('hide');
                             }
                         });
-                }
+                } 
             });
 
         function getIdSelections() {
@@ -353,6 +356,7 @@
         $('#orderlistdiv').hide();
         $('form [name=wuliudanhao]').val(row.LogisticsSingle);
         $('form [name=id]').val(row.LogisticsSingle);
+        $('#ordernumbers').removeAttr('required');
         $('#addModel').modal('show');
     }
 

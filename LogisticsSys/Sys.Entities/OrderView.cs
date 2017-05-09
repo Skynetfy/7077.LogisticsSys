@@ -200,5 +200,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "ChinaPayStatus", ColumnType = DbType.Int32)]
         public int ChinaPayStatus { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "InsuranceCost", ColumnType = DbType.Decimal)]
+        public decimal InsuranceCost { get; set; }
     }
 }

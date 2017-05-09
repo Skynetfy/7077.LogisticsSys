@@ -47,12 +47,14 @@ namespace Sys.Dal.Repository
             {
                 string sql = @"Update [SysAddresserInfo]
                              set [GoodsWeight]=@GoodsWeight,
-                             [OrderFrees]=@OrderFrees
+                             [OrderFrees]=@OrderFrees,
+                             InsuranceCost=@InsuranceCost
                              where Id=@id";
                 StatementParameterCollection parameters=new StatementParameterCollection();
                 parameters.AddInParameter("@id", DbType.Int64, entity.Id);
                 parameters.AddInParameter("@GoodsWeight", DbType.Decimal, entity.GoodsWeight);
                 parameters.AddInParameter("@OrderFrees", DbType.Decimal, entity.OrderFrees);
+                parameters.AddInParameter("@InsuranceCost", DbType.Decimal, entity.InsuranceCost);
                 Object result = baseDao.ExecNonQuery(sql, parameters);
                 int iReturn = Convert.ToInt32(result);
                 return iReturn;

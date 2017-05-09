@@ -9,5 +9,6 @@ namespace Sys.Dal
 {
     public interface ISysOrderNumberRepository : IBaseRepository<SysOrderNumber>
     {
+        SysOrderNumber FindBySingle(string single);
     }
 }

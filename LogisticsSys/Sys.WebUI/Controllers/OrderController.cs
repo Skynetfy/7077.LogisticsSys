@@ -65,7 +65,7 @@ namespace Sys.WebUI.Controllers
                 ViewData["OrderInfo"] = orderinfo;
 
                 var orderpayinfo =
-                    DALFactory.OrderPayInfoDao.GetAll().FirstOrDefault(x => !x.IsDelete && x.OrderId == orderinfo.Id);
+                    DALFactory.OrderPayInfoDao.GetAll().Where(x => !x.IsDelete && x.OrderId == orderinfo.Id).ToList();
                 ViewData["OrderPayInfo"] = orderpayinfo;
 
                 var filledinfo =
@@ -288,7 +288,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult EditOrder(string orderId, string goodsweight, string chinacouriernumber, string packagingCosts, string orderfrees, string gjdfy, string kdfy)
+        public ActionResult EditOrder(string orderId, string goodsweight, string chinacouriernumber, string packagingCosts, string orderfrees, string gjdfy, string kdfy, string insuranceCost)
         {
             if (!string.IsNullOrEmpty(orderId))
             {
@@ -306,6 +306,7 @@ namespace Sys.WebUI.Controllers
                         {
                             addressinfo.GoodsWeight = Convert.ToDecimal(goodsweight);
                             addressinfo.OrderFrees = Convert.ToDecimal(gjdfy);
+                            addressinfo.InsuranceCost = Convert.ToDecimal(insuranceCost);
                             orderPrivder.UpdateAddressInfo(addressinfo);
                         }
 
@@ -395,31 +396,51 @@ namespace Sys.WebUI.Controllers
             }
             return Content("ok");
         }
-        public ActionResult PayOrder(string id)
+        public ActionResult PayOrder(string id, string type)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(type))
             {
+                CostTypeEnums costType = (CostTypeEnums)Enum.Parse(typeof(CostTypeEnums), type);
                 var orderprovider = new OrderInfoProvider();
-                var order = orderprovider.GetOrderInfoById(Convert.ToInt16(id));
+                var order = orderprovider.GetOrderViewById(Convert.ToInt16(id));
                 if (order != null)
                 {
                     ViewBag.Id = order.Id;
                     ViewBag.SNO = order.OrderNo;
                     ViewBag.OrderPrice = order.OrderRealPrice;
+                    ViewBag.Type = type;
+                    ViewBag.ArrivePayValue = order.ArrivePayValue;
+                    ViewBag.OrderFrees = order.OrderFrees;
+                    ViewBag.CourierFees = order.CourierFees;
                 }
             }
             return View();
         }
         [HttpPost]
-        public ActionResult PayOrder(string orderId, string cardnumber, string cardusername, string optionsRadios)
+        public ActionResult PayOrder(string type, string orderId, string cardnumber, string cardusername, string optionsRadios)
         {
-            if (!string.IsNullOrEmpty(orderId))
+            if (!string.IsNullOrEmpty(orderId) && !string.IsNullOrEmpty(type))
             {
                 var orderprovider = new OrderInfoProvider();
                 var order = orderprovider.GetOrderInfoById(Convert.ToInt16(orderId));
                 if (order != null && order.PayStatus <= (int)OrderPayStatusEnum.Recivied)
                 {
-                    order.PayStatus = (int)OrderPayStatusEnum.Paied;
+                    CostTypeEnums costType = (CostTypeEnums)Enum.Parse(typeof(CostTypeEnums), type);
+                    //order.PayStatus = (int)OrderPayStatusEnum.Paied;
+                    switch (costType)
+                    {
+                        case CostTypeEnums.ArrivePay:
+                            order.ArrivePayStatus = 1;
+                            break;
+                        case CostTypeEnums.WorldPay:
+                            order.WorldPayStatus = 1;
+                            break;
+                        case CostTypeEnums.ChinaPay:
+                            order.ChinaPayStatus = 1;
+                            break;
+                    }
+                    if (order.ArrivePayStatus == 1 && order.WorldPayStatus == 1 && order.ChinaPayStatus == 1)
+                        order.PayStatus = (int)OrderPayStatusEnum.Paied;
                     orderprovider.UpdateOrderInfo(order);
 
                     var payinfo = new SysOrderPayInfo();
@@ -429,6 +450,7 @@ namespace Sys.WebUI.Controllers
                     payinfo.PayAmount = order.OrderRealPrice;
                     payinfo.PayUserName = !string.IsNullOrEmpty(Request.Form["cardusername" + optionsRadios]) ? Request.Form["cardusername" + optionsRadios] : "";
                     payinfo.CreateDate = DateTime.Now;
+                    payinfo.CostType = type ?? "";
                     DALFactory.OrderPayInfoDao.Insert(payinfo);
                 }
             }

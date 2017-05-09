@@ -391,7 +391,7 @@
                                     货物明细 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" data-show-preview="false">
+                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" required="required" data-parsley-group="form3"  data-show-preview="false">
                                 </div>
                             </div>
                             @*<div class="form-group">
@@ -478,7 +478,9 @@
                         </tr>
                         <tr>
                             <td scope="row">是否到付：</td>
-                            <td colspan="3"><span id="td10"></span></td>
+                            <td><span id="td10"></span></td>
+                            <td scope="row">到付金额：</td>
+                            <td><span id="td21"></span></td>
                         </tr>
                         </tbody>
                     </table>
@@ -545,7 +547,13 @@
         $('#td7').html($('[name=transportationway]:checked').attr('data-text'));
         $('#td8').html($('#protectprice').val());
         $('#td9').html($('#policyfee').val());
-        $('#td10').html($('#russiacityid>option:selected').text());
+        if ($('#isarrivepay').is(':checked')) {
+            $('#td10').html('是');
+            $('#td21').html($('#arrivepayvalue').val());
+        } else {
+            $('#td10').html('否');
+            $('#td21').html('无须到付');
+        }
         $('#td11').html($('#chinacityid>option:selected').text());
         $('#td12').html($('#chinaaddress').val());
         $('#td13').html($('#receivername').val());

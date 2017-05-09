@@ -37,5 +37,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "PayAmount", ColumnType = DbType.Decimal)]
         public decimal PayAmount { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "CostType", ColumnType = DbType.AnsiString, Length = 50)]
+        public string CostType { get; set; }
     }
 }

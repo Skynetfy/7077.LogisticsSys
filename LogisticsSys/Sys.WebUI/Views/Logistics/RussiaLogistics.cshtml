@@ -270,7 +270,7 @@
             $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
                 $('#ordernumbers').empty();
                 $.each(e,function(x, v) {
-                    $('#ordernumbers').append('<option value="'+v.Id+'">'+v.Number+'</option>');
+                    $('#ordernumbers').append('<option value="' + v.Id + '">' + v.ChinaCourierNumber + '</option>');
                 });
                 $('#ordernumbers').selectpicker('refresh');
             });
@@ -367,13 +367,14 @@
             $('#viewdemailul li:first h2').addClass('last');
         });
     }
-    function viewOrders(single) {
+    function viewOrder(row) {
+        var single = row.LogisticsSingle;
         $('#viewOrders').modal('show');
         $.getJSON('@Url.Action("GetLogisticsList")', { single: single }, function (e) {
             var h = [];
             h.push('<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 ' + single + '</span> <ul> ');
             $.each(e.Orders, function (x, v) {
-                h.push(' <li> <span><i class="icon-minus-sign"></i> 订单号 ' + v.OrderNumber + '</span> ');
+                h.push(' <li> <span><i class="icon-minus-sign"></i> 快递单号 ' + v.OrderNumber + '</span> ');
                
                 h.push('</li>');
             })
@@ -406,7 +407,7 @@
         })
     }
     function LogisticsSingleFormatter(value, row, index) {
-        return '<a href="javascript:void(0)" onclick="viewOrders(' + value + ')">' + value + '</a>';
+        return '<a href="javascript:void(0)" onclick="viewOrder(' + JSON.stringify(row).replace(/\"/g, "\'") + ')">' + value + '</a>';
     }
     function statusFormatter(value, row, index) {
         if (row.Status)

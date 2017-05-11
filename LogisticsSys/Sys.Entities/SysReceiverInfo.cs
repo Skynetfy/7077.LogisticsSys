@@ -84,5 +84,9 @@ namespace Sys.Entities
         // </summary>
         [Column(Name = "PackagingCosts", ColumnType = DbType.Decimal)]
         public decimal PackagingCosts { get; set; }
+        // <summary>
+        // </summary>
+        [Column(Name = "ShippingStatus", ColumnType = DbType.Int32)]
+        public int ShippingStatus { get; set; }
 }
 }

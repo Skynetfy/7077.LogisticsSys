@@ -53,6 +53,8 @@ namespace Sys.BLL.Users
         [Description("User/EditPassword")]
         密码修改,
         [Description("Order/MyOrderList")]
-        我的订单
+        我的订单,
+        [Description("System/Exchange")]
+        汇率管理
     }
 }

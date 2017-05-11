@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using Sys.BLL;
 using Sys.Common;
+using Sys.Dal;
 using Sys.Entities;
 using Sys.WebUI.Models;
 
@@ -286,5 +287,50 @@ namespace Sys.WebUI.Controllers
 
         #endregion
 
+        #region 汇率管理
+        public ActionResult Exchange()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Exchange(string evalue, string edate)
+        {
+            if (!string.IsNullOrEmpty(evalue))
+            {
+                var entity = new SysExchange();
+                entity.CurrentDate = Convert.ToDateTime(edate);
+                entity.ExchangeValue = Convert.ToSingle(evalue);
+                entity.CreateDate = DateTime.Now;
+                DALFactory.ExchangeDao.Insert(entity);
+            }
+            return Content("ok");
+        }
+
+        public ActionResult DeleteExchange(string[] ids)
+        {
+            if (ids != null)
+            {
+                foreach (var id in ids)
+                {
+                    var entity = new SysExchange();
+                    entity.Id = Convert.ToInt64(id);
+                    DALFactory.ExchangeDao.Delete(entity);
+                }
+            }
+            return Content("ok");
+        }
+
+        public ActionResult GetExchangePager(string search, int offset, int limit, string order, string sort)
+        {
+            var btdata = new BootstrapTableData<SysExchange>();
+            var where = string.Empty;
+            if (!string.IsNullOrEmpty(search))
+                where = string.Format(@" and [AirPrice1] Like '%{0}%'", search);
+            btdata.total = DALFactory.ExchangeDao.GetPagerCount(where);
+            btdata.rows = DALFactory.ExchangeDao.GetPagerList(where, offset, limit, order, sort);
+
+            return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

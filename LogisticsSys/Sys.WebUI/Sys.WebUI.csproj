@@ -432,6 +432,8 @@
     <Content Include="Views\Order\MyOrderList.cshtml" />
     <Content Include="Views\Order\PayOrder.cshtml" />
     <Content Include="Views\Order\OrderView.cshtml" />
+    <Content Include="Views\System\Exchange.cshtml" />
+    <Content Include="Views\Logistics\TestSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

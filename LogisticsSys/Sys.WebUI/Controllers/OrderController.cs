@@ -48,6 +48,7 @@ namespace Sys.WebUI.Controllers
                     ViewBag.disabled = "true";
                 }
             }
+            ViewBag.ExchangeValue = SystemService.GetCurrentExchangeValue();
             return View();
         }
 

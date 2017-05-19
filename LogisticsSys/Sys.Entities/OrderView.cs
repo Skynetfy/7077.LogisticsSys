@@ -204,5 +204,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "InsuranceCost", ColumnType = DbType.Decimal)]
         public decimal InsuranceCost { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "DomesticCost", ColumnType = DbType.Decimal)]
+        public decimal DomesticCost { get; set; }
     }
 }

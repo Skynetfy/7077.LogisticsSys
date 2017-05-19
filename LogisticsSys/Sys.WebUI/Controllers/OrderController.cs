@@ -198,13 +198,18 @@ namespace Sys.WebUI.Controllers
                     addresserInfo.GoodsWeight = 0;
                     addresserInfo.ProtectPrice = !string.IsNullOrEmpty(protectprice) ? Convert.ToDecimal(protectprice) : 0;
                     addresserInfo.PolicyFee = !string.IsNullOrEmpty(policyfee) ? Convert.ToDecimal(policyfee) : 0;
-                    addresserInfo.IsArrivePay = !string.IsNullOrEmpty(isarrivepay);
-                    addresserInfo.ArrivePayValue = addresserInfo.IsArrivePay ? Convert.ToDecimal(arrivepayvalue) : 0;
-                    addresserInfo.IsOutPhoto = !string.IsNullOrEmpty(isoutphoto);
-                    addresserInfo.WebUrl = !string.IsNullOrEmpty(weburl) ? weburl.Trim() : "";
                     addresserInfo.ExchangeRate = !string.IsNullOrEmpty(exchangerate)
                         ? Convert.ToDecimal(exchangerate)
-                        : 0;
+                        : 1;
+                    addresserInfo.IsArrivePay = !string.IsNullOrEmpty(isarrivepay);
+                    if (addresserInfo.IsArrivePay)
+                    {
+                        addresserInfo.ArrivePayValue = Math.Round(Convert.ToDecimal(arrivepayvalue) / addresserInfo.ExchangeRate, 2);
+                    }
+                    //addresserInfo.ArrivePayValue = addresserInfo.IsArrivePay ? Convert.ToDecimal(arrivepayvalue) : 0;
+                    addresserInfo.IsOutPhoto = !string.IsNullOrEmpty(isoutphoto);
+                    addresserInfo.WebUrl = !string.IsNullOrEmpty(weburl) ? weburl.Trim() : "";
+
                     addresserInfo.OrderFrees = 0;
 
                     var receiverInfo = new SysReceiverInfo();
@@ -289,7 +294,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult EditOrder(string orderId, string goodsweight, string chinacouriernumber, string packagingCosts, string orderfrees, string gjdfy, string kdfy, string insuranceCost)
+        public ActionResult EditOrder(string orderId, string goodsweight, string chinacouriernumber, string packagingCosts, string orderfrees, string gjdfy, string kdfy, string insuranceCost, string domesticcost)
         {
             if (!string.IsNullOrEmpty(orderId))
             {
@@ -318,6 +323,7 @@ namespace Sys.WebUI.Controllers
                             rec.ChinaCourierNumber = chinacouriernumber ?? "";
                             rec.PackagingCosts = Convert.ToDecimal(packagingCosts);
                             rec.CourierFees = Convert.ToDecimal(kdfy);
+                            rec.DomesticCost = Convert.ToDecimal(domesticcost);
                             orderPrivder.UpdateReceiverInfo(rec);
                         }
 
@@ -412,7 +418,7 @@ namespace Sys.WebUI.Controllers
                     ViewBag.Type = type;
                     ViewBag.ArrivePayValue = order.ArrivePayValue;
                     ViewBag.OrderFrees = order.OrderFrees;
-                    ViewBag.CourierFees = order.CourierFees;
+                    ViewBag.DomesticCost = order.DomesticCost;
                 }
             }
             return View();

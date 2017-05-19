@@ -17,7 +17,7 @@ namespace Sys.Entities
     {
         /// <summary>
         /// </summary>
-        [Column(Name = "ExchangeValue", ColumnType = DbType.Single)]
+        [Column(Name = "ExchangeValue", ColumnType = DbType.Double)]
         public double ExchangeValue { get; set; }
         /// <summary>
         /// </summary>

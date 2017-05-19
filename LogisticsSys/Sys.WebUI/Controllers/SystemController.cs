@@ -299,7 +299,7 @@ namespace Sys.WebUI.Controllers
             {
                 var entity = new SysExchange();
                 entity.CurrentDate = Convert.ToDateTime(edate);
-                entity.ExchangeValue = Convert.ToSingle(evalue);
+                entity.ExchangeValue = Convert.ToDouble(evalue);
                 entity.CreateDate = DateTime.Now;
                 DALFactory.ExchangeDao.Insert(entity);
             }

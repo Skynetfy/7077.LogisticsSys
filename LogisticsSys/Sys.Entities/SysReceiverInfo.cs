@@ -88,5 +88,9 @@ namespace Sys.Entities
         // </summary>
         [Column(Name = "ShippingStatus", ColumnType = DbType.Int32)]
         public int ShippingStatus { get; set; }
+        // <summary>
+        // </summary>
+        [Column(Name = "DomesticCost", ColumnType = DbType.Decimal)]
+        public decimal DomesticCost { get; set; }
 }
 }

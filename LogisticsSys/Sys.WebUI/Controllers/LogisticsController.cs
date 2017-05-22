@@ -39,7 +39,7 @@ namespace Sys.WebUI.Controllers
                 {
                     var order = new WuliuGenZongOrderNos();
 
-                    order.OrderNumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(i.OrderNos)).Number;
+                    order.OrderNumber = DALFactory.SysReceiverInfoDao.FindByPk(Convert.ToInt64(i.OrderNos)).ChinaCourierNumber;
                     dataList.Orders.Add(order);
                 }
                 return Json(dataList, JsonRequestBehavior.AllowGet);
@@ -125,9 +125,9 @@ namespace Sys.WebUI.Controllers
                         entity.IsDelete = false;
                         LogisticsService.Current.AddLogistics(entity);
 
-                        var ordernumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(arg));
-                        ordernumber.Status = true;
-                        DALFactory.OrderNumberDao.Update(ordernumber);
+                        var ordernumber = DALFactory.SysReceiverInfoDao.FindByPk(Convert.ToInt64(arg));
+                        ordernumber.ShippingStatus = 1;
+                        DALFactory.SysReceiverInfoDao.Update(ordernumber);
                     }
                 }
             }
@@ -136,7 +136,7 @@ namespace Sys.WebUI.Controllers
 
         public ActionResult GetOrderNumberList()
         {
-            var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && !x.Status).ToList();
+            var list = DALFactory.SysReceiverInfoDao.GetAll().Where(x => !x.IsDelete && 0 == x.ShippingStatus&&!string.IsNullOrEmpty(x.ChinaCourierNumber)).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetLogisticsPagerList(string search, int offset, int limit, string order, string sort)
@@ -149,6 +149,36 @@ namespace Sys.WebUI.Controllers
             btdata.rows = LogisticsService.Current.GetLogisticsPagerData(where, offset, limit, order, sort);
 
             return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult TestSearch()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult TestSearch(string single)
+        {
+            if (!string.IsNullOrEmpty(single))
+            {
+                var host = ConfigHelper.GetValue("KD100Host");
+                var apiKey = ConfigHelper.GetValue("KD100ApiKey");
+                var client = new RestClient(host);
+                var request = new RestRequest("/api", Method.GET);
+                request.AddQueryParameter("id", apiKey);
+                request.AddQueryParameter("com", "zhongtong");
+                request.AddQueryParameter("nu", single);
+                request.AddQueryParameter("show", "0");
+                request.AddQueryParameter("muti", "1");
+                request.AddQueryParameter("order", "desc");
+
+                var response = client.Execute<DeliveryMessage>(request);
+                if (response.Data != null)
+                {
+                    ViewData["chinalogistics"] = response.Data;
+                }
+                return Json(response.Data);
+            }
+            return Content("sd");
         }
     }
 }

@@ -278,6 +278,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\2017050901.png" />
     <Content Include="images\2017050902.jpg" />
+    <Content Include="images\7f2d5573b2f65b6479689d77a05e9bb6.jpg" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.css" />
@@ -432,10 +433,13 @@
     <Content Include="Views\Order\MyOrderList.cshtml" />
     <Content Include="Views\Order\PayOrder.cshtml" />
     <Content Include="Views\Order\OrderView.cshtml" />
+    <Content Include="Views\System\Exchange.cshtml" />
+    <Content Include="Views\Logistics\TestSearch.cshtml" />
+    <Content Include="Views\System\QrCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ExcelFiles\" />
+    <Folder Include="ExcelFiles\QrCodes\" />
     <Folder Include="Scripts\bootstrap-select\i18n\" />
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,7 @@
                     <p>
                         <input id="LoginUser_RememberMe" type="checkbox" name="remember_me">
                         <label for="LoginUser_RememberMe" id="LoginUser_RememberMeLabel" class="inline">记住密码</label>
-                        <a href="@Url.Action("index","Forgetpassword")" target="_blank" class="login-pass-link">忘记密码?</a>
+                        <a href="@Url.Action("index", "Forgetpassword")" target="_blank" class="login-pass-link">忘记密码?</a>
                     </p>
 
                 </fieldset>
@@ -54,11 +54,22 @@
                 <p style="text-align: center;">
                     还不是会员？赶紧<a href="@Url.Action("SignUp")" class="register-link">注册</a>吧。
                 </p>
-               
+
             </form>
         </div>
 
     </div>
+    <footer style="border-top: 1px solid #eeeeee; margin-top: 20px; height: 50px; line-height: 50px;">
+        <div class="container">
+            <small class="pull-left text-muted copyright">
+                © 2016-2017 7077物流管理系统  <a href="https://m.kuaidi100.com/" target="_blank">快递查询</a>
+            </small>
+
+            <div class="social-icons pull-right" style="">
+               
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/parsley.min.js"></script>
@@ -69,7 +80,7 @@
                 if (mge != "") {
                     $('[role="alert"]').html(mge);
                     $('[role="alert"]').show();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('[role="alert"]').hide();
                     }, 5000);
                 }

@@ -26,7 +26,16 @@ namespace Sys.Dal
         private static readonly ISysKuaiDiComRepository _KuaiDiComDao = new SysKuaiDiComRepository();
 
         private static readonly ISysOrderNumberRepository _OrderNumberDao = new SysOrderNumberRepository();
-        private static readonly ISysOrderPayInfoRepository _orderpayDao=new SysOrderPayInfoRepository();
+        private static readonly ISysOrderPayInfoRepository _orderpayDao = new SysOrderPayInfoRepository();
+        private static readonly ISysExchangeRepository _exchangeDao = new SysExchangeRepository();
+
+        public static readonly ISysDbConfigRepository _dbconfigDao=new SysDbConfigRepository();
+
+        public static ISysDbConfigRepository DbconfigDao
+        {
+            get { return _dbconfigDao; }
+        }
+
         public static string SqlAction(string sql)
         {
             try
@@ -42,6 +51,7 @@ namespace Sys.Dal
         }
         public static ISysOrderPayInfoRepository OrderPayInfoDao { get { return _orderpayDao; } }
         public static ISysOrderNumberRepository OrderNumberDao { get { return _OrderNumberDao; } }
+        public static ISysExchangeRepository ExchangeDao { get { return _exchangeDao; } }
         public static ISysKuaiDiComRepository KuaiDiDao
         {
             get { return _KuaiDiComDao; }

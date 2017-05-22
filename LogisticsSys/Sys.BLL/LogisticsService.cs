@@ -60,10 +60,10 @@ namespace Sys.BLL
         }
         public IList<SysLogisticsInfo> GetLogisticsInfoList(string single)
         {
-            ISysOrderNumberRepository ordernumber = DALFactory.OrderNumberDao;
+            ISysReceiverInfoRepository ordernumber = DALFactory.SysReceiverInfoDao;
             if (!string.IsNullOrEmpty(single))
             {
-                var receiver = ordernumber.FindBySingle(single);
+                var receiver = ordernumber.GetByCourierNo(single);
                 if (receiver != null)
                 {
                     var logics = DALFactory.SysLogisticsInfoDao;

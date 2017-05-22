@@ -149,6 +149,43 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="admineditModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              
+                <form class="form-horizontal form-label-left" id="addform1" method="post" action="@Url.Action("AdminEditPassword")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                    <input type="hidden" name="username" id="username1" value="" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password1">
+                            新密码 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="password" id="password1" name="password" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="confimpassword1">
+                            确认密码<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="password" id="confimpassword1" name="confimpassword" required="required" data-parsley-equalto="#password1" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="" id="btn-save1">保存</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <style>
     #form-main-page {
         float: none;
@@ -157,10 +194,7 @@
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
-    function getHeight() {
-        return $(window).height() - $('h1').outerHeight(true);
-    }
-
+    
     $(function () {
         var parslay = $('#addform').parsley();
         $('[data-toggle="table"]').bootstrapTable();
@@ -249,6 +283,26 @@
                         });
                 }
             });
+        $('#btn-save1').click(function () {
+            if ($('#addform1').parsley().validate() && $('#addform1').parsley().isValid()) {
+                $('#addform1').ajaxSubmit({
+                    resetForm: true,
+                    error: function (xhr, status, error, $form) {
+                    
+                    },
+                    success: function (responseText, statusText) {
+                        //alert(statusText.Status);
+                        //$('#alert-infor').removeClass('alert-danger');
+                        //$('#alert-infor').addClass('alert-success');
+                        //$('#alert-infor').show();
+                        ////$('#alert-infor label').html(error);
+                        //$('#alert-infor strong').html('Successfully');
+                        $('[data-toggle="table"]').bootstrapTable('refresh');
+                        $('#admineditModel').modal('hide');
+                    }
+                });
+            }
+        });
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
            .click(function (e) {
                e.stopPropagation();
@@ -299,6 +353,10 @@
     function actionFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">修改</button>');
+        h.push(' <button  type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#admineditModel" onclick="editdate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">重置密码</button>');
         return h.join('');
+    }
+    function editdate(row) {
+        $('#username1').val(row.UserName);
     }
 </script>

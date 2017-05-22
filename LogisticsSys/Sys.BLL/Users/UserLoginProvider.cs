@@ -76,6 +76,8 @@ namespace Sys.BLL.Users
                     dic3.Add(MenusEnum.国内城市管理.ToString(), MenusEnum.国内城市管理.GetDescription());
                     dic3.Add(MenusEnum.货物类型维护.ToString(), MenusEnum.货物类型维护.GetDescription());
                     dic3.Add(MenusEnum.单价信息维护.ToString(), MenusEnum.单价信息维护.GetDescription());
+                    dic3.Add(MenusEnum.汇率管理.ToString(), MenusEnum.汇率管理.GetDescription());
+                    dic3.Add(MenusEnum.二维码管理.ToString(), MenusEnum.二维码管理.GetDescription());
                     dic.Add(MenusEnum.系统管理.ToString() , dic3);
 
                     var dic4 = new Dictionary<string, string>();

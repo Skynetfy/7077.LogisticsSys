@@ -29,7 +29,7 @@
         <p>订单号：@ViewBag.SNO</p>
         <p id="p1" style="display: none;">到付金额：￥@ViewBag.ArrivePayValue</p>
         <p id="p2" style="display: none;">国际段费用：￥@ViewBag.OrderFrees</p>
-        <p id="p3" style="display: none;">国内段费用：￥@ViewBag.CourierFees</p>
+        <p id="p3" style="display: none;">国内段费用：￥@ViewBag.DomesticCost</p>
     </div>
     <div class="alert alert-warning" role="alert">
         <strong>提示!</strong> 由于系统尚在升级中，暂不支持在线付款，请联系管理员进行线下付款，非常的抱歉给您带来的不变，谢谢您的使用。
@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="col-md-6" style="text-align: center;">
-                            <img src="~/images/2017050902.jpg" width="50%"/>
+                            <img src="~/ExcelFiles/QrCodes/@ViewBag.AllPay" width="50%"/>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="col-md-6" style="text-align: center;">
-                            <img src="~/images/2017050901.png" width="50%"/>
+                            <img src="~/ExcelFiles/QrCodes/@ViewBag.WebPay" width="50%"/>
                         </div>
                     </div>
                 </div>

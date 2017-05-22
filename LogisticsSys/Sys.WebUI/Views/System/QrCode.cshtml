@@ -1,0 +1,55 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("系统管理", "二维码管理", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <!-- MINIMUM IMAGE DIMENSIONS -->
+        <h4>支付宝收款二维码图片</h4>
+        <input id="input-dim-1" name="inputdim1" type="file" multiple class="file-loading" accept="image/*">
+        <script>
+            $("#input-dim-1").fileinput({
+                uploadUrl: "@Url.Action("QrCode")",
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                minImageWidth: 50,
+                minImageHeight: 50
+            });
+        </script>
+        <h4>微信收款二维码图片</h4>
+        <input id="input-dim-2" name="inputdim2" type="file" multiple class="file-loading" accept="image/*">
+        <script>
+            $("#input-dim-2").fileinput({
+                uploadUrl: "@Url.Action("QrCode")",
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                minImageWidth: 50,
+                minImageHeight: 50
+            });
+        </script>
+    </div>
+</div>
+<script src="~/Content/bootstrap-fileinput/themes/fa/theme.js"></script>
+<script>
+    $(function() {
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+    })
+</script>

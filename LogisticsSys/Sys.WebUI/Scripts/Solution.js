@@ -5,7 +5,9 @@
     }
     return true;
 }
-
+function checkNumber(t) {
+    return /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(t);
+}
 var Status_7077 = {
     getOrderStatus: function (s) {
         switch (s) {
@@ -52,7 +54,7 @@ var Status_7077 = {
                 return "未知";
         }
     },
-    getPickupWay: function(s) {
+    getPickupWay: function (s) {
         switch (s) {
             case 1:
                 return "自行送货";
@@ -64,7 +66,7 @@ var Status_7077 = {
                 return "未知";
         }
     },
-    getGoodsType: function(s) {
+    getGoodsType: function (s) {
         switch (s) {
             case 0:
                 return "杂货";
@@ -74,7 +76,7 @@ var Status_7077 = {
                 return "未知";
         }
     },
-    getCargoTransWay: function(s) {
+    getCargoTransWay: function (s) {
         switch (s) {
             case 1:
                 return "陆运";
@@ -86,7 +88,7 @@ var Status_7077 = {
                 return "未知";
         }
     },
-    getPackagingType: function(s) {
+    getPackagingType: function (s) {
         switch (s) {
             case 1:
                 return "不打包";
@@ -96,9 +98,9 @@ var Status_7077 = {
                 return "特殊泡沫打包";
             default:
                 return "未知";
-        }   
+        }
     },
-    getExpressWay: function(s) {
+    getExpressWay: function (s) {
         switch (s) {
             case 1:
                 return "普通正付";
@@ -112,7 +114,7 @@ var Status_7077 = {
                 return "未知";
         }
     },
-    getPayStatus: function(f) {
+    getPayStatus: function (f) {
         switch (f) {
             case 0:
                 return "未付款";

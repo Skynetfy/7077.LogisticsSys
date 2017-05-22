@@ -62,6 +62,8 @@
     <Compile Include="SysAgentInfo.cs" />
     <Compile Include="SysChinaCity.cs" />
     <Compile Include="SysCustomerInfo.cs" />
+    <Compile Include="SysDbConfig.cs" />
+    <Compile Include="SysExchange.cs" />
     <Compile Include="SysGoodsType.cs" />
     <Compile Include="SysKuaiDiCom.cs" />
     <Compile Include="SysLogisticsInfo.cs" />

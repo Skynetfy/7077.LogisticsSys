@@ -21,41 +21,52 @@
 </head>
 <body>
 
-    <div class="page page-login">
-        <h3 class="login-h3">帐号注册 </h3>
-        <fieldset class="accountInfo">
-            <form id="new_user" method="post" action="@Url.Action("SignUp")">
+<div class="page page-login">
+    <h3 class="login-h3">帐号注册 </h3>
+    <fieldset class="accountInfo">
+        <form id="new_user" method="post" action="@Url.Action("SignUp")">
 
-                <div class="login">
-                    <div style="display: none;" class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span></span>
-                    </div>
-                    <p class="form-group" style="margin-top: 0;">
-                        <label class="form-control-label required login-input-label" for="user_email">用户名：</label>
-
-                            <input autofocus="autofocus" class="form-control textEntry" type="text" value="" name="username" id="user_email" required="required" data-parsley-type="alphanum" data-parsley-remote-validator="validateUsername">
-
-                    </p>
-                    <p class="form-group">
-                        <label class="form-control-label required login-input-label" for="user_password">密 码：</label><input class="form-control textEntry" type="password" name="password" id="user_password" required="required" data-parsley-id="5464"><ul class="parsley-errors-list" id="parsley-id-5464"></ul>
-                    </p>
-                    <p class="form-group">
-                        <label class="form-control-label required login-input-label" for="user_password_confim">确认密码：</label><input class="form-control textEntry" type="password" name="confimpassword" id="user_password_confim" required="required" data-parsley-equalto="#user_password"><ul class="parsley-errors-list" id="parsley-id-5465"></ul>
-                    </p>
-                    <p class="form-group">
-                        <label class="form-control-label required login-input-label" for="user_email">邮 箱：</label><input class="form-control textEntry" type="email" name="email" id="user_email" required="required" data-parsley-id="5467"><ul class="parsley-errors-list" id="parsley-id-5467"></ul>
-                    </p>
+            <div class="login">
+                <div style="display: none;" class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span></span>
                 </div>
-                <p class="submitButton" style="margin-top: 25px;">
-                    <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
-                    <a class="btn-link text-warning float-right" style="float: right;color:#696969" href="/Login">已经是会员?</a>
-                </p>
-            </form>
-        </fieldset>
+                <p class="form-group" style="margin-top: 0;">
+                    <label class="form-control-label required login-input-label" for="user_email">用户名：</label>
 
-    </div>
+                    <input autofocus="autofocus" class="form-control textEntry" type="text" value="" name="username" id="user_email" required="required" data-parsley-type="alphanum" data-parsley-remote-validator="validateUsername">
+
+                </p>
+                <p class="form-group">
+                    <label class="form-control-label required login-input-label" for="user_password">密 码：</label><input class="form-control textEntry" type="password" name="password" id="user_password" required="required" data-parsley-id="5464"><ul class="parsley-errors-list" id="parsley-id-5464"></ul>
+                </p>
+                <p class="form-group">
+                    <label class="form-control-label required login-input-label" for="user_password_confim">确认密码：</label><input class="form-control textEntry" type="password" name="confimpassword" id="user_password_confim" required="required" data-parsley-equalto="#user_password"><ul class="parsley-errors-list" id="parsley-id-5465"></ul>
+                </p>
+                <p class="form-group">
+                    <label class="form-control-label required login-input-label" for="user_email">邮 箱：</label><input class="form-control textEntry" type="email" name="email" id="user_email" required="required" data-parsley-id="5467"><ul class="parsley-errors-list" id="parsley-id-5467"></ul>
+                </p>
+            </div>
+            <p class="submitButton" style="margin-top: 25px;">
+                <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
+                <a class="btn-link text-warning float-right" style="float: right; color: #696969" href="/Login">已经是会员?</a>
+            </p>
+        </form>
+    </fieldset>
+
+</div>
+    <footer style="border-top: 1px solid #eeeeee; margin-top: 20px; height: 50px; line-height: 50px;">
+        <div class="container">
+            <small class="pull-left text-muted copyright">
+                © 2016-2017 7077物流管理系统  <a href="https://m.kuaidi100.com/" target="_blank">快递查询</a>
+            </small>
+
+            <div class="social-icons pull-right" style="">
+
+            </div>
+        </div>
+    </footer>
     <style>
         input[type=text], input[type=password], input[type=email], input[type=tel] {
             width: 200px;

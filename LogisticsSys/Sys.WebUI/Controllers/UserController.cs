@@ -287,5 +287,20 @@ namespace Sys.WebUI.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult AdminEditPassword(string username, string password)
+        {
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            {
+                var provider = new UserLoginProvider();
+                var _user = provider.GetUser(username);
+                if (_user != null)
+                {
+                    _user.Password = DEncrypt.Md5(password);
+                    provider.UpdateUser(_user);
+                }
+            }
+            return Content("ok");
+        }
     }
 }

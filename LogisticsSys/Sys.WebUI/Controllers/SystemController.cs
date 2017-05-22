@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using Sys.BLL;
 using Sys.Common;
+using Sys.Dal;
 using Sys.Entities;
 using Sys.WebUI.Models;
 
@@ -286,5 +288,114 @@ namespace Sys.WebUI.Controllers
 
         #endregion
 
+        #region 汇率管理
+        public ActionResult Exchange()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Exchange(string evalue, string edate)
+        {
+            if (!string.IsNullOrEmpty(evalue))
+            {
+                var entity = new SysExchange();
+                entity.CurrentDate = Convert.ToDateTime(edate);
+                entity.ExchangeValue = Convert.ToDouble(evalue);
+                entity.CreateDate = DateTime.Now;
+                DALFactory.ExchangeDao.Insert(entity);
+            }
+            return Content("ok");
+        }
+
+        public ActionResult DeleteExchange(string[] ids)
+        {
+            if (ids != null)
+            {
+                foreach (var id in ids)
+                {
+                    var entity = new SysExchange();
+                    entity.Id = Convert.ToInt64(id);
+                    DALFactory.ExchangeDao.Delete(entity);
+                }
+            }
+            return Content("ok");
+        }
+
+        public ActionResult GetExchangePager(string search, int offset, int limit, string order, string sort)
+        {
+            var btdata = new BootstrapTableData<SysExchange>();
+            var where = string.Empty;
+            if (!string.IsNullOrEmpty(search))
+                where = string.Format(@" and [AirPrice1] Like '%{0}%'", search);
+            btdata.total = DALFactory.ExchangeDao.GetPagerCount(where);
+            btdata.rows = DALFactory.ExchangeDao.GetPagerList(where, offset, limit, order, sort);
+
+            return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 二维码管理
+
+        public ActionResult QrCode()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult QrCode(HttpPostedFileBase inputdim1, HttpPostedFileBase inputdim2)
+        {
+            if (inputdim1 != null)
+            {
+                string fileSave = Server.MapPath("~/ExcelFiles/QrCodes/");
+                //获取文件的扩展名
+                string extName = Path.GetExtension(inputdim1.FileName);
+                //得到一个新的文件名称
+                string newName = DateTime.Now.ToString("yyyyMMddhhmmssfff") + extName;
+                inputdim1.SaveAs(Path.Combine(fileSave, newName));
+                var data = DALFactory._dbconfigDao.GetAll();
+                var entity = data.FirstOrDefault(x => x.Key.Equals("AllPayQrCodePath"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "AllPayQrCodePath";
+                    entity.Value = newName;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory._dbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = newName;
+                    DALFactory._dbconfigDao.Update(entity);
+                }
+            }
+            if (inputdim2 != null)
+            {
+                string fileSave = Server.MapPath("~/ExcelFiles/QrCodes/");
+                //获取文件的扩展名
+                string extName = Path.GetExtension(inputdim2.FileName);
+                //得到一个新的文件名称
+                string newName = DateTime.Now.ToString("yyyyMMddhhmmssfff") + extName;
+                inputdim2.SaveAs(Path.Combine(fileSave, newName));
+                var data = DALFactory._dbconfigDao.GetAll();
+                var entity = data.FirstOrDefault(x => x.Key.Equals("WebChatPayQrCodePath"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "WebChatPayQrCodePath";
+                    entity.Value = newName;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory._dbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = newName;
+                    DALFactory._dbconfigDao.Update(entity);
+                }
+            }
+            return Json("ok");
+        }
+        #endregion
     }
 }

@@ -202,15 +202,30 @@
                                     货物运输类型
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <label>
-                                        <input type="radio" checked="checked" value="1" name="transportationway" data-text="陆运"> 陆运
-                                    </label>
-                                    <label>
-                                        <input type="radio" value="2" name="transportationway" data-text="空运"> 空运
-                                    </label>
+                                    @*<label>
+                                            <input type="radio" checked="checked" value="1" name="transportationway" data-text="陆运"> 陆运
+                                        </label>
+                                        <label>
+                                            <input type="radio" value="2" name="transportationway" data-text="空运"> 空运
+                                        </label>*@
                                     @*<label>
                                             <input type="radio" value="3" name="transportationway"> 海运
                                         </label>*@
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" value="2" name="transportationway" data-text="空运" checked>
+                                            空运
+                                        </label>
+                                        <small class="text-warning">(无起送重量，运费=85*重量)</small>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" value="1" name="transportationway" data-text="陆运">
+                                            陆运
+                                        </label>
+                                        <small class="text-warning">(起送重量50kg起，运费=60*重量)</small>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -219,7 +234,7 @@
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" onblur="goodstypeblur(this)" class="form-control col-md-7 col-xs-12">
-                                    <code><small>如不报价，金额填0</small></code>
+                                    <small class="text-warning">如不报价，金额填0</small>
                                 </div>
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="policyfee">
                                     保单费用(元)
@@ -251,22 +266,27 @@
                                     今日汇率
                                 </label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <input type="text" id="exchangerate" name="exchangerate" value="6.6" readonly="readonly" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="exchangerate" name="exchangerate" value="@ViewBag.ExchangeValue" readonly="readonly" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="isoutphoto">
                                     是否开箱拍照
                                 </label>
-                                <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <label class="checkbox-inline">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    @*<label class="checkbox-inline">
                                         <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1" style="margin-top: -5px;">
 
-                                    </label>
+                                    </label>*@
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1"> <small class="text-warning">如果开箱，每个订单结算时+5元</small>
+                                        </label>
+                                      
+                                    </div>
+                                 
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <code><small>如果开箱，每个订单结算时+5元</small></code>
-                                </div>
+                               
                             </div>
                             @* <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="abudgetprice">
@@ -360,11 +380,11 @@
                                             <input type="radio" checked="checked" value="1" name="packagingway" data-text="不打包">不打包
                                         </label>*@
                                     <label>
-                                        <input type="radio" value="2" name="packagingway" data-text="普通打包"> 普通打包
+                                        <input type="radio" value="2" name="packagingway" data-text="普通打包" checked> 普通打包
                                     </label>
                                     @*<label>
-                                        <input type="radio" value="3" name="packagingway" data-text="特殊泡沫打包"> 特殊泡沫打包
-                                    </label>*@
+                                            <input type="radio" value="3" name="packagingway" data-text="特殊泡沫打包"> 特殊泡沫打包
+                                        </label>*@
                                 </div>
                             </div>
                             <div class="form-group">
@@ -391,7 +411,7 @@
                                     货物明细 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" required="required" data-parsley-group="form3"  data-show-preview="false">
+                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" required="required" data-parsley-group="form3" data-show-preview="false">
                                 </div>
                             </div>
                             @*<div class="form-group">
@@ -443,86 +463,86 @@
                             </div>
                         </div>
                     </div>
-                <div id="step-5">
-                    <h5>寄件人信息</h5>
-                    <hr/>
-                    <table class="table table-bordered table-striped">
-                        <tbody>
-                        <tr>
-                            <td class="col-xs-3">俄罗斯城市：</td>
-                            <td><span id="td1"></span></td>
-                            <td class="col-xs-3">俄罗斯需要自提地址：</td>
-                            <td><span id="td2"></span></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">购物网站网址：</td>
-                            <td><span id="td3"></span></td>
-                            <td>预计到达国外仓时间：</td>
-                            <td><span id="td4"></span></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">订单号：</td>
-                            <td colspan="3"><span id="td5"></span></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">货物类型：</td>
-                            <td><span id="td6"></span></td>
-                            <td>货物运输类型：</td>
-                            <td><span id="td7"></span></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">保价价值(元)： </td>
-                            <td><span id="td8"></span></td>
-                            <td>保单费用(元)：</td>
-                            <td><span id="td9"></span></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">是否到付：</td>
-                            <td><span id="td10"></span></td>
-                            <td scope="row">到付金额：</td>
-                            <td><span id="td21"></span></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <h5>收件人信息</h5>
-                    <hr />
-                    <table class="table table-bordered table-striped">
-                        <tbody>
-                            <tr>
-                                <td class="col-xs-3">订单省份：</td>
-                                <td><span id="td11"></span></td>
-                                <td class="col-xs-3">订单详细地址：</td>
-                                <td><span id="td12"></span></td>
-                            </tr>
-                            <tr>
-                                <td scope="row">收件人姓名：</td>
-                                <td><span id="td13"></span></td>
-                                <td>收件人电话：</td>
-                                <td><span id="td14"></span></td>
-                            </tr>
-                            @*<tr>
-                                <td scope="row">打包方式</td>
-                                <td colspan="3"><span id="td15"></span></td>
-                            </tr>*@
-                            <tr>
-                                <td scope="row">打包方式：</td>
-                                <td><span id="td16"></span></td>
-                                <td>快递方式：</td>
-                                <td><span id="td17"></span></td>
-                            </tr>
-                            <tr>
-                                <td scope="row">货物明细： </td>
-                                <td><span id="td18"></span></td>
-                                <td>快递公司：</td>
-                                <td><span id="td19"></span></td>
-                            </tr>
-                            <tr>
-                                <td scope="row">备注：</td>
-                                <td colspan="3"><span id="td20"></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <div id="step-5">
+                        <h5>寄件人信息</h5>
+                        <hr />
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td class="col-xs-3">俄罗斯城市：</td>
+                                    <td><span id="td1"></span></td>
+                                    <td class="col-xs-3">俄罗斯需要自提地址：</td>
+                                    <td><span id="td2"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">购物网站网址：</td>
+                                    <td><span id="td3"></span></td>
+                                    <td>预计到达国外仓时间：</td>
+                                    <td><span id="td4"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">订单号：</td>
+                                    <td colspan="3"><span id="td5"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">货物类型：</td>
+                                    <td><span id="td6"></span></td>
+                                    <td>货物运输类型：</td>
+                                    <td><span id="td7"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">保价价值(元)： </td>
+                                    <td><span id="td8"></span></td>
+                                    <td>保单费用(元)：</td>
+                                    <td><span id="td9"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">是否到付：</td>
+                                    <td><span id="td10"></span></td>
+                                    <td scope="row">到付金额：</td>
+                                    <td><span id="td21"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h5>收件人信息</h5>
+                        <hr />
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td class="col-xs-3">订单省份：</td>
+                                    <td><span id="td11"></span></td>
+                                    <td class="col-xs-3">订单详细地址：</td>
+                                    <td><span id="td12"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">收件人姓名：</td>
+                                    <td><span id="td13"></span></td>
+                                    <td>收件人电话：</td>
+                                    <td><span id="td14"></span></td>
+                                </tr>
+                                @*<tr>
+                                        <td scope="row">打包方式</td>
+                                        <td colspan="3"><span id="td15"></span></td>
+                                    </tr>*@
+                                <tr>
+                                    <td scope="row">打包方式：</td>
+                                    <td><span id="td16"></span></td>
+                                    <td>快递方式：</td>
+                                    <td><span id="td17"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">货物明细： </td>
+                                    <td><span id="td18"></span></td>
+                                    <td>快递公司：</td>
+                                    <td><span id="td19"></span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">备注：</td>
+                                    <td colspan="3"><span id="td20"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </form>
             </div>
             <!-- End SmartWizard Content -->

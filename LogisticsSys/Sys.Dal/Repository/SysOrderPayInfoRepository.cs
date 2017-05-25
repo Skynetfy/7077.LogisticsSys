@@ -217,5 +217,27 @@ namespace Sys.Dal.Repository
             return null;
         }
 
+        public IList<SysOrderPayInfo> GetList(long oid)
+        {
+            try
+            {
+                var sql = @"SELECT [Id]
+      ,[OrderId]
+      ,[CardNumber]
+      ,[PayUserName]
+      ,[PayAmount]
+      ,[IsDelete]
+      ,[CreateDate]
+      ,[Type]
+      ,[CostType]
+                FROM [dbo].[SysOrderPayInfo] where [OrderId]=@OrderId";
+                IList<SysOrderPayInfo> list = baseDao.SelectList<SysOrderPayInfo>(sql);
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用SysActionLogDao时，访问GetListByPage时出错", ex);
+            }
+        }
     }
 }

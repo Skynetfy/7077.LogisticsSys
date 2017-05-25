@@ -405,7 +405,7 @@ namespace Sys.WebUI.Controllers
         }
         public ActionResult PayOrder(string id, string type)
         {
-            var dbconfig = DALFactory._dbconfigDao.GetAll();
+            var dbconfig = DALFactory.DbconfigDao.GetAll();
             var allpay = dbconfig.FirstOrDefault(x => x.Key.Equals("AllPayQrCodePath"));
             if (allpay != null)
             {
@@ -435,7 +435,7 @@ namespace Sys.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PayOrder(string type, string orderId, string cardnumber, string cardusername, string optionsRadios)
+        public ActionResult PayOrder(string type, string orderId, string cardnumber, string cardusername, string optionsRadios, string payamount)
         {
             if (!string.IsNullOrEmpty(orderId) && !string.IsNullOrEmpty(type))
             {
@@ -465,7 +465,7 @@ namespace Sys.WebUI.Controllers
                     payinfo.Type = Convert.ToInt32(optionsRadios);
                     payinfo.OrderId = order.Id;
                     payinfo.CardNumber = !string.IsNullOrEmpty(Request.Form["cardnumber" + optionsRadios]) ? Request.Form["cardnumber" + optionsRadios] : "";
-                    payinfo.PayAmount = order.OrderRealPrice;
+                    payinfo.PayAmount = Convert.ToDecimal(payamount);
                     payinfo.PayUserName = !string.IsNullOrEmpty(Request.Form["cardusername" + optionsRadios]) ? Request.Form["cardusername" + optionsRadios] : "";
                     payinfo.CreateDate = DateTime.Now;
                     payinfo.CostType = type ?? "";
@@ -547,7 +547,6 @@ namespace Sys.WebUI.Controllers
         [HttpPost]
         public ActionResult Complete(string id)
         {
-
             if (!string.IsNullOrEmpty(id))
             {
                 var userprovider = new UserLoginProvider();
@@ -560,6 +559,8 @@ namespace Sys.WebUI.Controllers
                     {
                         order.Status = (int)OrderStatusEnum.Successed;
                         orderprovider.UpdateOrderInfo(order);
+
+                        //反积分
                     }
                 }
             }

@@ -29,8 +29,10 @@ namespace Sys.Dal
         private static readonly ISysOrderPayInfoRepository _orderpayDao = new SysOrderPayInfoRepository();
         private static readonly ISysExchangeRepository _exchangeDao = new SysExchangeRepository();
 
-        public static readonly ISysDbConfigRepository _dbconfigDao=new SysDbConfigRepository();
+        private static readonly ISysDbConfigRepository _dbconfigDao = new SysDbConfigRepository();
+        private static readonly ISysIntegralLogRepository _DbIntegralLogDao = new SysIntegralLogRepository();
 
+        public static ISysIntegralLogRepository IntegralLogDao { get { return _DbIntegralLogDao; } }
         public static ISysDbConfigRepository DbconfigDao
         {
             get { return _dbconfigDao; }

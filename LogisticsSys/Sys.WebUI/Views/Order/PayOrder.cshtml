@@ -43,7 +43,8 @@
     <form id="form1" method="post" action="@Url.Action("PayOrder")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <input type="hidden" name="orderId" value="@ViewBag.Id"/>
-            <input type="hidden" name="type" value="@ViewBag.type" />
+            <input type="hidden" name="type" value="@ViewBag.type"/>
+            <input type="hidden" name="payamount" value="0"/>
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab">
                     <a class="collapsed" role="button" aria-expanded="true" aria-controls="collapseOne">
@@ -151,21 +152,28 @@
     <script>
         $(function () {
             var type = '@ViewBag.Type';
-            if (type == 'ArrivePay')
+            if (type == 'ArrivePay') {
+                $('[name=payamount]').val('@ViewBag.ArrivePayValue');
                 $('#p1').show();
-            if (type == 'WorldPay')
+            }
+            if (type == 'WorldPay') {
+                $('[name=payamount]').val('@ViewBag.OrderFrees');
                 $('#p2').show();
-            if (type == 'ChinaPay')
+            }
+            if (type == 'ChinaPay') {
+                $('[name=payamount]').val('@ViewBag.DomesticCost');
                 $('#p3').show();
-            $('.collapsed').on('click',function() {
-                        // do something…
-                        var id = $(this).attr('aria-controls');
-                        $('.panel-collapse').removeClass('in');
-                        $('.panel-collapse').css('height', 0);
-                        $('#' + id).addClass('in');
-                        $('#' + id).removeAttr('style');
+            }
+
+            $('.collapsed').on('click', function () {
+                // do something…
+                var id = $(this).attr('aria-controls');
+                $('.panel-collapse').removeClass('in');
+                $('.panel-collapse').css('height', 0);
+                $('#' + id).addClass('in');
+                $('#' + id).removeAttr('style');
             });
-            $('#myButton').click(function() {
+            $('#myButton').click(function () {
                 $('#form1').ajaxSubmit({
                     resetForm: true,
                     beforeSubmit: function (arr, $form, options) {
@@ -200,7 +208,7 @@
                     }
                 });
             })
-           
+
             @*$('#btn-save').click(function (e) {
                 $.post('@Url.Action("PayOrder")', { id: "@ViewBag.Id", pay: 1 }, function (e) {
                     if (e === 'ok') {

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Sys.Dal;
 using Sys.WebUI.Models;
 using System.Web.Security;
+using Sys.BLL;
+using Sys.BLL.Users;
 
 
 namespace Sys.WebUI.Controllers
@@ -29,10 +31,17 @@ namespace Sys.WebUI.Controllers
         }
         public ActionResult Header()
         {
-            var identity = User.Identity as FormsIdentity;
-            var userDate = identity.Ticket.UserData;
-            var users = userDate.Split('|');
-            ViewBag.UserName = users[0];
+            ViewBag.UserName = User.Identity.Name;
+            var userprovider = new UserLoginProvider();
+            var _user = userprovider.GetUser(User.Identity.Name);
+            if (_user != null)
+            {
+                var cusmer = UserService.GetCustomerByUid(_user.Id);
+                if (cusmer != null)
+                {
+                    ViewBag.Integral = cusmer.Integral;
+                }
+            }
             return View();
         }
         public ActionResult About()

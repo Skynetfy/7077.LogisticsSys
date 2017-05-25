@@ -51,5 +51,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "WebChatNo",ColumnType=DbType.AnsiString,Length=50)]
         public string WebChatNo { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Integral", ColumnType = DbType.Int32)]
+        public int Integral { get; set; }
     }
 }

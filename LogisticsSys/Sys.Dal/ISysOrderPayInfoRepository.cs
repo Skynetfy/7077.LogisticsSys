@@ -9,5 +9,6 @@ namespace Sys.Dal
 {
     public interface ISysOrderPayInfoRepository : IBaseRepository<SysOrderPayInfo>
     {
+        IList<SysOrderPayInfo> GetList(long oid);
     }
 }

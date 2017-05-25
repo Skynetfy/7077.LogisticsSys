@@ -55,5 +55,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "ChinaPayStatus", ColumnType = DbType.Int32)]
         public int ChinaPayStatus { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "UserId", ColumnType = DbType.Int64)]
+        public long UserId { get; set; }
     }
 }

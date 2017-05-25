@@ -36,7 +36,7 @@
                 <tr>
                     <th data-field="stats" data-checkbox="true"></th>
                     <th data-field="UserName">用户名</th>
-                    <th data-field="RuleType" data-formatter="ruleFormatter">角色</th>
+                    <th data-field="Integral" data-formatter="ruleFormatter">积分</th>
                     <th data-field="DisplayName">姓名</th>
                     <th data-field="Email">邮箱</th>
                     <th data-field="Phone">手机</th>
@@ -56,7 +56,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="userinfo">
 
             </div>
 
@@ -88,7 +88,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="confimpassword">
-                           确认密码<span class="required">*</span>
+                            确认密码<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="password" id="confimpassword" name="confimpassword" required="required" data-parsley-equalto="#password" class="form-control col-md-7 col-xs-12">
@@ -99,6 +99,43 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" onclick="" id="btn-save">保存</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="admineditjifen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              
+                <form class="form-horizontal form-label-left" id="jifform" method="post" action="@Url.Action("EditJifen")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                    <input type="hidden" name="uid" id="uid" value="" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">
+                            原积分
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <img src="~/images/star.png" width="18px" style="vertical-align: top;" /> <span id="oldjifen">0</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="confimpassword">
+                            新积分 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="jifen" name="jifen" required="required" data-parsley-type="number" data-parsley-min="0" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="" id="btn-jifensave">保存</button>
             </div>
         </div>
 
@@ -118,7 +155,7 @@
 </script>
 
 <script>
-   
+
     $(function () {
         $('[data-toggle="table"]').bootstrapTable();
         var $table = $('#table'),
@@ -143,7 +180,7 @@
                 });
             }
         });
-     
+
         $('#btn-add').click(function (e) {
             $('#addModel .modal-body').load("@Url.Action("EditProfile")?username=admin&ww #form-main-page", function () {
                 var id = $('[name=id]').val();
@@ -198,6 +235,21 @@
                 });
             }
         });
+        $('#btn-jifensave').click(function () {
+            if ($('#jifform').parsley().validate() && $('#jifform').parsley().isValid()) {
+                $('#jifform').ajaxSubmit({
+                    resetForm: true,
+                    error: function (xhr, status, error, $form) {
+
+                    },
+                    success: function (responseText, statusText) {
+
+                        $('[data-toggle="table"]').bootstrapTable('refresh');
+                        $('#admineditjifen').modal('hide');
+                    }
+                });
+            }
+        });
         $('[role=complementary] ul.bs-docs-sidenav>li>a')
            .click(function (e) {
                e.stopPropagation();
@@ -234,6 +286,32 @@
                 $('#shouhuodizhidiv').hide();
                 $('[tabindex=customer]').hide();
             }
+
+            $('#editprofilelink')
+          .click(function (e) {
+              $('#userinfo').load("@Url.Action("EditProfile")?username=" + row.UserName + " #addform1", function(e) {
+                  $('#btn-save1')
+           .click(function () {
+               if ($('#addform1').parsley().validate() && $('#addform1').parsley().isValid()) {
+                   $('#addform1')
+                       .ajaxSubmit({
+                           resetForm: true,
+                           error: function (xhr, status, error, $form) {
+                               $('#alert-infor').removeClass('alert-success');
+                               $('#alert-infor').addClass('alert-danger');
+                               $('#alert-infor').show();
+                               $('#alert-infor label').html(error);
+                               $('#alert-infor strong').html('错误！');
+                           },
+                           success: function (responseText, statusText) {
+                               $('[data-toggle="table"]').bootstrapTable('refresh');
+                               $('#addModel').modal('hide');
+                           }
+                       });
+               }
+           });
+              });
+          });
         });
 
 
@@ -254,19 +332,21 @@
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">查看</button>');
         h.push(' <button  type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#admineditModel" onclick="editdate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">重置密码</button>');
+        if ('@ViewBag.RuleType' == 'Admin') {
+            h.push(' <button  type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#admineditjifen" onclick="editjifen(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">修改积分</button>');
+        }
         return h.join('');
+    }
+    function editjifen(row) {
+        $('#uid').val(row.Id);
+        $('#oldjifen').html(row.Integral);
     }
     function editdate(row) {
         $('#username').val(row.UserName);
     }
     function ruleFormatter(value, row, index) {
-        var h = "";
-        if (row.RuleType === 'Admin')
-            h = "管理员";
-        if (row.RuleType === 'Customer')
-            h = "客户";
-        if (row.RuleType === 'Agents')
-            h = "代理商";
+        var h = '<img src="~/images/star.png" width="18px" style="vertical-align: top;" /> ' + value;
+
         return h;
     }
 </script>

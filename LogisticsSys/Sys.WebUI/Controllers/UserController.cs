@@ -17,6 +17,12 @@ namespace Sys.WebUI.Controllers
         // GET: User
         public ActionResult Index()
         {
+            var provider = new UserLoginProvider();
+            var _user = provider.GetUser(User.Identity.Name);
+            if (_user != null)
+            {
+                ViewBag.RuleType = _user.RuleType;
+            }
             return View();
         }
         public ActionResult EditProfile(string username)
@@ -54,6 +60,16 @@ namespace Sys.WebUI.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditJifen(string uid, string jifen)
+        {
+            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(jifen))
+            {
+                UserService.AdminUpdateIntegral(Convert.ToInt64(uid),Convert.ToInt32(jifen));
+            }
+            return Content("ok");
         }
         [HttpPost]
         public ActionResult EditProfile(string id, string username, string email, string displayname, string phone, string city, string address, string qq, string webchat)
@@ -255,6 +271,7 @@ namespace Sys.WebUI.Controllers
                         ViewBag.Address = cusmer.Address;
                         ViewBag.QQNumber = cusmer.QQNumber;
                         ViewBag.WebChatNo = cusmer.WebChatNo;
+                        ViewBag.Integral = cusmer.Integral;
                     }
                 }
                 else if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))

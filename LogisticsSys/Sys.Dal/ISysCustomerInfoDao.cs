@@ -7,6 +7,6 @@ namespace Sys.Dal
     public partial interface ISysCustomerInfoDao : IBaseRepository<SysCustomerInfo>
     {
 
-
+        SysCustomerInfo FindByUid(long id);
     }
 }

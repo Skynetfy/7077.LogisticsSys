@@ -145,6 +145,32 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用SysCustomerInfoDao时，访问FindByPk时出错", ex);
             }
         }
+
+        public SysCustomerInfo FindByUid(long id)
+        {
+            try
+            {
+                string sql = @"SELECT TOP 1  [Id]
+      ,[UserId]
+      ,[CustomerID]
+      ,[CityId]
+      ,[Phone]
+      ,[Address]
+      ,[WebChatNo]
+      ,[QQNumber]
+      ,[CreateDate]
+      ,[IsDelete]
+      ,[Integral]
+                  FROM [dbo].[SysCustomerInfo] (NOLOCK) where [UserId]=@Uid";
+                StatementParameterCollection parameters=new StatementParameterCollection();
+                parameters.AddInParameter("@Uid",DbType.Int64, id);
+                return baseDao.SelectFirst<SysCustomerInfo>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用SysCustomerInfoDao时，访问FindByPk时出错", ex);
+            }
+        }
         /// <summary>
         /// 获取所有SysCustomerInfo信息
         /// </summary>

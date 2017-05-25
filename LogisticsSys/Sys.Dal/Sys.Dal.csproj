@@ -58,6 +58,7 @@
     <Compile Include="ISysDbConfigRepository.cs" />
     <Compile Include="ISysExchangeRepository.cs" />
     <Compile Include="ISysGoodsTypeRepository.cs" />
+    <Compile Include="ISysIntegralLogRepository.cs" />
     <Compile Include="ISysKuaiDiComRepository.cs" />
     <Compile Include="ISysLogisticsInfoRepository.cs" />
     <Compile Include="ISysOrderInfoRepository.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Repository\SysDbConfigRepository.cs" />
     <Compile Include="Repository\SysExchangeRepository.cs" />
     <Compile Include="Repository\SysGoodsTypeRepository.cs" />
+    <Compile Include="Repository\SysIntegralLogRepository.cs" />
     <Compile Include="Repository\SysKuaiDiComRepository.cs" />
     <Compile Include="Repository\SysLogisticsInfoRepository.cs" />
     <Compile Include="Repository\SysOrderInfoRepository.cs" />

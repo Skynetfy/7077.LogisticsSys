@@ -15,47 +15,57 @@
         <table class="table" id="tableinfo">
             <tbody>
                 <tr id="cusnotr">
-                    <th style="width: 30%">客户编号：</th>
+                    <td style="width: 20%">客户编号：</td>
                     <td><span id="khbh">@ViewBag.CustomerID</span></td>
                 </tr>
                 <tr>
-                    <th>用户名：</th>
+                    <td>用户名：</td>
                     <td><span id="yhm">@ViewBag.username</span></td>
                 </tr>
+                @{
+                    if (ViewBag.Integral != null)
+                    {
+                        <tr>
+                            <td>积分：</td>
+                            <td><span id="jf"><img src="~/images/star.png" width="18px" style="vertical-align: top;" /> @ViewBag.Integral</span></td>
+                        </tr>
+                    }
+                }
+
                 <tr>
-                    <th>姓名：</th>
+                    <td>姓名：</td>
                     <td><span id="xm">@ViewBag.displayname</span></td>
                 </tr>
                 <tr>
-                    <th>邮箱：</th>
+                    <td>邮箱：</td>
                     <td><span id="yx">@ViewBag.Email</span></td>
                 </tr>
                 <tr>
-                    <th>手机号码：</th>
+                    <td>手机号码：</td>
                     <td><span id="sjhm">@ViewBag.phone</span></td>
                 </tr>
                 <tr id="suozaichengshitr">
-                    <th>所在城市：</th>
+                    <td>所在城市：</td>
                     <td><span id="szcs">@ViewBag.CityName</span></td>
                 </tr>
                 <tr tabindex="customer">
-                    <th>详细地址：</th>
+                    <td>详细地址：</td>
                     <td><span id="xxdz">@ViewBag.Address</span></td>
                 </tr>
                 <tr tabindex="customer">
-                    <th>微信：</th>
+                    <td>微信：</td>
                     <td><span id="wx">@ViewBag.WebChatNo</span></td>
                 </tr>
                 <tr id="qqtr">
-                    <th>QQ：</th>
+                    <td>QQ：</td>
                     <td><span id="qq">@ViewBag.QQNumber</span></td>
                 </tr>
                 <tr>
-                    <th>创建时间：</th>
+                    <td>创建时间：</td>
                     <td><span>@ViewBag.CreateDate</span></td>
                 </tr>
                 <tr tabindex="customer">
-                    <th></th>
+                    <td></td>
                     <td><a class="btn btn-success btn-sm" id="editprofilelink"><i class="glyphicon glyphicon-edit"></i>编辑</a></td>
                 </tr>
             </tbody>

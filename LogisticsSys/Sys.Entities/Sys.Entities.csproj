@@ -65,6 +65,7 @@
     <Compile Include="SysDbConfig.cs" />
     <Compile Include="SysExchange.cs" />
     <Compile Include="SysGoodsType.cs" />
+    <Compile Include="SysIntegralLog.cs" />
     <Compile Include="SysKuaiDiCom.cs" />
     <Compile Include="SysLogisticsInfo.cs" />
     <Compile Include="SysOrderInfo.cs" />

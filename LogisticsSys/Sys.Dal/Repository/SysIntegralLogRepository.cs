@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arch.Data;
-using Arch.Data.DbEngine;
 using Sys.Entities;
 
 namespace Sys.Dal.Repository
 {
-    public class SysOrderPayInfoRepository: ISysOrderPayInfoRepository
+    public partial class SysIntegralLogRepository: ISysIntegralLogRepository
     {
-
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
 
         //特别注意，如果是可空类型，建议以如下方式使用：
@@ -73,11 +70,11 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysActionLog">SysActionLog实体对象</param>
         /// <returns>新增的主键,如果有多个主键则返回第一个主键</returns>
-        public long Insert(SysOrderPayInfo sysActionLog)
+        public long Insert(SysIntegralLog sysActionLog)
         {
             try
             {
-                Object result = baseDao.Insert<SysOrderPayInfo>(sysActionLog);
+                Object result = baseDao.Insert<SysIntegralLog>(sysActionLog);
                 long iReturn = Convert.ToInt64(result);
                 return iReturn;
             }
@@ -91,11 +88,11 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysActionLog">SysActionLog实体对象</param>
         /// <returns>状态代码</returns>
-        public int Update(SysOrderPayInfo sysActionLog)
+        public int Update(SysIntegralLog sysActionLog)
         {
             try
             {
-                Object result = baseDao.Update<SysOrderPayInfo>(sysActionLog);
+                Object result = baseDao.Update<SysIntegralLog>(sysActionLog);
                 int iReturn = Convert.ToInt32(result);
 
                 return iReturn;
@@ -110,11 +107,11 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="sysActionLog">SysActionLog实体对象</param>
         /// <returns>状态代码</returns>
-        public int Delete(SysOrderPayInfo sysActionLog)
+        public int Delete(SysIntegralLog sysActionLog)
         {
             try
             {
-                Object result = baseDao.Delete<SysOrderPayInfo>(sysActionLog);
+                Object result = baseDao.Delete<SysIntegralLog>(sysActionLog);
                 int iReturn = Convert.ToInt32(result);
 
                 return iReturn;
@@ -129,11 +126,11 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns>SysActionLog信息</returns>
-        public SysOrderPayInfo FindByPk(long id)
+        public SysIntegralLog FindByPk(long id)
         {
             try
             {
-                return baseDao.GetByKey<SysOrderPayInfo>(id);
+                return baseDao.GetByKey<SysIntegralLog>(id);
             }
             catch (Exception ex)
             {
@@ -144,11 +141,11 @@ namespace Sys.Dal.Repository
         /// 获取所有SysActionLog信息
         /// </summary>
         /// <returns>SysActionLog列表</returns>
-        public IList<SysOrderPayInfo> GetAll()
+        public IList<SysIntegralLog> GetAll()
         {
             try
             {
-                return baseDao.GetAll<SysOrderPayInfo>();
+                return baseDao.GetAll<SysIntegralLog>();
             }
             catch (Exception ex)
             {
@@ -180,7 +177,7 @@ namespace Sys.Dal.Repository
         /// <param name="pagesize">每页记录数</param>
         /// <param name="pageNo">页码</param>
         /// <returns>检索结果</returns>
-        public IList<SysOrderPayInfo> GetListByPage(SysOrderPayInfo obj, int pagesize, int pageNo)
+        public IList<SysIntegralLog> GetListByPage(SysIntegralLog obj, int pagesize, int pageNo)
         {
             try
             {
@@ -189,7 +186,7 @@ namespace Sys.Dal.Repository
                 sbSql.Append(@"select ActionDate, ActionDesc, CreateDate, Id, IsDelete, LogType, OrderId, UserId from SysActionLog (nolock) ");
                 sbSql.Append(" order by Id desc ");
                 sbSql.Append(string.Format("OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY", (pageNo - 1) * pagesize, pagesize));
-                IList<SysOrderPayInfo> list = baseDao.SelectList<SysOrderPayInfo>(sbSql.ToString());
+                IList<SysIntegralLog> list = baseDao.SelectList<SysIntegralLog>(sbSql.ToString());
                 return list;
             }
             catch (Exception ex)
@@ -198,11 +195,11 @@ namespace Sys.Dal.Repository
             }
         }
 
-        public bool BulkInsert(IList<SysOrderPayInfo> list)
+        public bool BulkInsert(IList<SysIntegralLog> list)
         {
             try
             {
-                return baseDao.BulkInsert<SysOrderPayInfo>(list);
+                return baseDao.BulkInsert<SysIntegralLog>(list);
             }
             catch (Exception ex)
             {
@@ -214,34 +211,10 @@ namespace Sys.Dal.Repository
             return 0;
         }
 
-        public IList<SysOrderPayInfo> GetPagerList(string search, int offset, int limit, string order, string sort)
+        public IList<SysIntegralLog> GetPagerList(string search, int offset, int limit, string order, string sort)
         {
             return null;
         }
 
-        public IList<SysOrderPayInfo> GetList(long oid)
-        {
-            try
-            {
-                var sql = @"SELECT [Id]
-      ,[OrderId]
-      ,[CardNumber]
-      ,[PayUserName]
-      ,[PayAmount]
-      ,[IsDelete]
-      ,[CreateDate]
-      ,[Type]
-      ,[CostType]
-                FROM [dbo].[SysOrderPayInfo] (nolock) where [OrderId]=@OrderId and [IsDelete]=0";
-                StatementParameterCollection parameters = new StatementParameterCollection();
-                parameters.AddInParameter("@OrderId", DbType.Int64, oid);
-                IList<SysOrderPayInfo> list = baseDao.SelectList<SysOrderPayInfo>(sql, parameters);
-                return list;
-            }
-            catch (Exception ex)
-            {
-                throw new DalException("调用SysActionLogDao时，访问GetListByPage时出错", ex);
-            }
-        }
     }
 }

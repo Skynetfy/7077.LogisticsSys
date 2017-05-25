@@ -43,5 +43,7 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "Phone", ColumnType = DbType.AnsiString, Length = 50)]
         public string Phone { get; set; }
+
+        public int Integral;
     }
 }

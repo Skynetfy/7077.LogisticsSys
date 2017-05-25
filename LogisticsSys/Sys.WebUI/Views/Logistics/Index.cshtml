@@ -41,10 +41,11 @@
 <script>
     $(function () {
         $('#searchbtn').click(function () {
-            $('body').mLoading("show"); //显示loading组件
+           
             var no = $('#wldh').val();
             var com = $('select').val();
             if (no != null && no !== '') {
+                $('body').mLoading("show"); //显示loading组件
                 $('#wlcontent').load('@Url.Action("LogisticsDetail")?type=2&single=' + no.trim() + "&com=" + com,function(e) {
                     $('body').mLoading("hide"); //显示loading组件
                 });

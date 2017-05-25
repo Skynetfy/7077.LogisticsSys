@@ -352,7 +352,7 @@ namespace Sys.WebUI.Controllers
                 //得到一个新的文件名称
                 string newName = DateTime.Now.ToString("yyyyMMddhhmmssfff") + extName;
                 inputdim1.SaveAs(Path.Combine(fileSave, newName));
-                var data = DALFactory._dbconfigDao.GetAll();
+                var data = DALFactory.DbconfigDao.GetAll();
                 var entity = data.FirstOrDefault(x => x.Key.Equals("AllPayQrCodePath"));
                 if (entity == null)
                 {
@@ -361,12 +361,12 @@ namespace Sys.WebUI.Controllers
                     entity.Value = newName;
                     entity.CreateDate = DateTime.Now;
                     entity.IsDelete = false;
-                    DALFactory._dbconfigDao.Insert(entity);
+                    DALFactory.DbconfigDao.Insert(entity);
                 }
                 else
                 {
                     entity.Value = newName;
-                    DALFactory._dbconfigDao.Update(entity);
+                    DALFactory.DbconfigDao.Update(entity);
                 }
             }
             if (inputdim2 != null)
@@ -377,7 +377,7 @@ namespace Sys.WebUI.Controllers
                 //得到一个新的文件名称
                 string newName = DateTime.Now.ToString("yyyyMMddhhmmssfff") + extName;
                 inputdim2.SaveAs(Path.Combine(fileSave, newName));
-                var data = DALFactory._dbconfigDao.GetAll();
+                var data = DALFactory.DbconfigDao.GetAll();
                 var entity = data.FirstOrDefault(x => x.Key.Equals("WebChatPayQrCodePath"));
                 if (entity == null)
                 {
@@ -386,12 +386,12 @@ namespace Sys.WebUI.Controllers
                     entity.Value = newName;
                     entity.CreateDate = DateTime.Now;
                     entity.IsDelete = false;
-                    DALFactory._dbconfigDao.Insert(entity);
+                    DALFactory.DbconfigDao.Insert(entity);
                 }
                 else
                 {
                     entity.Value = newName;
-                    DALFactory._dbconfigDao.Update(entity);
+                    DALFactory.DbconfigDao.Update(entity);
                 }
             }
             return Json("ok");

@@ -130,7 +130,12 @@ namespace Sys.BLL.Users
 
         public List<SysUser> GetPagerDataList(string search, int offset, int limit, string order, string sort)
         {
-            return userDao.GetPagerList(search, offset, limit, order, sort).ToList();
+            var data = userDao.GetPagerList(search, offset, limit, order, sort).ToList();
+            foreach (var item in data)
+            {
+                item.Integral = DALFactory.CustomerInfoDao.FindByUid(item.Id).Integral;
+            }
+            return data;
         }
     }
 }

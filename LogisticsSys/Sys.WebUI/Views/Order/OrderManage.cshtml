@@ -847,7 +847,7 @@
         //       JSON.stringify(row).replace(/\"/g, "\'") +
         //        ')" value="">发货</button>');
 
-        if (row.Status >= 2 && row.PayStatus == 2 && '@ViewBag.Role' == 'Admin')
+        if (row.Status >= 2 && row.PayStatus >= 1 && row.PayStatus <= 2 && '@ViewBag.Role' == 'Admin')
             h
                 .push(' <button  type="button" class="btn btn-warning btn-xs"  data-toggle="modal" data-target="#shoukuanModel" onclick="shoukuandate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +

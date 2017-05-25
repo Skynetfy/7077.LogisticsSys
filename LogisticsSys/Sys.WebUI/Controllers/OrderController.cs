@@ -561,6 +561,7 @@ namespace Sys.WebUI.Controllers
                         orderprovider.UpdateOrderInfo(order);
 
                         //反积分
+                        UserService.UpdateCustomerIntegral(order.Id, order.UserId);
                     }
                 }
             }

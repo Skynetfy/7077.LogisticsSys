@@ -1,0 +1,75 @@
+﻿@using Sys.Common
+@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("用户管理", "积分管理", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <table id="table"
+               data-toggle="table"
+                 data-show-refresh="true"
+               data-show-toggle="true"
+               data-url="@Url.Action("GetIntegralLogPagerList")"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-sort-name="CreateDate"
+               data-sort-order="desc"
+               data-page-size="50"
+               data-page-list="[20,50,100]"
+               data-pagination-first-text="首页"
+               data-pagination-pre-text="上一页"
+               data-pagination-next-text="下一页"
+               data-pagination-last-text="尾页">
+            <thead>
+                <tr>
+                    <th data-field="DisplayName">姓名</th>
+                    <th data-field="CreateDate">日期</th>
+                    <th data-field="Value" data-formatter="ruleFormatter">积分</th>
+                    <th data-field="Desc">来源/用途</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<style>
+    #form-main-page {
+        float: none;
+    }
+</style>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    function ruleFormatter(value, row, index) {
+        if (row.Type == -1)
+            return "<span class='text-danger'>" + value + "</span>";
+        if (row.Type == 0)
+            return "<span class='text-muted'>" + value + "</span>";
+        if (row.Type == 1)
+            return "<span class='text-success'>+" + value + "</span>";
+    }
+    $(function () {
+        $('[data-toggle="table"]').bootstrapTable();
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                       .load(href,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+    });
+</script>

@@ -430,12 +430,58 @@ namespace Sys.WebUI.Controllers
                     ViewBag.ArrivePayValue = order.ArrivePayValue;
                     ViewBag.OrderFrees = order.OrderFrees;
                     ViewBag.DomesticCost = order.DomesticCost;
+                    if (CostTypeEnums.WorldPay == costType)
+                    {
+                        var addressorder = orderprovider.GetAddressInfoByOid(order.Id);
+                        if (addressorder != null)
+                        {
+                            ViewBag.GoodsWeight = addressorder.GoodsWeight;
+                            ViewBag.TransportationWay = addressorder.GoodsWeight >= 50
+                                ? addressorder.TransportationWay
+                                : 2;
+                            var _user = UserService.GetCustomerByUid(order.UserId);
+                            if (_user != null)
+                            {
+                                ViewBag.Integral = _user.Integral;
+                                decimal realWeight = _user.Integral / 10000;
+                                int realIntegral = 0;
+                                decimal youhuiPrice = 0;
+                                decimal realPrice = order.OrderFrees;
+                                if (addressorder.GoodsWeight < realWeight)
+                                {
+                                    realWeight = Math.Abs(addressorder.GoodsWeight);
+                                }
+                                realIntegral = (int)realWeight * 10000;
+                                ViewBag.RealIntegral = realIntegral;
+                                if (addressorder.GoodsWeight >= 50)
+                                {
+                                    if (addressorder.TransportationWay == 2)
+                                    {
+                                        youhuiPrice = realWeight * 85;
+                                    }
+                                    else
+                                    {
+                                        youhuiPrice = realWeight * 60;
+                                    }
+                                }
+                                else
+                                {
+                                    youhuiPrice = realWeight * 85;
+                                }
+                                ViewBag.YouHuiPrice = youhuiPrice;
+                                realPrice = (realPrice - youhuiPrice) >= 0 ? realPrice - youhuiPrice : 0;
+                                ViewBag.RealPrice = realPrice;
+                                ViewBag.ekc = DEncrypt.Md5(realIntegral.ToString() + realPrice.ToString());
+                            }
+                        }
+                    }
+
                 }
             }
             return View();
         }
         [HttpPost]
-        public ActionResult PayOrder(string type, string orderId, string cardnumber, string cardusername, string optionsRadios, string payamount)
+        public ActionResult PayOrder(string type, string orderId, string cardnumber, string cardusername, string optionsRadios, string payamount, string realprice, string useJifen, string keyongjifen, string ekc)
         {
             if (!string.IsNullOrEmpty(orderId) && !string.IsNullOrEmpty(type))
             {
@@ -444,7 +490,7 @@ namespace Sys.WebUI.Controllers
                 if (order != null && order.PayStatus <= (int)OrderPayStatusEnum.Recivied)
                 {
                     CostTypeEnums costType = (CostTypeEnums)Enum.Parse(typeof(CostTypeEnums), type);
-                    //order.PayStatus = (int)OrderPayStatusEnum.Paied;
+                    decimal p = Convert.ToDecimal(payamount);
                     switch (costType)
                     {
                         case CostTypeEnums.ArrivePay:
@@ -452,12 +498,32 @@ namespace Sys.WebUI.Controllers
                             break;
                         case CostTypeEnums.WorldPay:
                             order.WorldPayStatus = 1;
+                            if (!string.IsNullOrEmpty(useJifen) && !string.IsNullOrEmpty(ekc))
+                            {
+                                var e = DEncrypt.Md5(keyongjifen + realprice);
+                                if (e.Equals(ekc))
+                                {
+                                    var _user = UserService.GetCustomerByUid(order.UserId);
+                                    if (_user != null)
+                                    {
+                                        var integl = _user.Integral;
+                                        var realIntegral = (integl / 10000) * 10000;
+                                        if (Convert.ToInt32(keyongjifen) <= realIntegral && realIntegral > 0)
+                                        {
+                                            UserService.UpdateIntegral(_user.Id, Convert.ToInt32(keyongjifen) * -1, -1, "付款使用");
+                                            p = Convert.ToDecimal(realprice);
+                                        }
+
+                                    }
+                                }
+                            }
                             break;
                         case CostTypeEnums.ChinaPay:
                             order.ChinaPayStatus = 1;
                             break;
                     }
-                    if (order.ArrivePayStatus == 1 && order.WorldPayStatus == 1 && order.ChinaPayStatus == 1)
+                    var addressorder = orderprovider.GetAddressInfoByOid(order.Id);
+                    if ((order.ArrivePayStatus == 1 || !addressorder.IsArrivePay) && order.WorldPayStatus == 1 && order.ChinaPayStatus == 1)
                         order.PayStatus = (int)OrderPayStatusEnum.Paied;
                     orderprovider.UpdateOrderInfo(order);
 
@@ -465,7 +531,7 @@ namespace Sys.WebUI.Controllers
                     payinfo.Type = Convert.ToInt32(optionsRadios);
                     payinfo.OrderId = order.Id;
                     payinfo.CardNumber = !string.IsNullOrEmpty(Request.Form["cardnumber" + optionsRadios]) ? Request.Form["cardnumber" + optionsRadios] : "";
-                    payinfo.PayAmount = Convert.ToDecimal(payamount);
+                    payinfo.PayAmount = p;
                     payinfo.PayUserName = !string.IsNullOrEmpty(Request.Form["cardusername" + optionsRadios]) ? Request.Form["cardusername" + optionsRadios] : "";
                     payinfo.CreateDate = DateTime.Now;
                     payinfo.CostType = type ?? "";

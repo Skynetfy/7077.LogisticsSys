@@ -208,12 +208,33 @@ namespace Sys.Dal.Repository
         }
         public int GetPagerCount(string search)
         {
-            return 0;
+            try
+            {
+                String sql = string.Format(@"SELECT count(1) from SysIntegralLog  with (nolock) where [IsDelete]=0 {0} ", search);
+                object obj = baseDao.ExecScalar(sql);
+                int ret = Convert.ToInt32(obj);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问Count时出错", ex);
+            }
         }
 
         public IList<SysIntegralLog> GetPagerList(string search, int offset, int limit, string order, string sort)
         {
-            return null;
+            try
+            {
+                String sql = string.Format(@"SELECT TOP {1} * from SysIntegralLog(nolock)
+                  where Id not in(
+                  SELECT TOP {4} Id FROM SysIntegralLog(NOLOCK)
+                  WHERE 0=0 {0} ORDER BY {2} {3}) {0} ORDER BY {2} {3} ", search, limit, sort, order, offset);
+                return baseDao.SelectList<SysIntegralLog>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
         }
 
     }

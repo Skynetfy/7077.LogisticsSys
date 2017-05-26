@@ -15,4 +15,3 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Newt
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\bin\Debug\Newtonsoft.Json.xml
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Entities\bin\Debug\Newtonsoft.Json.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Entities\bin\Debug\Newtonsoft.Json.xml
-E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojResolveAssemblyReference.cache

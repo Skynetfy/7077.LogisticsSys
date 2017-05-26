@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Sys.BLL;
 using Sys.BLL.Users;
 using Sys.Common;
+using Sys.Dal;
 using Sys.Entities;
 using Sys.WebUI.Models;
 
@@ -67,7 +68,7 @@ namespace Sys.WebUI.Controllers
         {
             if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(jifen))
             {
-                UserService.AdminUpdateIntegral(Convert.ToInt64(uid),Convert.ToInt32(jifen));
+                UserService.AdminUpdateIntegral(Convert.ToInt64(uid), Convert.ToInt32(jifen), 0, "管理员重置");
             }
             return Content("ok");
         }
@@ -318,6 +319,30 @@ namespace Sys.WebUI.Controllers
                 }
             }
             return Content("ok");
+        }
+
+        public ActionResult Points()
+        {
+            return View();
+        }
+
+        public ActionResult GetIntegralLogPagerList(string search, int offset, int limit, string order, string sort)
+        {
+            var btdata = new BootstrapTableData<SysIntegralLog>();
+            var where = " ";
+            var provider = new UserLoginProvider();
+            var user = provider.GetUser(User.Identity.Name);
+            if (user != null && user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
+                where = string.Format(@" and [Uid]=" + user.Id);
+            btdata.total = DALFactory.IntegralLogDao.GetPagerCount(where);
+            var data= DALFactory.IntegralLogDao.GetPagerList(where, offset, limit, order, sort).ToList();
+            foreach (var item in data)
+            {
+                item.DisplayName = DALFactory.SysUserDao.FindByPk(item.Uid).DisplayName;
+            }
+            btdata.rows = data;
+
+            return Json(btdata, JsonRequestBehavior.AllowGet);
         }
     }
 }

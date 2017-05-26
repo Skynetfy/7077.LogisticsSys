@@ -22,146 +22,190 @@
     </style>
 </head>
 <body>
-<div class="container">
-    
-    <div class="bs-callout bs-callout-info" id="callout-glyphicons-location">
-        <h4>订单支付</h4>
-        <p>订单号：@ViewBag.SNO</p>
-        <p id="p1" style="display: none;">到付金额：￥@ViewBag.ArrivePayValue</p>
-        <p id="p2" style="display: none;">国际段费用：￥@ViewBag.OrderFrees</p>
-        <p id="p3" style="display: none;">国内段费用：￥@ViewBag.DomesticCost</p>
-    </div>
-    <div class="alert alert-warning" role="alert">
-        <strong>提示!</strong> 由于系统尚在升级中，暂不支持在线付款，请联系管理员进行线下付款，非常的抱歉给您带来的不变，谢谢您的使用。
-    </div>
-    <div class="alert alert-success" role="alert" id="successmsg" style="display: none;">
-        <strong>付款确认成功!</strong>
-    </div>
-    <div class="alert alert-danger" role="alert" id="errormsg" style="display: none;">
-        <strong>付款确认失败!</strong><span></span>
-    </div>
-    <form id="form1" method="post" action="@Url.Action("PayOrder")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <input type="hidden" name="orderId" value="@ViewBag.Id"/>
-            <input type="hidden" name="type" value="@ViewBag.type"/>
-            <input type="hidden" name="payamount" value="0"/>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab">
-                    <a class="collapsed" role="button" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" value="1" checked>
-                                支付宝支付
-                            </label>
+    <div class="container">
+
+        <div class="bs-callout bs-callout-info" id="callout-glyphicons-location">
+            <h4>订单支付</h4>
+            <p>订单号：@ViewBag.SNO</p>
+            <p id="p1" style="display: none;">到付金额：￥@ViewBag.ArrivePayValue</p>
+            <p id="p2" style="display: none;">国际段费用：￥@ViewBag.OrderFrees</p>
+            <p id="p3" style="display: none;">国内段费用：￥@ViewBag.DomesticCost</p>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            <strong>提示!</strong> 由于系统尚在升级中，暂不支持在线付款，请联系管理员进行线下付款，非常的抱歉给您带来的不变，谢谢您的使用。
+        </div>
+        <div class="alert alert-success" role="alert" id="successmsg" style="display: none;">
+            <strong>付款确认成功!</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" id="errormsg" style="display: none;">
+            <strong>付款确认失败!</strong><span></span>
+        </div>
+        <form id="form1" method="post" action="@Url.Action("PayOrder")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <input type="hidden" name="orderId" value="@ViewBag.Id" />
+                <input type="hidden" name="type" value="@ViewBag.type" />
+                <input type="hidden" name="payamount" value="0" />
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <a class="collapsed" role="button" aria-expanded="true" aria-controls="collapseOne">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" value="1" checked>
+                                    支付宝支付
+                                </label>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="col-md-8" style="margin-top: 20px;">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">支付宝账号</label> <span class="required">*</span>
+                                        <input type="text" class="form-control" name="cardnumber1" required="required" data-parsley-group="form1" placeholder="支付宝账号">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
+                                        <input type="text" class="form-control" name="cardusername1" required="required" data-parsley-group="form1" placeholder="姓 名">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="text-align: center;">
+                                <img src="~/ExcelFiles/QrCodes/@ViewBag.AllPay" width="50%" />
+                            </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="col-md-8" style="margin-top: 20px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" value="2">
+                                    微信支付
+                                </label>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="col-md-8" style="margin-top: 20px;">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">微信号</label> <span class="required">*</span>
+                                        <input type="text" class="form-control" name="cardnumber2" required="required" data-parsley-group="form2" placeholder="微信号">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
+                                        <input type="text" class="form-control" name="cardusername2" required="required" data-parsley-group="form2" placeholder="姓 名">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="text-align: center;">
+                                <img src="~/ExcelFiles/QrCodes/@ViewBag.WebPay" width="50%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" value="3">
+                                    银联卡支付
+                                </label>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <div class="col-md-4" style="margin-top: 20px;">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">支付宝账号</label> <span class="required">*</span>
-                                    <input type="text" class="form-control" name="cardnumber1" required="required" data-parsley-group="form1" placeholder="支付宝账号">
+                                    <label for="exampleInputEmail1">卡 号</label> <span class="required">*</span>
+                                    <input type="text" class="form-control" name="cardnumber3" required="required" data-parsley-group="form3" placeholder="卡 号">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
-                                    <input type="text" class="form-control" name="cardusername1" required="required" data-parsley-group="form1" placeholder="姓 名">
+                                    <input type="text" class="form-control" name="cardusername3" required="required" data-parsley-group="form3" placeholder="姓 名">
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-6" style="text-align: center;">
 
-                        <div class="col-md-6" style="text-align: center;">
-                            <img src="~/ExcelFiles/QrCodes/@ViewBag.AllPay" width="50%"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" value="2">
-                                微信支付
-                            </label>
-                        </div>
-                    </a>
+            <div class="panel panel-default" id="pannljifen" style="display: none;">
+                <div class="panel-body text-right">
+                    <p>用户总积分 @ViewBag.Integral，可用积分 <span class="text-success">@ViewBag.RealIntegral</span></p>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="useJifen" id="useJifen" value="1" onchange="usejifen(this)"> 使用积分
+                        </label>
+                    </div>
+                    <p class="help-block">* 客户每支付一元即可获赠一积分.每10000积分可免收一公斤国际段费用</p>
                 </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="col-md-8" style="margin-top: 20px;">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">微信号</label> <span class="required">*</span>
-                                    <input type="text" class="form-control" name="cardnumber2" required="required" data-parsley-group="form2" placeholder="微信号">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
-                                    <input type="text" class="form-control" name="cardusername2" required="required" data-parsley-group="form2" placeholder="姓 名">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="text-align: center;">
-                            <img src="~/ExcelFiles/QrCodes/@ViewBag.WebPay" width="50%"/>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <div class="alert alert-danger  text-right" role="alert">
+                        <p id="youhuijiagep" style="display: none;">积分优惠：-￥@ViewBag.YouHuiPrice</p>
+                        实付款：<strong style="font-size: 24px;" id="realcost">￥ 0</strong>
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                    <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" value="3">
-                                银联卡支付
-                            </label>
-                        </div>
-                    </a>
+            <input type="hidden" id="keyongjifen" name="keyongjifen" value="@ViewBag.RealIntegral" />
+            <input type="hidden" id="realprice" name="realprice" value="0" />
+            <input type="hidden" id="youhuiprice" name="youhuiprice" value="@ViewBag.RealPrice" />
+            <input type="hidden" name="ekc" value="@ViewBag.ekc" />
+            <div class="row text-right">
+                <div class="col-md-12">
+                    <input type="button" id="myButton" class="btn btn-primary" value="确认付款" />
                 </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                        <div class="col-md-4" style="margin-top: 20px;">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">卡 号</label> <span class="required">*</span>
-                                <input type="text" class="form-control"  name="cardnumber3" required="required" data-parsley-group="form3" placeholder="卡 号">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
-                                <input type="text" class="form-control" name="cardusername3" required="required" data-parsley-group="form3" placeholder="姓 名">
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="text-align: center;">
 
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="row text-right">
-            <div class="col-md-12">
-                <input type="button" id="myButton" class="btn btn-primary" value="确认付款" />
-            </div>
-
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/parsley.min.js"></script>
     <script src="~/Scripts/jquery.form.js"></script>
     <script>
+        function usejifen(o) {
+            if ($(o).is(':checked')) {
+                var ty = $("#youhuiprice").val();
+                $('#realprice').val(ty);
+                $("#realcost").html('￥' + ty);
+                $('#youhuijiagep').show();
+            } else {
+                $('#realprice').val($('[name=payamount]').val());
+                $("#realcost").html('￥' + $('[name=payamount]').val());
+                $('#youhuijiagep').hide();
+            }
+        }
+
         $(function () {
             var type = '@ViewBag.Type';
             if (type == 'ArrivePay') {
                 $('[name=payamount]').val('@ViewBag.ArrivePayValue');
+                $("#realcost").html('￥' + '@ViewBag.ArrivePayValue');
+                $('#realprice').val(@ViewBag.ArrivePayValue);
                 $('#p1').show();
             }
             if (type == 'WorldPay') {
                 $('[name=payamount]').val('@ViewBag.OrderFrees');
+                $("#realcost").html('￥' + '@ViewBag.OrderFrees');
+                $('#realprice').val(@ViewBag.OrderFrees);
                 $('#p2').show();
+                $('#pannljifen').show();
+
             }
             if (type == 'ChinaPay') {
                 $('[name=payamount]').val('@ViewBag.DomesticCost');
+                $("#realcost").html('￥' + '@ViewBag.DomesticCost');
+                $('#realprice').val(@ViewBag.DomesticCost);
                 $('#p3').show();
             }
 
@@ -193,9 +237,10 @@
                             $('#successmsg').show();
                             $('#form1').hide();
                             setTimeout(function () {
-                                window.opener = null; window.close();
+                                window.opener = null;
+                                window.close();
                             },
-                       5000);
+                                5000);
                         } else {
                             $('#errormsg').show();
                             $('#errormsg span').html(e);
@@ -203,32 +248,32 @@
                             setTimeout(function () {
                                 $('#errormsg').hide();
                             },
-                       5000);
+                                5000);
                         }
                     }
                 });
             })
 
             @*$('#btn-save').click(function (e) {
-                $.post('@Url.Action("PayOrder")', { id: "@ViewBag.Id", pay: 1 }, function (e) {
-                    if (e === 'ok') {
+            $.post('@Url.Action("PayOrder")', { id: "@ViewBag.Id", pay: 1 }, function (e) {
+                if (e === 'ok') {
+                    $('#errormsg').hide();
+                    $('#successmsg').show();
+                    setTimeout(function () {
+                        window.opener = null; window.close();
+                    },
+               5000);
+                } else {
+                    $('#errormsg').show();
+                    $('#errormsg span').html(e);
+                    $('#successmsg').hide();
+                    setTimeout(function () {
                         $('#errormsg').hide();
-                        $('#successmsg').show();
-                        setTimeout(function () {
-                            window.opener = null; window.close();
-                        },
-                   5000);
-                    } else {
-                        $('#errormsg').show();
-                        $('#errormsg span').html(e);
-                        $('#successmsg').hide();
-                        setTimeout(function () {
-                            $('#errormsg').hide();
-                        },
-                   5000);
-                    }
-                });
-            })*@
+                    },
+               5000);
+                }
+            });
+        })*@
         })
     </script>
 </body>

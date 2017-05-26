@@ -57,6 +57,8 @@ namespace Sys.BLL.Users
         [Description("System/Exchange")]
         汇率管理,
         [Description("System/QrCode")]
-        二维码管理
+        二维码管理,
+        [Description("User/Points")]
+        积分管理
     }
 }

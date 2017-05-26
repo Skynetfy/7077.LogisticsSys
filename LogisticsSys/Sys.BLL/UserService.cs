@@ -80,8 +80,27 @@ namespace Sys.BLL
             return agentInfoDao.GetPagerList(search, offset, limit, order,
                 sort).ToList();
         }
-
-        public static void AdminUpdateIntegral(long uid, int value)
+        public static void UpdateIntegral(long uid, int value, int type, string msg)
+        {
+            var customer = customerDao.FindByPk(uid);
+            if (customer != null)
+            {
+                customer.Integral += value;
+                customer.CreateDate = DateTime.Now;
+                if (customerDao.Update(customer) > 0)
+                {
+                    var log = new SysIntegralLog();
+                    log.Type = type;
+                    log.Uid = uid;
+                    log.Value = value;
+                    log.Desc = msg;
+                    log.CreateDate = DateTime.Now;
+                    log.IsDelete = false;
+                    DALFactory.IntegralLogDao.Insert(log);
+                }
+            }
+        }
+        public static void AdminUpdateIntegral(long uid, int value, int type, string msg)
         {
             var customer = customerDao.FindByUid(uid);
             if (customer != null)
@@ -91,10 +110,10 @@ namespace Sys.BLL
                 if (customerDao.Update(customer) > 0)
                 {
                     var log = new SysIntegralLog();
-                    log.Type = 1;
+                    log.Type = type;
                     log.Uid = uid;
                     log.Value = value;
-                    log.Desc = "管理员重置积分";
+                    log.Desc = msg;
                     log.CreateDate = DateTime.Now;
                     log.IsDelete = false;
                     DALFactory.IntegralLogDao.Insert(log);

@@ -32,5 +32,7 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "Desc", ColumnType = DbType.String,Length = 500)]
         public string Desc { get; set; }
+
+        public string DisplayName { get; set; }
     }
 }

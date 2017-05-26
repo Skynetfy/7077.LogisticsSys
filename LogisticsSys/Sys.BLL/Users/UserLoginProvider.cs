@@ -63,6 +63,7 @@ namespace Sys.BLL.Users
                     dic5.Add(MenusEnum.客户管理.ToString(), MenusEnum.客户管理.GetDescription());
                     //dic5.Add(MenusEnum.客户管理.ToString(), MenusEnum.客户管理.GetDescription());
                     dic5.Add(MenusEnum.代理商管理.ToString(), MenusEnum.代理商管理.GetDescription());
+                    dic5.Add(MenusEnum.积分管理.ToString(), MenusEnum.积分管理.GetDescription());
                     dic.Add(MenusEnum.用户管理.ToString(), dic5);
 
                     var dic2=new Dictionary<string,string>();

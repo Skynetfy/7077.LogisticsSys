@@ -439,11 +439,11 @@
                 h.push('<p><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?type=ChinaPay&id=' + row.Id + '">支付</a></p>');
             }
             else if (value === 1) {
-                h.push(row.CourierFees);
+                h.push(row.DomesticCost);
                 h.push(' <span class="text-muted">（已支付）</span>');
             }
             else if (value === -1) {
-                h.push(row.CourierFees);
+                h.push(row.DomesticCost);
                 h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
             }
         } else {

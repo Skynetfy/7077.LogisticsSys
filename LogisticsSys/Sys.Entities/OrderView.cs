@@ -208,5 +208,10 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "DomesticCost", ColumnType = DbType.Decimal)]
         public decimal DomesticCost { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Integral", ColumnType = DbType.Int32)]
+        public int Integral { get; set; }
     }
 }

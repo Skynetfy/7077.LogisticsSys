@@ -510,7 +510,7 @@ namespace Sys.WebUI.Controllers
                                         var realIntegral = (integl / 10000) * 10000;
                                         if (Convert.ToInt32(keyongjifen) <= realIntegral && realIntegral > 0)
                                         {
-                                            UserService.UpdateIntegral(_user.Id, Convert.ToInt32(keyongjifen) * -1, -1, "付款使用");
+                                            UserService.UpdateIntegral(order, Convert.ToInt32(keyongjifen));
                                             p = Convert.ToDecimal(realprice);
                                         }
 
@@ -627,7 +627,7 @@ namespace Sys.WebUI.Controllers
                         orderprovider.UpdateOrderInfo(order);
 
                         //反积分
-                        UserService.UpdateCustomerIntegral(order.Id, order.UserId);
+                        UserService.UpdateCustomerIntegral(order.Id, order.UserId, order.Integral);
                     }
                 }
             }

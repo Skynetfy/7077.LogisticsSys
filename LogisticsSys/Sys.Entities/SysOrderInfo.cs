@@ -59,5 +59,9 @@ namespace Sys.Entities
         /// </summary>
         [Column(Name = "UserId", ColumnType = DbType.Int64)]
         public long UserId { get; set; }
+        /// <summary>
+        /// </summary>
+        [Column(Name = "Integral", ColumnType = DbType.Int32)]
+        public int Integral { get; set; }
     }
 }

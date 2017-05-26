@@ -80,24 +80,12 @@ namespace Sys.BLL
             return agentInfoDao.GetPagerList(search, offset, limit, order,
                 sort).ToList();
         }
-        public static void UpdateIntegral(long uid, int value, int type, string msg)
+        public static void UpdateIntegral(SysOrderInfo order, int value)
         {
-            var customer = customerDao.FindByPk(uid);
-            if (customer != null)
+            if (order != null)
             {
-                customer.Integral += value;
-                customer.CreateDate = DateTime.Now;
-                if (customerDao.Update(customer) > 0)
-                {
-                    var log = new SysIntegralLog();
-                    log.Type = type;
-                    log.Uid = uid;
-                    log.Value = value;
-                    log.Desc = msg;
-                    log.CreateDate = DateTime.Now;
-                    log.IsDelete = false;
-                    DALFactory.IntegralLogDao.Insert(log);
-                }
+                order.Integral = value;
+                DALFactory.SysOrderInfoDao.Update(order);
             }
         }
         public static void AdminUpdateIntegral(long uid, int value, int type, string msg)
@@ -120,13 +108,26 @@ namespace Sys.BLL
                 }
             }
         }
-        public static void UpdateCustomerIntegral(long oid, long uid)
+        public static void UpdateCustomerIntegral(long oid, long uid, int upoints)
         {
             var customer = customerDao.FindByUid(uid);
             if (customer != null)
             {
                 var paylogs = DALFactory.OrderPayInfoDao.GetList(oid);
                 var sumIn = paylogs.Sum(x => x.PayAmount);
+                if (upoints > 0)
+                {
+                    customer.Integral -= upoints;
+                    var log1 = new SysIntegralLog();
+                    log1.Type = -1;
+                    log1.Uid = uid;
+                    log1.Value = (int) sumIn;
+                    log1.Desc = "积分抵重量";
+                    log1.CreateDate = DateTime.Now;
+                    log1.IsDelete = false;
+                    DALFactory.IntegralLogDao.Insert(log1);
+                }
+
                 customer.Integral += (int)Math.Floor(sumIn);
                 customer.CreateDate = DateTime.Now;
                 if (customerDao.Update(customer) > 0)

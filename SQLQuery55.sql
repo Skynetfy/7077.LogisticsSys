@@ -23,6 +23,10 @@ Create table SysIntegralLog(
   [Uid] bigint default 0 not null,
   [Type] int default 0 not null,
   Value int default 0 not null,
+  [Desc] nvarchar(500) default '' not null,
   CreateDate datetime default getdate() not null,
   IsDelete bit default 0 not null
 )
+
+alter table SysOrderInfo
+add [Integral] int default 0 not null

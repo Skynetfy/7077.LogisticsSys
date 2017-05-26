@@ -242,7 +242,7 @@ input.parsley-error, textarea.parsley-error, select.parsley-error {
             }
 
             .wizard_horizontal ul.wizard_steps li a.selected:before, .step_no {
-                background: #b61e0b;
+                background: #34495E;
                 color: #fff;
             }
 
@@ -375,7 +375,7 @@ input.parsley-error, textarea.parsley-error, select.parsley-error {
             }
 
             .wizard_verticle ul.wizard_steps li a.selected:before, .step_no {
-                background: #b61e0b;
+                background: #34495E;
                 color: #fff;
             }
 
@@ -478,8 +478,8 @@ span.tag a {
     }
 
     .nav > li > a.current {
-        color: #b61e0b;
-        border-left: 3px solid #b61e0b;
+        color: #1b809e;
+        border-left: 3px solid #1b809e;
         background-color: #eee;
     }
 
@@ -487,7 +487,7 @@ span.tag a {
     text-align: left;
     background: #ffffff;
     height: 73px;
-    /*background-image: url('../images/bg.jpg');*/
+    background-image: url('../images/bg.jpg');
 }
 
     .main-header .branding {
@@ -514,7 +514,7 @@ span.tag a {
 /* main-navigation */
 .main-navigation {
     /*text-align: center;*/
-    background: #d2220b;
+    background: #ffffff;
     border-top: 1px solid #ebebeb;
     margin-bottom: 20px;
     border-bottom: 2px solid #e1e1e1;
@@ -532,20 +532,19 @@ span.tag a {
         }
 
             .main-navigation .menu li.nav-current {
-                border-bottom: 2px solid #b61e0b;
+                border-bottom: 2px solid #34b1c4;
                 margin-bottom: -2px;
-                    background: #b61e0b;
             }
 
             .main-navigation .menu li a {
-                color: #fff;
+                color: #505050;
                 line-height: 4em;
                 display: block;
                 padding: 0 21px;
             }
 
             .main-navigation .menu li:hover > a {
-                color: #fff;
+                color: #34b1c4;
                 text-decoration: none;
             }
 
@@ -656,15 +655,13 @@ span.tag a {
 }
 
 .userlogin > li > a {
-    color: #333;
+    color: #fff0f5;
 }
 
     .userlogin > li > a:hover {
-        color: #333;
+        color: #fff;
     }
-    .main-header {
-        background: #ebebeb;
-    }
+
 .copyright {
     background: #fff;
     font-size: 13px;

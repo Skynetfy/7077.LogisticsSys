@@ -443,15 +443,15 @@ namespace Sys.WebUI.Controllers
                             if (_user != null)
                             {
                                 ViewBag.Integral = _user.Integral;
-                                decimal realWeight = _user.Integral / 10000;
+                                int realWeight = _user.Integral / 10000;
                                 int realIntegral = 0;
                                 decimal youhuiPrice = 0;
                                 decimal realPrice = order.OrderFrees;
                                 if (addressorder.GoodsWeight < realWeight)
                                 {
-                                    realWeight = Math.Abs(addressorder.GoodsWeight);
+                                    realWeight = (int)Math.Abs(addressorder.GoodsWeight);
                                 }
-                                realIntegral = (int)realWeight * 10000;
+                                realIntegral = realWeight * 10000;
                                 ViewBag.RealIntegral = realIntegral;
                                 if (addressorder.GoodsWeight >= 50)
                                 {

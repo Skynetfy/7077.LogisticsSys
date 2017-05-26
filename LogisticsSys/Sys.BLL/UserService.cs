@@ -121,7 +121,7 @@ namespace Sys.BLL
                     var log1 = new SysIntegralLog();
                     log1.Type = -1;
                     log1.Uid = uid;
-                    log1.Value = (int) sumIn;
+                    log1.Value = -upoints;
                     log1.Desc = "积分抵重量";
                     log1.CreateDate = DateTime.Now;
                     log1.IsDelete = false;

@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="pannljifen" style="display: none;">
+            @*<div class="panel panel-default" id="pannljifen" style="display: none;">
                 <div class="panel-body text-right">
                     <p>用户总积分 @ViewBag.Integral，可用积分 <span class="text-success">@ViewBag.RealIntegral</span></p>
                     <div class="checkbox">
@@ -148,11 +148,11 @@
                     </div>
                     <p class="help-block">* 客户每支付一元即可获赠一积分.每10000积分可免收一公斤国际段费用</p>
                 </div>
-            </div>
+            </div>*@
             <div class="row">
                 <div class="col-md-3 col-md-offset-9">
                     <div class="alert alert-danger  text-right" role="alert">
-                        <p id="youhuijiagep" style="display: none;">积分优惠：-￥@ViewBag.YouHuiPrice</p>
+                        @*<p id="youhuijiagep" style="display: none;">积分优惠：-￥@ViewBag.YouHuiPrice</p>*@
                         实付款：<strong style="font-size: 24px;" id="realcost">￥ 0</strong>
                     </div>
                 </div>
@@ -173,25 +173,25 @@
     <script src="~/Scripts/parsley.min.js"></script>
     <script src="~/Scripts/jquery.form.js"></script>
     <script>
-        function usejifen(o) {
-            if ($(o).is(':checked')) {
-                var ty = $("#youhuiprice").val();
-                $('#realprice').val(ty);
-                $("#realcost").html('￥' + ty);
-                $('#youhuijiagep').show();
-            } else {
-                $('#realprice').val($('[name=payamount]').val());
-                $("#realcost").html('￥' + $('[name=payamount]').val());
-                $('#youhuijiagep').hide();
-            }
-        }
+        //function usejifen(o) {
+        //    if ($(o).is(':checked')) {
+        //        var ty = $("#youhuiprice").val();
+        //        $('#realprice').val(ty);
+        //        $("#realcost").html('￥' + ty);
+        //        $('#youhuijiagep').show();
+        //    } else {
+        //        $('#realprice').val($('[name=payamount]').val());
+        //        $("#realcost").html('￥' + $('[name=payamount]').val());
+        //        $('#youhuijiagep').hide();
+        //    }
+        //}
 
         $(function () {
             var type = '@ViewBag.Type';
             if (type == 'ArrivePay') {
                 $('[name=payamount]').val('@ViewBag.ArrivePayValue');
                 $("#realcost").html('￥' + '@ViewBag.ArrivePayValue');
-                $('#realprice').val(@ViewBag.ArrivePayValue);
+                @*$('#realprice').val(@ViewBag.ArrivePayValue);*@
                 $('#p1').show();
             }
             if (type == 'WorldPay') {
@@ -199,13 +199,13 @@
                 $("#realcost").html('￥' + '@ViewBag.OrderFrees');
                 $('#realprice').val(@ViewBag.OrderFrees);
                 $('#p2').show();
-                $('#pannljifen').show();
+                //$('#pannljifen').show();
 
             }
             if (type == 'ChinaPay') {
                 $('[name=payamount]').val('@ViewBag.DomesticCost');
                 $("#realcost").html('￥' + '@ViewBag.DomesticCost');
-                $('#realprice').val(@ViewBag.DomesticCost);
+                @*$('#realprice').val(@ViewBag.DomesticCost);*@
                 $('#p3').show();
             }
 

@@ -430,51 +430,51 @@ namespace Sys.WebUI.Controllers
                     ViewBag.ArrivePayValue = order.ArrivePayValue;
                     ViewBag.OrderFrees = order.OrderFrees;
                     ViewBag.DomesticCost = order.DomesticCost;
-                    if (CostTypeEnums.WorldPay == costType)
-                    {
-                        var addressorder = orderprovider.GetAddressInfoByOid(order.Id);
-                        if (addressorder != null)
-                        {
-                            ViewBag.GoodsWeight = addressorder.GoodsWeight;
-                            ViewBag.TransportationWay = addressorder.GoodsWeight >= 50
-                                ? addressorder.TransportationWay
-                                : 2;
-                            var _user = UserService.GetCustomerByUid(order.UserId);
-                            if (_user != null)
-                            {
-                                ViewBag.Integral = _user.Integral;
-                                int realWeight = _user.Integral / 10000;
-                                int realIntegral = 0;
-                                decimal youhuiPrice = 0;
-                                decimal realPrice = order.OrderFrees;
-                                if (addressorder.GoodsWeight < realWeight)
-                                {
-                                    realWeight = (int)Math.Abs(addressorder.GoodsWeight);
-                                }
-                                realIntegral = realWeight * 10000;
-                                ViewBag.RealIntegral = realIntegral;
-                                if (addressorder.GoodsWeight >= 50)
-                                {
-                                    if (addressorder.TransportationWay == 2)
-                                    {
-                                        youhuiPrice = realWeight * 85;
-                                    }
-                                    else
-                                    {
-                                        youhuiPrice = realWeight * 60;
-                                    }
-                                }
-                                else
-                                {
-                                    youhuiPrice = realWeight * 85;
-                                }
-                                ViewBag.YouHuiPrice = youhuiPrice;
-                                realPrice = (realPrice - youhuiPrice) >= 0 ? realPrice - youhuiPrice : 0;
-                                ViewBag.RealPrice = realPrice;
-                                ViewBag.ekc = DEncrypt.Md5(realIntegral.ToString() + realPrice.ToString());
-                            }
-                        }
-                    }
+                    //if (CostTypeEnums.WorldPay == costType)
+                    //{
+                    //    var addressorder = orderprovider.GetAddressInfoByOid(order.Id);
+                    //    if (addressorder != null)
+                    //    {
+                    //        ViewBag.GoodsWeight = addressorder.GoodsWeight;
+                    //        ViewBag.TransportationWay = addressorder.GoodsWeight >= 50
+                    //            ? addressorder.TransportationWay
+                    //            : 2;
+                    //        var _user = UserService.GetCustomerByUid(order.UserId);
+                    //        if (_user != null)
+                    //        {
+                    //            ViewBag.Integral = _user.Integral;
+                    //            int realWeight = _user.Integral / 10000;
+                    //            int realIntegral = 0;
+                    //            decimal youhuiPrice = 0;
+                    //            decimal realPrice = order.OrderFrees;
+                    //            if (addressorder.GoodsWeight < realWeight)
+                    //            {
+                    //                realWeight = (int)Math.Abs(addressorder.GoodsWeight);
+                    //            }
+                    //            realIntegral = realWeight * 10000;
+                    //            ViewBag.RealIntegral = realIntegral;
+                    //            if (addressorder.GoodsWeight >= 50)
+                    //            {
+                    //                if (addressorder.TransportationWay == 2)
+                    //                {
+                    //                    youhuiPrice = realWeight * 85;
+                    //                }
+                    //                else
+                    //                {
+                    //                    youhuiPrice = realWeight * 60;
+                    //                }
+                    //            }
+                    //            else
+                    //            {
+                    //                youhuiPrice = realWeight * 85;
+                    //            }
+                    //            ViewBag.YouHuiPrice = youhuiPrice;
+                    //            realPrice = (realPrice - youhuiPrice) >= 0 ? realPrice - youhuiPrice : 0;
+                    //            ViewBag.RealPrice = realPrice;
+                    //            ViewBag.ekc = DEncrypt.Md5(realIntegral.ToString() + realPrice.ToString());
+                    //        }
+                    //    }
+                    //}
 
                 }
             }
@@ -498,25 +498,25 @@ namespace Sys.WebUI.Controllers
                             break;
                         case CostTypeEnums.WorldPay:
                             order.WorldPayStatus = 1;
-                            if (!string.IsNullOrEmpty(useJifen) && !string.IsNullOrEmpty(ekc))
-                            {
-                                var e = DEncrypt.Md5(keyongjifen + realprice);
-                                if (e.Equals(ekc))
-                                {
-                                    var _user = UserService.GetCustomerByUid(order.UserId);
-                                    if (_user != null)
-                                    {
-                                        var integl = _user.Integral;
-                                        var realIntegral = (integl / 10000) * 10000;
-                                        if (Convert.ToInt32(keyongjifen) <= realIntegral && realIntegral > 0)
-                                        {
-                                            UserService.UpdateIntegral(order, Convert.ToInt32(keyongjifen));
-                                            p = Convert.ToDecimal(realprice);
-                                        }
+                            //if (!string.IsNullOrEmpty(useJifen) && !string.IsNullOrEmpty(ekc))
+                            //{
+                            //    var e = DEncrypt.Md5(keyongjifen + realprice);
+                            //    if (e.Equals(ekc))
+                            //    {
+                            //        var _user = UserService.GetCustomerByUid(order.UserId);
+                            //        if (_user != null)
+                            //        {
+                            //            var integl = _user.Integral;
+                            //            var realIntegral = (integl / 10000) * 10000;
+                            //            if (Convert.ToInt32(keyongjifen) <= realIntegral && realIntegral > 0)
+                            //            {
+                            //                UserService.UpdateIntegral(order, Convert.ToInt32(keyongjifen));
+                            //                p = Convert.ToDecimal(realprice);
+                            //            }
 
-                                    }
-                                }
-                            }
+                            //        }
+                            //    }
+                            //}
                             break;
                         case CostTypeEnums.ChinaPay:
                             order.ChinaPayStatus = 1;
@@ -627,7 +627,7 @@ namespace Sys.WebUI.Controllers
                         orderprovider.UpdateOrderInfo(order);
 
                         //反积分
-                        UserService.UpdateCustomerIntegral(order.Id, order.UserId, order.Integral);
+                        //UserService.UpdateCustomerIntegral(order.Id, order.UserId, order.Integral);
                     }
                 }
             }

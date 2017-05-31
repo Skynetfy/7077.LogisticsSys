@@ -108,6 +108,26 @@ namespace Sys.BLL
                 }
             }
         }
+        public static void UpdateIntegral(long uid, int value, int type, string msg)
+        {
+            var customer = customerDao.FindByUid(uid);
+            if (customer != null)
+            {
+                customer.Integral += value;
+                customer.CreateDate = DateTime.Now;
+                if (customerDao.Update(customer) > 0)
+                {
+                    var log = new SysIntegralLog();
+                    log.Type = type;
+                    log.Uid = uid;
+                    log.Value = value;
+                    log.Desc = msg;
+                    log.CreateDate = DateTime.Now;
+                    log.IsDelete = false;
+                    DALFactory.IntegralLogDao.Insert(log);
+                }
+            }
+        }
         public static void UpdateCustomerIntegral(long oid, long uid, int upoints)
         {
             var customer = customerDao.FindByUid(uid);

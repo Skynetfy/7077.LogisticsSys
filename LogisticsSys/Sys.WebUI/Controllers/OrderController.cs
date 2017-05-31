@@ -536,6 +536,12 @@ namespace Sys.WebUI.Controllers
                     payinfo.CreateDate = DateTime.Now;
                     payinfo.CostType = type ?? "";
                     DALFactory.OrderPayInfoDao.Insert(payinfo);
+
+                    //加积分
+                    if (costType == CostTypeEnums.WorldPay)
+                    {
+                        UserService.UpdateIntegral(order.UserId, (int)p, 1, "下单赠送");
+                    }
                 }
             }
             return Content("ok");

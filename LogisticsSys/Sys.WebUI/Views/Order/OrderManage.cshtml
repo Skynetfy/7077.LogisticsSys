@@ -48,8 +48,8 @@
                 <tr>
                     <th data-field="stats" data-formatter="checkboxstateFormatter" data-checkbox="true"></th>
                     <th data-field="OrderNo" data-formatter="OrderNoFormatter">订单编号</th>
-                    <th data-field="ShipperName">寄件人</th>
-                    <th data-field="RussiaCityName">俄罗斯城市</th>
+                    @*<th data-field="ShipperName">寄件人</th>*@
+                    @*<th data-field="RussiaCityName">俄罗斯城市</th>*@
                     <th data-field="DisplayName">下单人</th>
                     <th data-field="CreateDate">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter">状态</th>
@@ -640,6 +640,20 @@
         </div>
     </div>
 </div>
+<div class="modal fade bs-example-modal-lg" id="fukuanqverenmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">付款确认</h4>
+            </div>
+            <div class="modal-body">
+                <div id="payviewList"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
@@ -810,7 +824,39 @@
     function priceFormatter(v, r) { }
 
     function paystateFormatter(value, row, index) {
-        return Status_7077.getPayStatus(row.PayStatus);
+        var h = [];
+        h.push('到付金额：');
+        if (row.ArrivePayStatus === 0) {
+            h.push(row.ArrivePayValue + ' <span class="control-label">（待支付）</span>');
+        } else if (row.ArrivePayStatus === 1) {
+            h.push("<p class='has-success'>" + row.ArrivePayValue + ' <span class="control-label">（待确认）</span></p>');
+        } else if (row.ArrivePayStatus === 2) {
+            h.push(row.ArrivePayValue + '付款完成');
+            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+        }
+        h.push('国际段费用：');
+        if (row.WorldPayStatus === 0) {
+            h.push(row.OrderFrees + ' <span class="control-label">（待支付）</span>');
+        } else if (row.WorldPayStatus === 1) {
+            h.push("<p class='has-success'>" + row.OrderFrees + ' <span class="control-label">（待确认）</span></p>');
+        } else if (row.WorldPayStatus === 2) {
+            h.push(row.OrderFrees + '付款完成');
+            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+        }
+        h.push('国内段费用：');
+        if (row.ChinaPayStatus === 0) {
+            h.push(row.DomesticCost + ' <span class="control-label">（待支付）</span>');
+        } else if (row.ChinaPayStatus === 1) {
+            h.push("<p class='has-success'>" + row.DomesticCost + ' <span class="control-label">（待确认）</span></p>');
+        } else if (row.ChinaPayStatus === 2) {
+            h.push(row.DomesticCost + '付款完成');
+            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+        }
+        if (value == 1) {
+            return '处理中';
+        }
+        return h.join('');
+        // return Status_7077.getPayStatus(row.PayStatus);
     }
     function OrderNoFormatter(value, row, index) {
         return '<a href="javascript:void(0)" onclick="viewOrder(' +
@@ -842,10 +888,10 @@
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">处理</button>');
 
-        //if (row.Status >= 2 && row.Status <= 7)
-        //    h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#editModel" onclick="fahuodate(' +
-        //       JSON.stringify(row).replace(/\"/g, "\'") +
-        //        ')" value="">发货</button>');
+        if (row.ArrivePayStatus == 1 || row.WorldPayStatus == 1 || row.ChinaPayStatus == 1)
+            h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fukuanqverenmodel" onclick="fukuanqveren(' +
+               JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">付款确认</button>');
 
         if (row.Status >= 2 && row.PayStatus >= 1 && row.PayStatus <= 2 && '@ViewBag.Role' == 'Admin')
             h
@@ -858,6 +904,11 @@
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">完成</button>');
         return h.join('');
+    }
+    function fukuanqveren(row) {
+        $('#payviewList').load('@Url.Action("PayViewList")?orderid=' + row.Id, function() {
+            
+        });
     }
     function Completedate(row) {
         if (confirm('确认订单已完成'))

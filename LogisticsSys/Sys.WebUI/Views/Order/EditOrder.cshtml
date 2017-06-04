@@ -52,7 +52,8 @@
             货物重量(千克) <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="goodsweight" name="goodsweight" onblur="goodsweightblur()" value="@orderview.GoodsWeight" required="required" data-parsley-type="number" data-parsley-min="0" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="goodsweight" name="goodsweight" onblur="goodsweightblur()" value="@orderview.GoodsWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <small class="text-warning">货物的起送重量是1kg（不足1kg的按照1kg收费）</small>
         </div>
     </div>
     <div class="form-group">
@@ -68,7 +69,7 @@
             保险费（元） <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="insuranceCost" name="insuranceCost" value="@orderview.InsuranceCost" onblur="insuranceCostblur()" required="required" data-parsley-type="number" data-parsley-min="0" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="insuranceCost" name="insuranceCost" value="@orderview.PolicyFee" onblur="insuranceCostblur()" required="required" data-parsley-type="number" data-parsley-min="0" class="form-control col-md-7 col-xs-12">
         </div>
     </div>
     @*<div class="form-group">

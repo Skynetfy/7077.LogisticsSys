@@ -312,7 +312,7 @@ namespace Sys.WebUI.Controllers
                         {
                             addressinfo.GoodsWeight = Convert.ToDecimal(goodsweight);
                             addressinfo.OrderFrees = Convert.ToDecimal(gjdfy);
-                            addressinfo.InsuranceCost = Convert.ToDecimal(insuranceCost);
+                            addressinfo.PolicyFee = Convert.ToDecimal(insuranceCost);
                             orderPrivder.UpdateAddressInfo(addressinfo);
                         }
 
@@ -544,6 +544,22 @@ namespace Sys.WebUI.Controllers
                     }
                 }
             }
+            return Content("ok");
+        }
+
+        public ActionResult PayViewList(string orderid)
+        {
+            if (!string.IsNullOrEmpty(orderid))
+            {
+                var list = DALFactory.OrderPayInfoDao.GetList(Convert.ToInt64(orderid));
+                ViewData["datalist"] = list.ToList();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ConfimPayOrder(string type, string orderid)
+        {
             return Content("ok");
         }
         [HttpPost]

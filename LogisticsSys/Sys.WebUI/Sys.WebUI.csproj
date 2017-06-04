@@ -441,6 +441,7 @@
     <Content Include="Views\Logistics\TestSearch.cshtml" />
     <Content Include="Views\System\QrCode.cshtml" />
     <Content Include="Views\User\Points.cshtml" />
+    <Content Include="Views\Order\PayViewList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

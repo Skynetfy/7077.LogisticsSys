@@ -1,0 +1,67 @@
+﻿@using Sys.Entities
+@{
+    Layout = null;
+}
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>费用类型</td>
+                <td>支付方式</td>
+                <td>卡号</td>
+                <td>姓名</td>
+                <td>支付时间</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var datalist = ViewData["datalist"] as List<SysOrderPayInfo>;
+                if (datalist != null)
+                {
+                    foreach (var item in datalist)
+                    {
+                        <tr>
+                            <td scope="row">
+                                @{
+                                if (item.CostType.Equals("ArrivePay"))
+                                {
+                                    <span>到付金额</span>
+                                    }
+                                    else if (item.CostType.Equals("WorldPay"))
+                                    {
+                                        <span>国际段费用</span>
+                                    }
+                                    else if (item.CostType.Equals("ChinaPay"))
+                                    {
+                                        <span>国内段费用</span>
+                                    }
+                                }
+                        </td>
+                            <td>
+                                @{
+                                    if (item.Type==1)
+                                    {
+                                        <span>支付宝支付</span>
+                                    }
+                                    else if (item.Type == 2)
+                                    {
+                                        <span>微信支付</span>
+                                    }
+                                    else if (item.Type == 3)
+                                    {
+                                        <span>银联支付</span>
+                                    }
+                                }
+                            </td>
+                        <td >@item.CardNumber</td>
+                            <td>@item.PayUserName</td>
+                            <td>@item.CreateDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                                    }
+                                }
+
+            }
+          
+        </tbody>
+    </table>
+</div>

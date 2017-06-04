@@ -396,6 +396,66 @@ namespace Sys.WebUI.Controllers
             }
             return Json("ok");
         }
+        [HttpPost]
+        public ActionResult YinLian(string ylno, string ylbank, string ylname)
+        {
+            var data = DALFactory.DbconfigDao.GetAll();
+            if (!string.IsNullOrEmpty(ylno))
+            {
+                var entity = data.FirstOrDefault(x => x.Key.Equals("YinlianNumber"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "YinlianNumber";
+                    entity.Value = ylno;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory.DbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = ylno;
+                    DALFactory.DbconfigDao.Update(entity);
+                }
+            }
+            if (!string.IsNullOrEmpty(ylbank))
+            {
+                var entity = data.FirstOrDefault(x => x.Key.Equals("Yinlianbank"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "Yinlianbank";
+                    entity.Value = ylbank;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory.DbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = ylbank;
+                    DALFactory.DbconfigDao.Update(entity);
+                }
+            }
+            if (!string.IsNullOrEmpty(ylname))
+            {
+                var entity = data.FirstOrDefault(x => x.Key.Equals("YinlianName"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "YinlianName";
+                    entity.Value = ylname;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory.DbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = ylname;
+                    DALFactory.DbconfigDao.Update(entity);
+                }
+            }
+            return Content("ok");
+        }
         #endregion
     }
 }

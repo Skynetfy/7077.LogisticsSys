@@ -283,6 +283,7 @@
     <Content Include="images\7f2d5573b2f65b6479689d77a05e9bb6.jpg" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="images\rugogoico.ico" />
     <Content Include="images\star.png" />
     <Content Include="images\star_3.png" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.css" />

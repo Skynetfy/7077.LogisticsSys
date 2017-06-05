@@ -78,36 +78,36 @@
                     </div>
                 </div>
                 @*<div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" value="2">
-                                    微信支付
-                                </label>
-                            </div>
-                        </a>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            <div class="col-md-6">
-                                <div class="col-md-8" style="margin-top: 20px;">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">微信号</label> <span class="required">*</span>
-                                        <input type="text" class="form-control" name="cardnumber2" required="required" data-parsley-group="form2" placeholder="微信号">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
-                                        <input type="text" class="form-control" name="cardusername2" required="required" data-parsley-group="form2" placeholder="姓 名">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" value="2">
+                                        微信支付
+                                    </label>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div class="col-md-6">
+                                    <div class="col-md-8" style="margin-top: 20px;">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">微信号</label> <span class="required">*</span>
+                                            <input type="text" class="form-control" name="cardnumber2" required="required" data-parsley-group="form2" placeholder="微信号">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">姓 名</label> <span class="required">*</span>
+                                            <input type="text" class="form-control" name="cardusername2" required="required" data-parsley-group="form2" placeholder="姓 名">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6" style="text-align: center;">
-                                <img src="~/ExcelFiles/QrCodes/@ViewBag.WebPay" width="50%" />
+                                <div class="col-md-6" style="text-align: center;">
+                                    <img src="~/ExcelFiles/QrCodes/@ViewBag.WebPay" width="50%" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingThree">
                         <a class="collapsed" role="button" aria-expanded="false" aria-controls="collapseThree">
@@ -131,24 +131,38 @@
                                     <input type="text" class="form-control" name="cardusername3" required="required" data-parsley-group="form3" placeholder="姓 名">
                                 </div>
                             </div>
-                            <div class="col-md-6" style="text-align: center;">
+                            <div class="col-md-2">
 
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bs-callout bs-callout-warning " id="callout-helper-bg-accessibility">
+                                    <h4 style="margin-bottom: 10px;">银联卡信息</h4>
+                                    <p style="margin: 0;">
+                                        <span class="text-info">卡 号：</span>@ViewBag.YinlianNumber
+                                    </p>
+                                    <p style="margin: 0;">
+                                        <span class="text-info">开户行：</span>@ViewBag.Yinlianbank
+                                    </p>
+                                    <p style="margin: 0;">
+                                        <span class="text-info">姓 名：</span>@ViewBag.YinlianName
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             @*<div class="panel panel-default" id="pannljifen" style="display: none;">
-                <div class="panel-body text-right">
-                    <p>用户总积分 @ViewBag.Integral，可用积分 <span class="text-success">@ViewBag.RealIntegral</span></p>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="useJifen" id="useJifen" value="1" onchange="usejifen(this)"> 使用积分
-                        </label>
+                    <div class="panel-body text-right">
+                        <p>用户总积分 @ViewBag.Integral，可用积分 <span class="text-success">@ViewBag.RealIntegral</span></p>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="useJifen" id="useJifen" value="1" onchange="usejifen(this)"> 使用积分
+                            </label>
+                        </div>
+                        <p class="help-block">* 客户每支付一元即可获赠一积分.每10000积分可免收一公斤国际段费用</p>
                     </div>
-                    <p class="help-block">* 客户每支付一元即可获赠一积分.每10000积分可免收一公斤国际段费用</p>
-                </div>
-            </div>*@
+                </div>*@
             <div class="row">
                 <div class="col-md-3 col-md-offset-9">
                     <div class="alert alert-danger  text-right" role="alert">

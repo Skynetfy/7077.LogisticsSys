@@ -232,7 +232,7 @@ namespace Sys.Dal.Repository
       ,[CreateDate]
       ,[Type]
       ,[CostType]
-                FROM [dbo].[SysOrderPayInfo] (nolock) where [OrderId]=@OrderId and [IsDelete]=0";
+                FROM [dbo].[SysOrderPayInfo] (nolock) where [OrderId]=@OrderId";
                 StatementParameterCollection parameters = new StatementParameterCollection();
                 parameters.AddInParameter("@OrderId", DbType.Int64, oid);
                 IList<SysOrderPayInfo> list = baseDao.SelectList<SysOrderPayInfo>(sql, parameters);

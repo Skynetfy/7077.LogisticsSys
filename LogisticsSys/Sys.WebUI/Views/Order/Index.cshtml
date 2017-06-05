@@ -465,7 +465,6 @@
                     </div>
                     <div id="step-5">
                         <h5>寄件人信息</h5>
-                        <hr />
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
@@ -505,7 +504,6 @@
                             </tbody>
                         </table>
                         <h5>收件人信息</h5>
-                        <hr />
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
@@ -582,7 +580,7 @@
         $('#td16').html($('[name=packagingway]:checked').attr('data-text'));
         $('#td17').html($('[name=expressway]:checked').attr('data-text'));
         $('#td18').html($('#goodsdesc').val());
-        $('#td19').html($('#kdgs>option:selected').val());
+        $('#td19').html($('#kdgs>option:selected').text());
         $('#td20').html($('#desc').val());
     }
     function rcChange() {

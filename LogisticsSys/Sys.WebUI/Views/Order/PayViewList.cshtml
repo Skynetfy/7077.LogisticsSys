@@ -5,63 +5,82 @@
 <div class="row">
     <table class="table table-bordered table-striped">
         <thead>
-            <tr>
-                <td>费用类型</td>
-                <td>支付方式</td>
-                <td>卡号</td>
-                <td>姓名</td>
-                <td>支付时间</td>
-            </tr>
+        <tr>
+            <td>费用类型</td>
+            <td>支付方式</td>
+            <td>卡号</td>
+            <td>姓名</td>
+            <td>支付时间</td>
+            <td>操作</td>
+        </tr>
         </thead>
         <tbody>
-            @{
-                var datalist = ViewData["datalist"] as List<SysOrderPayInfo>;
-                if (datalist != null)
+        @{
+            var datalist = ViewData["datalist"] as List<SysOrderPayInfo>;
+            if (datalist != null)
+            {
+                foreach (var item in datalist)
                 {
-                    foreach (var item in datalist)
-                    {
-                        <tr>
-                            <td scope="row">
-                                @{
+                    <tr>
+                        <td scope="row">
+                            @{
                                 if (item.CostType.Equals("ArrivePay"))
                                 {
                                     <span>到付金额</span>
-                                    }
-                                    else if (item.CostType.Equals("WorldPay"))
-                                    {
-                                        <span>国际段费用</span>
-                                    }
-                                    else if (item.CostType.Equals("ChinaPay"))
-                                    {
-                                        <span>国内段费用</span>
-                                    }
                                 }
+                                else if (item.CostType.Equals("WorldPay"))
+                                {
+                                    <span>国际段费用</span>
+                                }
+                                else if (item.CostType.Equals("ChinaPay"))
+                                {
+                                    <span>国内段费用</span>
+                                }
+                            }
                         </td>
-                            <td>
-                                @{
-                                    if (item.Type==1)
-                                    {
-                                        <span>支付宝支付</span>
-                                    }
-                                    else if (item.Type == 2)
-                                    {
-                                        <span>微信支付</span>
-                                    }
-                                    else if (item.Type == 3)
-                                    {
-                                        <span>银联支付</span>
-                                    }
+                        <td>
+                            @{
+                                if (item.Type == 1)
+                                {
+                                    <span>支付宝支付</span>
                                 }
-                            </td>
-                        <td >@item.CardNumber</td>
-                            <td>@item.PayUserName</td>
-                            <td>@item.CreateDate.ToString("yyyy-MM-dd")</td>
+                                else if (item.Type == 2)
+                                {
+                                    <span>微信支付</span>
+                                }
+                                else if (item.Type == 3)
+                                {
+                                    <span>银联支付</span>
+                                }
+                            }
+                        </td>
+                        <td>@item.CardNumber</td>
+                        <td>@item.PayUserName</td>
+                        <td>@item.CreateDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            @{
+                                if (!item.IsDelete)
+                                {
+                                    <button type="button" class="btn btn-success btn-xs" onclick="confimPayStatus(this,@item.Id, '@item.CostType', @item.OrderId)">确认</button>
+                                }
+                            }
+                        </td>
                     </tr>
-                                    }
-                                }
-
+                }
             }
-          
+
+        }
+
         </tbody>
     </table>
 </div>
+<script>
+    function confimPayStatus(o,id, type, orderid) {
+        if (confirm('请确认客户已付款并核对金额方可确认？')) {
+            $.post('@Url.Action("ConfimPayOrder")', { id: id, type: type, orderid: orderid },function(e) {
+                $(o).hide();
+                alert('确认成功');
+            });
+        }
+    }
+</script>

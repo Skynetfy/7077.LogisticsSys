@@ -38,8 +38,8 @@
                data-sort-name="CreateDate"
                data-sort-order="desc"
                data-query-params="queryParams"
-               data-page-size="50"
-               data-page-list="[20,50,100]"
+               data-page-size="10"
+               data-page-list="[10,50,100]"
                data-pagination-first-text="首页"
                data-pagination-pre-text="上一页"
                data-pagination-next-text="下一页"
@@ -659,7 +659,7 @@
 <script>
     var $table = $('#table'),
         $fahuobtn = $('#fahuobtn'),
-         selections = [],
+        selections = [],
         $ok = $('#ok');
     $(function () {
         $('#orderdate').daterangepicker({
@@ -825,36 +825,42 @@
 
     function paystateFormatter(value, row, index) {
         var h = [];
-        h.push('到付金额：');
-        if (row.ArrivePayStatus === 0) {
-            h.push(row.ArrivePayValue + ' <span class="control-label">（待支付）</span>');
-        } else if (row.ArrivePayStatus === 1) {
-            h.push("<p class='has-success'>" + row.ArrivePayValue + ' <span class="control-label">（待确认）</span></p>');
-        } else if (row.ArrivePayStatus === 2) {
-            h.push(row.ArrivePayValue + '付款完成');
-            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
-        }
-        h.push('国际段费用：');
-        if (row.WorldPayStatus === 0) {
-            h.push(row.OrderFrees + ' <span class="control-label">（待支付）</span>');
-        } else if (row.WorldPayStatus === 1) {
-            h.push("<p class='has-success'>" + row.OrderFrees + ' <span class="control-label">（待确认）</span></p>');
-        } else if (row.WorldPayStatus === 2) {
-            h.push(row.OrderFrees + '付款完成');
-            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
-        }
-        h.push('国内段费用：');
-        if (row.ChinaPayStatus === 0) {
-            h.push(row.DomesticCost + ' <span class="control-label">（待支付）</span>');
-        } else if (row.ChinaPayStatus === 1) {
-            h.push("<p class='has-success'>" + row.DomesticCost + ' <span class="control-label">（待确认）</span></p>');
-        } else if (row.ChinaPayStatus === 2) {
-            h.push(row.DomesticCost + '付款完成');
-            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+        h.push('<p>到付金额：');
+        if (row.IsArrivePay) {
+            if (row.ArrivePayStatus === 0) {
+                h.push("<code>" + row.ArrivePayValue + '</code> <span class="control-label text-info">（待支付）</span></p>');
+            } else if (row.ArrivePayStatus === 1) {
+                h.push("<span class='has-success'><code>" + row.ArrivePayValue + '</code> <span class="control-label">（待确认）</span></span></p>');
+            } else if (row.ArrivePayStatus === 2) {
+                h.push("<code>" + row.ArrivePayValue + '</code>（完成）</p>');
+                //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+            }
+        } else {
+            h.push('无到付</p>');
         }
         if (value == 1) {
-            return '处理中';
+            h.push('<span  class="text-warning">处理中</span>');
+            return h.join('');
         }
+        h.push('<p>国际费用：');
+        if (row.WorldPayStatus === 0) {
+            h.push("<code>" + row.OrderFrees + '</code> <span class="control-label text-info">（待支付）</span></p>');
+        } else if (row.WorldPayStatus === 1) {
+            h.push("<span class='has-success'><code>" + row.OrderFrees + '</code> <span class="control-label">（待确认）</span></span></p>');
+        } else if (row.WorldPayStatus === 2) {
+            h.push("<code>" + row.OrderFrees + '</code>（完成）</p>');
+            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+        }
+        h.push('<p>国内费用：');
+        if (row.ChinaPayStatus === 0) {
+            h.push("<code>" + row.DomesticCost + '</code> <span class="control-label text-info">（待支付）</span></p>');
+        } else if (row.ChinaPayStatus === 1) {
+            h.push("<span class='has-success'><code>" + row.DomesticCost + '</code> <span class="control-label">（待确认）</span></span></p>');
+        } else if (row.ChinaPayStatus === 2) {
+            h.push("<code>" + row.DomesticCost + '</code>（完成）</p>');
+            //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
+        }
+       
         return h.join('');
         // return Status_7077.getPayStatus(row.PayStatus);
     }
@@ -891,23 +897,22 @@
         if (row.ArrivePayStatus == 1 || row.WorldPayStatus == 1 || row.ChinaPayStatus == 1)
             h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fukuanqverenmodel" onclick="fukuanqveren(' +
                JSON.stringify(row).replace(/\"/g, "\'") +
-                ')" value="">付款确认</button>');
+                ')" value="">收款确认</button>');
 
-        if (row.Status >= 2 && row.PayStatus >= 1 && row.PayStatus <= 2 && '@ViewBag.Role' == 'Admin')
+        @*if (row.Status >= 2 && row.PayStatus >= 1 && row.PayStatus <= 2 && '@ViewBag.Role' == 'Admin')
             h
                 .push(' <button  type="button" class="btn btn-warning btn-xs"  data-toggle="modal" data-target="#shoukuanModel" onclick="shoukuandate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
-                    ')" value="">收款</button>');
+                    ')" value="">收款</button>');*@
         if (row.Status < 9 && row.Status > 0 && row.PayStatus == 3 && '@ViewBag.Role' == 'Admin')
-            h
-                .push(' <button  type="button" class="btn btn-success btn-xs"  onclick="Completedate(' +
+            h.push(' <button  type="button" class="btn btn-success btn-xs"  onclick="Completedate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">完成</button>');
         return h.join('');
     }
     function fukuanqveren(row) {
-        $('#payviewList').load('@Url.Action("PayViewList")?orderid=' + row.Id, function() {
-            
+        $('#payviewList').load('@Url.Action("PayViewList")?orderid=' + row.Id, function () {
+
         });
     }
     function Completedate(row) {

@@ -66,7 +66,7 @@ namespace Sys.WebUI.Controllers
                 ViewData["OrderInfo"] = orderinfo;
 
                 var orderpayinfo =
-                    DALFactory.OrderPayInfoDao.GetAll().Where(x => !x.IsDelete && x.OrderId == orderinfo.Id).ToList();
+                    DALFactory.OrderPayInfoDao.GetAll().Where(x => x.OrderId == orderinfo.Id).ToList();
                 ViewData["OrderPayInfo"] = orderpayinfo;
 
                 var filledinfo =
@@ -416,6 +416,21 @@ namespace Sys.WebUI.Controllers
             {
                 ViewBag.WebPay = webpay.Value;
             }
+            var ylNo = dbconfig.FirstOrDefault(x => x.Key.Equals("YinlianNumber"));
+            if (ylNo != null)
+            {
+                ViewBag.YinlianNumber = ylNo.Value;
+            }
+            var ylbank = dbconfig.FirstOrDefault(x => x.Key.Equals("Yinlianbank"));
+            if (ylbank != null)
+            {
+                ViewBag.Yinlianbank = ylbank.Value;
+            }
+            var ylname = dbconfig.FirstOrDefault(x => x.Key.Equals("YinlianName"));
+            if (ylname != null)
+            {
+                ViewBag.YinlianName = ylname.Value;
+            }
             if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(type))
             {
                 CostTypeEnums costType = (CostTypeEnums)Enum.Parse(typeof(CostTypeEnums), type);
@@ -538,10 +553,10 @@ namespace Sys.WebUI.Controllers
                     DALFactory.OrderPayInfoDao.Insert(payinfo);
 
                     //加积分
-                    if (costType == CostTypeEnums.WorldPay)
-                    {
-                        UserService.UpdateIntegral(order.UserId, (int)p, 1, "下单赠送");
-                    }
+                    //if (costType == CostTypeEnums.WorldPay)
+                    //{
+                    //    UserService.UpdateIntegral(order.UserId, (int)p, 1, "下单赠送");
+                    //}
                 }
             }
             return Content("ok");
@@ -558,8 +573,87 @@ namespace Sys.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConfimPayOrder(string type, string orderid)
+        public ActionResult ConfimPayOrder(string id, string type, string orderid)
         {
+            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(type) && !string.IsNullOrEmpty(orderid))
+            {
+                var userprovider = new UserLoginProvider();
+                var _user = userprovider.GetUser(User.Identity.Name);
+                if (_user.RuleType.Equals(RuleTypeEnum.Agents.ToString()) || _user.RuleType.Equals(RuleTypeEnum.Admin.ToString()))
+                {
+                    var pay = DALFactory.OrderPayInfoDao.FindByPk(Convert.ToInt64(id));
+                    if (pay != null)
+                    {
+                        pay.IsDelete = true;
+                        DALFactory.OrderPayInfoDao.Update(pay);
+                    }
+
+                    var order = DALFactory.SysOrderInfoDao.FindByPk(Convert.ToInt64(orderid));
+                    if (order != null && order.PayStatus < (int)OrderPayStatusEnum.Recivied)
+                    {
+                        var alog = new SysActionLog();
+                        if (type.Equals("ArrivePay"))
+                        {
+                            order.ArrivePayStatus = 2;
+                            alog.ActionDesc = "到付收款确认";
+                        }
+                        if (type.Equals("WorldPay"))
+                        {
+                            order.WorldPayStatus = 2;
+                            alog.ActionDesc = "国际费用收款确认";
+                            //赠送积分
+                            var address = DALFactory.SysAddresserInfoDao.GetByOrderId(order.Id);
+                            UserService.UpdateIntegral(order.UserId, (int)address.OrderFrees, 1, "下单赠送");
+                        }
+                        if (type.Equals("ChinaPay"))
+                        {
+                            order.ChinaPayStatus = 2;
+                            alog.ActionDesc = "国内费用收款确认";
+                        }
+
+                        alog.ActionDate = DateTime.Now;
+                        alog.LogType = (int)ActionLogTypeEnum.PayAction;
+                        alog.OrderId = order.Id;
+                        alog.UserId = _user.Id;
+                        alog.CreateDate = DateTime.Now;
+                        alog.IsDelete = false;
+                        var i = DALFactory.ActionLogDao.Insert(alog);
+                        if (order.ArrivePayStatus == 2 && order.WorldPayStatus == 2 && order.ChinaPayStatus == 2)
+                            order.PayStatus = (int)OrderPayStatusEnum.Recivied;
+                        DALFactory.SysOrderInfoDao.Update(order);
+                    }
+                }
+                //var pay = DALFactory.OrderPayInfoDao.FindByPk(Convert.ToInt64(id));
+                //if (pay != null)
+                //{
+                //    pay.IsDelete = true;
+                //    DALFactory.OrderPayInfoDao.Update(pay);
+                //}
+
+                //var order = DALFactory.SysOrderInfoDao.FindByPk(Convert.ToInt64(orderid));
+                //if (order != null)
+                //{
+                //    if (type.Equals("ArrivePay"))
+                //    {
+                //        order.ArrivePayStatus = 2;
+                //    }
+                //    if (type.Equals("WorldPay"))
+                //    {
+                //        order.WorldPayStatus = 2;
+
+                //        //赠送积分
+                //        var address = DALFactory.SysAddresserInfoDao.GetByOrderId(order.Id);
+                //        UserService.UpdateIntegral(order.UserId, (int)address.OrderFrees, 1, "下单赠送");
+                //    }
+                //    if (type.Equals("ChinaPay"))
+                //    {
+                //        order.ChinaPayStatus = 2;
+                //    }
+                //    DALFactory.SysOrderInfoDao.Update(order);
+                //}
+
+
+            }
             return Content("ok");
         }
         [HttpPost]

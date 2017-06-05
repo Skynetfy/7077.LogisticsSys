@@ -216,6 +216,7 @@
                                 <th>付款金额</th>
                                 <th>姓名</th>
                                 <th>支付时间</th>
+                                <th>状态</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -257,8 +258,18 @@
                                         <td>@item.PayAmount</td>
                                         <td>@item.PayUserName</td>
                                         <td>@item.CreateDate</td>
+                                        <td>@{
+                                                if (item.IsDelete)
+                                                {
+                                                    <span>已确认</span>
+                                            }
+                                            else
+                                            {
+                                                <span>待确认</span>
+                                            }
+                                        }</td>
                                     </tr>
-                                                }
+                                            }
                             }
 
                         </tbody>

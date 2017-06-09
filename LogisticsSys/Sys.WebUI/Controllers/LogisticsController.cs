@@ -39,7 +39,7 @@ namespace Sys.WebUI.Controllers
                 {
                     var order = new WuliuGenZongOrderNos();
 
-                    order.OrderNumber = DALFactory.SysReceiverInfoDao.FindByPk(Convert.ToInt64(i.OrderNos)).ChinaCourierNumber;
+                    order.OrderNumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(i.OrderNos)).Number;
                     dataList.Orders.Add(order);
                 }
                 return Json(dataList, JsonRequestBehavior.AllowGet);
@@ -125,9 +125,12 @@ namespace Sys.WebUI.Controllers
                         entity.IsDelete = false;
                         LogisticsService.Current.AddLogistics(entity);
 
-                        var ordernumber = DALFactory.SysReceiverInfoDao.FindByPk(Convert.ToInt64(arg));
-                        ordernumber.ShippingStatus = 1;
-                        DALFactory.SysReceiverInfoDao.Update(ordernumber);
+                        var orderNumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(arg));
+                        if (orderNumber != null)
+                        {
+                            orderNumber.Status = true;
+                            DALFactory.OrderNumberDao.Update(orderNumber);
+                        }
                     }
                 }
             }
@@ -136,7 +139,7 @@ namespace Sys.WebUI.Controllers
 
         public ActionResult GetOrderNumberList()
         {
-            var list = DALFactory.SysReceiverInfoDao.GetAll().Where(x => !x.IsDelete && 0 == x.ShippingStatus&&!string.IsNullOrEmpty(x.ChinaCourierNumber)).ToList();
+            var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && !x.Status).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetLogisticsPagerList(string search, int offset, int limit, string order, string sort)

@@ -396,18 +396,18 @@
         var h = [];
         if (row.IsArrivePay) {
             if (value === 0) {
-                h.push("<p class='has-success'>" + row.ArrivePayValue + ' <span class="control-label">（待支付）</span></p>');
+                h.push("<p class='has-success'>￥" + row.ArrivePayValue + ' <small class="control-label">（待支付）</small></p>');
                 h.push('<p><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?type=ArrivePay&id=' + row.Id + '">支付</a></p>');
             } else if (value === 1) {
                 h.push(row.ArrivePayValue);
-                h.push(' <span class="text-muted">（已支付）</span>');
+                h.push(' <p><small class="text-warning">（已支付,待确认）</small></p>');
             } else if (value === -1) {
                 h.push(row.ArrivePayValue);
                 h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
             }
             else if (value === 2) {
                 h.push(row.ArrivePayValue);
-                h.push(' <span class="text-muted">（已完成）</span>');
+                h.push('<p> <small class="text-muted">（已确认支付）</small></p>');
             }
         } else {
             h.push('无须到付');
@@ -420,18 +420,18 @@
         if (row.Status >= 2) {
             if (value === 0) {
                 // h.push(row.OrderFrees);
-                h.push("<p class='has-success'>" + row.OrderFrees + ' <span class="control-label">（待支付）</span></p>');
+                h.push("<p class='has-success'>" + row.OrderFrees + ' <small class="control-label">（待支付）</small></p>');
                 h.push('<p><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?type=WorldPay&id=' + row.Id + '">支付</a></p>');
             } else if (value === 1) {
                 h.push(row.OrderFrees);
-                h.push(' <span class="text-muted">（已支付）</span>');
+                h.push(' <p><small class="text-warning">（已支付,待确认）</small></p>');
             } else if (value === -1) {
                 h.push(row.OrderFrees);
                 h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
             }
             else if (value === 2) {
                 h.push(row.OrderFrees);
-                h.push(' <span class="text-muted">（已完成）</span>');
+                h.push(' <p><small class="text-muted">（已确认支付）</small></p>');
             }
         } else {
             h.push('处理中');
@@ -443,12 +443,12 @@
         if (row.Status >= 2) {
             if (value === 0) {
                 //h.push(row.CourierFees);
-                h.push("<p class='has-success'>" + row.DomesticCost + ' <span class="control-label">（待支付）</span></p>');
+                h.push("<p class='has-success'>" + row.DomesticCost + ' <small class="control-label">（待支付）</small></p>');
                 h.push('<p><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?type=ChinaPay&id=' + row.Id + '">支付</a></p>');
             }
             else if (value === 1) {
                 h.push(row.DomesticCost);
-                h.push(' <span class="text-muted">（已支付）</span>');
+                h.push(' <p><small class="text-warning">（已支付,待确认）</small></p>');
             }
             else if (value === -1) {
                 h.push(row.DomesticCost);
@@ -456,7 +456,7 @@
             }
             else if (value === 2) {
                 h.push(row.DomesticCost);
-                h.push(' <span class="text-muted">（已完成）</span>');
+                h.push(' <p><small class="text-muted">（已确认支付）</small></p>');
             }
         } else {
             h.push('处理中');

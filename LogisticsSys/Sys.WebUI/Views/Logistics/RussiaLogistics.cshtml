@@ -270,7 +270,7 @@
             $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
                 $('#ordernumbers').empty();
                 $.each(e,function(x, v) {
-                    $('#ordernumbers').append('<option value="' + v.Id + '">' + v.ChinaCourierNumber + '</option>');
+                    $('#ordernumbers').append('<option value="' + v.Id + '">' + v.Number + '</option>');
                 });
                 $('#ordernumbers').selectpicker('refresh');
             });

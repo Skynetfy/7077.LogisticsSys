@@ -80,6 +80,7 @@
             $.post('@Url.Action("ConfimPayOrder")', { id: id, type: type, orderid: orderid },function(e) {
                 $(o).hide();
                 alert('确认成功');
+                $('#table').bootstrapTable('refresh');
             });
         }
     }

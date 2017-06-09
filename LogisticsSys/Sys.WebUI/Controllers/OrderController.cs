@@ -847,8 +847,8 @@ namespace Sys.WebUI.Controllers
             row0.CreateCell(5).SetCellValue("到达国外仓时间");
             row0.CreateCell(6).SetCellValue("货物类型");
             row0.CreateCell(7).SetCellValue("货物运输类型");
-            row0.CreateCell(8).SetCellValue("报价价值");
-            row0.CreateCell(9).SetCellValue("报价费用");
+            row0.CreateCell(8).SetCellValue("保价价值");
+            row0.CreateCell(9).SetCellValue("保价费用");
             row0.CreateCell(10).SetCellValue("货物重量");
             row0.CreateCell(11).SetCellValue("是否到付");
             row0.CreateCell(12).SetCellValue("到付金额");
@@ -867,6 +867,9 @@ namespace Sys.WebUI.Controllers
             row0.CreateCell(25).SetCellValue("备注");
             row0.CreateCell(26).SetCellValue("订单状态");
             row0.CreateCell(27).SetCellValue("付款状态");
+            row0.CreateCell(28).SetCellValue("国际段费用");
+            row0.CreateCell(29).SetCellValue("国内段费用");
+            row0.CreateCell(30).SetCellValue("订单总费用");
             int x = 27;
             for (var c = 0; c < data.Count; c++)
             {
@@ -874,8 +877,8 @@ namespace Sys.WebUI.Controllers
                 IRow row = sheet1.CreateRow(c + 1);
                 row.CreateCell(0).SetCellValue(item.OrderNo);
                 row.CreateCell(1).SetCellValue(item.ShipperName);
-                row.CreateCell(2).SetCellValue(item.ShipperName);
-                row.CreateCell(3).SetCellValue(item.ReceiverName);
+                row.CreateCell(2).SetCellValue(item.ShipperPhone);
+                row.CreateCell(3).SetCellValue(item.RussiaCityName);
                 row.CreateCell(4).SetCellValue(item.RussiaAddress);
                 row.CreateCell(5).SetCellValue(item.PickupDate.ToString("d"));
                 row.CreateCell(6).SetCellValue(item.GoodsTypeName);
@@ -900,6 +903,9 @@ namespace Sys.WebUI.Controllers
                 row.CreateCell(25).SetCellValue(item.Desc);
                 row.CreateCell(26).SetCellValue(OrderInfoProvider.GetStatusString(item.Status));
                 row.CreateCell(27).SetCellValue(OrderInfoProvider.GetPayStatusString(item.PayStatus));
+                row.CreateCell(28).SetCellValue(Convert.ToDouble(item.OrderFrees));
+                row.CreateCell(29).SetCellValue(Convert.ToDouble(item.DomesticCost));
+                row.CreateCell(30).SetCellValue(Convert.ToDouble(item.OrderRealPrice));
             }
             var path = Server.MapPath("~/ExcelFiles/订单列表.xlsx");
             using (var f = System.IO.File.Create(path))
@@ -907,9 +913,6 @@ namespace Sys.WebUI.Controllers
                 workbook.Write(f);
             }
             Response.WriteFile(path);
-            //http://social.msdn.microsoft.com/Forums/en-US/3a7bdd79-f926-4a5e-bcb0-ef81b6c09dcf/responseoutputstreamwrite-writes-all-but-insetrs-a-char-every-64k?forum=ncl
-            //workbook.Write(Response.OutputStream); cannot be used 
-            //root cause: Response.OutputStream will insert unnecessary byte into the response bytes.
             Response.Flush();
             Response.End();
         }

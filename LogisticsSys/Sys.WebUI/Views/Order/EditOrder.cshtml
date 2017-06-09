@@ -285,7 +285,7 @@
             p2 = 0;
         if (p3.length <= 0)
             p3 = 0;
-        $('#orderfrees').val(Number(p1)+Number(p2)+Number(p3));
+        $('#orderfrees').val((Number(p1)*100)/100+(Number(p2)*100)/100+(Number(p3)*100)/100);
     }
 
     $(function() {

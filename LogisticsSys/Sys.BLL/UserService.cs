@@ -21,11 +21,11 @@ namespace Sys.BLL
             {
                 var sn = user.CustomerID;
                 string no = sn.Substring(7, 5);
-                return "RUS7077" + (Convert.ToInt32(no) + 1);
+                return "RUGOGO" + (Convert.ToInt32(no) + 1);
             }
             else
             {
-                return "RUS707710001";
+                return "RUGOGO10001";
             }
         }
 

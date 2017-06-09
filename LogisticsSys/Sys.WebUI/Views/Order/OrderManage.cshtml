@@ -832,7 +832,7 @@
             } else if (row.ArrivePayStatus === 1) {
                 h.push("<span class='has-success'><code>" + row.ArrivePayValue + '</code> <span class="control-label">（待确认）</span></span></p>');
             } else if (row.ArrivePayStatus === 2) {
-                h.push("<code>" + row.ArrivePayValue + '</code>（完成）</p>');
+                h.push("<code>" + row.ArrivePayValue + '</code>（已确认）</p>');
                 //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
             }
         } else {
@@ -848,7 +848,7 @@
         } else if (row.WorldPayStatus === 1) {
             h.push("<span class='has-success'><code>" + row.OrderFrees + '</code> <span class="control-label">（待确认）</span></span></p>');
         } else if (row.WorldPayStatus === 2) {
-            h.push("<code>" + row.OrderFrees + '</code>（完成）</p>');
+            h.push("<code>" + row.OrderFrees + '</code>（已确认）</p>');
             //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
         }
         h.push('<p>国内费用：');
@@ -857,10 +857,10 @@
         } else if (row.ChinaPayStatus === 1) {
             h.push("<span class='has-success'><code>" + row.DomesticCost + '</code> <span class="control-label">（待确认）</span></span></p>');
         } else if (row.ChinaPayStatus === 2) {
-            h.push("<code>" + row.DomesticCost + '</code>（完成）</p>');
+            h.push("<code>" + row.DomesticCost + '</code>（已确认）</p>');
             //h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款完成</a>');
         }
-       
+
         return h.join('');
         // return Status_7077.getPayStatus(row.PayStatus);
     }
@@ -894,7 +894,7 @@
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">处理</button>');
 
-        if (row.ArrivePayStatus == 1 || row.WorldPayStatus == 1 || row.ChinaPayStatus == 1)
+        if ('@ViewBag.Role' == 'Admin' && (row.ArrivePayStatus == 1 || row.WorldPayStatus == 1 || row.ChinaPayStatus == 1))
             h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fukuanqverenmodel" onclick="fukuanqveren(' +
                JSON.stringify(row).replace(/\"/g, "\'") +
                 ')" value="">收款确认</button>');

@@ -4425,7 +4425,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #428bca;
+  color: #b61e0b;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -4445,7 +4445,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #2a6496;
+  color: #b61e0b;
   background-color: #eee;
   border-color: #ddd;
 }
@@ -4458,8 +4458,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   z-index: 2;
   color: #fff;
   cursor: default;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #b61e0b;
+  border-color: #b61e0b;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,

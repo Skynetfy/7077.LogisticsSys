@@ -45,6 +45,7 @@
     <Compile Include="BootstrapTableData.cs" />
     <Compile Include="CheckBoxBinding.cs" />
     <Compile Include="ConfigHelper.cs" />
+    <Compile Include="CookieHelper.cs" />
     <Compile Include="DEncrypt.cs" />
     <Compile Include="EmailHelper.cs" />
     <Compile Include="EnumExtension.cs" />

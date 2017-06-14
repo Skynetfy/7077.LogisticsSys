@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OTA_HotelDescriptiveContentNotifRQ xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TimeStamp="2017-03-15T16:34:13.2689416+08:00" Version="0" xmlns="http://www.opentravel.org/OTA/2003/05">
+  <HotelDescriptiveContents>
+    <HotelDescriptiveContent CurrencyCode="CNY" LanguageCode="zh" TimeZone="GMT+8" BrandCode="IBS" HotelCode="2151292" HotelName="宜必思尚品苏州乐园酒店" BrandName="Ibis Style">
+      <HotelInfo WhenBuilt="2016" HotelStatus="Bookable" HotelStatusCode="1">
+        <HotelName HotelShortName="宜必思尚品苏州乐园酒店">宜必思尚品苏州乐园酒店</HotelName>
+        <CategoryCodes>
+          <SegmentCategory Code="" />
+          <GuestRoomInfo Code="28" Quantity="92" />
+        </CategoryCodes>
+        <Descriptions>
+          <Description InfoCode="1" AdditionalDetailCode="2">
+            <Text Language="zh">中国区首家宜必思尚品酒店，拥有绝佳的地理位置，酒店步行至苏州欢乐世界仅需5分钟，开车至糖果乐园及苏州乐园水上世界也仅5分钟。酒店紧邻地铁站苏州乐园。 酒店设计简约、时尚、现代、融合环保酒店概念，充足的绿化面积，现代化的会议设施，使您犹如身处城市氧吧之中。</Text>
+          </Description>
+        </Descriptions>
+        <HotelInfoCodes />
+        <Position Latitude="31.294706" Longitude="120.541649" />
+        <Services>
+          <Service Code="269" BusinessServiceCode="46" ProximityCode="1" />
+          <Service Code="68" ProximityCode="2" />
+          <Service Code="179" ProximityCode="1" />
+          <Service Code="58" ProximityCode="1" />
+          <Service Code="76" ProximityCode="1" />
+          <Service Code="228" ProximityCode="1" />
+          <Service Code="274" ProximityCode="1" />
+          <Service Code="69" ProximityCode="1" />
+          <Service Code="283" ProximityCode="1" />
+        </Services>
+        <Languages>
+          <Language Language="Zh" />
+        </Languages>
+      </HotelInfo>
+      <FacilityInfo>
+        <GuestRooms>
+          <GuestRoom Code="CDR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="商务大床房" BedTypeCode="1" />
+            <Description>
+              <Text Language="zh">商务房，配备1张大床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳2个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="DR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="大床房" BedTypeCode="1" />
+            <Description>
+              <Text Language="zh">大床房，配备1张大床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳2个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="PTR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="高级双床房" BedTypeCode="8" />
+            <Description>
+              <Text Language="zh">高级双床房，配备2张单人床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳2个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="SQR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="高级大床房" BedTypeCode="1" />
+            <Description>
+              <Text Language="zh">高级房，配备1张大床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳2个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="STR" MaxOccupancy="3" MaxAdultOccupancy="3" Language="zh">
+            <TypeRoom Name="家庭房" BedTypeCode="" />
+            <Description>
+              <Text Language="zh">家庭房，配备1张大床和2张上下铺的单人床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳4个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="TR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="双床房" BedTypeCode="8" />
+            <Description>
+              <Text Language="zh">双床房，配备2张单人床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳2个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="VTR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="景观双床房" BedTypeCode="8" />
+            <Description>
+              <Text Language="zh">景观房，配备2张单人床，保险柜，冰箱，办公桌，液晶电视，免费瓶装水，免费wifi，舒适无比的住宿体验，可容纳2个成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="ALL">
+            <TypeRoom RoomTypeCode="ALL" />
+            <Amenities>
+              <Amenity RoomAmenityCode="50" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="54" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="123" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="251" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="119" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="271" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="242" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="126" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="237" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="18" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="17" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="228" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="94" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="78" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="151" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+            </Amenities>
+          </GuestRoom>
+        </GuestRooms>
+      </FacilityInfo>
+      <Policies>
+        <Policy>
+          <TaxPolicies>
+            <TaxPolicy Type="Inclusive" Code="30" Percent="3" EffectiveDate="2016-05-01" ExpireDate="9999-12-31" ChargeUnit="19">
+              <TaxDescription>
+                <Text Language="zh" />
+              </TaxDescription>
+            </TaxPolicy>
+          </TaxPolicies>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckInTime="14:00">
+            <Description>
+              <Text Language="zh">入住时间 14:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckOutTime="12:00">
+            <Description>
+              <Text Language="zh">退房时间 12:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <GuaranteePaymentPolicy>
+            <GuaranteePayment GuaranteeType="None" Mon="true" Tue="true" Weds="true" Thur="true" Fri="true" Sat="true" Sun="true">
+              <Description>
+                <Text Language="zh">客房最晚保留时间18:00</Text>
+              </Description>
+              <Time>18:00</Time>
+            </GuaranteePayment>
+          </GuaranteePaymentPolicy>
+        </Policy>
+      </Policies>
+      <AreaInfo>
+        <RefPoints>
+          <RefPoint DistanceUnitName="Mile" IndexPointCode="11">
+            <Transportations>
+              <Transportation TransportationCode="26">
+                <Descriptions Name="DirectionsFrom">
+                  <Description>
+                    <Text Language="zh">自苏州火车站乘地铁2号线至广济南路换地铁1号线至苏州乐园站后向西500米到酒店；自苏州新区火车站乘329路公交至客运西站，下车向西500米到酒店；自观前街，乘坐地铁一号线至客运西站后下车步行到酒店。</Text>
+                  </Description>
+                </Descriptions>
+              </Transportation>
+            </Transportations>
+          </RefPoint>
+        </RefPoints>
+      </AreaInfo>
+      <AffiliationInfo>
+        <Awards>
+          <Award Provider="Local star rating" Rating="1 Star" />
+        </Awards>
+      </AffiliationInfo>
+      <ContactInfos>
+        <ContactInfo Location="6" ContactProfileType="Hotel direct">
+          <Addresses>
+            <Address>
+              <AddressLine>苏州市</AddressLine>
+              <AddressLine>高新区金山路87号</AddressLine>
+              <CityName>苏州</CityName>
+              <PostalCode>215129</PostalCode>
+              <CountryName Code="CN">中国</CountryName>
+            </Address>
+          </Addresses>
+          <Phones>
+            <Phone PhoneTechType="1" CountryAccessCode="86" PhoneNumber="86/0512/68717566" />
+            <Phone PhoneTechType="3" CountryAccessCode="86" PhoneNumber="86/0512/68717500" />
+          </Phones>
+        </ContactInfo>
+      </ContactInfos>
+    </HotelDescriptiveContent>
+    <HotelDescriptiveContent CurrencyCode="CNY" LanguageCode="en" TimeZone="GMT+8" BrandCode="IBS" HotelCode="2151292" HotelName="IBIS Styles Suzhou Leyuan" BrandName="Ibis Style">
+      <HotelInfo WhenBuilt="2016" HotelStatus="Bookable" HotelStatusCode="1">
+        <HotelName HotelShortName="IBIS Styles Suzhou Leyuan">IBIS Styles Suzhou Leyuan</HotelName>
+        <CategoryCodes>
+          <SegmentCategory Code="" />
+          <GuestRoomInfo Code="28" Quantity="92" />
+        </CategoryCodes>
+        <Descriptions>
+          <Description InfoCode="1" AdditionalDetailCode="2">
+            <Text Language="en">As the 1st ibis Styles hotel in China, it enjoys the best location and is only a 5-min walk to the Suzhou Happy Land, 5-min ride to the Candyland and the Waterworld and is near the SZ Amusement Land subway station. With the simple, trendy, modern, environmental design, the great virescence area and modern meeting facilities, you will feel like living in a urban oxygen bar during the stay.</Text>
+          </Description>
+        </Descriptions>
+        <HotelInfoCodes />
+        <Position Latitude="31.294706" Longitude="120.541649" />
+        <Services>
+          <Service Code="269" BusinessServiceCode="46" ProximityCode="1" />
+          <Service Code="68" ProximityCode="2" />
+          <Service Code="179" ProximityCode="1" />
+          <Service Code="58" ProximityCode="1" />
+          <Service Code="76" ProximityCode="1" />
+          <Service Code="228" ProximityCode="1" />
+          <Service Code="274" ProximityCode="1" />
+          <Service Code="69" ProximityCode="1" />
+          <Service Code="283" ProximityCode="1" />
+        </Services>
+        <Languages>
+          <Language Language="Zh" />
+        </Languages>
+      </HotelInfo>
+      <FacilityInfo>
+        <GuestRooms>
+          <GuestRoom Code="CDR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Business Double Room" BedTypeCode="1" />
+            <Description>
+              <Text Language="en">Business room with a king-size bed, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="DR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Double Room" BedTypeCode="1" />
+            <Description>
+              <Text Language="en">Double room with a bed, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="PTR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Superior Twin Room" BedTypeCode="8" />
+            <Description>
+              <Text Language="en">Superior twin room with two single beds, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="SQR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Superior Double Room" BedTypeCode="1" />
+            <Description>
+              <Text Language="en">Superior double room with a king-size bed, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="STR" MaxOccupancy="3" MaxAdultOccupancy="3" Language="en">
+            <TypeRoom Name="Family Room" BedTypeCode="" />
+            <Description>
+              <Text Language="en">Family room with a king-size bed, two bunk beds, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for four adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="TR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Twin Room" BedTypeCode="8" />
+            <Description>
+              <Text Language="en">Twin room with two single beds, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="VTR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="View Twin Room" BedTypeCode="8" />
+            <Description>
+              <Text Language="en">Twin room with nice view, two single beds, safe deposit box, refrigerator, office desk, LCD TV, complimentary bottle water, free WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="ALL">
+            <TypeRoom RoomTypeCode="ALL" />
+            <Amenities>
+              <Amenity RoomAmenityCode="50" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="54" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="123" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="251" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="119" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="271" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="242" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="126" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="237" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="18" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="17" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="228" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="94" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="78" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="151" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+            </Amenities>
+          </GuestRoom>
+        </GuestRooms>
+      </FacilityInfo>
+      <Policies>
+        <Policy>
+          <TaxPolicies>
+            <TaxPolicy Type="Inclusive" Code="30" Percent="3" EffectiveDate="2016-05-01" ExpireDate="9999-12-31" ChargeUnit="19">
+              <TaxDescription>
+                <Text Language="en">VAT National taxes on accommodation</Text>
+              </TaxDescription>
+            </TaxPolicy>
+          </TaxPolicies>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckInTime="14:00">
+            <Description>
+              <Text Language="en">Check-in time 14:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckOutTime="12:00">
+            <Description>
+              <Text Language="en">Check-out time 12:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <GuaranteePaymentPolicy>
+            <GuaranteePayment GuaranteeType="None" Mon="true" Tue="true" Weds="true" Thur="true" Fri="true" Sat="true" Sun="true">
+              <Description>
+                <Text Language="en">Rooms at the latest retention time 18:00</Text>
+              </Description>
+              <Time>18:00</Time>
+            </GuaranteePayment>
+          </GuaranteePaymentPolicy>
+        </Policy>
+      </Policies>
+      <AreaInfo>
+        <RefPoints>
+          <RefPoint DistanceUnitName="Mile" IndexPointCode="11">
+            <Transportations>
+              <Transportation TransportationCode="26">
+                <Descriptions Name="DirectionsFrom">
+                  <Description>
+                    <Text Language="en">From the SZ Railway Station, take subway line 2 to S. Guangji Road Station, transfer to line 1 to SZ Amusement Park, then walk westward for 500 metres to the hotel. From SZ National Hi-tech Industrial Development Zone Station, take bus No. 329 to the West Coach Station, then walk westward for 500 metres to the hotel. From the Guanqian St., take subway line 1 to West Coach Station, then walk to the hotel.</Text>
+                  </Description>
+                </Descriptions>
+              </Transportation>
+            </Transportations>
+          </RefPoint>
+        </RefPoints>
+      </AreaInfo>
+      <AffiliationInfo>
+        <Awards>
+          <Award Provider="Local star rating" Rating="1 Star" />
+        </Awards>
+      </AffiliationInfo>
+      <ContactInfos>
+        <ContactInfo>
+          <Addresses>
+            <Address>
+              <AddressLine>No. 87</AddressLine>
+              <AddressLine>Jinshan Rd.</AddressLine>
+              <AddressLine> Gaoxin Dist.</AddressLine>
+              <CityName>SUZHOU</CityName>
+              <PostalCode>215129</PostalCode>
+              <StateProv />
+              <CountryName Code="CN">China</CountryName>
+            </Address>
+          </Addresses>
+          <Phones>
+            <Phone PhoneTechType="1" CountryAccessCode="86" PhoneNumber="86/0512/68717566" />
+            <Phone PhoneTechType="3" CountryAccessCode="86" PhoneNumber="86/0512/68717500" />
+          </Phones>
+        </ContactInfo>
+      </ContactInfos>
+    </HotelDescriptiveContent>
+    <CustomHotelExpandEntity>
+      <HuaZhuHotelEntity>
+        <HotelNoticeList />
+        <HotelPromotionList />
+        <IsSupport360View>false</IsSupport360View>
+        <Hotel360ViewUrl />
+        <IsSupportMixPointPay>true</IsSupportMixPointPay>
+        <IsSupportValueCardPay>false</IsSupportValueCardPay>
+        <IsOnlyChinese>false</IsOnlyChinese>
+        <CityID>3205</CityID>
+        <CityName>苏州</CityName>
+        <IsEnableRestaurant>0</IsEnableRestaurant>
+        <Taxpayer>0</Taxpayer>
+      </HuaZhuHotelEntity>
+    </CustomHotelExpandEntity>
+  </HotelDescriptiveContents>
+</OTA_HotelDescriptiveContentNotifRQ>

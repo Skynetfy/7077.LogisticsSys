@@ -874,7 +874,12 @@
     }
 
     function checkboxstateFormatter(value, row, index) {
-        if (row.Status <= 1 || row.Status >= 8) {
+        if (row.IsArrivePay && row.ArrivePayStatus!=2) {
+            return {
+                disabled: true
+            };
+        }
+        if (row.Status < 1 || row.Status >= 8) {
             return {
                 disabled: true
             };
@@ -888,7 +893,7 @@
             h.push('<button  type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateModel" onclick="updatedate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">修改</button>');
-        if (row.Status < 2 && row.Status > 0)
+        if (row.Status <= 2 && row.Status > 0 && '@ViewBag.Role' == 'Agents')
             h
                 .push(' <button  type="button" class="btn btn-success btn-xs" onclick="editdate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +

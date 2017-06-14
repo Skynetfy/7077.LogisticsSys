@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OTA_HotelDescriptiveContentNotifRQ xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TimeStamp="2017-03-15T16:32:13.903309+08:00" Version="0" xmlns="http://www.opentravel.org/OTA/2003/05">
+  <HotelDescriptiveContents>
+    <HotelDescriptiveContent CurrencyCode="CNY" LanguageCode="zh" TimeZone="GMT+8" BrandCode="IBS" HotelCode="2256003" HotelName="宜必思尚品高邮波司登广场" BrandName="Ibis Style">
+      <HotelInfo WhenBuilt="2016" HotelStatus="Bookable" HotelStatusCode="1">
+        <HotelName HotelShortName="宜必思尚品高邮波司登广场">宜必思尚品高邮波司登广场</HotelName>
+        <CategoryCodes>
+          <SegmentCategory Code="" />
+          <GuestRoomInfo Code="28" Quantity="89" />
+        </CategoryCodes>
+        <Descriptions>
+          <Description InfoCode="1" AdditionalDetailCode="2">
+            <Text Language="zh">酒店位于高邮新的城市地标波司登世贸广场，周边配套设施齐全，紧邻大型购物中心世贸广场中心、连锁电影城、有大型华润苏果品牌连锁超市。周边有商业步行街及各种风味餐厅。酒店有温馨舒适客房，美味可口的早餐，24小时供应热水，全无线覆盖，停车场，会议室。</Text>
+          </Description>
+        </Descriptions>
+        <HotelInfoCodes />
+        <Position Latitude="32.7884" Longitude="119.458" />
+        <Services>
+          <Service Code="294" ProximityCode="1" />
+          <Service Code="269" BusinessServiceCode="46" ProximityCode="1" />
+          <Service Code="68" ProximityCode="2" />
+          <Service Code="179" ProximityCode="1" />
+          <Service Code="76" ProximityCode="1" />
+          <Service Code="228" ProximityCode="1" />
+          <Service Code="274" ProximityCode="1" />
+          <Service Code="69" ProximityCode="1" />
+          <Service Code="122" ProximityCode="1" />
+          <Service Code="108" ProximityCode="1" />
+          <Service Code="283" ProximityCode="1" />
+          <Service Code="278" ProximityCode="1" />
+          <Service Code="35" ProximityCode="1" />
+        </Services>
+        <Languages>
+          <Language Language="Zh" />
+        </Languages>
+      </HotelInfo>
+      <FacilityInfo>
+        <GuestRooms>
+          <GuestRoom Code="SQR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="高级大床房" BedTypeCode="1" />
+            <Description>
+              <Text Language="zh">高级大床房配备一张大床，独立淋浴间，免费洗漱用品红茶绿茶咖啡，瓶装水，液晶电视、WIFI，舒适无比的住宿体验，最多容纳2位成人和1位儿童。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="SS" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="套房" BedTypeCode="1" />
+            <Description>
+              <Text Language="zh">套房配备2个房间，内间一张大床，外间配置棋牌桌，享受免费洗漱用品红茶绿茶咖啡，瓶装水，液晶电视、WIFI，舒适无比的住宿体验。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="STR" MaxOccupancy="3" MaxAdultOccupancy="3" Language="zh">
+            <TypeRoom Name="家庭房" BedTypeCode="" />
+            <Description>
+              <Text Language="zh">家庭房配备一张大床和一张单人床，独立淋浴间，免费洗漱用品红茶绿茶咖啡，瓶装水，液晶电视、WIFI，舒适无比的住宿体验，最多容纳2位成人和1位儿童。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="TR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="zh">
+            <TypeRoom Name="双床房" BedTypeCode="8" />
+            <Description>
+              <Text Language="zh">标准双床房配备2张单人床，独立淋浴间，免费洗漱用品红茶绿茶咖啡，瓶装水，液晶电视、WIFI，舒适无比的住宿体验，最多容纳2位成人。</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="ALL">
+            <TypeRoom RoomTypeCode="ALL" />
+            <Amenities>
+              <Amenity RoomAmenityCode="50" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="54" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="123" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="251" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="119" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="271" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="242" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="126" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="237" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="18" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="17" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="228" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="94" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+            </Amenities>
+          </GuestRoom>
+        </GuestRooms>
+      </FacilityInfo>
+      <Policies>
+        <Policy>
+          <TaxPolicies>
+            <TaxPolicy Type="Inclusive" Code="30" Percent="3" EffectiveDate="2016-05-01" ExpireDate="9999-12-31" ChargeUnit="19">
+              <TaxDescription>
+                <Text Language="zh" />
+              </TaxDescription>
+            </TaxPolicy>
+          </TaxPolicies>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckInTime="14:00">
+            <Description>
+              <Text Language="zh">入住时间 14:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckOutTime="12:00">
+            <Description>
+              <Text Language="zh">退房时间 12:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <GuaranteePaymentPolicy>
+            <GuaranteePayment GuaranteeType="None" Mon="true" Tue="true" Weds="true" Thur="true" Fri="true" Sat="true" Sun="true">
+              <Description>
+                <Text Language="zh">客房最晚保留时间18:00</Text>
+              </Description>
+              <Time>18:00</Time>
+            </GuaranteePayment>
+          </GuaranteePaymentPolicy>
+        </Policy>
+      </Policies>
+      <AreaInfo>
+        <RefPoints>
+          <RefPoint DistanceUnitName="Mile" IndexPointCode="11">
+            <Transportations>
+              <Transportation TransportationCode="26">
+                <Descriptions Name="DirectionsFrom">
+                  <Description>
+                    <Text Language="zh">从扬州火车站出发，74公里的车程花费60分钟(坐出租车大约180元人民币); 从扬泰机场出发，58公里的车程花费40分钟(坐出租车大约150人民币); 从高邮汽车站出发，乘坐公交车10路，到波司登世贸广场站，步行50米可到酒店。</Text>
+                  </Description>
+                </Descriptions>
+              </Transportation>
+            </Transportations>
+          </RefPoint>
+        </RefPoints>
+      </AreaInfo>
+      <AffiliationInfo>
+        <Awards>
+          <Award Provider="Local star rating" Rating="1 Star" />
+        </Awards>
+      </AffiliationInfo>
+      <ContactInfos>
+        <ContactInfo Location="6" ContactProfileType="Hotel direct">
+          <Addresses>
+            <Address>
+              <AddressLine>波司登世贸广场</AddressLine>
+              <AddressLine>2区第3幢</AddressLine>
+              <AddressLine>高邮</AddressLine>
+              <CityName>扬州</CityName>
+              <PostalCode>225600</PostalCode>
+              <CountryName Code="CN">中国</CountryName>
+            </Address>
+          </Addresses>
+          <Phones>
+            <Phone PhoneTechType="1" CountryAccessCode="86" PhoneNumber="86/0514/84850999" />
+            <Phone PhoneTechType="3" CountryAccessCode="86" PhoneNumber="86/0514/84860999" />
+          </Phones>
+        </ContactInfo>
+      </ContactInfos>
+    </HotelDescriptiveContent>
+    <HotelDescriptiveContent CurrencyCode="CNY" LanguageCode="en" TimeZone="GMT+8" BrandCode="IBS" HotelCode="2256003" HotelName="IBIS Styles GY Bosideng Plz" BrandName="Ibis Style">
+      <HotelInfo WhenBuilt="2016" HotelStatus="Bookable" HotelStatusCode="1">
+        <HotelName HotelShortName="IBIS Styles GY Bosideng Plz">IBIS Styles GY Bosideng Plz</HotelName>
+        <CategoryCodes>
+          <SegmentCategory Code="" />
+          <GuestRoomInfo Code="28" Quantity="89" />
+        </CategoryCodes>
+        <Descriptions>
+          <Description InfoCode="1" AdditionalDetailCode="2">
+            <Text Language="en">The hotel is located at the Bosideng World Trade Plaza, the new city landmark of Gaoyou and enjoys a full range of facilities nearby. It is situated near the large scale shopping center of World Trade Plaza, Movie Town, and supermarket of China Resource Suguo and has business pedestrian and all kinds of restaurants nearby. The hotel also offers cozy guest rooms, 24-hour warm water, tasty breakfast etc.</Text>
+          </Description>
+        </Descriptions>
+        <HotelInfoCodes />
+        <Position Latitude="32.7884" Longitude="119.458" />
+        <Services>
+          <Service Code="294" ProximityCode="1" />
+          <Service Code="269" BusinessServiceCode="46" ProximityCode="1" />
+          <Service Code="68" ProximityCode="2" />
+          <Service Code="179" ProximityCode="1" />
+          <Service Code="76" ProximityCode="1" />
+          <Service Code="228" ProximityCode="1" />
+          <Service Code="274" ProximityCode="1" />
+          <Service Code="69" ProximityCode="1" />
+          <Service Code="122" ProximityCode="1" />
+          <Service Code="108" ProximityCode="1" />
+          <Service Code="283" ProximityCode="1" />
+          <Service Code="278" ProximityCode="1" />
+          <Service Code="35" ProximityCode="1" />
+        </Services>
+        <Languages>
+          <Language Language="Zh" />
+        </Languages>
+      </HotelInfo>
+      <FacilityInfo>
+        <GuestRooms>
+          <GuestRoom Code="SQR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Superior Double Room" BedTypeCode="1" />
+            <Description>
+              <Text Language="en">Superior double room with a king-size bed, separate bathroom, free bathroom accessories, tea, coffee, water, LCD TV, WIFI, and offers the most comfortable accommodation up for two adults and one kid.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="SS" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Suite" BedTypeCode="1" />
+            <Description>
+              <Text Language="en">Suite with two rooms, one room for a king-size bed, another for the entertainment equipment, and offers free bathroom accessories, tea, coffee, water, LCD TV, WIFI, and the most comfortable accommodation.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="STR" MaxOccupancy="3" MaxAdultOccupancy="3" Language="en">
+            <TypeRoom Name="Family Room" BedTypeCode="" />
+            <Description>
+              <Text Language="en">Family room with a king-size bed, a single bed, separate bathroom, free bathroom accessories, tea, coffee, water, LCD TV, WIFI, and offers the most comfortable accommodation up for two adults and one kid.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="TR" MaxOccupancy="2" MaxAdultOccupancy="2" Language="en">
+            <TypeRoom Name="Twin Room" BedTypeCode="8" />
+            <Description>
+              <Text Language="en">Twin room with two single beds, separate bathroom, free bathroom accessories, tea, coffee, water, LCD TV, WIFI, and offers the most comfortable accommodation up for two adults.</Text>
+            </Description>
+          </GuestRoom>
+          <GuestRoom Code="ALL">
+            <TypeRoom RoomTypeCode="ALL" />
+            <Amenities>
+              <Amenity RoomAmenityCode="50" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="54" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="123" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="251" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="119" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="271" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="242" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="126" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="237" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="18" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="17" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="228" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+              <Amenity RoomAmenityCode="94" IncludedInRateIndicator="true">
+                <OperationSchedules>
+                  <OperationSchedule>
+                    <Charge Type="Inclusive" />
+                  </OperationSchedule>
+                </OperationSchedules>
+              </Amenity>
+            </Amenities>
+          </GuestRoom>
+        </GuestRooms>
+      </FacilityInfo>
+      <Policies>
+        <Policy>
+          <TaxPolicies>
+            <TaxPolicy Type="Inclusive" Code="30" Percent="3" EffectiveDate="2016-05-01" ExpireDate="9999-12-31" ChargeUnit="19">
+              <TaxDescription>
+                <Text Language="en">VAT National taxes on accommodation</Text>
+              </TaxDescription>
+            </TaxPolicy>
+          </TaxPolicies>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckInTime="14:00">
+            <Description>
+              <Text Language="en">Check-in time 14:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <PolicyInfo CheckOutTime="12:00">
+            <Description>
+              <Text Language="en">Check-out time 12:00</Text>
+            </Description>
+          </PolicyInfo>
+        </Policy>
+        <Policy>
+          <GuaranteePaymentPolicy>
+            <GuaranteePayment GuaranteeType="None" Mon="true" Tue="true" Weds="true" Thur="true" Fri="true" Sat="true" Sun="true">
+              <Description>
+                <Text Language="en">Rooms at the latest retention time 18:00</Text>
+              </Description>
+              <Time>18:00</Time>
+            </GuaranteePayment>
+          </GuaranteePaymentPolicy>
+        </Policy>
+      </Policies>
+      <AreaInfo>
+        <RefPoints>
+          <RefPoint DistanceUnitName="Mile" IndexPointCode="11">
+            <Transportations>
+              <Transportation TransportationCode="26">
+                <Descriptions Name="DirectionsFrom">
+                  <Description>
+                    <Text Language="en">From the Yangzhou Railway Station, the 74 km ride takes 60 minutes (around 180 RMB by taxi). From the Yangtai Airport, the 58 km ride takes 40 minutes (around 150 RMB by taxi). From the Gaoyou Bus Station, take bus No. 10 to the Bosideng World Trade Plaza stop, and then walk 50 metres to the hotel.</Text>
+                  </Description>
+                </Descriptions>
+              </Transportation>
+            </Transportations>
+          </RefPoint>
+        </RefPoints>
+      </AreaInfo>
+      <AffiliationInfo>
+        <Awards>
+          <Award Provider="Local star rating" Rating="1 Star" />
+        </Awards>
+      </AffiliationInfo>
+      <ContactInfos>
+        <ContactInfo>
+          <Addresses>
+            <Address>
+              <AddressLine>Building No. 3</AddressLine>
+              <AddressLine>Zone No. 2</AddressLine>
+              <AddressLine>Bosideng World Trade Plaza</AddressLine>
+              <AddressLine>GAOYOU</AddressLine>
+              <CityName>Yangzhou</CityName>
+              <PostalCode>225600</PostalCode>
+              <StateProv />
+              <CountryName Code="CN">China</CountryName>
+            </Address>
+          </Addresses>
+          <Phones>
+            <Phone PhoneTechType="1" CountryAccessCode="86" PhoneNumber="86/0514/84850999" />
+            <Phone PhoneTechType="3" CountryAccessCode="86" PhoneNumber="86/0514/84860999" />
+          </Phones>
+        </ContactInfo>
+      </ContactInfos>
+    </HotelDescriptiveContent>
+    <CustomHotelExpandEntity>
+      <HuaZhuHotelEntity>
+        <HotelNoticeList />
+        <HotelPromotionList />
+        <IsSupport360View>false</IsSupport360View>
+        <Hotel360ViewUrl />
+        <IsSupportMixPointPay>true</IsSupportMixPointPay>
+        <IsSupportValueCardPay>true</IsSupportValueCardPay>
+        <IsOnlyChinese>true</IsOnlyChinese>
+        <CityID>321084</CityID>
+        <CityName>高邮</CityName>
+        <IsEnableRestaurant>0</IsEnableRestaurant>
+        <Taxpayer>0</Taxpayer>
+      </HuaZhuHotelEntity>
+    </CustomHotelExpandEntity>
+  </HotelDescriptiveContents>
+</OTA_HotelDescriptiveContentNotifRQ>

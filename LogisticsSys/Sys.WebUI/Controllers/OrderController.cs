@@ -552,6 +552,7 @@ namespace Sys.WebUI.Controllers
                     payinfo.CostType = type ?? "";
                     DALFactory.OrderPayInfoDao.Insert(payinfo);
 
+                    //CookieHelper.SetCookie("PayDate", DateTime.Now.ToString("s"), DateTime.Now.AddHours(1));
                     //加积分
                     //if (costType == CostTypeEnums.WorldPay)
                     //{

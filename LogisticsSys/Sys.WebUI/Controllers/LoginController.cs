@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Security.Principal;
+using NLog;
 using Sys.BLL;
 using Sys.BLL.Users;
 using Sys.Common;
@@ -91,6 +92,8 @@ namespace Sys.WebUI.Controllers
                 var i = provider.InsertUser(entity);
                 if (i > 0)
                 {
+                    ILogger logger = LogManager.GetCurrentClassLogger();
+                    logger.Trace("注册成功了");
                     var customer = new SysCustomerInfo();
                     customer.CustomerID = UserService.GetCustomerNo();
                     customer.UserId = i;
@@ -101,6 +104,7 @@ namespace Sys.WebUI.Controllers
                     customer.QQNumber = "";
                     customer.WebChatNo = "";
                     customer.Phone = "";
+                    customer.Integral = 0;
                     var x = UserService.InsertCustomer(customer);
                     if (x > 0)
                     {

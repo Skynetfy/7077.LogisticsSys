@@ -20,7 +20,7 @@ namespace Sys.BLL
             if (user != null)
             {
                 var sn = user.CustomerID;
-                string no = sn.Substring(7, 5);
+                string no = sn.Substring(6, 5);
                 return "RUGOGO" + (Convert.ToInt32(no) + 1);
             }
             else

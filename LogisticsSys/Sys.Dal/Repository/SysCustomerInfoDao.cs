@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Arch.Data;
 using Arch.Data.DbEngine;
+using NLog;
 using Sys.Entities;
 
 namespace Sys.Dal.Repository
@@ -15,7 +16,14 @@ namespace Sys.Dal.Repository
     public partial class SysCustomerInfoDao : ISysCustomerInfoDao
     {
         readonly BaseDao baseDao = BaseDaoFactory.CreateBaseDao("DefaultConStr");
-        
+
+        private ILogger logger;
+
+        public SysCustomerInfoDao()
+        {
+            logger = LogManager.GetCurrentClassLogger();
+        }
+
         //特别注意，如果是可空类型，建议以如下方式使用：
         // var data = reader["field"];
         // entity.stringData = data == null ? data : data.ToString();
@@ -88,7 +96,9 @@ namespace Sys.Dal.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message);
                 throw new DalException("调用SysCustomerInfo时，访问Insert时出错", ex);
+                
             }
         }
         /// <summary>

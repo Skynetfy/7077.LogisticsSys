@@ -81,6 +81,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.10\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
@@ -447,6 +451,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ExcelFiles\QrCodes\" />
+    <Folder Include="logs\" />
     <Folder Include="Scripts\bootstrap-select\i18n\" />
   </ItemGroup>
   <ItemGroup>

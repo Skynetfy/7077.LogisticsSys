@@ -278,3 +278,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OOXML.dl
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXml4Net.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXmlFormats.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.xml
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NLog.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NLog.xml

@@ -307,11 +307,12 @@
            .click(function (e) {
                e.stopPropagation();
                e.preventDefault();
+               var t = new Date().getTime();
                var href = $(this).attr('href');
                if (href != null && href != "#") {
                    $('body').mLoading("show"); //显示loading组件
                    $('#main-page')
-                       .load(href,
+                        .load(href+"?t="+t,
                            function () {
                                $('body').mLoading("hide"); //显示loading组件
                            });

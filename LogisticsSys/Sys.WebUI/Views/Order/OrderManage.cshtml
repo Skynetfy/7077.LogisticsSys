@@ -717,11 +717,12 @@
             .click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
+                var t = new Date().getTime();
                 var href = $(this).attr('href');
                 if (href != null && href != "#") {
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
-                        .load(href,
+                         .load(href+"?t="+t,
                             function () {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
@@ -893,7 +894,7 @@
             h.push('<button  type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateModel" onclick="updatedate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +
                     ')" value="">修改</button>');
-        if (row.Status <= 2 && row.Status > 0 && '@ViewBag.Role' == 'Agents')
+        if (row.Status <= 2 && row.Status > 0 && '@ViewBag.Role' == 'Agents' && (row.WorldPayStatus == 0 && row.ChinaPayStatus == 0))
             h
                 .push(' <button  type="button" class="btn btn-success btn-xs" onclick="editdate(' +
                     JSON.stringify(row).replace(/\"/g, "\'") +

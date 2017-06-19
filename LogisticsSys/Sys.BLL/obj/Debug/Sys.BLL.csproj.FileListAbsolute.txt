@@ -40,3 +40,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\NPOI.Open
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\NPOI.xml
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\NLog.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.BLL\bin\Debug\NLog.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NLog.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.BLL\bin\Debug\NLog.xml

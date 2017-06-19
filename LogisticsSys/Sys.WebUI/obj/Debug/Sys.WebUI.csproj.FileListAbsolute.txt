@@ -280,3 +280,5 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.OpenXmlF
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NPOI.xml
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NLog.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NLog.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NLog.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NLog.xml

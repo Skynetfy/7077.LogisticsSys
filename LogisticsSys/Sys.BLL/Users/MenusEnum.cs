@@ -59,6 +59,8 @@ namespace Sys.BLL.Users
         [Description("System/QrCode")]
         二维码管理,
         [Description("User/Points")]
-        积分管理
+        积分管理,
+        [Description("System/DbConfig")]
+        参数配置
     }
 }

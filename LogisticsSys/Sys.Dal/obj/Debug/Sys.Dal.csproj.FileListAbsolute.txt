@@ -22,3 +22,5 @@ E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Newtonsof
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Newtonsoft.Json.xml
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Dal\bin\Debug\NLog.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Dal\bin\Debug\NLog.xml
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\NLog.dll
+E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\NLog.xml

@@ -97,8 +97,8 @@
             <small class="text-warning">国际段费用=保险费+开箱费+货物重量*运输单价</small>
         </div>
         @*<div class="col-md-6 col-sm-6 col-xs-12">
-            <small class="text-warning">国际段费用=保险费+开箱费+货物重量*运输单价</small>
-        </div>*@
+                <small class="text-warning">国际段费用=保险费+开箱费+货物重量*运输单价</small>
+            </div>*@
     </div>
     <br />
     <h5>收件人信息</h5>
@@ -150,8 +150,8 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="domesticcost" name="domesticcost" onblur="sumprice()" value="@orderview.DomesticCost" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
             <small class="text-warning">国内段费用=打包费用+快递费用</small>
-         </div>
-       
+        </div>
+
     </div>
     <br />
     <h5>订单金额</h5>
@@ -164,7 +164,7 @@
             <input type="text" id="orderfrees" name="orderfrees" required="required" data-parsley-type="number" data-parsley-min="1" value="@orderview.OrderRealPrice" class="form-control col-md-7 col-xs-12">
             <small class="text-warning">总金额=国际段费用+国内段费用+到付金额</small>
         </div>
-       
+
     </div>
     <div class="ln_solid"></div>
     <div class="form-group">
@@ -173,10 +173,13 @@
         </div>
     </div>
     <input type="hidden" id="fy" />
+    <input type="hidden" id="AireTransPrice" value="@ViewBag.AireTransPrice" />
+    <input type="hidden" id="blueTransPrice" value="@ViewBag.blueTransPrice" />
 </form>
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
+
     function insuranceCostblur() {
         var cost = $('#insuranceCost').val();
         var gjfy = $('#fy').val();
@@ -185,6 +188,9 @@
     }
 
     function goodsweightblur() {
+        var ap, bp;
+        ap=$('#AireTransPrice').val();
+        bp=$('#blueTransPrice').val();
         var weight = $('#goodsweight').val();
         var transType = @orderview.TransportationWay;
         var isopen = '@orderview.IsOutPhoto';
@@ -195,12 +201,12 @@
             if (w < 1)
                 w = 1;
             if (w < 50) {
-                p = 85*100 * w/100;
+                p = Number(ap)*100 * w/100;
             } else {
                 if (transType == 1) {
-                    p = 60 *100* w/100;
+                    p =  Number(bp) *100* w/100;
                 } else {
-                    p = 85*100 * w/100;
+                    p =  Number(ap)*100 * w/100;
                 }
             }
             if (isopen == 'True')
@@ -303,8 +309,9 @@
                 $('#alert-infor strong').html('错误！');
             },
             success: function (responseText, statusText) {
+                var t = new Date().getTime();
                 $('#main-page')
-                    .load("@Url.Action("OrderManage")",
+                    .load("@Url.Action("OrderManage")?t="+t,
                         function (e) {
                             $('body').mLoading("hide"); //显示loading组件
                         });

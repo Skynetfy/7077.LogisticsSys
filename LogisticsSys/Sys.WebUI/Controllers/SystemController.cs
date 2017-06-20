@@ -457,5 +457,61 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
         #endregion
+
+        #region 参数配置
+
+        public ActionResult DbConfig()
+        {
+            var data = DALFactory.DbconfigDao.GetAll();
+            var aireTransPrice = data.FirstOrDefault(x => x.Key.Equals("AireTransPrice"));
+            ViewBag.AireTransPrice = aireTransPrice != null ? Convert.ToDecimal(aireTransPrice.Value) : 85;
+            var blueTransPrice = data.FirstOrDefault(x => x.Key.Equals("blueTransPrice"));
+            ViewBag.blueTransPrice = blueTransPrice != null ? Convert.ToDecimal(blueTransPrice.Value) : 60;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditTransWayPrice(string aireprice,string blueprice)
+        {
+            var data = DALFactory.DbconfigDao.GetAll();
+            if (!string.IsNullOrEmpty(aireprice))
+            {
+                var entity = data.FirstOrDefault(x => x.Key.Equals("AireTransPrice"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "AireTransPrice";
+                    entity.Value = aireprice;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory.DbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = aireprice;
+                    DALFactory.DbconfigDao.Update(entity);
+                }
+            }
+            if (!string.IsNullOrEmpty(blueprice))
+            {
+                var entity = data.FirstOrDefault(x => x.Key.Equals("blueTransPrice"));
+                if (entity == null)
+                {
+                    entity = new SysDbConfig();
+                    entity.Key = "blueTransPrice";
+                    entity.Value = blueprice;
+                    entity.CreateDate = DateTime.Now;
+                    entity.IsDelete = false;
+                    DALFactory.DbconfigDao.Insert(entity);
+                }
+                else
+                {
+                    entity.Value = blueprice;
+                    DALFactory.DbconfigDao.Update(entity);
+                }
+            }
+            return Content("ok");
+        }
+        #endregion
     }
 }

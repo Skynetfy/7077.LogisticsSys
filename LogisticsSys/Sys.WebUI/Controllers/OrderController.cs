@@ -281,13 +281,16 @@ namespace Sys.WebUI.Controllers
         }
         public ActionResult EditOrder(string id)
         {
-
             if (!string.IsNullOrEmpty(id))
             {
                 var provider = new OrderInfoProvider();
                 var orderinfo = provider.GetOrderViewById(Convert.ToInt64(id));
                 ViewData["OrderInfo"] = orderinfo;
-
+                var data = DALFactory.DbconfigDao.GetAll();
+                var aireTransPrice = data.FirstOrDefault(x => x.Key.Equals("AireTransPrice"));
+                ViewBag.AireTransPrice = aireTransPrice != null ? Convert.ToDecimal(aireTransPrice.Value) : 85;
+                var blueTransPrice = data.FirstOrDefault(x => x.Key.Equals("blueTransPrice"));
+                ViewBag.blueTransPrice = blueTransPrice != null ? Convert.ToDecimal(blueTransPrice.Value) : 60;
                 //var address = provider.GetAddressInfoByOid(Convert.ToInt64(id));
                 //ViewData["AddressInfo"] = address;
             }

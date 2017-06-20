@@ -722,7 +722,7 @@
                 if (href != null && href != "#") {
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
-                         .load(href+"?t="+t,
+                         .load(href + "?t=" + t,
                             function () {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
@@ -875,7 +875,7 @@
     }
 
     function checkboxstateFormatter(value, row, index) {
-        if (row.IsArrivePay && row.ArrivePayStatus!=2) {
+        if (row.IsArrivePay && row.ArrivePayStatus != 2) {
             return {
                 disabled: true
             };
@@ -917,7 +917,8 @@
         return h.join('');
     }
     function fukuanqveren(row) {
-        $('#payviewList').load('@Url.Action("PayViewList")?orderid=' + row.Id, function () {
+        var t = new Date().getTime();
+        $('#payviewList').load('@Url.Action("PayViewList")?t=' + t + '&orderid=' + row.Id, function () {
 
         });
     }
@@ -929,7 +930,8 @@
     }
     function viewOrder(row) {
         $('body').mLoading("show"); //显示loading组件
-        $('.maincontent').load('@Url.Action("OrderView")?id=' + row.Id, function (e) {
+        var t = new Date().getTime();
+        $('.maincontent').load('@Url.Action("OrderView")?t=' + t + '&id=' + row.Id, function (e) {
             $('body').mLoading("hide"); //显示loading组件
         });
     }
@@ -982,7 +984,8 @@
 
     function editdate(row) {
         $('body').mLoading("show"); //显示loading组件
-        $('.maincontent').load('@Url.Action("EditOrder")?id=' + row.Id, function (e) {
+        var t = new Date().getTime();
+        $('.maincontent').load('@Url.Action("EditOrder")?t=' + t + '&id=' + row.Id, function (e) {
             $('body').mLoading("hide"); //显示loading组件
         });
         //$('[data-id=orderno]').html(row.OrderNo);

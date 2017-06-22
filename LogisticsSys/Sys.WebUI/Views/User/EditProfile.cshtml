@@ -141,7 +141,9 @@
                                 $('#alert-infor strong').html('错误！');
                             },
                             success: function (responseText, statusText) {
-                                $('#main-page').load("@Url.Action("Profile", "User")");
+                                //$('#main-page').load("@Url.Action("Profile", "User")");
+                                alert("保存成功");
+                                location.href = "@Url.Action("Index","Home")";
                             }
                         });
                 }

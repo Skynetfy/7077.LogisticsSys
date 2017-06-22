@@ -64,7 +64,7 @@
                     $(this).parent().siblings('li').removeClass('nav-current');
                     var url = $(this).attr('href');
                     $('#main-page')
-                        .load(loc.origin + "/" + url + "?t=" + t,
+                        .load("//" + loc.host + "/" + url + "?t=" + t,
                             function (e) {
                                 $('body').mLoading("hide"); //显示loading组件
                             });

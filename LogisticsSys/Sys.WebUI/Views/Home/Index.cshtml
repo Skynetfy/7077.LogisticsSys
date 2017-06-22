@@ -12,7 +12,7 @@
             });
         } else {
             var url = $('#main-menu li:first>a').attr('href');
-            $('#main-page').load(window.location.origin + "/" + url,function() {
+            $('#main-page').load("//" + window.location.host + "/" + url, function () {
                 $('body').mLoading("hide");//显示loading组件
             });
         }

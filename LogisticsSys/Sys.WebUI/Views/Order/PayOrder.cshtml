@@ -24,7 +24,7 @@
 <body>
     <div class="container">
 
-        <div class="bs-callout bs-callout-info" id="callout-glyphicons-location">
+        <div class="bs-callout bs-callout-info" id="callout-glyphicons-location" style="margin: 0;">
             <h4>订单支付</h4>
             <p>订单号：@ViewBag.SNO</p>
             <p id="p1" style="display: none;">到付金额：￥@ViewBag.ArrivePayValue</p>
@@ -58,7 +58,7 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="col-md-8" style="margin-top: 20px;">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">支付宝账号</label> <span class="required">*</span>
@@ -70,9 +70,11 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-6" style="text-align: center;">
-                                <img src="~/ExcelFiles/QrCodes/@ViewBag.AllPay" width="50%" />
+                            <div class="col-md-3">
+                               *请先扫描二维码付款，付款完成后，点击确认付款才能完成付款流程，不点击确认付款，则不能完成付款程序。
+                            </div>
+                            <div class="col-md-3" style="text-align: center;">
+                                <img src="~/ExcelFiles/QrCodes/@ViewBag.AllPay" style="width: 50%; " />
                             </div>
                         </div>
                     </div>
@@ -164,23 +166,26 @@
                     </div>
                 </div>*@
             <div class="row">
-                <div class="col-md-3 col-md-offset-9">
-                    <div class="alert alert-danger  text-right" role="alert">
+                <div class="col-md-3">
+                    <div class="" role="alert">
                         @*<p id="youhuijiagep" style="display: none;">积分优惠：-￥@ViewBag.YouHuiPrice</p>*@
                         实付款：<strong style="font-size: 24px;" id="realcost">￥ 0</strong>
                     </div>
+                </div>
+                <div class="col-md-8">
+                    <input type="button" id="myButton" class="btn btn-primary" value="确认付款" />
                 </div>
             </div>
             <input type="hidden" id="keyongjifen" name="keyongjifen" value="@ViewBag.RealIntegral" />
             <input type="hidden" id="realprice" name="realprice" value="0" />
             <input type="hidden" id="youhuiprice" name="youhuiprice" value="@ViewBag.RealPrice" />
             <input type="hidden" name="ekc" value="@ViewBag.ekc" />
-            <div class="row text-right" style="margin-bottom: 20px;">
+            @*<div class="row text-right" style="margin-bottom: 20px;">
                 <div class="col-md-12">
                     <input type="button" id="myButton" class="btn btn-primary" value="确认付款" />
                 </div>
 
-            </div>
+            </div>*@
         </form>
     </div>
     <script src="~/Scripts/moment.js"></script>

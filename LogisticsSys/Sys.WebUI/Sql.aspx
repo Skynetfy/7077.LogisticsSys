@@ -15,6 +15,7 @@
             <asp:Button ID="btn1" runat="server" Text="执 行" OnClick="btn1_Click" />
             <br />
             <asp:Label ID="lb1" runat="server"></asp:Label>
+            <asp:Label runat="server" ID="pathurl" ></asp:Label>
         </div>
     </form>
 </body>

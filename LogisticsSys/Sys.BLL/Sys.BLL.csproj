@@ -63,7 +63,9 @@
     <Compile Include="ActionLogTypeEnum.cs" />
     <Compile Include="ChinaCityService.cs" />
     <Compile Include="GoodsTypeService.cs" />
+    <Compile Include="ISendEmailManager.cs" />
     <Compile Include="LogisticsService.cs" />
+    <Compile Include="OrderSendEmailManager.cs" />
     <Compile Include="Order\OrderInfoProvider.cs" />
     <Compile Include="Order\OrderNumberRandom.cs" />
     <Compile Include="Order\OrderPayStatusEnum.cs" />

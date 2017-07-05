@@ -22,6 +22,12 @@ namespace Sys.WebUI.Controllers
     [Authorize]
     public class OrderController : BaseController
     {
+        private readonly ISendEmailManager emailManager;
+
+        public OrderController(ISendEmailManager _emailManager)
+        {
+            emailManager = _emailManager;
+        }
         // GET: Order
         public ActionResult Index(string id)
         {
@@ -269,6 +275,13 @@ namespace Sys.WebUI.Controllers
                             ISysLogisticsInfoRepository logisticsInfo = DALFactory.SysLogisticsInfoDao;
                             logisticsInfo.Insert(logistics);
                         }
+
+                        if (addresserInfo.IsArrivePay)
+                        {
+                            var obj = "RuGoGo支付通知";
+                            var msg = string.Format("尊敬的[{0}]：<br> 您的订单：<strong>{1}</strong>,已下单成功，您有一笔到付金额（￥{2}）还没有支付，请尽快支付。<br>欢迎使用，谢谢。", username, orderinfo.OrderNo, addresserInfo.ArrivePayValue);
+                            emailManager.Send(_user.Email, msg, obj);
+                        }
                     }
                     result.Message = orderinfo.OrderNo;
                 }
@@ -330,6 +343,15 @@ namespace Sys.WebUI.Controllers
                             orderPrivder.UpdateReceiverInfo(rec);
                         }
 
+                        var username = User.Identity.Name;
+                        var userProvider = new UserLoginProvider();
+                        var _user = userProvider.GetUser(username);
+                        if (_user != null && _user.Email != null)
+                        {
+                            var obj = "RuGoGo支付通知";
+                            var msg = string.Format("尊敬的[{0}]：<br> 您的订单：<strong>{1}</strong>,系统已人工处理完成，您还有两笔费用没有支付，国际段费用￥{2}，国内段费用￥{3}，请尽快支付。<br>欢迎使用，谢谢。", username, order.OrderNo, Convert.ToDecimal(insuranceCost), Convert.ToDecimal(domesticcost));
+                            emailManager.Send(_user.Email, msg, obj);
+                        }
                     }
                 }
             }

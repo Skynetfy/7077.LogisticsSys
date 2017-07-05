@@ -1171,7 +1171,7 @@ a.text-info:hover {
   color: #245269;
 }
 .text-warning {
-  color: #8a6d3b;
+  color: #fe0322;
 }
 a.text-warning:hover {
   color: #66512c;
@@ -3883,14 +3883,18 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-collapse {
-  padding-right: 15px;
-  padding-left: 15px;
+  /*padding-right: 15px;
+  padding-left: 15px;*/
+    margin: 0 -15px;
   overflow-x: visible;
   -webkit-overflow-scrolling: touch;
   border-top: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
 }
+ .navbar-collapse .menu>li>a {
+      line-height: 3em;
+  } 
 .navbar-collapse.in {
   overflow-y: auto;
 }
@@ -3901,6 +3905,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     -webkit-box-shadow: none;
             box-shadow: none;
   }
+  .navbar-collapse .menu>li>a {
+      line-height: 4em;
+  } 
   .navbar-collapse.collapse {
     display: block !important;
     height: auto !important;
@@ -6356,3 +6363,19 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+/**修改支付指导流程排版**/
+#collapseOne .panel-body .zflc{
+   color:#d2220b;
+   padding-top:8px;
+   padding-bottom:8px;
+   background-color:#fcf8e3;
+   border-color:#faebcc;
+   border:1px solid transparent;
+   border-radius:4px;
+   
+}
+#collapseOne .panel-body .zflc .zhuyi{
+   font-size:18px;
+}
+

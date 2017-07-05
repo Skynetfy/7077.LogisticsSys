@@ -65,10 +65,13 @@
                     </li>
                 </ul>
                 <form id="form" method="post" action="@Url.Action("CreateOrder")" enctype="multipart/form-data" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
-                    <div id="step-1">
-                        <h4 class="StepTitle">下单介绍</h4>
+                    <div id="step-1" style="width:100%;color:#8a6d3b;background-color:#fcf8e3;border-color:#faebcc;margin-bottom:30px;padding:15px;border-radius:5px;">
+                        <h4 class="StepTitle">下单介绍：</h4>
                         <p>
-                            ...
+尊敬的RuGoGo俄罗斯海淘转运站用户，您好！</p>
+<p>欢迎使用我们的海淘转运转系统，您现在使用的是一套完整的包括 下单，支付 及物流跟踪在内的 海淘转运系统。 可实现一单到底，全程自动化处理！使用过程中，请您根据系统提示完成操作。</p>
+<p>使用前请先阅读“<a href="https://www.rugogo.com/fqa/zccg/2017-07-03/251.html" style="color:#428bca;" target="_blank">RuGoGo俄罗斯海淘转运站下单攻略</a>”</p>
+<p>如有疑问请随时咨询QQ在线客服！<img src="/images/pa2.gif">2768439650
                         </p>
                     </div>
                     @*<div id="step-2">
@@ -216,7 +219,7 @@
                                             <input type="radio" value="2" name="transportationway" data-text="空运" checked>
                                             空运
                                         </label>
-                                        <small class="text-warning">(无起送重量，运费=85*重量)</small>
+                                        <small class="text-warning">(起送重量1kg起，运费=85*重量)</small>
                                     </div>
                                     <div class="radio">
                                         <label>
@@ -234,7 +237,7 @@
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <input type="text" id="protectprice" name="protectprice" required="required" data-parsley-type="number" data-parsley-min="0" data-parsley-group="form2" onblur="goodstypeblur(this)" class="form-control col-md-7 col-xs-12">
-                                    <small class="text-warning">如不报价，金额填0</small>
+                                    <small class="text-warning">(如不保价，保价价值填0)</small>
                                 </div>
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="policyfee">
                                     保单费用(元)
@@ -280,7 +283,7 @@
                                     </label>*@
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1"> <small class="text-warning">如果开箱，每个订单结算时+5元</small>
+                                            <input type="checkbox" id="isoutphoto" name="isoutphoto" value="1"> <small class="text-warning">(如果开箱，每个订单结算时+5元)</small>
                                         </label>
                                       
                                     </div>

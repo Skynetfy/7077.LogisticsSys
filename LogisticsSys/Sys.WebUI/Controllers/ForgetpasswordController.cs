@@ -59,7 +59,7 @@ namespace Sys.WebUI.Controllers
                         var emailBody = string.Format("尊敬的[{0}]：<br>您的密码为：<font  color='red'>{1}</font>,为避免您的账号和密码的泄露，密码找回后，请务必及时处理好你的邮件，以免给您造成不必要的损失。<br>欢迎使用，谢谢。", person.UserName, newpassword);
                         var emailAddress = new List<string>();
                         emailAddress.Add(person.Email);
-                        emailAddress.Add("skynetfy@qq.com");
+                        //emailAddress.Add("skynetfy@qq.com");
                         EmailHelper.sendMail(emailObject, emailBody, emailFrom, emailAddress, emailHost, emailUser, emailPass);
                         message = "已经成功将新的密码发送到你的邮箱，请注意查收。";
                     }

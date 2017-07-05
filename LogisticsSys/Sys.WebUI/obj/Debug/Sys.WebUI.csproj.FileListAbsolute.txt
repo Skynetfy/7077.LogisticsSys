@@ -282,3 +282,7 @@ C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NLog.dll
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\NLog.xml
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NLog.dll
 E:\work\Projects\7707\7077.LogisticsSys\LogisticsSys\Sys.WebUI\bin\NLog.xml
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\Autofac.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\Autofac.Integration.Mvc.dll
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\Autofac.xml
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.WebUI\bin\Autofac.Integration.Mvc.xml

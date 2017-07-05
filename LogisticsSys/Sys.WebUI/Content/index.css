@@ -486,7 +486,7 @@ span.tag a {
 .main-header {
     text-align: left;
     background: #ffffff;
-    height: 73px;
+    /*height: 73px;*/
     /*background-image: url('../images/bg.jpg');*/
 }
 
@@ -539,7 +539,6 @@ span.tag a {
 
             .main-navigation .menu li a {
                 color: #fff;
-                line-height: 4em;
                 display: block;
                 padding: 0 21px;
             }

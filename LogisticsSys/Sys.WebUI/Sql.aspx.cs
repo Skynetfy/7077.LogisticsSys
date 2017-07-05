@@ -12,7 +12,7 @@ namespace Sys.WebUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            pathurl.Text = Server.MapPath("~/");
         }
         protected void btn1_Click(object sender, EventArgs e)
         {

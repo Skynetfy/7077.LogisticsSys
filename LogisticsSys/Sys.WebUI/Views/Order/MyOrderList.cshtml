@@ -64,252 +64,252 @@
 </div>
 
 <div class="modal fade" id="ViewModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
-<div class="modal-body">
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">主订单信息</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">收件信息</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">寄件信息</a></li>
-    <li role="presentation"><a href="#fahuotab" aria-controls="fahuotab" role="tab" data-toggle="tab">发货信息</a></li>
-    <li role="presentation"><a href="#fukuantab" aria-controls="fukuantab" role="tab" data-toggle="tab">付款信息</a></li>
-</ul>
+            <div class="modal-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">主订单信息</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">收件信息</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">寄件信息</a></li>
+                    <li role="presentation"><a href="#fahuotab" aria-controls="fahuotab" role="tab" data-toggle="tab">发货信息</a></li>
+                    <li role="presentation"><a href="#fukuantab" aria-controls="fukuantab" role="tab" data-toggle="tab">付款信息</a></li>
+                </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-<div role="tabpanel" class="tab-pane active" id="home">
-    <table class="table">
-        <tbody>
-        <tr>
-            <th style="width: 30%">订单号：</th>
-            <td><span id="orderno"></span></td>
-        </tr>
-        <tr>
-            <th>寄件人姓名：</th>
-            <td><span id="jjxm"></span></td>
-        </tr>
-        <tr>
-            <th>寄件人电话：</th>
-            <td><span id="jjdh"></span></td>
-        </tr>
-        <tr>
-            <th>收货人数量：</th>
-            <td><span id="shrshl"></span></td>
-        </tr>
-        <tr>
-            <th>订单状态：</th>
-            <td><span id="ddzt"></span></td>
-        </tr>
-        <tr>
-            <th>付款状态：</th>
-            <td><span id="fkzt"></span></td>
-        </tr>
-        <tr>
-            <th>下单人：</th>
-            <td><span id="xdr"></span></td>
-        </tr>
-        <tr>
-            <th>下单时间：</th>
-            <td><span id="xdsj"></span></td>
-        </tr>
-        <tr>
-            <th>订单实际价格：</th>
-            <td>
-                <span id="sjjg"></span>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">订单号：</th>
+                                    <td><span id="orderno"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>寄件人姓名：</th>
+                                    <td><span id="jjxm"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>寄件人电话：</th>
+                                    <td><span id="jjdh"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>收货人数量：</th>
+                                    <td><span id="shrshl"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>订单状态：</th>
+                                    <td><span id="ddzt"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>付款状态：</th>
+                                    <td><span id="fkzt"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>下单人：</th>
+                                    <td><span id="xdr"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>下单时间：</th>
+                                    <td><span id="xdsj"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>订单实际价格：</th>
+                                    <td>
+                                        <span id="sjjg"></span>
 
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div role="tabpanel" class="tab-pane" id="profile">
-    <table class="table">
-        <tbody>
-        <tr>
-            <th style="width: 30%">俄罗斯城市：</th>
-            <td><span id="elscs"></span></td>
-        </tr>
-        <tr>
-            <th>俄罗斯详细地址：</th>
-            <td><span id="elsdz"></span></td>
-        </tr>
-        <tr>
-            <th>物流单号：</th>
-            <td><span id="wldh"></span></td>
-        </tr>
-        <tr>
-            <th>货物箱数：</th>
-            <td><span id="hwxs"></span></td>
-        </tr>
-        <tr>
-            <th>取货时间：</th>
-            <td><span id="qhsj"></span></td>
-        </tr>
-        <tr>
-            <th>取货方式：</th>
-            <td><span id="qhfs"></span></td>
-        </tr>
-        <tr>
-            <th>货物类型：</th>
-            <td><span id="hwlx"></span></td>
-        </tr>
-        <tr>
-            <th>货物运输类型：</th>
-            <td><span id="hwyslx"></span></td>
-        </tr>
-        <tr>
-            <th>保价价值(元)：</th>
-            <td><span id="bjjg"></span></td>
-        </tr>
-        <tr>
-            <th>保单费用(元)：</th>
-            <td><span id="bdfy"></span></td>
-        </tr>
-        <tr>
-            <th>货物重量(kg)：</th>
-            <td><span id="hwzl"></span></td>
-        </tr>
-        <tr>
-            <th>货物实际重量：</th>
-            <td>
-                <span id="hwsjzl"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">俄罗斯城市：</th>
+                                    <td><span id="elscs"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>俄罗斯详细地址：</th>
+                                    <td><span id="elsdz"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>物流单号：</th>
+                                    <td><span id="wldh"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>货物箱数：</th>
+                                    <td><span id="hwxs"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>取货时间：</th>
+                                    <td><span id="qhsj"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>取货方式：</th>
+                                    <td><span id="qhfs"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>货物类型：</th>
+                                    <td><span id="hwlx"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>货物运输类型：</th>
+                                    <td><span id="hwyslx"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>保价价值(元)：</th>
+                                    <td><span id="bjjg"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>保单费用(元)：</th>
+                                    <td><span id="bdfy"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>货物重量(kg)：</th>
+                                    <td><span id="hwzl"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>货物实际重量：</th>
+                                    <td>
+                                        <span id="hwsjzl"></span>
 
-            </td>
-        </tr>
-        <tr>
-            <th>货物实际体积重量：</th>
-            <td>
-                <span id="hwsjtjzl"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>货物实际体积重量：</th>
+                                    <td>
+                                        <span id="hwsjtjzl"></span>
 
-            </td>
-        </tr>
-        <tr>
-            <th>箱子外包装总体积：</th>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                长(cm)：<span id="chang"></span>,
-                宽(cm)：<span id="kuan"></span>,
-                高(cm)：<span id="gao"></span>
-            </td>
-        </tr>
-        <tr>
-            <th>订单实际价格 (元)：</th>
-            <td>
-                <span id="ddsjjg"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>箱子外包装总体积：</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        长(cm)：<span id="chang"></span>,
+                                        宽(cm)：<span id="kuan"></span>,
+                                        高(cm)：<span id="gao"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>订单实际价格 (元)：</th>
+                                    <td>
+                                        <span id="ddsjjg"></span>
 
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div role="tabpanel" class="tab-pane" id="messages">
-    <table class="table">
-        <tbody>
-        <tr>
-            <th style="width: 30%">包裹编号：</th>
-            <td><span id="bgbh"></span></td>
-        </tr>
-        <tr>
-            <th>订单省份：</th>
-            <td><span id="ddsf"></span></td>
-        </tr>
-        <tr>
-            <th>订单详细地址：</th>
-            <td><span id="ddxxdz"></span></td>
-        </tr>
-        <tr>
-            <th>收件人姓名：</th>
-            <td><span id="sjrxm"></span></td>
-        </tr>
-        <tr>
-            <th>收件人电话 ：</th>
-            <td><span id="sjrdh"></span></td>
-        </tr>
-        <tr>
-            <th>打包方式 ：</th>
-            <td><span id="dbfs"></span></td>
-        </tr>
-        <tr>
-            <th>快递方式：</th>
-            <td><span id="kdfs"></span></td>
-        </tr>
-        <tr>
-            <th>货物明细 ：</th>
-            <td><span id="hwmx"></span></td>
-        </tr>
-        <tr>
-            <th>包裹重量(千克)：</th>
-            <td><span id="bgzl"></span></td>
-        </tr>
-        <tr>
-            <th>实际重量(千克)：</th>
-            <td><span id="csjzl"></span></td>
-        </tr>
-        <tr>
-            <th>实际价格(元)：</th>
-            <td><span id="csjjg"></span></td>
-        </tr>
-        <tr>
-            <th>国内快递单号：</th>
-            <td><span id="gnkddh"></span></td>
-        </tr>
-        <tr>
-            <th>备注：</th>
-            <td><span id="bz"></span></td>
-        </tr>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">包裹编号：</th>
+                                    <td><span id="bgbh"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>订单省份：</th>
+                                    <td><span id="ddsf"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>订单详细地址：</th>
+                                    <td><span id="ddxxdz"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>收件人姓名：</th>
+                                    <td><span id="sjrxm"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>收件人电话 ：</th>
+                                    <td><span id="sjrdh"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>打包方式 ：</th>
+                                    <td><span id="dbfs"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>快递方式：</th>
+                                    <td><span id="kdfs"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>货物明细 ：</th>
+                                    <td><span id="hwmx"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>包裹重量(千克)：</th>
+                                    <td><span id="bgzl"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>实际重量(千克)：</th>
+                                    <td><span id="csjzl"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>实际价格(元)：</th>
+                                    <td><span id="csjjg"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>国内快递单号：</th>
+                                    <td><span id="gnkddh"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>备注：</th>
+                                    <td><span id="bz"></span></td>
+                                </tr>
 
-        </tbody>
-    </table>
-</div>
-<div role="tabpanel" class="tab-pane" id="fukuantab">
-    <table class="table">
-        <tbody>
-        <tr>
-            <th style="width: 30%">付款人：</th>
-            <td><span id="fukuanren"></span></td>
-        </tr>
-        <tr>
-            <th>付款时间：</th>
-            <td><span id="fukuanxiangqing"></span></td>
-        </tr>
-        <tr>
-            <th>付款详情：</th>
-            <td><span id="fukuanxiangqing"></span></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div role="tabpanel" class="tab-pane" id="fahuotab">
-    <table class="table">
-        <tbody>
-        <tr>
-            <th style="width: 30%">发货人：</th>
-            <td><span id="fahuoren"></span></td>
-        </tr>
-        <tr>
-            <th>发货时间：</th>
-            <td><span id="fahuoshijian"></span></td>
-        </tr>
-        <tr>
-            <th>发货详情：</th>
-            <td><span id="fahuoxiangqing"></span></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="fukuantab">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">付款人：</th>
+                                    <td><span id="fukuanren"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>付款时间：</th>
+                                    <td><span id="fukuanxiangqing"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>付款详情：</th>
+                                    <td><span id="fukuanxiangqing"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="fahuotab">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">发货人：</th>
+                                    <td><span id="fahuoren"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>发货时间：</th>
+                                    <td><span id="fahuoshijian"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>发货详情：</th>
+                                    <td><span id="fahuoxiangqing"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-</div>
-<div class="modal-footer" id="payorder-foot">
-    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-    <a href="@Url.Action("PayOrder")" target="_blank" style="display: none;" class="btn btn-success">确认付款</a>
-</div>
-</div>
-</div>
+            </div>
+            <div class="modal-footer" id="payorder-foot">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <a href="@Url.Action("PayOrder")" target="_blank" style="display: none;" class="btn btn-success">确认付款</a>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" id="pay-wait-layer" data-backdrop="false" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
@@ -321,7 +321,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="~/images/working.gif" /></div>
+                        <img src="~/images/working.gif" />
+                    </div>
                     <div class="col-md-8">
                         <p class="ft14">
                             支付完成前，请不要关闭此支付验证窗口。<br clear="none">
@@ -382,7 +383,7 @@
                 if (href != null && href != "#") {
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
-                         .load(href+"?t="+t,
+                         .load(href + "?t=" + t,
                             function () {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
@@ -454,7 +455,7 @@
             if (value === 0) {
                 // h.push(row.OrderFrees);
                 h.push("<p class='has-success'>" + row.OrderFrees + ' <small class="control-label">（待支付）</small></p>');
-                h.push('<p><a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=WorldPay&id=' + row.Id + '">支付</a></p>');
+                //h.push('<p><a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=WorldPay&id=' + row.Id + '">支付</a></p>');
             } else if (value === 1) {
                 h.push(row.OrderFrees);
                 h.push(' <p><small class="text-warning">（已支付,待确认）</small></p>');
@@ -477,7 +478,7 @@
             if (value === 0) {
                 //h.push(row.CourierFees);
                 h.push("<p class='has-success'>" + row.DomesticCost + ' <small class="control-label">（待支付）</small></p>');
-                h.push('<p><a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=ChinaPay&id=' + row.Id + '">支付</a></p>');
+                //h.push('<p><a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=ChinaPay&id=' + row.Id + '">支付</a></p>');
             }
             else if (value === 1) {
                 h.push(row.DomesticCost);
@@ -511,9 +512,9 @@
                 JSON.stringify(row).replace(/\"/g, "\'") +
                 ')" value="">删除</button>');
         }
-        @*if (row.PayStatus < 1 && row.Status >= 2) {
-            h.push('<a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">付款</a>');
-        }*@
+        if ((row.WorldPayStatus == 0 || row.ChinaPayStatus == 0) && row.Status >= 2) {
+            h.push('<a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=FullPay&id=' + row.Id + '">付款</a>');
+        }
         return h.join('');
     }
     function viewOrder(row) {

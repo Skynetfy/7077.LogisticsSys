@@ -279,7 +279,12 @@ namespace Sys.WebUI.Controllers
                         if (addresserInfo.IsArrivePay)
                         {
                             var obj = "RuGoGo支付通知";
-                            var msg = string.Format("尊敬的[{0}]：<br> 您的订单：<strong>{1}</strong>,已下单成功，您有一笔到付金额（￥{2}）还没有支付，请尽快支付。<br>欢迎使用，谢谢。", username, orderinfo.OrderNo, addresserInfo.ArrivePayValue);
+                            var msg = string.Format(@"尊敬的 {0} <br>
+<p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，金额为￥{2}。 请尽快支付。
+网站首页链接 <a href='https://oms.rugogo.com/'>https://oms.rugogo.com/</a><p>
+<p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
+<p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
+", username, orderinfo.OrderNo, addresserInfo.ArrivePayValue);
                             emailManager.Send(_user.Email, msg, obj);
                         }
                     }
@@ -349,7 +354,12 @@ namespace Sys.WebUI.Controllers
                         if (_user != null && _user.Email != null)
                         {
                             var obj = "RuGoGo支付通知";
-                            var msg = string.Format("尊敬的[{0}]：<br> 您的订单：<strong>{1}</strong>,系统已人工处理完成，您还有两笔费用没有支付，国际段费用￥{2}，国内段费用￥{3}，请尽快支付。<br>欢迎使用，谢谢。", username, order.OrderNo, Convert.ToDecimal(insuranceCost), Convert.ToDecimal(domesticcost));
+                            var msg = string.Format(@"尊敬的 {0} <br>
+<p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，国际段金额为￥{2}。国内段金额￥{3} 请尽快支付。
+网站首页链接 <a href='https://oms.rugogo.com/'>https://oms.rugogo.com/</a><p>
+<p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
+<p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
+", username, order.OrderNo, Convert.ToDecimal(insuranceCost), Convert.ToDecimal(domesticcost));
                             emailManager.Send(_user.Email, msg, obj);
                         }
                     }
@@ -470,6 +480,35 @@ namespace Sys.WebUI.Controllers
                     ViewBag.ArrivePayValue = order.ArrivePayValue;
                     ViewBag.OrderFrees = order.OrderFrees;
                     ViewBag.DomesticCost = order.DomesticCost;
+
+                    switch (costType)
+                    {
+                        case CostTypeEnums.ArrivePay:
+                            ViewBag.RealFrees = order.ArrivePayValue;
+                            break;
+                        case CostTypeEnums.ChinaPay:
+                            ViewBag.RealFrees = order.DomesticCost;
+                            break;
+                        case CostTypeEnums.WorldPay:
+                            ViewBag.RealFrees = order.OrderFrees;
+                            break;
+                        case CostTypeEnums.FullPay:
+                            decimal real = 0;
+                            if (order.ArrivePayStatus < 1)
+                            {
+                                real += order.ArrivePayValue;
+                            }
+                            if (order.ChinaPayStatus < 1)
+                            {
+                                real += order.DomesticCost;
+                            }
+                            if (order.WorldPayStatus < 1)
+                            {
+                                real += order.OrderFrees;
+                            }
+                            ViewBag.RealFrees = real;
+                            break;
+                    }
                     //if (CostTypeEnums.WorldPay == costType)
                     //{
                     //    var addressorder = orderprovider.GetAddressInfoByOid(order.Id);
@@ -561,6 +600,10 @@ namespace Sys.WebUI.Controllers
                         case CostTypeEnums.ChinaPay:
                             order.ChinaPayStatus = 1;
                             break;
+                        case CostTypeEnums.FullPay:
+                            order.ChinaPayStatus = 1;
+                            order.WorldPayStatus = 1;
+                            break;
                     }
                     var addressorder = orderprovider.GetAddressInfoByOid(order.Id);
                     if ((order.ArrivePayStatus == 1 || !addressorder.IsArrivePay) && order.WorldPayStatus == 1 && order.ChinaPayStatus == 1)
@@ -636,7 +679,16 @@ namespace Sys.WebUI.Controllers
                             order.ChinaPayStatus = 2;
                             alog.ActionDesc = "国内费用收款确认";
                         }
+                        if (type.Equals("FullPay"))
+                        {
+                            order.ChinaPayStatus = 2;
+                            order.WorldPayStatus = 2;
+                            alog.ActionDesc = "国内段和国内段收款确认";
 
+                            //赠送积分
+                            var address = DALFactory.SysAddresserInfoDao.GetByOrderId(order.Id);
+                            UserService.UpdateIntegral(order.UserId, (int)address.OrderFrees, 1, "下单赠送");
+                        }
                         alog.ActionDate = DateTime.Now;
                         alog.LogType = (int)ActionLogTypeEnum.PayAction;
                         alog.OrderId = order.Id;

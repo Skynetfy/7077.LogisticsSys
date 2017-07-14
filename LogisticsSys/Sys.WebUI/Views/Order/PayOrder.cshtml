@@ -44,7 +44,7 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <input type="hidden" name="orderId" value="@ViewBag.Id" />
                 <input type="hidden" name="type" value="@ViewBag.type" />
-                <input type="hidden" name="payamount" value="0" />
+                <input type="hidden" name="payamount" value="@ViewBag.RealFrees" />
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
                         <a class="collapsed" role="button" aria-expanded="true" aria-controls="collapseOne">
@@ -70,13 +70,9 @@
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <div class="col-md-3 zflc">
                                 <strong   class="zhuyi">*注意</strong><br/>1、请先<strong>扫描二维码付款</strong>，完成支付打款；<br/>2、最后点击<strong>“确认付款”</strong>按钮完成付款流程。<br/><strong class="zhuyi2">（不扫码付款，不点击确认付款，则不能完成付款程序）</strong>
-=======
-                            <div class="col-md-3">
-                                <p class="bg-danger" style="padding: 15px;">*请先扫描二维码付款，付款完成后，点击确认付款才能完成付款流程，不点击确认付款，则不能完成付款程序。</p>
->>>>>>> ed23a94576bff342acd0e8469a7daa0b52ec912b
+
                             </div>
                             <div class="col-md-3" style="text-align: center;">
                                 <img src="~/ExcelFiles/QrCodes/@ViewBag.AllPay" style="width: 55%; " />
@@ -174,7 +170,7 @@
                 <div class="col-md-3">
                     <div class="" role="alert">
                         @*<p id="youhuijiagep" style="display: none;">积分优惠：-￥@ViewBag.YouHuiPrice</p>*@
-                        实付款：<strong style="font-size: 24px;" id="realcost">￥ 0</strong>
+                        实付款：<strong style="font-size: 24px;" id="realcost">￥ @ViewBag.RealFrees</strong>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -207,24 +203,31 @@
         $(function () {
             var type = '@ViewBag.Type';
             if (type == 'ArrivePay') {
-                $('[name=payamount]').val('@ViewBag.ArrivePayValue');
-                $("#realcost").html('￥' + '@ViewBag.ArrivePayValue');
+                @*$('[name=payamount]').val('@ViewBag.ArrivePayValue');
+                $("#realcost").html('￥' + '@ViewBag.ArrivePayValue');*@
                 @*$('#realprice').val(@ViewBag.ArrivePayValue);*@
                 $('#p1').show();
             }
             if (type == 'WorldPay') {
-                $('[name=payamount]').val('@ViewBag.OrderFrees');
+                @*$('[name=payamount]').val('@ViewBag.OrderFrees');
                 $("#realcost").html('￥' + '@ViewBag.OrderFrees');
-                $('#realprice').val(@ViewBag.OrderFrees);
+                $('#realprice').val(@ViewBag.OrderFrees);*@
                 $('#p2').show();
                 //$('#pannljifen').show();
 
             }
             if (type == 'ChinaPay') {
-                $('[name=payamount]').val('@ViewBag.DomesticCost');
-                $("#realcost").html('￥' + '@ViewBag.DomesticCost');
+                @*$('[name=payamount]').val('@ViewBag.DomesticCost');
+                $("#realcost").html('￥' + '@ViewBag.DomesticCost');*@
                 @*$('#realprice').val(@ViewBag.DomesticCost);*@
                 $('#p3').show();
+            }
+            if (type == 'FullPay') {
+                @*$('[name=payamount]').val('@ViewBag.DomesticCost');
+                $("#realcost").html('￥' + '@ViewBag.DomesticCost');*@
+                @*$('#realprice').val(@ViewBag.DomesticCost);*@
+                $('#p3').show();
+                $('#p2').show();
             }
 
             $('.collapsed').on('click', function () {

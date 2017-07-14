@@ -65,6 +65,14 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="packagingCosts">
+            打包费用(元)
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="packagingCosts" name="packagingCosts" value="@orderview.PackagingCosts" readonly class="form-control col-md-7 col-xs-12">
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="insuranceCost">
             保险费（元） <span class="required">*</span>
         </label>
@@ -111,14 +119,7 @@
             <input type="text" id="chinacityid" value="@orderview.ChinaCityName" disabled class="form-control col-md-7 col-xs-12">
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="packagingCosts">
-            打包费用(元)
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="packagingCosts" name="packagingCosts" value="@orderview.PackagingCosts" readonly class="form-control col-md-7 col-xs-12">
-        </div>
-    </div>
+
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="expressway">
             快递方式
@@ -215,7 +216,23 @@
             if (!checkRate(cost)) {
                 cost = 0;
             }
-            $('#gjdfy').val(p+Number(cost));
+
+            var dbf = 0;
+            if (Number(weight) <= 1) {
+                dbf = 5;
+            }
+            if (1 < Number(weight) && Number(weight) <= 2) {
+                dbf = 7;
+            }
+            if (2 < Number(weight) && Number(weight) <= 5) {
+                dbf = 10;
+            }
+            if (5 < Number(weight)) {
+                dbf = 15;
+            }
+            $('#packagingCosts').val(dbf);
+
+            $('#gjdfy').val(p+Number(cost)+dbf);
             parcelweightblur();
             //sumprice();
         }
@@ -251,26 +268,11 @@
         //parcelweightblur();
     }*@
     function parcelweightblur() {
-        var weight = $('#goodsweight').val();
-        var dbf = 0;
-        if (Number(weight) <= 1) {
-            dbf = 5;
-        }
-        if (1 < Number(weight) && Number(weight) <= 2) {
-            dbf = 7;
-        }
-        if (2 < Number(weight) && Number(weight) <= 5) {
-            dbf = 10;
-        }
-        if (5 < Number(weight)) {
-            dbf = 15;
-        }
-        $('#packagingCosts').val(dbf);
 
         var kdfy = $('#kdfy').val();
         if (kdfy.length <= 0)
             kdfy = 0;
-        $('#domesticcost').val(dbf + Number(kdfy));
+        $('#domesticcost').val(Number(kdfy));
         @*$.getJSON('@Url.Action("GetRBudgetPrice")',
             { cid: cityId, eway: expressway, weight: weight },
             function(e) {

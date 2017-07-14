@@ -17,6 +17,7 @@ namespace Sys.BLL.Order
     {
         ArrivePay,
         WorldPay,
-        ChinaPay
+        ChinaPay,
+        FullPay
     }
 }

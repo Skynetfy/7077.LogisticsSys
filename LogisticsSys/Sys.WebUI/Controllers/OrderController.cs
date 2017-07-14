@@ -347,11 +347,9 @@ namespace Sys.WebUI.Controllers
                             rec.DomesticCost = Convert.ToDecimal(domesticcost);
                             orderPrivder.UpdateReceiverInfo(rec);
                         }
-
-                        var username = User.Identity.Name;
-                        var userProvider = new UserLoginProvider();
-                        var _user = userProvider.GetUser(username);
-                        if (_user != null && _user.Email != null)
+                        
+                        var cusmer = DALFactory.SysUserDao.FindByPk(order.UserId);
+                        if (cusmer != null && cusmer.Email != null)
                         {
                             var obj = "RuGoGo支付通知";
                             var msg = string.Format(@"尊敬的 {0} <br>
@@ -359,8 +357,8 @@ namespace Sys.WebUI.Controllers
 网站首页链接 <a href='https://oms.rugogo.com/'>https://oms.rugogo.com/</a><p>
 <p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
 <p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
-", username, order.OrderNo, Convert.ToDecimal(insuranceCost), Convert.ToDecimal(domesticcost));
-                            emailManager.Send(_user.Email, msg, obj);
+", cusmer.UserName, order.OrderNo, Convert.ToDecimal(insuranceCost), Convert.ToDecimal(domesticcost));
+                            emailManager.Send(cusmer.Email, msg, obj);
                         }
                     }
                 }

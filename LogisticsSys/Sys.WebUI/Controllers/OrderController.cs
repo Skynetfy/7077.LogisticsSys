@@ -281,7 +281,7 @@ namespace Sys.WebUI.Controllers
                             var obj = "RuGoGo支付通知";
                             var msg = string.Format(@"尊敬的 {0} <br>
 <p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，金额为￥{2}。 请尽快支付。
-网站首页链接 <a href='https://oms.rugogo.com/'>https://oms.rugogo.com/</a><p>
+网站首页链接 <a href='http://www.rugogo.com/'>http://www.rugogo.com/</a><p>
 <p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
 <p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
 ", username, orderinfo.OrderNo, addresserInfo.ArrivePayValue);
@@ -354,10 +354,10 @@ namespace Sys.WebUI.Controllers
                             var obj = "RuGoGo支付通知";
                             var msg = string.Format(@"尊敬的 {0} <br>
 <p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，国际段金额为￥{2}。国内段金额￥{3} 请尽快支付。
-网站首页链接 <a href='https://oms.rugogo.com/'>https://oms.rugogo.com/</a><p>
+网站首页链接 <a href='http://www.rugogo.com/'>http://www.rugogo.com/</a><p>
 <p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
 <p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
-", cusmer.UserName, order.OrderNo, Convert.ToDecimal(insuranceCost), Convert.ToDecimal(domesticcost));
+", cusmer.UserName, order.OrderNo, Convert.ToDecimal(gjdfy), Convert.ToDecimal(domesticcost));
                             emailManager.Send(cusmer.Email, msg, obj);
                         }
                     }

@@ -24,3 +24,4 @@ E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Entities\bin\Debug\Ne
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojResolveAssemblyReference.cache
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.dll
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.pdb
+C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojResolveAssemblyReference.cache

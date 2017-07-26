@@ -936,7 +936,7 @@
         });
     }
     function updatedate(row) {
-        $('#editgoodsdesclink').prop('href', '~/ExcelFiles/' + row.GoodsDesc);
+        $('#editgoodsdesclink').prop('href', '/ExcelFiles/' + row.GoodsDesc);
         $('#editgoodsdesclink').html(row.GoodsDesc);
         $('#editguoneidingdanhao').val(row.ChinaCourierNumber);
         $('#updateorderid').val(row.Id);

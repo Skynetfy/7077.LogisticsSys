@@ -37,3 +37,16 @@ E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Newtons
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.csprojResolveAssemblyReference.cache
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.dll
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.pdb
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Dal.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Dal.pdb
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Arch.Data.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Arch.Data.MySqlProvider.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\NLog.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Entities.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Newtonsoft.Json.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Sys.Entities.pdb
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\NLog.xml
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\bin\Debug\Newtonsoft.Json.xml
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.csprojResolveAssemblyReference.cache
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Dal\obj\Debug\Sys.Dal.pdb

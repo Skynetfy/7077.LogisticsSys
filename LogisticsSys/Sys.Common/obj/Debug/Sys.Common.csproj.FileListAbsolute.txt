@@ -12,3 +12,8 @@ E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
 E:\work\Projects\RuGOGO\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
 C:\work\Projects\7077物流管理系统\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojResolveAssemblyReference.cache
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.pdb
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojResolveAssemblyReference.cache

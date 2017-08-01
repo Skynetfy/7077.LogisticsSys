@@ -877,8 +877,16 @@ namespace Sys.WebUI.Controllers
                 where += string.Format(" and [CreateDate] BETWEEN '{0}' AND '{1}'", ds[0], ds[1]);
             }
             btdata.total = provider.GetOrderViewPagerCount(where);
-            btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
-
+            //btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
+            var rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
+            foreach(var item in rows)
+            {
+                item.OrderNumbers = string.Join(",", DALFactory.OrderNumberDao.GetAll()
+                        .Where(z => z.OrderId == item.Id)
+                        .Select(z => z.Number)
+                        .ToList());
+            }
+            btdata.rows = rows;
             return Json(btdata, JsonRequestBehavior.AllowGet);
         }
 

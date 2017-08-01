@@ -16,3 +16,4 @@ C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.dll
 C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.pdb
 C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
 C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
+C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojResolveAssemblyReference.cache

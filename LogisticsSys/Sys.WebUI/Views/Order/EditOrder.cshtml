@@ -52,7 +52,7 @@
             货物重量(千克) <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="goodsweight" name="goodsweight" onblur="goodsweightblur()" value="@orderview.GoodsWeight" required="required" data-parsley-type="number" data-parsley-min="1" class="form-control col-md-7 col-xs-12">
+            <input type="text" id="goodsweight" name="goodsweight" onblur="goodsweightblur()" value="@orderview.GoodsWeight" required="required" data-parsley-type="number" data-parsley-min="0.001" class="form-control col-md-7 col-xs-12">
             <small class="text-warning">货物的起送重量是1kg（不足1kg的按照1kg收费）</small>
         </div>
     </div>
@@ -199,16 +199,21 @@
         var p = 0;
         if (checkRate(weight)) {
             var w = Number(weight);
-            if (w < 1)
-                w = 1;
-            if (w < 50) {
-                p = Number(ap)*100 * w/100;
+            //if (w < 1)
+            //    w = 1;
+            //if (w < 50) {
+            //    p = Number(ap)*100 * w/100;
+            //} else {
+            //    if (transType == 1) {
+            //        p =  Number(bp) *100* w/100;
+            //    } else {
+            //        p =  Number(ap)*100 * w/100;
+            //    }
+            //}
+            if (transType == 1) {
+                p =  Number(bp) *100* w/100;
             } else {
-                if (transType == 1) {
-                    p =  Number(bp) *100* w/100;
-                } else {
-                    p =  Number(ap)*100 * w/100;
-                }
+                p =  Number(ap)*100 * w/100;
             }
             if (isopen == 'True')
                 p = p + 5;

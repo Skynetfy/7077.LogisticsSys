@@ -73,7 +73,7 @@ namespace Sys.Dal.Repository
             param.AddInParameter("@ArrivePayValue", DbType.Decimal, addresserinfo.ArrivePayValue);
             param.AddInParameter("@IsOutPhoto", DbType.Boolean, addresserinfo.IsOutPhoto);
             param.AddInParameter("@ExchangeRate", DbType.Decimal, addresserinfo.ExchangeRate);
-
+            param.AddInParameter("@ArriveValueRuble",DbType.Decimal,addresserinfo.ArriveValueRuble);
             //param.AddInParameter("@ChinaCityId", DbType.Int64, receiverInfo.ChinaCityId);
             param.AddInParameter("@ChinaCityId", DbType.Int64, receiverInfo.ChinaCityId);
             param.AddInParameter("@ChinaAddress", DbType.String, receiverInfo.ChinaAddress);

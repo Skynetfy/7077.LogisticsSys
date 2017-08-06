@@ -109,6 +109,10 @@ namespace Sys.Entities
         public decimal ArrivePayValue { get; set; }
         /// <summary>
         /// </summary>
+        [Column(Name = "ArriveValueRuble", ColumnType = DbType.Decimal)]
+        public decimal ArriveValueRuble { get; set; }
+        /// <summary>
+        /// </summary>
         [Column(Name = "IsOutPhoto", ColumnType = DbType.Boolean)]
         public bool IsOutPhoto { get; set; }
         /// <summary>

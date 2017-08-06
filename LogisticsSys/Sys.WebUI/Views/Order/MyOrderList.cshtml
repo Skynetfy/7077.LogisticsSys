@@ -50,6 +50,7 @@
                     <th data-field="OrderNo" data-formatter="OrderNoFormatter" data-valign="middle">订单编号</th>
                     @*<th data-field="ShipperName">寄件人</th>
                         <th data-field="RussiaCityName">俄罗斯城市</th>*@
+                    <th data-field="OrderNumbers" data-valign="middle">网站订单号</th>
                     <th data-field="DisplayName" data-valign="middle">下单人</th>
                     <th data-field="CreateDate" data-valign="middle">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter" data-valign="middle">状态</th>
@@ -430,17 +431,17 @@
         var h = [];
         if (row.IsArrivePay) {
             if (value === 0) {
-                h.push("<p class='has-success'>￥" + row.ArrivePayValue + ' <small class="control-label">（待支付）</small></p>');
+                h.push("<p class='has-success'>￥" + row.ArrivePayValue + ' (₽ ' + row.ArriveValueRuble + ') <small class="control-label">（待支付）</small></p>');
                 h.push('<p><a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=ArrivePay&id=' + row.Id + '">支付</a></p>');
             } else if (value === 1) {
-                h.push(row.ArrivePayValue);
+                h.push(row.ArrivePayValue + ' (₽ ' + row.ArriveValueRuble + ') ');
                 h.push(' <p><small class="text-warning">（已支付,待确认）</small></p>');
             } else if (value === -1) {
                 h.push(row.ArrivePayValue);
                 h.push('<br><a class="btn btn-success btn-xs" target="_blank" href="@Url.Action("PayOrder")?id=' + row.Id + '">支付</a>');
             }
             else if (value === 2) {
-                h.push(row.ArrivePayValue);
+                h.push(row.ArrivePayValue + ' (₽ ' + row.ArriveValueRuble + ') ');
                 h.push('<p> <small class="text-muted">（已确认支付）</small></p>');
             }
         } else {

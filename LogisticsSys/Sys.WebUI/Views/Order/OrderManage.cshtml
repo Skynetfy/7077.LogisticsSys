@@ -49,7 +49,7 @@
                     <th data-field="stats" data-formatter="checkboxstateFormatter" data-checkbox="true"></th>
                     <th data-field="OrderNo" data-formatter="OrderNoFormatter">订单编号</th>
                     @*<th data-field="ShipperName">寄件人</th>*@
-                    @*<th data-field="RussiaCityName">俄罗斯城市</th>*@
+                    <th data-field="OrderNumbers">网站订单号</th>
                     <th data-field="DisplayName">下单人</th>
                     <th data-field="CreateDate">下单时间</th>
                     <th data-field="Status" data-formatter="stateFormatter">状态</th>
@@ -829,7 +829,7 @@
         h.push('<p>到付金额：');
         if (row.IsArrivePay) {
             if (row.ArrivePayStatus === 0) {
-                h.push("<code>" + row.ArrivePayValue + '</code> <span class="control-label text-info">（待支付）</span></p>');
+                h.push("<code>" + row.ArrivePayValue + '  (₽ ' + row.ArriveValueRuble + ') </code> <span class="control-label text-info">（待支付）</span></p>');
             } else if (row.ArrivePayStatus === 1) {
                 h.push("<span class='has-success'><code>" + row.ArrivePayValue + '</code> <span class="control-label">（待确认）</span></span></p>');
             } else if (row.ArrivePayStatus === 2) {

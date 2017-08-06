@@ -210,6 +210,7 @@ namespace Sys.WebUI.Controllers
                     addresserInfo.IsArrivePay = !string.IsNullOrEmpty(isarrivepay);
                     if (addresserInfo.IsArrivePay)
                     {
+                        addresserInfo.ArriveValueRuble = Convert.ToDecimal(arrivepayvalue);
                         addresserInfo.ArrivePayValue = Math.Round(Convert.ToDecimal(arrivepayvalue) / addresserInfo.ExchangeRate, 2);
                     }
                     //addresserInfo.ArrivePayValue = addresserInfo.IsArrivePay ? Convert.ToDecimal(arrivepayvalue) : 0;
@@ -347,7 +348,7 @@ namespace Sys.WebUI.Controllers
                             rec.DomesticCost = Convert.ToDecimal(domesticcost);
                             orderPrivder.UpdateReceiverInfo(rec);
                         }
-                        
+
                         var cusmer = DALFactory.SysUserDao.FindByPk(order.UserId);
                         if (cusmer != null && cusmer.Email != null)
                         {
@@ -836,6 +837,7 @@ namespace Sys.WebUI.Controllers
         public ActionResult GetOrderViewPagerData(string type, string orderstatus, string orderdate, string search, int offset, int limit, string order, string sort)
         {
             var where = string.Empty;
+            where += string.Format(@" and [Status]>=0 ");
             var userprovider = new UserLoginProvider();
             var _user = userprovider.GetUser(User.Identity.Name);
             if (_user != null)
@@ -877,8 +879,16 @@ namespace Sys.WebUI.Controllers
                 where += string.Format(" and [CreateDate] BETWEEN '{0}' AND '{1}'", ds[0], ds[1]);
             }
             btdata.total = provider.GetOrderViewPagerCount(where);
-            btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
-
+            //btdata.rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
+            var rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
+            foreach(var item in rows)
+            {
+                item.OrderNumbers = string.Join(",", DALFactory.OrderNumberDao.GetAll()
+                        .Where(z => z.OrderId == item.Id)
+                        .Select(z => z.Number)
+                        .ToList());
+            }
+            btdata.rows = rows;
             return Json(btdata, JsonRequestBehavior.AllowGet);
         }
 
@@ -919,7 +929,7 @@ namespace Sys.WebUI.Controllers
             row0.CreateCell(1).SetCellValue("收件人");
             row0.CreateCell(2).SetCellValue("收件人电话");
             row0.CreateCell(3).SetCellValue("俄罗斯城市");
-            row0.CreateCell(4).SetCellValue("商店地址");
+            row0.CreateCell(4).SetCellValue("购物网站网址");
             row0.CreateCell(5).SetCellValue("到达国外仓时间");
             row0.CreateCell(6).SetCellValue("货物类型");
             row0.CreateCell(7).SetCellValue("货物运输类型");
@@ -946,6 +956,8 @@ namespace Sys.WebUI.Controllers
             row0.CreateCell(28).SetCellValue("国际段费用");
             row0.CreateCell(29).SetCellValue("国内段费用");
             row0.CreateCell(30).SetCellValue("订单总费用");
+            row0.CreateCell(31).SetCellValue("网站订单号");
+            row0.CreateCell(32).SetCellValue("卢布到付金额");
             int x = 27;
             for (var c = 0; c < data.Count; c++)
             {
@@ -982,6 +994,11 @@ namespace Sys.WebUI.Controllers
                 row.CreateCell(28).SetCellValue(Convert.ToDouble(item.OrderFrees));
                 row.CreateCell(29).SetCellValue(Convert.ToDouble(item.DomesticCost));
                 row.CreateCell(30).SetCellValue(Convert.ToDouble(item.OrderRealPrice));
+                row.CreateCell(31).SetCellValue(string.Join(",", DALFactory.OrderNumberDao.GetAll()
+                        .Where(z => z.OrderId == item.Id)
+                        .Select(z => z.Number)
+                        .ToList()));
+                row.CreateCell(25).SetCellValue(item.ArriveValueRuble.ToString());
             }
             var path = Server.MapPath("~/ExcelFiles/订单列表.xlsx");
             using (var f = System.IO.File.Create(path))

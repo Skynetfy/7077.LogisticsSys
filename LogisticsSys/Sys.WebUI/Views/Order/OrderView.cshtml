@@ -115,6 +115,10 @@
                         <td>是否到付 ：</td>
                         <td id="IsArrivePay">@orderinfo.IsArrivePay</td>
                     </tr>
+                <tr>
+                    <td>卢布到付金额 ：</td>
+                    <td>@orderinfo.ArriveValueRuble</td>
+                </tr>
                     <tr>
                         <td>到付金额(元) ：</td>
                         <td>@orderinfo.ArrivePayValue</td>
@@ -322,6 +326,18 @@
     function ExpressWayFormatter(value, row, index) {
         return Status_7077.getExpressWay(row.ExpressWay);
     }
+    function PayStatus(status){
+        if(status==0){
+            return '待支付';
+        }
+        else if(status==1){
+            return "已支付，待确认"
+        }
+        else if(status==2){
+            return "已确认支付"
+        }
+
+    }
     $(function() {
         $('[data-toggle="table"]').bootstrapTable();
         $('#orderstatus').html(Status_7077.getOrderStatus(@orderinfo.Status));
@@ -331,9 +347,9 @@
         $('#orderpaystatus').html(Status_7077.getPayStatus(@orderinfo.PayStatus));
         $('#IsArrivePay').html('@orderinfo.IsArrivePay'=='True'?"是":"否");
         $('#IsOutPhoto').html('@orderinfo.IsOutPhoto'=='True'?"是":"否");
-        $('#ArrivePaystatus').html(@orderinfo.ArrivePayStatus==1?"已支付":"待支付");
-        $('#WorldPaystatus').html(@orderinfo.WorldPayStatus==1?"已支付":"待支付");
-        $('#ChinaPaystatus').html(@orderinfo.ChinaPayStatus==1?"已支付":"待支付");
+        $('#ArrivePaystatus').html(PayStatus(@orderinfo.ArrivePayStatus));
+        $('#WorldPaystatus').html(PayStatus(@orderinfo.WorldPayStatus));
+        $('#ChinaPaystatus').html(PayStatus(@orderinfo.ChinaPayStatus));
         var paytype = $('#zhifuleixing').html();
         if (paytype == 1)
             $('#zhifuleixing').html('支付宝支付');

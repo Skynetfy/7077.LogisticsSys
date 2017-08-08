@@ -374,7 +374,7 @@ namespace Sys.WebUI.Controllers
          
             for (var c = 0; c < data.Count; c++)
             {
-                var item = data[c];
+                dynamic item = data[c];
                 IRow row = sheet1.CreateRow(c + 1);
                 row.CreateCell(0).SetCellValue(item.CustomerID);
                 row.CreateCell(1).SetCellValue(item.UserName);

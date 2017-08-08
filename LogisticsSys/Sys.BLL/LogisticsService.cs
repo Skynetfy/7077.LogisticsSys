@@ -29,7 +29,10 @@ namespace Sys.BLL
         {
             return logisticsInfoRepository.Insert(entity);
         }
-
+        public int DeleteLogistics(string single)
+        {
+            return logisticsInfoRepository.Delete(single);
+        }
         public List<SysLogisticsInfo> GetLogisticsBySingle(string single)
         {
             return logisticsInfoRepository.GetLogisticsInfoList(single).ToList();

@@ -11,6 +11,7 @@ namespace Sys.BLL.Order
     {
         [Description("已删除")]
         Deleted = -1,
+
         [Description("未提交")]
         UnSubmit = 0,
 
@@ -19,6 +20,12 @@ namespace Sys.BLL.Order
 
         [Description("已处理")]
         Processed,
+
+        [Description("未发货")]
+        Unfilled,
+
+        [Description("已发货")]
+        Filled,
 
         [Description("未付款")]
         UnPaing,
@@ -32,11 +39,11 @@ namespace Sys.BLL.Order
         [Description("已收款")]
         Received,
 
-        [Description("未发货")]
-        Unfilled,
+        //[Description("未发货")]
+        //Unfilled,
 
-        [Description("已发货 ")]
-        Filled,
+        //[Description("已发货 ")]
+        //Filled,
 
         [Description("已完成 ")]
         Successed,

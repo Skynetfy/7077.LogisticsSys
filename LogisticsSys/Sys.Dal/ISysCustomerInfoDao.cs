@@ -8,5 +8,7 @@ namespace Sys.Dal
     {
 
         SysCustomerInfo FindByUid(long id);
+
+        IList<dynamic> GetFulList();
     }
 }

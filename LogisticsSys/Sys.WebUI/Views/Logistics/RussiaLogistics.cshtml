@@ -255,6 +255,7 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script src="~/Scripts/bootstrap-select/bootstrap-select.min.js"></script>
 <script>
+    
     function getHeight() {
         return $(window).height() - $('h1').outerHeight(true);
     }
@@ -293,7 +294,7 @@
                 if (href != null && href != "#") {
                     $('body').mLoading("show"); //显示loading组件
                     $('#main-page')
-                         .load(href+"?t="+t,
+                        .load(href+"?t="+t,
                             function () {
                                 $('body').mLoading("hide"); //显示loading组件
                             });
@@ -417,7 +418,12 @@
             return '运送中';
         }
     }
-
+    function deletelo(row) {
+        if(confirm("确定要删除此条物流跟踪记录吗？"))
+            $.post("@Url.Action("DeleteLogistics")", { id: row.LogisticsSingle },function(e) {
+                $('[data-toggle="table"]').bootstrapTable('refresh');
+            });
+    }
     function stateFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-default btn-xs" onclick="showdate(' +
@@ -425,10 +431,14 @@
             ')" value="">查看</button>');
         if (row.Status == false) {
             h.push(' <button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
-                    JSON.stringify(row).replace(/\"/g, "\'") +
-                    ')" value="">更新</button>');
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">更新</button>');
         }
-
+        if (row.Status == false) {
+            h.push(' <button  type="button" class="btn btn-primary btn-xs" onclick="deletelo(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">删除</button>');
+        }
         return h.join('');
     }
 </script>

@@ -137,6 +137,26 @@ namespace Sys.WebUI.Controllers
             return Content("ok");
         }
 
+        [HttpPost]
+        public ActionResult DeleteLogistics(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                LogisticsService.Current.DeleteLogistics(id);
+                var logins = LogisticsService.Current.GetListBySingle(id);
+                var ordernumbers = logins.Select(x => x.OrderNos);
+                foreach (var arg in ordernumbers)
+                {
+                    var orderNumber = DALFactory.OrderNumberDao.FindByPk(Convert.ToInt64(arg));
+                    if (orderNumber != null)
+                    {
+                        orderNumber.Status = false;
+                        DALFactory.OrderNumberDao.Update(orderNumber);
+                    }
+                }
+            }
+            return Content("ok");
+        }
         public ActionResult GetOrderNumberList()
         {
             var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && !x.Status).ToList();

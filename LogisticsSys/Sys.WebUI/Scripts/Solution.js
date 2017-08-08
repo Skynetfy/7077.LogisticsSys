@@ -20,17 +20,17 @@ var Status_7077 = {
             case 2:
                 return "已处理";
             case 3:
-                return "未付款";
-            case 4:
-                return "已付款";
-            case 5:
-                return "未收款";
-            case 6:
-                return "已收款";
-            case 7:
                 return "未发货";
-            case 8:
+            case 4:
                 return "已发货";
+            case 5:
+                return "未付款";
+            case 6:
+                return "已付款";
+            case 7:
+                return "未收款";
+            case 8:
+                return "已收款";
             case 9:
                 return "已完成";
             case 10:

@@ -14,5 +14,7 @@ namespace Sys.Dal
         IList<SysLogisticsInfo> GetLogisticsListBySingle(string single);
 
         IList<SysLogisticsInfo> GetLogisticsListBySingleGroup(string single);
+
+        int Delete(string single);
     }
 }

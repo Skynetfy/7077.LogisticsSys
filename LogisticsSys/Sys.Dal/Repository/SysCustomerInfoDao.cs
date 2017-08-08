@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -91,14 +92,14 @@ namespace Sys.Dal.Repository
             try
             {
                 Object result = baseDao.Insert<SysCustomerInfo>(sysCustomerInfo);
-		        long iReturn = Convert.ToInt64(result);
+                long iReturn = Convert.ToInt64(result);
                 return iReturn;
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
                 throw new DalException("调用SysCustomerInfo时，访问Insert时出错", ex);
-                
+
             }
         }
         /// <summary>
@@ -144,7 +145,7 @@ namespace Sys.Dal.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns>SysCustomerInfo信息</returns>
-        public SysCustomerInfo FindByPk(long id )
+        public SysCustomerInfo FindByPk(long id)
         {
             try
             {
@@ -172,8 +173,8 @@ namespace Sys.Dal.Repository
       ,[IsDelete]
       ,[Integral]
                   FROM [dbo].[SysCustomerInfo] (NOLOCK) where [UserId]=@Uid";
-                StatementParameterCollection parameters=new StatementParameterCollection();
-                parameters.AddInParameter("@Uid",DbType.Int64, id);
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@Uid", DbType.Int64, id);
                 return baseDao.SelectFirst<SysCustomerInfo>(sql, parameters);
             }
             catch (Exception ex)
@@ -239,13 +240,13 @@ namespace Sys.Dal.Repository
             }
         }
 
-       /// <summary>
-       ///  批量插入SysCustomerInfo
-       /// </summary>
-       /// <param name="sysCustomerInfo">SysCustomerInfo实体对象列表</param>
-       /// <returns>状态代码</returns>
+        /// <summary>
+        ///  批量插入SysCustomerInfo
+        /// </summary>
+        /// <param name="sysCustomerInfo">SysCustomerInfo实体对象列表</param>
+        /// <returns>状态代码</returns>
         public bool BulkInsertSysCustomerInfo(IList<SysCustomerInfo> sysCustomerInfoList)
-       	{
+        {
             try
             {
                 return baseDao.BulkInsert<SysCustomerInfo>(sysCustomerInfoList);
@@ -278,5 +279,40 @@ namespace Sys.Dal.Repository
             return null;
         }
 
+        public IList<dynamic> GetFulList()
+        {
+            try
+            {
+                IList<dynamic> list = null;
+                String sql = "SELECT UserName,DisplayName,Email," +
+                             "Address,CustomerID,QQNumber,WebChatNo,Integral,C.Phone from SysUser (nolock) U" +
+                             "Left join SysCustomerInfo  with (nolock) C on U.id=C.UserId";
+                var dt = baseDao.SelectDataTable(sql);
+                if (dt != null)
+                {
+                    list = new List<dynamic>();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(new
+                        {
+                            UserName=row["UserName"].ToString(),
+                            DisplayName = row["DisplayName"].ToString(),
+                            Email = row["Email"].ToString(),
+                            Address = row["Address"].ToString(),
+                            CustomerID = row["CustomerID"].ToString(),
+                            QQNumber = row["QQNumber"].ToString(),
+                            WebChatNo = row["WebChatNo"].ToString(),
+                            Integral = row["Integral"].ToString(),
+                            Phone = row["Phone"].ToString(),
+                        });
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用SysCustomerInfoDao时，访问Count时出错", ex);
+            }
+        }
     }
 }

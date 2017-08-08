@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using Sys.BLL;
+using Sys.BLL.Order;
 using Sys.BLL.Users;
 using Sys.Common;
 using Sys.Dal;
@@ -343,6 +346,55 @@ namespace Sys.WebUI.Controllers
             btdata.rows = data;
 
             return Json(btdata, JsonRequestBehavior.AllowGet);
+        }
+
+        public void ExportCustomerExcel()
+        {
+            string filename = "客户列表.xlsx";
+
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", filename));
+
+           
+            var data = DALFactory.CustomerInfoDao.GetFulList();
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            ISheet sheet1 = workbook.CreateSheet("Sheet1");
+
+            IRow row0 = sheet1.CreateRow(0);
+            row0.CreateCell(0).SetCellValue("客户编号");
+            row0.CreateCell(1).SetCellValue("用户名");
+            row0.CreateCell(2).SetCellValue("姓名");
+            row0.CreateCell(3).SetCellValue("手机号");
+            row0.CreateCell(4).SetCellValue("邮箱");
+            row0.CreateCell(5).SetCellValue("地址");
+            row0.CreateCell(6).SetCellValue("QQ");
+            row0.CreateCell(7).SetCellValue("微信");
+            row0.CreateCell(8).SetCellValue("积分");
+         
+            for (var c = 0; c < data.Count; c++)
+            {
+                var item = data[c];
+                IRow row = sheet1.CreateRow(c + 1);
+                row.CreateCell(0).SetCellValue(item.CustomerID);
+                row.CreateCell(1).SetCellValue(item.UserName);
+                row.CreateCell(2).SetCellValue(item.DisplayName);
+                row.CreateCell(3).SetCellValue(item.Phone);
+                row.CreateCell(4).SetCellValue(item.Email);
+                row.CreateCell(5).SetCellValue(item.Address);
+                row.CreateCell(6).SetCellValue(item.QQNumber);
+                row.CreateCell(7).SetCellValue(item.WebChatNo);
+                row.CreateCell(8).SetCellValue(item.Integral);
+               
+            }
+            var path = Server.MapPath("~/ExcelFiles/客户列表.xlsx");
+            using (var f = System.IO.File.Create(path))
+            {
+                workbook.Write(f);
+            }
+            Response.WriteFile(path);
+            Response.Flush();
+            Response.End();
         }
     }
 }

@@ -958,7 +958,6 @@ namespace Sys.WebUI.Controllers
             row0.CreateCell(30).SetCellValue("订单总费用");
             row0.CreateCell(31).SetCellValue("网站订单号");
             row0.CreateCell(32).SetCellValue("卢布到付金额");
-            int x = 27;
             for (var c = 0; c < data.Count; c++)
             {
                 var item = data[c];
@@ -998,7 +997,7 @@ namespace Sys.WebUI.Controllers
                         .Where(z => z.OrderId == item.Id)
                         .Select(z => z.Number)
                         .ToList()));
-                row.CreateCell(25).SetCellValue(item.ArriveValueRuble.ToString());
+                row.CreateCell(32).SetCellValue(item.ArriveValueRuble.ToString());
             }
             var path = Server.MapPath("~/ExcelFiles/订单列表.xlsx");
             using (var f = System.IO.File.Create(path))

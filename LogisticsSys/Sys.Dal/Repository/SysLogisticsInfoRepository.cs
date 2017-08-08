@@ -56,6 +56,22 @@ namespace Sys.Dal.Repository
             }
         }
 
+        public int Delete(string single)
+        {
+            try
+            {
+                string sql = @"delete from [SysLogisticsInfo] where LogisticsSingle=@LogisticsSingle";
+                StatementParameterCollection parameters=new StatementParameterCollection();
+                parameters.AddInParameter("@LogisticsSingle",DbType.AnsiString, single);
+                Object result = baseDao.ExecNonQuery(sql);
+                int iReturn = Convert.ToInt32(result);
+                return iReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Delete时出错", ex);
+            }
+        }
         public SysLogisticsInfo FindByPk(long id)
         {
             try

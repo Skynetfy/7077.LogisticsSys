@@ -486,4 +486,5 @@ function SmartWizard(target, options) {
         includeFinishButton : true   // Add the finish button
     };
 
+    window.smartWizard = 67;
 })(jQuery);

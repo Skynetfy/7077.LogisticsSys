@@ -142,8 +142,9 @@ namespace Sys.WebUI.Controllers
         {
             if (!string.IsNullOrEmpty(id))
             {
-                LogisticsService.Current.DeleteLogistics(id);
                 var logins = LogisticsService.Current.GetListBySingle(id);
+                LogisticsService.Current.DeleteLogistics(id);
+               
                 var ordernumbers = logins.Select(x => x.OrderNos);
                 foreach (var arg in ordernumbers)
                 {

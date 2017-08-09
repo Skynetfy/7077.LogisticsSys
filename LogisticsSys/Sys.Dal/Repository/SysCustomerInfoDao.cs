@@ -285,8 +285,8 @@ namespace Sys.Dal.Repository
             {
                 IList<dynamic> list = null;
                 String sql = "SELECT UserName,DisplayName,Email," +
-                             "Address,CustomerID,QQNumber,WebChatNo,Integral,C.Phone from SysUser (nolock) U" +
-                             "Left join SysCustomerInfo  with (nolock) C on U.id=C.UserId";
+                             "Address,CustomerID,QQNumber,WebChatNo,Integral,U.Phone from SysUser (nolock) U" +
+                             " Right join SysCustomerInfo (nolock) C on U.id=C.UserId";
                 var dt = baseDao.SelectDataTable(sql);
                 if (dt != null)
                 {

@@ -748,6 +748,9 @@
                 if (validateAllSteps()) {
                     $('form').ajaxSubmit({
                         resetForm: true,
+                        beforeSubmit:function() {
+                            $('.actionBar>.btn-default').button('loading');
+                        },
                         error: function (xhr, status, error, $form) {
                             $('#alert-infor').removeClass('alert-success');
                             $('#alert-infor').addClass('alert-danger');
@@ -756,6 +759,7 @@
                             $('#alert-infor strong').html('错误！');
                         },
                         success: function (responseText, statusText) {
+                            $('.actionBar>.btn-default').button('reset');
                             var d = $.parseJSON(responseText);
                             if (d.Status === 1) {
                                 $('#alert-infor').removeClass('alert-danger');

@@ -63,7 +63,7 @@ namespace Sys.Dal.Repository
                 string sql = @"delete from [SysLogisticsInfo] where LogisticsSingle=@LogisticsSingle";
                 StatementParameterCollection parameters=new StatementParameterCollection();
                 parameters.AddInParameter("@LogisticsSingle",DbType.AnsiString, single);
-                Object result = baseDao.ExecNonQuery(sql);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
                 int iReturn = Convert.ToInt32(result);
                 return iReturn;
             }

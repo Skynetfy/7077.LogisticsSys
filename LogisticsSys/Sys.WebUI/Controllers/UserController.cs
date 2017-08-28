@@ -396,5 +396,33 @@ namespace Sys.WebUI.Controllers
             Response.Flush();
             Response.End();
         }
+        [HttpPost]
+        public ActionResult OnAgent(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var agent = DALFactory.SysUserDao.FindByPk(Convert.ToInt64(id));
+                if (agent != null)
+                {
+                    agent.Status = 1;
+                    DALFactory.SysUserDao.Update(agent);
+                }
+            }
+            return Content("ok");
+        }
+        [HttpPost]
+        public ActionResult DeleteAgent1(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var agent = DALFactory.SysUserDao.FindByPk(Convert.ToInt64(id));
+                if (agent != null)
+                {
+                    
+                    DALFactory.SysUserDao.Delete(agent);
+                }
+            }
+            return Content("ok");
+        }
     }
 }

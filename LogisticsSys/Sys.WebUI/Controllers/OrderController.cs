@@ -883,7 +883,7 @@ namespace Sys.WebUI.Controllers
             var rows = provider.GetOrderViewPagerList(where, offset, limit, order, sort);
             foreach(var item in rows)
             {
-                item.OrderNumbers = string.Join(",", DALFactory.OrderNumberDao.GetAll()
+                item.OrderNumbers = string.Join("<br>", DALFactory.OrderNumberDao.GetAll()
                         .Where(z => z.OrderId == item.Id)
                         .Select(z => z.Number)
                         .ToList());
@@ -892,7 +892,7 @@ namespace Sys.WebUI.Controllers
             return Json(btdata, JsonRequestBehavior.AllowGet);
         }
 
-        public void ExportOrderExcel()
+        public void ExportOrderExcel(string orderstatus, string orderdate, string search)
         {
             string filename = "订单列表.xlsx";
 
@@ -902,6 +902,27 @@ namespace Sys.WebUI.Controllers
 
             var where = string.Empty;
             var userprovider = new UserLoginProvider();
+            where += string.Format(@" and [Status]>=0 ");
+            if (!string.IsNullOrEmpty(search))
+                where += string.Format(@" and ([OrderNo] Like '%{0}%' or [ShipperName] Like '%{0}%' or [ShipperPhone] Like '%{0}%' or [RussiaCityId] Like '%{0}%')", search);
+            if (!string.IsNullOrEmpty(orderstatus))
+            {
+                int status = Convert.ToInt32(orderstatus);
+                if (status > 2 && status <= 6)
+                {
+                    where += string.Format(@" and [PayStatus]={0}", status - 3);
+                }
+                else
+                {
+                    where += string.Format(@" and [Status]={0}", orderstatus);
+                }
+
+            }
+            if (!string.IsNullOrEmpty(orderdate))
+            {
+                var ds = orderdate.Split('-');
+                where += string.Format(" and [CreateDate] BETWEEN '{0}' AND '{1}'", ds[0], ds[1]);
+            }
             var _user = userprovider.GetUser(User.Identity.Name);
             if (_user != null)
             {

@@ -157,7 +157,7 @@
                 <h4 class="modal-title">Modal title</h4>
             </div>
             <div class="modal-body">
-              
+
                 <form class="form-horizontal form-label-left" id="addform1" method="post" action="@Url.Action("AdminEditPassword")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
                     <input type="hidden" name="username" id="username1" value="" />
                     <div class="form-group">
@@ -194,7 +194,7 @@
 <script src="~/Scripts/parsley.min.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 <script>
-    
+
     $(function () {
         var parslay = $('#addform').parsley();
         $('[data-toggle="table"]').bootstrapTable();
@@ -288,7 +288,7 @@
                 $('#addform1').ajaxSubmit({
                     resetForm: true,
                     error: function (xhr, status, error, $form) {
-                    
+
                     },
                     success: function (responseText, statusText) {
                         //alert(statusText.Status);
@@ -312,7 +312,7 @@
                if (href != null && href != "#") {
                    $('body').mLoading("show"); //显示loading组件
                    $('#main-page')
-                        .load(href+"?t="+t,
+                        .load(href + "?t=" + t,
                            function () {
                                $('body').mLoading("hide"); //显示loading组件
                            });
@@ -355,9 +355,26 @@
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">修改</button>');
         h.push(' <button  type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#admineditModel" onclick="editdate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">重置密码</button>');
+        h.push(' <button  type="button" class="btn btn-danger  btn-xs"  onclick="deletedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">删除</button>');
+        if (row.Status === 0)
+            h.push(' <button  type="button" class="btn btn-warning btn-xs" onclick="ondate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">上线</button>');
+
+
         return h.join('');
     }
     function editdate(row) {
         $('#username1').val(row.UserName);
+    }
+    function deletedate(row) {
+        if (confirm("确定要删除该代理商吗？")) {
+            $.post('@Url.Action("DeleteAgent1")', { id: row.Id }, function () { });
+            $('[data-toggle="table"]').bootstrapTable('refresh');
+        }
+    }
+    function ondate(row) {
+        if (confirm("确定要上线该代理商吗？")) {
+            $.post('@Url.Action("OnAgent")', { id: row.Id }, function () { });
+            $('[data-toggle="table"]').bootstrapTable('refresh');
+        }
     }
 </script>

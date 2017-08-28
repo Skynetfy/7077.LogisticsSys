@@ -22,7 +22,7 @@
                     <input type="text" class="form-control" id="orderdate" name="orderdate" placeholder="日期段" style="width: initial;"/>
                 </div>
                 <button id="ok" type="submit" class="btn btn-warning">查询</button>
-                <a href="@Url.Action("ExportOrderExcel")" class="btn btn-success"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出</a>
+                <a href="@Url.Action("ExportOrderExcel")" id="btn-search" class="btn btn-success"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出</a>
 
             </div>
         </div>
@@ -362,6 +362,13 @@
                 }
             });
 
+        $('#btn-search').click(function() {
+            var s = $('[name=orderstatus]').val();
+            var d = $('[name=orderdate]').val();
+            var c = $('.search input[type=text]').val();
+            $(this).attr('href','@Url.Action("ExportOrderExcel")?orderstatus=' + s
+                + '&orderdate=' + d + '&search='+c);
+        });
         function getIdSelections() {
             return $.map($table.bootstrapTable('getSelections'),
                 function (row) {

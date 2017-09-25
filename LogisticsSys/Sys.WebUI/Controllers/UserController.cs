@@ -418,7 +418,6 @@ namespace Sys.WebUI.Controllers
                 var agent = DALFactory.SysUserDao.FindByPk(Convert.ToInt64(id));
                 if (agent != null)
                 {
-                    
                     DALFactory.SysUserDao.Delete(agent);
                 }
             }

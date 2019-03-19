@@ -391,13 +391,13 @@
     }
     function OrderNoFormatter(value, row, index) {
         return '<a href="javascript:void(0)" onclick="viewOrder(' +
-                JSON.stringify(row).replace(/\"/g, "\'") +
+            JSON.stringify(row).replace(/\"|\'/g, "") +
                 ')">' + value + '</a>';
     }
     function actionFormatter(value, row, index) {
         var h = [];
         h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
-            JSON.stringify(row).replace(/\"/g, "\'") +
+            JSON.stringify(row).replace(/\"|\'/g, "") +
             ')" value="">查看</button>');
         return h.join('');
     }

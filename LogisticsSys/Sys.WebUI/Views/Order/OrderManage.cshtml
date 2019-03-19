@@ -867,7 +867,7 @@
     }
     function OrderNoFormatter(value, row, index) {
         return '<a href="javascript:void(0)" onclick="viewOrder(' +
-                JSON.stringify(row).replace(/\"/g, "\'") +
+                JSON.stringify(row).replace(/\"|\'/g, "") +
                 ')">' + value + '</a>';
     }
     function stateFormatter(value, row, index) {
@@ -892,17 +892,17 @@
         var h = [];
         if (row.Status < 9 && row.Status > 0)
             h.push('<button  type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#updateModel" onclick="updatedate(' +
-                    JSON.stringify(row).replace(/\"/g, "\'") +
+                JSON.stringify(row).replace(/\"|\'/g, "") +
                     ')" value="">修改</button>');
         if (row.Status <= 5 && row.Status > 0 && '@ViewBag.Role' == 'Agents' && (row.WorldPayStatus == 0 && row.ChinaPayStatus == 0))
             h
                 .push(' <button  type="button" class="btn btn-success btn-xs" onclick="editdate(' +
-                    JSON.stringify(row).replace(/\"/g, "\'") +
+                    JSON.stringify(row).replace(/\"|\'/g, "") +
                     ')" value="">处理</button>');
 
         if ('@ViewBag.Role' == 'Admin' && (row.ArrivePayStatus == 1 || row.WorldPayStatus == 1 || row.ChinaPayStatus == 1))
             h.push(' <button  type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#fukuanqverenmodel" onclick="fukuanqveren(' +
-               JSON.stringify(row).replace(/\"/g, "\'") +
+                JSON.stringify(row).replace(/\"|\'/g, "") +
                 ')" value="">收款确认</button>');
 
         @*if (row.Status >= 2 && row.PayStatus >= 1 && row.PayStatus <= 2 && '@ViewBag.Role' == 'Admin')
@@ -912,7 +912,7 @@
                     ')" value="">收款</button>');*@
         if (row.Status < 9 && row.Status > 0 && row.PayStatus == 3 && '@ViewBag.Role' == 'Admin')
             h.push(' <button  type="button" class="btn btn-success btn-xs"  onclick="Completedate(' +
-                    JSON.stringify(row).replace(/\"/g, "\'") +
+                JSON.stringify(row).replace(/\"|\'/g, "") +
                     ')" value="">完成</button>');
         return h.join('');
     }

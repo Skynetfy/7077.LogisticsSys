@@ -416,9 +416,9 @@
 
     function priceFormatter(v, r) { }
     function OrderNoFormatter(value, row, index) {
-        return '<a href="javascript:void(0)" onclick="viewOrder(' +
-            JSON.stringify(row).replace(/\"|\'/g, "") +
-            ')">' +
+        return '<a href="javascript:void(0)" onclick=\'viewOrder(' +
+            JSON.stringify(row).replace(/\'/g, "-") +
+            ')\'>' +
             value +
             '</a>';
     }
@@ -509,9 +509,9 @@
     function actionFormatter(value, row, index) {
         var h = [];
         if (row.Status < 2 && row.Status > 0 && row.ArrivePayStatus == 0 && row.WorldPayStatus == 0 && row.ChinaPayStatus == 0) {
-            h.push('<button  type="button" class="btn btn-danger btn-xs"  onclick="deleteOrder(' +
-                JSON.stringify(row).replace(/\"|\'/g, "") +
-                ')" value="">删除</button>');
+            h.push('<button  type="button" class="btn btn-danger btn-xs"  onclick=\'deleteOrder(' +
+                JSON.stringify(row).replace(/\'/g, "-") +
+                ')\' value="">删除</button>');
         }
         if ((row.WorldPayStatus == 0 || row.ChinaPayStatus == 0) && row.Status >= 2) {
             h.push('<a class="btn btn-success btn-xs" onclick="payaction()" target="_blank" href="@Url.Action("PayOrder")?type=FullPay&id=' + row.Id + '">付款</a>');

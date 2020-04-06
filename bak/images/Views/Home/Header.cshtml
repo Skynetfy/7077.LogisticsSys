@@ -1,0 +1,48 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="branding" href="javascript:void(0)" title="RuGoGo俄罗斯海淘转运站物流管理系统">
+                    <img src="~/images/logo.png" />
+                </a>
+                <ul class="nav navbar-nav navbar-right userlogin">
+                    <li><a href="#" class="a-username">@ViewBag.UserName <span id="starIntegral"><img src="~/images/star.png" width="18px" style="vertical-align: top;" /> @ViewBag.Integral</span></a></li>
+                    <li><a href="@Url.Action("LoginOut", "Login")">注销</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                    <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        @*<li class="nav-current" role="presentation"><a href="/">首页</a></li>
+                        <li role="presentation"><a href="#">订单管理</a></li>
+                        <li role="presentation"><a href="#">物流管理</a></li>
+                        <li role="presentation"><a href="#">基础管理</a></li>*@
+                        @Html.MvcIndexHtmlString(User.Identity.Name)
+                        <li role="presentation"><a href="@Url.Action("About", "Home")">关于</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<script>
+    if ('@ViewBag.Integral' == '') {
+        document.getElementById('starIntegral').style.display = "none";
+    }
+</script>

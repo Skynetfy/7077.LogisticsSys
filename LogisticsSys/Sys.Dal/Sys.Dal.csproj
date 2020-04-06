@@ -61,6 +61,7 @@
     <Compile Include="ISysCustomerInfoDao.cs" />
     <Compile Include="ISysDbConfigRepository.cs" />
     <Compile Include="ISysExchangeRepository.cs" />
+    <Compile Include="ISysExportDataInfoRepository.cs" />
     <Compile Include="ISysGoodsTypeRepository.cs" />
     <Compile Include="ISysIntegralLogRepository.cs" />
     <Compile Include="ISysKuaiDiComRepository.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Repository\SysCustomerInfoDao.cs" />
     <Compile Include="Repository\SysDbConfigRepository.cs" />
     <Compile Include="Repository\SysExchangeRepository.cs" />
+    <Compile Include="Repository\SysExportDataInfoRepository.cs" />
     <Compile Include="Repository\SysGoodsTypeRepository.cs" />
     <Compile Include="Repository\SysIntegralLogRepository.cs" />
     <Compile Include="Repository\SysKuaiDiComRepository.cs" />

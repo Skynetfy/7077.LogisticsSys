@@ -22,41 +22,48 @@
 </head>
 <body>
 
-<div class="page page-login">
-    <h3 class="login-h3">帐号注册 </h3>
-    <fieldset class="accountInfo">
-        <form id="new_user" method="post" action="@Url.Action("SignUp")">
+    <div class="page page-login">
+        @*<h3 class="login-h3">帐号注册 </h3>*@
+        <h3 class="login-h3">
+            <img src="~/images/1186184.gif" style="width: 80px;
+                                           vertical-align: middle;
+                                           margin-right: 20px;"/>系统升级。稍晚上线后再注册
+        </h3>
+        <a href="http://47.240.239.177:8080/" target="_blank"> <img src="替换你按钮图片的地址" /></a>
+        <fieldset class="accountInfo">
 
-            <div class="login">
-                <div style="display: none;" class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span></span>
+            @*<form id="new_user" method="post" action="@Url.Action("SignUp")">
+
+                <div class="login">
+                    <div style="display: none;" class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span></span>
+                    </div>
+                    <p class="form-group" style="margin-top: 0;">
+                        <label class="form-control-label required login-input-label" for="user_email">用户名：</label>
+
+                        <input autofocus="autofocus" class="form-control textEntry" type="text" value="" name="username" id="user_email" required="required" data-parsley-type="alphanum" data-parsley-remote-validator="validateUsername">
+
+                    </p>
+                    <p class="form-group">
+                        <label class="form-control-label required login-input-label" for="user_password">密 码：</label><input class="form-control textEntry" type="password" name="password" id="user_password" required="required" data-parsley-id="5464"><ul class="parsley-errors-list" id="parsley-id-5464"></ul>
+                    </p>
+                    <p class="form-group">
+                        <label class="form-control-label required login-input-label" for="user_password_confim">确认密码：</label><input class="form-control textEntry" type="password" name="confimpassword" id="user_password_confim" required="required" data-parsley-equalto="#user_password"><ul class="parsley-errors-list" id="parsley-id-5465"></ul>
+                    </p>
+                    <p class="form-group">
+                        <label class="form-control-label required login-input-label" for="user_email">邮 箱：</label><input class="form-control textEntry" type="email" name="email" id="user_email" required="required" data-parsley-id="5467"><ul class="parsley-errors-list" id="parsley-id-5467"></ul>
+                    </p>
                 </div>
-                <p class="form-group" style="margin-top: 0;">
-                    <label class="form-control-label required login-input-label" for="user_email">用户名：</label>
+                <p class="submitButton" style="margin-top: 25px;">
+                    <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
+                    <a class="btn-link text-warning float-right" style="float: right; color: #696969" href="/Login">已经是会员?</a>
+                </p>
+            </form>*@
+        </fieldset>
 
-                    <input autofocus="autofocus" class="form-control textEntry" type="text" value="" name="username" id="user_email" required="required" data-parsley-type="alphanum" data-parsley-remote-validator="validateUsername">
-
-                </p>
-                <p class="form-group">
-                    <label class="form-control-label required login-input-label" for="user_password">密 码：</label><input class="form-control textEntry" type="password" name="password" id="user_password" required="required" data-parsley-id="5464"><ul class="parsley-errors-list" id="parsley-id-5464"></ul>
-                </p>
-                <p class="form-group">
-                    <label class="form-control-label required login-input-label" for="user_password_confim">确认密码：</label><input class="form-control textEntry" type="password" name="confimpassword" id="user_password_confim" required="required" data-parsley-equalto="#user_password"><ul class="parsley-errors-list" id="parsley-id-5465"></ul>
-                </p>
-                <p class="form-group">
-                    <label class="form-control-label required login-input-label" for="user_email">邮 箱：</label><input class="form-control textEntry" type="email" name="email" id="user_email" required="required" data-parsley-id="5467"><ul class="parsley-errors-list" id="parsley-id-5467"></ul>
-                </p>
-            </div>
-            <p class="submitButton" style="margin-top: 25px;">
-                <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
-                <a class="btn-link text-warning float-right" style="float: right; color: #696969" href="/Login">已经是会员?</a>
-            </p>
-        </form>
-    </fieldset>
-
-</div>
+    </div>
     <footer style="border-top: 1px solid #eeeeee; margin-top: 20px; height: 50px; line-height: 50px;">
         <div class="container">
             <small class="pull-left text-muted copyright">

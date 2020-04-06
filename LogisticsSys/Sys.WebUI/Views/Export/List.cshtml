@@ -1,0 +1,95 @@
+﻿@using Newtonsoft.Json
+@using Sys.Entities
+@model List<Sys.Entities.SysExportDataInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>View</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/plugins/canvas-to-blob.min.js"></script>
+    <script src="~/Scripts/plugins/sortable.min.js"></script>
+    <script src="~/Scripts/plugins/purify.min.js"></script>
+    <script src="~/Scripts/fileinput.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap-table-click-edit-row.js"></script>
+    <script src="~/Scripts/bootstrap-table-zh-CN.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" style="border-color: #563d7c;-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);box-shadow: 0 6px 12px rgba(0,0,0,.175);">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+                <a class="navbar-brand" href="#" style="color: #563d7c;font-weight: 800;font-size: 30px;">RUGOGO</a>
+            </div>
+            <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+            <div id="navbar">
+                <div class="navbar-form navbar-right">
+                    <a href="@Url.Action("Export")" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                        Export
+                    </a>
+                </div>
+
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container-full" style="margin-top: 65px;">
+        <table data-toggle="table" id="table"  data-show-toggle="true"
+               data-search="true"
+               data-url="@Url.Action("GetListPagerData")"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-sort-name="CreateDate"
+               data-sort-order="desc"
+               data-query-params="queryParams"
+               data-page-size="10"
+               data-page-list="[10,50,100]"
+               data-pagination-first-text="首页"
+               data-pagination-pre-text="上一页"
+               data-pagination-next-text="下一页"
+               data-pagination-last-text="尾页">
+            <thead>
+                <tr>
+                    <th data-field="TPARCELNO">T开头订单号</th>
+                    <th data-field="PARCELNO">购物网站订单号</th>
+                    <th data-field="ProductName">商品名称</th>
+                    <th data-field="COST">购买时实际价格</th>
+                    <th data-field="CURRENCY">货币单位</th>
+                    <th data-field="QUANTITY">数量</th>
+                    <th data-field="GOODSURL">购买网址</th>
+                    <th data-field="IdNumber">身份证号码</th>
+                    <th data-field="recipient">收件人</th>
+                    <th data-field="PHONE">电话</th>
+                    <th data-field="ADDRESS">地址</th>
+                    <th data-field="Courier">普通快递或者顺丰到付</th>
+                    <th data-field="FileName" data-formatter="FileNameFormatter">原始表格</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <script>
+            function queryParams(params) {
+                $('#toolbar').find('input[name],select').each(function () {
+                    params[$(this).attr('name')] = $(this).val();
+                });
+                return params;
+            }
+            function FileNameFormatter(value, row, index) {
+                return '<a href="/ExcelFiles/Upload/Export_excels/'+value+'">' + value + '</a>';
+            }
+        </script>
+    </div>
+</body>
+</html>

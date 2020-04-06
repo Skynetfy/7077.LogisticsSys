@@ -1,0 +1,362 @@
+﻿@using Sys.Entities
+@{
+    Layout = null;
+}
+
+<h4 id="breadcrumbs" class="page-header">订单详情</h4>
+<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+    <ul id="myTabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#control1" id="tab1" role="tab" data-toggle="tab" aria-controls="control1" aria-expanded="true">主订单信息</a></li>
+        <li role="presentation"><a href="#control2" role="tab" id="tab2" data-toggle="tab" aria-controls="control2">寄件人信息</a></li>
+        <li role="presentation"><a href="#control3" role="tab" id="tab3" data-toggle="tab" aria-controls="control3">收件人信息</a></li>
+        <li role="presentation"><a href="#control4" role="tab" id="tab4" data-toggle="tab" aria-controls="control4">付款信息</a></li>
+        <li role="presentation"><a href="#control5" role="tab" id="tab5" data-toggle="tab" aria-controls="control5">发货信息</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="control1" aria-labelledby="home-tab">
+            @{
+                var orderinfo = ViewData["OrderInfo"] as OrderView;
+            }
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 30%">订单号：</td>
+                        <td>@orderinfo.OrderNo</td>
+                    </tr>
+                    <tr>
+                        <td>下单人姓名：</td>
+                        <td>@orderinfo.ShipperName</td>
+                    </tr>
+                    <tr>
+                        <td>下单人电话：</td>
+                        <td>@orderinfo.ShipperPhone</td>
+                    </tr>
+                    <tr>
+                        <td>订单状态：</td>
+                        <td id="orderstatus">@orderinfo.Status</td>
+                    </tr>
+                    @*<tr>
+                            <td>支付状态：</td>
+                            <td id="orderpaystatus">@orderinfo.PayStatus</td>
+                        </tr>*@
+                    <tr>
+                        <td>到付状态：</td>
+                        <td id="ArrivePaystatus">@orderinfo.ArrivePayStatus</td>
+                    </tr>
+                    <tr>
+                        <td>国际段支付状态：</td>
+                        <td id="WorldPaystatus">@orderinfo.WorldPayStatus</td>
+                    </tr>
+                    <tr>
+                        <td>国内段支付状态：</td>
+                        <td id="ChinaPaystatus">@orderinfo.ChinaPayStatus</td>
+                    </tr>
+                    <tr>
+                        <td>下单时间：</td>
+                        <td>@orderinfo.CreateDate</td>
+                    </tr>
+                    <tr>
+                        <td>订单总金额(元)：</td>
+                        <td>@orderinfo.OrderRealPrice</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control2" aria-labelledby="profile-tab">
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 30%">俄罗斯城市：</td>
+                        <td>@orderinfo.RussiaCityName</td>
+                    </tr>
+                    <tr>
+                        <td>俄罗斯详细地址：</td>
+                        <td>@orderinfo.RussiaAddress</td>
+                    </tr>
+                    <tr>
+                        <td>购物网站地址：</td>
+                        <td>@orderinfo.WebUrl</td>
+                    </tr>
+                    <tr>
+                        <td>订单号：</td>
+                        <td>@orderinfo.OrderNumbers</td>
+                    </tr>
+                    <tr>
+                        <td>预计到达国外仓时间：</td>
+                        <td>@orderinfo.PickupDate</td>
+                    </tr>
+                    <tr>
+                        <td>货物类型：</td>
+                        <td>@orderinfo.GoodsTypeName</td>
+                    </tr>
+                    <tr>
+                        <td>货物运输类型：</td>
+                        <td id="transway">@orderinfo.TransportationWay</td>
+                    </tr>
+                    <tr>
+                        <td>保价价值(元)：</td>
+                        <td>@orderinfo.ProtectPrice</td>
+                    </tr>
+                    <tr>
+                        <td>保单费用(元)：</td>
+                        <td>@orderinfo.PolicyFee</td>
+                    </tr>
+                    <tr>
+                        <td>货物重量(kg) ：</td>
+                        <td>@orderinfo.GoodsWeight</td>
+                    </tr>
+                    <tr>
+                        <td>当日汇率 ：</td>
+                        <td>@orderinfo.ExchangeRate</td>
+                    </tr>
+                    <tr>
+                        <td>是否到付 ：</td>
+                        <td id="IsArrivePay">@orderinfo.IsArrivePay</td>
+                    </tr>
+                <tr>
+                    <td>卢布到付金额 ：</td>
+                    <td>@orderinfo.ArriveValueRuble</td>
+                </tr>
+                    <tr>
+                        <td>到付金额(元) ：</td>
+                        <td>@orderinfo.ArrivePayValue</td>
+                    </tr>
+                    <tr>
+                        <td>是否开箱拍照 ：</td>
+                        <td id="IsOutPhoto">@orderinfo.IsOutPhoto</td>
+                    </tr>
+                    <tr>
+                        <td>保险费(元) ：</td>
+                        <td>@orderinfo.InsuranceCost</td>
+                    </tr>
+                    <tr>
+                        <td>国际段费用(元) ：</td>
+                        <td>@orderinfo.OrderFrees</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control3" aria-labelledby="dropdown1-tab">
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 30%">城市：</td>
+                        <td>@orderinfo.ChinaCityName</td>
+                    </tr>
+                    <tr>
+                        <td>订单地址：</td>
+                        <td>@orderinfo.ChinaAddress</td>
+                    </tr>
+                    <tr>
+                        <td>收件人姓名：</td>
+                        <td>@orderinfo.ReceiverName</td>
+                    </tr>
+                    <tr>
+                        <td>收件人电话：</td>
+                        <td>@orderinfo.ReceiverPhone</td>
+                    </tr>
+                    <tr>
+                        <td>打包方式：</td>
+                        <td id="PackagingWay">@orderinfo.PackagingWay</td>
+                    </tr>
+                    <tr>
+                        <td>运输方式：</td>
+                        <td id="ExpressWay">@orderinfo.ExpressWay</td>
+                    </tr>
+                    <tr>
+                        <td>货物明细：</td>
+                        <td><a href="~/ExcelFiles/@orderinfo.GoodsDesc" target="_blank">@orderinfo.GoodsDesc</a></td>
+                    </tr>
+                    @*<tr>
+                            <td>货物重量(kg)：</td>
+                            <td>@orderinfo.ParcelWeight</td>
+                        </tr>*@
+                    <tr>
+                        <td>国内订单号 ：</td>
+                        <td>
+                            @orderinfo.ChinaCourierNumber
+                        </td>
+                    </tr>
+                <tr>
+                    <td>快递公司 ：</td>
+                    <td>@orderinfo.CourierComName</td>
+                </tr>
+                    <tr>
+                        <td>打包费用(元) ：</td>
+                        <td>@orderinfo.PackagingCosts</td>
+                    </tr>
+                <tr>
+                    <td>快递费用(元) ：</td>
+                    <td>@orderinfo.CourierFees</td>
+                </tr>
+                    <tr>
+                        <td>国内段费用(元) ：</td>
+                        <td>@orderinfo.DomesticCost</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control4" aria-labelledby="dropdown2-tab">
+            <br />
+            @{
+                var orderpayinfo = ViewData["OrderPayInfo"] as List<SysOrderPayInfo>;
+                if (orderpayinfo == null || orderpayinfo.Count == 0)
+                {
+                    <div class="alert alert-info" role="alert">
+                        <strong>抱歉!</strong> 暂时还没有付款信息。
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <th>支付类型</th>
+                                <th>卡号</th>
+                                <th>付款金额</th>
+                                <th>姓名</th>
+                                <th>支付时间</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in orderpayinfo)
+                                {
+                                    <tr>
+                                        <td scope="row">
+                                            @{
+                                                if (item.CostType.Equals("ArrivePay"))
+                                                {
+                                                    <span>到付金额</span>
+                                                }
+                                                else if (item.CostType.Equals("WorldPay"))
+                                                {
+                                                    <span>国际段支付</span>
+                                                }
+                                                else if (item.CostType.Equals("ChinaPay"))
+                                                {
+                                                    <span>国内段支付</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>@{
+                                            if (item.Type==1)
+                                            {
+                                                <span>支付宝支付</span>
+                                            }
+                                            else if (item.Type == 2)
+                                            {
+                                                <span>微信支付</span>
+                                            }
+                                            else if (item.Type == 3)
+                                            {
+                                                <span>银联支付</span>
+                                            }
+                                        }</td>
+                                        <td>@item.CardNumber</td>
+                                        <td>@item.PayAmount</td>
+                                        <td>@item.PayUserName</td>
+                                        <td>@item.CreateDate</td>
+                                        <td>@{
+                                                if (item.IsDelete)
+                                                {
+                                                    <span>已确认</span>
+                                            }
+                                            else
+                                            {
+                                                <span>待确认</span>
+                                            }
+                                        }</td>
+                                    </tr>
+                                            }
+                            }
+
+                        </tbody>
+                    </table>
+                   }
+            }
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="control5" aria-labelledby="dropdown2-tab">
+            <br />
+            @{
+                var fillorderinfo = ViewData["SysActionLog"] as SysActionLog;
+                if (fillorderinfo == null)
+                {
+                    <div class="alert alert-info" role="alert">
+                        <strong>抱歉!</strong> 暂时还没有发货信息。
+                    </div>
+                }
+                else
+                {
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%">发货时间：</td>
+                                <td>@fillorderinfo.ActionDate</td>
+                            </tr>
+                            <tr>
+                                <td>发货人：</td>
+                                <td>@fillorderinfo.UserId</td>
+                            </tr>
+                            <tr>
+                                <td>发货详细：</td>
+                                <td>@fillorderinfo.ActionDesc</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            }
+        </div>
+    </div>
+</div><!-- /example -->
+
+<script>
+    function queryParams(params) {
+        params["oid"]=@orderinfo.Id;
+        return params;
+    }
+    function PackagingWayFormatter(value, row, index) {
+        return Status_7077.getPackagingType(row.PackagingWay);
+    }
+    function ExpressWayFormatter(value, row, index) {
+        return Status_7077.getExpressWay(row.ExpressWay);
+    }
+    function PayStatus(status){
+        if(status==0){
+            return '待支付';
+        }
+        else if(status==1){
+            return "已支付，待确认"
+        }
+        else if(status==2){
+            return "已确认支付"
+        }
+
+    }
+    $(function() {
+        $('[data-toggle="table"]').bootstrapTable();
+        $('#orderstatus').html(Status_7077.getOrderStatus(@orderinfo.Status));
+        $('#transway').html(Status_7077.getCargoTransWay(@orderinfo.TransportationWay));
+        $('#PackagingWay').html(Status_7077.getPackagingType(@orderinfo.PackagingWay));
+        $('#ExpressWay').html(Status_7077.getExpressWay(@orderinfo.ExpressWay));
+        $('#orderpaystatus').html(Status_7077.getPayStatus(@orderinfo.PayStatus));
+        $('#IsArrivePay').html('@orderinfo.IsArrivePay'=='True'?"是":"否");
+        $('#IsOutPhoto').html('@orderinfo.IsOutPhoto'=='True'?"是":"否");
+        $('#ArrivePaystatus').html(PayStatus(@orderinfo.ArrivePayStatus));
+        $('#WorldPaystatus').html(PayStatus(@orderinfo.WorldPayStatus));
+        $('#ChinaPaystatus').html(PayStatus(@orderinfo.ChinaPayStatus));
+        var paytype = $('#zhifuleixing').html();
+        if (paytype == 1)
+            $('#zhifuleixing').html('支付宝支付');
+        if (paytype == 2)
+            $('#zhifuleixing').html('微信支付');
+        if (paytype == 3)
+            $('#zhifuleixing').html('银联支付');
+    });
+
+</script>

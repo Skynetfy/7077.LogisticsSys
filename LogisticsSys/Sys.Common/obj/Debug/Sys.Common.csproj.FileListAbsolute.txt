@@ -16,3 +16,14 @@ C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.dll
 C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.pdb
 C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
 C:\work\7077\7077.LogisticsSys\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
+C:\Work\Projects\7077\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.dll
+C:\Work\Projects\7077\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.pdb
+C:\Work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojAssemblyReference.cache
+C:\Work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csproj.CoreCompileInputs.cache
+C:\Work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
+C:\Work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb
+D:\work\Projects\7077\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.dll
+D:\work\Projects\7077\LogisticsSys\Sys.Common\bin\Debug\Sys.Common.pdb
+D:\work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.csprojAssemblyReference.cache
+D:\work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.dll
+D:\work\Projects\7077\LogisticsSys\Sys.Common\obj\Debug\Sys.Common.pdb

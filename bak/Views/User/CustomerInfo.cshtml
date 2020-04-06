@@ -1,0 +1,92 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("用户管理", "客户管理", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <div id="form-main-page">
+            <h4 id="breadcrumbs" class="page-header">客户信息</h4>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th style="width:30%">客户编号：</th>
+                        <td><span id="khbh"></span></td>
+                    </tr>
+                    <tr>
+                        <th>手机号码：</th>
+                        <td><span id="sjhm"></span></td>
+                    </tr>
+                    <tr>
+                        <th>所在城市：</th>
+                        <td><span id="szcs"></span></td>
+                    </tr>
+                    <tr>
+                        <th>详细地址：</th>
+                        <td><span id="xxdz"></span></td>
+                    </tr>
+                    <tr>
+                        <th>微信：</th>
+                        <td><span id="wx"></span></td>
+                    </tr>
+                    <tr>
+                        <th>QQ：</th>
+                        <td><span id="qq"></span></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><a class="btn btn-success btn-sm" id="editprofilelink"><i class="glyphicon glyphicon-edit"></i>修改</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    $(function() {
+     
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var t = new Date().getTime();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                        .load(href+"?t="+t,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+
+        $('#btn-save')
+            .click(function() {
+                if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
+                    $('#addform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function(xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function(responseText, statusText) {
+                                $('#main-page').load("@Url.Action("Profile", "User")");
+                    }
+                });
+            }
+        });
+    })
+</script>

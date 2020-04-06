@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    @* @Html.Action("EditProfile", "User", new { username = User.Identity.Name })*@
+    <script>
+        $('body').mLoading("show");//显示loading组件
+        var refer = "@ViewBag.refer";
+        if (refer === "1") {
+            // $('ul.menu>li[role=presentation]').removeClass("nav-current");
+            $('ul.menu>li[role=presentation]').eq(2).addClass("nav-current");
+            $('#main-page').load("@Url.Action("EditProfile", "User", new { username = User.Identity.Name })",function() {
+                $('body').mLoading("hide");//显示loading组件
+            });
+        } else {
+            $('#main-menu>ul>li:first').addClass('nav-current');
+            var url = $('#main-menu li:first>a').attr('href');
+            $('#main-page').load("//" + window.location.host + "/" + url, function () {
+                $('body').mLoading("hide");//显示loading组件
+            });
+        }
+    </script>
+</div>

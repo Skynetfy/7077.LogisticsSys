@@ -1,0 +1,214 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("系统管理", "货物类型维护", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <div id="toolbar">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel" id="addbtn">新增</button>
+            <button type="button" class="btn btn-danger btn-sm" disabled id="remove">删除</button>
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-toolbar="#toolbar"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-search="true"
+               data-url="@Url.Action("GetGoodsTypePagerDateList")"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-sort-name="CreateDate"
+               data-sort-order="desc"
+               data-page-size="50"
+               data-page-list="[20,50,100]"
+               data-pagination-first-text="首页"
+               data-pagination-pre-text="上一页"
+               data-pagination-next-text="下一页"
+               data-pagination-last-text="尾页">
+            <thead>
+                <tr>
+                    <th data-field="stats" data-checkbox="true"></th>
+                    <th data-field="GoodsType">货物名称</th>
+                    <th data-field="MinWeight">最低重量(千克)</th>
+                    <th data-field="PremiumAmount">保费额度(%)</th>
+                    <th data-field="GoodsTypeDesc">货物描述</th>
+                    <th data-field="Id" data-formatter="stateFormatter">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>错误!</strong>
+                    <label></label>
+                </div>
+                <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("EditGoodsType")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                    <input type="hidden" name="id" value="" />
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" for="GoodsType">
+                            货物名称 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="GoodsType" name="GoodsType" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" for="MinWeight">
+                            最低重量(千克) <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="MinWeight" name="MinWeight" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" for="PremiumAmount">
+                            保费额度(%) <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="PremiumAmount" name="PremiumAmount" required="required" data-parsley-type="number" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" for="GoodsTypeDesc">
+                            货物描述
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea type="text" id="GoodsTypeDesc" name="GoodsTypeDesc"
+                                      class="form-control col-md-7 col-xs-12"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="" id="btn-save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+    $(function () {
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+            .click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var t = new Date().getTime();
+                var href = $(this).attr('href');
+                if (href != null && href != "#") {
+                    $('body').mLoading("show"); //显示loading组件
+                    $('#main-page')
+                         .load(href+"?t="+t,
+                            function () {
+                                $('body').mLoading("hide"); //显示loading组件
+                            });
+                }
+            });
+
+        $('[data-toggle="table"]').bootstrapTable();
+        var $table = $('#table'),
+            $remove = $('#remove'),
+            selections = [];
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table',
+            function () {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+                // save your data, here just save the current page
+                selections = getIdSelections();
+                // push or splice the selections if you want to save all data selections
+            });
+        $remove.click(function () {
+            if (confirm("你确定要删除吗？")) {
+                var ids = getIdSelections();
+                $.post("@Url.Action("DeleteGoodsTypes")", { ids: ids }, function (e) {
+                    $remove.prop('disabled', true);
+                    $('[data-toggle="table"]').bootstrapTable('refresh');
+                    $('#addModel').modal('hide')
+                });
+            }
+        });
+        $('#addbtn').click(function () {
+            $('#addform [name=id]').val("");
+        });
+        $(window).resize(function () {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+        $('#btn-save').click(function () {
+            if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
+                $('#addform').ajaxSubmit({
+                    resetForm: true,
+                    error: function (xhr, status, error, $form) {
+                        $('#alert-infor').removeClass('alert-success');
+                        $('#alert-infor').addClass('alert-danger');
+                        $('#alert-infor').show();
+                        $('#alert-infor label').html(error);
+                        $('#alert-infor strong').html('错误！');
+                    },
+                    success: function (responseText, statusText) {
+                        //alert(statusText.Status);
+                        //$('#alert-infor').removeClass('alert-danger');
+                        //$('#alert-infor').addClass('alert-success');
+                        //$('#alert-infor').show();
+                        ////$('#alert-infor label').html(error);
+                        //$('#alert-infor strong').html('Successfully');
+                        $('#alert-infor').hide();
+                        $('[data-toggle="table"]').bootstrapTable('refresh');
+                        $('#addModel').modal('hide');
+                    }
+                });
+            }
+        });
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'),
+                function (row) {
+                    return row.Id;
+                });
+        }
+    });
+
+    function updatedate(row) {
+
+        $('#addform [name=id]').val(row.Id);
+        $('#addform [name=GoodsType]').val(row.GoodsType);
+        $('#addform [name=GoodsTypeDesc]').val(row.GoodsTypeDesc);
+        $('#addform [name=MinWeight]').val(row.MinWeight);
+        $('#addform [name=PremiumAmount]').val(row.PremiumAmount);
+        $('#addModel').modal('show');
+    }
+    function priceFormatter(v, r) { }
+
+    function stateFormatter(value, row, index) {
+        var h = [];
+        h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">修改</button>');
+        //h.push('<button  type="button" class="btn btn-primary btn-xs" onclick="SetupPrice(' + JSON.stringify(row).replace(/\"/g, "\'") + ')" value="">配置单价</button>');
+
+        return h.join('');
+    }
+</script>

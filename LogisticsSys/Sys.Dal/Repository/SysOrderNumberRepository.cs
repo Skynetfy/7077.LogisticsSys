@@ -155,6 +155,20 @@ namespace Sys.Dal.Repository
             }
         }
 
+        public IList<SysOrderNumber> GetByOrderid(long orderid)
+        {
+            try
+            {
+                String sql = "SELECT top 1 * from SysOrderNumber  with (nolock) where [OrderId]=@OrderId  ";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@OrderId", DbType.AnsiString, orderid);
+                return baseDao.SelectList<SysOrderNumber>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用SysActionLogDao时，访问GetAll时出错", ex);
+            }
+        }
         /// <summary>
         /// 获取所有SysActionLog信息
         /// </summary>

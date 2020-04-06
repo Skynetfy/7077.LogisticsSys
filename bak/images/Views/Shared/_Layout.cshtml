@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="RuGoGo俄罗斯海淘转运站物流管理系统" />
+    <meta name="description" content="RuGoGo俄罗斯海淘转运站物流管理系统" />
+    <title>RuGoGo俄罗斯海淘转运站物流管理系统</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <link rel="icon" href="~/images/rugogoico.ico">
+    <link href="~/Content/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/jquery.mloading.css" rel="stylesheet" />
+    @*<link href="~/Content/responsive-menu.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/plugins/canvas-to-blob.min.js"></script>
+    <script src="~/Scripts/plugins/sortable.min.js"></script>
+    <script src="~/Scripts/plugins/purify.min.js"></script>
+    <script src="~/Scripts/fileinput.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap-table-click-edit-row.js"></script>
+    <script src="~/Scripts/bootstrap-table-zh-CN.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/daterangepicker.js"></script>
+    <script src="~/Scripts/jquery.mloading.js"></script>
+    @*<script src="~/Scripts/responsive-menu.js"></script>
+        <script src="~/Scripts/modernizr-custom.js"></script>*@
+    <script src="~/Scripts/Solution.js"></script>
+</head>
+<body>
+    @Html.Action("Header", "Home")
+    <div class="container body-content" id="main-page">
+        @RenderBody()
+    </div>
+    @*<div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span>Copyright © <a href="http://www.ghostchina.com/">7077物流管理系统</a></span> |
+                        <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
+                        <span>京公网安备11010802014853</span>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <script>
+        $(function () {
+            //var menu = $('.pull-right').rMenu({
+            //    minWidth: '960px'
+            //});
+            var loc = window.location;
+            $('#main-menu>ul>li>a')
+                .click(function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var t = new Date().getTime();
+                    $('body').mLoading("show"); //显示loading组件
+                    $(this).parent().addClass('nav-current');
+                    $(this).parent().siblings('li').removeClass('nav-current');
+                    var url = $(this).attr('href');
+                    $('#main-page')
+                        .load("//" + loc.host + "/" + url + "?t=" + t,
+                            function (e) {
+                                $('body').mLoading("hide"); //显示loading组件
+                            });
+
+                });
+
+        })
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

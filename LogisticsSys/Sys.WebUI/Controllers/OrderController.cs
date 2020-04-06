@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using NPOI.HSSF.Record.Chart;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -941,6 +942,9 @@ namespace Sys.WebUI.Controllers
             }
             var provider = new OrderInfoProvider();
             var count = provider.GetOrderViewPagerCount(where);
+            var OrderNumbers = DALFactory.OrderNumberDao.GetAll();
+            var LogisticsInfos = DALFactory.SysLogisticsInfoDao.GetAll().ToList();
+            var orderNumbers = DALFactory.OrderNumberDao.GetAll().ToList();
             var data = provider.GetOrderViewPagerList(where, 0, count, "Desc", "Createdate");
             XSSFWorkbook workbook = new XSSFWorkbook();
             ISheet sheet1 = workbook.CreateSheet("Sheet1");
@@ -1015,12 +1019,12 @@ namespace Sys.WebUI.Controllers
                 row.CreateCell(28).SetCellValue(Convert.ToDouble(item.OrderFrees));
                 row.CreateCell(29).SetCellValue(Convert.ToDouble(item.DomesticCost));
                 row.CreateCell(30).SetCellValue(Convert.ToDouble(item.OrderRealPrice));
-                row.CreateCell(31).SetCellValue(string.Join(",", DALFactory.OrderNumberDao.GetAll()
-                        .Where(z => z.OrderId == item.Id)
-                        .Select(z => z.Number)
+                row.CreateCell(31).SetCellValue(string.Join(",", OrderNumbers.Where(x=>x.OrderId.Equals(item.Id)).Select(z => z.Number)
                         .ToList()));
                 row.CreateCell(32).SetCellValue(item.ArriveValueRuble.ToString());
-                row.CreateCell(33).SetCellValue(string.Join(",",DALFactory.SysLogisticsInfoDao.GetLoginsticsNosByOrderId(item.Id)));
+                var onums = orderNumbers.Where(x => x.OrderId.Equals(item.Id)).Select(x=>x.Id.ToString()).ToList();
+                var lts = LogisticsInfos.Where(x => onums.Contains(x.OrderNos)).Select(x=>x.LogisticsSingle).Distinct().ToList();
+                row.CreateCell(33).SetCellValue(string.Join(",", lts));
             }
             var path = Server.MapPath("~/ExcelFiles/订单列表.xlsx");
             using (var f = System.IO.File.Create(path))

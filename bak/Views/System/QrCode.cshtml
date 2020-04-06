@@ -1,0 +1,111 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("系统管理", "二维码管理", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <!-- MINIMUM IMAGE DIMENSIONS -->
+        <h4>支付宝收款二维码图片</h4>
+        <input id="input-dim-1" name="inputdim1" type="file" multiple class="file-loading" accept="image/*">
+        <script>
+            $("#input-dim-1").fileinput({
+                uploadUrl: "@Url.Action("QrCode")",
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                minImageWidth: 50,
+                minImageHeight: 50
+            });
+        </script>
+        <h4>微信收款二维码图片</h4>
+        <input id="input-dim-2" name="inputdim2" type="file" multiple class="file-loading" accept="image/*">
+        <script>
+            $("#input-dim-2").fileinput({
+                uploadUrl: "@Url.Action("QrCode")",
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                minImageWidth: 50,
+                minImageHeight: 50
+            });
+        </script>
+        <h4>银联支付</h4>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">卡号</label>
+                <div class="col-sm-7">
+                    <input type="text" id="ylno" class="form-control" placeholder="卡号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">开户行</label>
+                <div class="col-sm-7">
+                    <input type="text" id="ylbank" class="form-control" placeholder="开户行">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">持卡人姓名</label>
+                <div class="col-sm-7">
+                    <input type="text" id="ylname" class="form-control" placeholder="持卡人姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <span id="helpBlock" class="help-block text-danger" style="color: #a94442; display: none;"></span>
+                    <button type="button" id="btn-yl-save" class="btn btn-primary">银联卡信息保存</button>
+                </div>
+            </div>
+       
+        </div>
+    </div>
+</div>
+<script src="~/Content/bootstrap-fileinput/themes/fa/theme.js"></script>
+<script>
+    $(function () {
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+           .click(function (e) {
+               e.stopPropagation();
+               e.preventDefault();
+               var t = new Date().getTime();
+               var href = $(this).attr('href');
+               if (href != null && href != "#") {
+                   $('body').mLoading("show"); //显示loading组件
+                   $('#main-page')
+                        .load(href+"?t="+t,
+                           function () {
+                               $('body').mLoading("hide"); //显示loading组件
+                           });
+               }
+           });
+        $('#btn-yl-save').click(function (e) {
+            var ylno = $('#ylno').val();
+            var ylbank = $('#ylbank').val();
+            var ylname = $('#ylname').val();
+
+            if (ylno == null || ylno == '') {
+                $('#helpBlock').html('银联卡卡号不能为空');
+                $('#helpBlock').show();
+                return;
+            }
+            if (ylbank == null || ylbank == '') {
+                $('#helpBlock').html('开户行不能为空');
+                $('#helpBlock').show();
+                return;
+            }
+            if (ylname == null || ylname == '') {
+                $('#helpBlock').html('持卡人姓名不能为空');
+                $('#helpBlock').show();
+                return;
+            }
+            $('#helpBlock').html('');
+            $('#helpBlock').hide();
+
+            $.post('@Url.Action("YinLian")', { ylno: ylno, ylbank: ylbank, ylname: ylname },function(e) {
+                alert('保存成功');
+            });
+        });
+    })
+</script>

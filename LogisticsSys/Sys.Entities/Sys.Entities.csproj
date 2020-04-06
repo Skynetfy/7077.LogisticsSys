@@ -64,6 +64,7 @@
     <Compile Include="SysCustomerInfo.cs" />
     <Compile Include="SysDbConfig.cs" />
     <Compile Include="SysExchange.cs" />
+    <Compile Include="SysExportDataInfo.cs" />
     <Compile Include="SysGoodsType.cs" />
     <Compile Include="SysIntegralLog.cs" />
     <Compile Include="SysKuaiDiCom.cs" />

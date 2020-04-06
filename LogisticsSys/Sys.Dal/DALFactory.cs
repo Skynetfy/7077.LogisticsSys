@@ -31,6 +31,7 @@ namespace Sys.Dal
 
         private static readonly ISysDbConfigRepository _dbconfigDao = new SysDbConfigRepository();
         private static readonly ISysIntegralLogRepository _DbIntegralLogDao = new SysIntegralLogRepository();
+        private static readonly ISysExportDataInfoRepository _DbSysExportDataInfoDao = new SysExportDataInfoRepository();
 
         public static ISysIntegralLogRepository IntegralLogDao { get { return _DbIntegralLogDao; } }
         public static ISysDbConfigRepository DbconfigDao
@@ -143,7 +144,13 @@ namespace Sys.Dal
                 return _sysUnitPriceDao;
             }
         }
-
+        public static ISysExportDataInfoRepository SysExportDataInfoRepository
+        {
+            get
+            {
+                return _DbSysExportDataInfoDao;
+            }
+        }
     }
 
 }

@@ -1,0 +1,80 @@
+﻿@using Sys.Entities
+@{
+    Layout = null;
+}
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 俄罗斯境内物流信息</h5>
+<ul class="list-unstyled timeline" id="viewdemailul" style="border-top: 1px solid #e8e8e8;margin-top: 20px;">
+    @{
+        var data = ViewData["LogisticsInfoList"] as List<SysLogisticsInfo>;
+        if (data != null && data.Count > 0)
+        {
+            foreach (var item in data)
+            {
+                <li>
+                    <div class="block">
+
+                        <div class="block_content">
+                            <h2 class="title">
+                                @item.LogisticsDesc
+                            </h2>
+                            <div class="byline">
+                                <span>@item.UpdateDate.ToString()</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+        else
+        {
+            <li>没有查找到任何信息</li>
+        }
+    }
+
+</ul>
+<h5 class="h5"><i class="glyphicon glyphicon-paperclip"></i> 中国境内物流信息</h5>
+<ul class="list-unstyled timeline" id="viewdemailu1l" style="border-top: 1px solid #e8e8e8;margin-top: 20px;">
+    @{
+        var chinalogistics = ViewData["chinalogistics"] as DeliveryMessage;
+        if (chinalogistics != null && chinalogistics.data != null)
+        {
+            foreach (var item in chinalogistics.data)
+            {
+                <li>
+                    <div class="block">
+
+                        <div class="block_content">
+                            <h2 class="title">
+                                @item.context
+                            </h2>
+                            <div class="byline">
+                                <span>@item.time.ToString()</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+        else if (chinalogistics != null)
+        {
+            if (chinalogistics.status == 0)
+            {
+                <li>物流单暂无结果</li>
+            }
+            else if (chinalogistics.status == 2)
+            {
+                <li>@chinalogistics.message</li>
+            }
+        }
+    }
+
+</ul>
+<p class="text-danger">* 物流到达国内订单后，请复制国内订单号到快递100网查询国内快递物流信息！<a href="http://www.kuaidi100.com">快递100 www.kuaidi100.com</a></p>
+<p class="text-danger">【查询国内订单号：订单管理->我的订单->点击订单编号->订单详情->收件人信息->国内订单号】</p>
+<script>
+    $(function () {
+        $('#viewdemailul li:first h2').addClass('last');
+    })
+</script>

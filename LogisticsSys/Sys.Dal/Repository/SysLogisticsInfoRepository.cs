@@ -245,11 +245,12 @@ namespace Sys.Dal.Repository
                 throw;
             }
         }
-
         public IList<string> GetLoginsticsNosByOrderId(long id)
         {
             string sql = string.Format(@"SELECT DISTINCT(logisticssingle) FROM [SysLogisticsInfo] where orderNos in(SELECT Id from [SysOrderNumber] WHERE [OrderId] =@OrderId)");
-            var dt = baseDao.SelectDataTable(sql);
+            StatementParameterCollection parameters = new StatementParameterCollection();
+            parameters.AddInParameter("@OrderId", DbType.AnsiString, id);
+            var dt = baseDao.SelectDataTable(sql, parameters);
             if (dt != null)
             {
                 return dt.AsEnumerable().Select(x =>x.Field<string>("logisticssingle")).ToList();

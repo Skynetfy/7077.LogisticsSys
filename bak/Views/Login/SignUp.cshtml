@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuGoGo俄罗斯海淘转运站物流管理系统-注册会员</title>
+    <link rel="icon" href="~/images/rugogoico.ico">
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <style>
+        ul.parsley-errors-list {
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page page-login">
+    <h3 class="login-h3">帐号注册 </h3>
+    <fieldset class="accountInfo">
+        <form id="new_user" method="post" action="@Url.Action("SignUp")">
+
+            <div class="login">
+                <div style="display: none;" class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span></span>
+                </div>
+                <p class="form-group" style="margin-top: 0;">
+                    <label class="form-control-label required login-input-label" for="user_email">用户名：</label>
+
+                    <input autofocus="autofocus" class="form-control textEntry" type="text" value="" name="username" id="user_email" required="required" data-parsley-type="alphanum" data-parsley-remote-validator="validateUsername">
+
+                </p>
+                <p class="form-group">
+                    <label class="form-control-label required login-input-label" for="user_password">密 码：</label><input class="form-control textEntry" type="password" name="password" id="user_password" required="required" data-parsley-id="5464"><ul class="parsley-errors-list" id="parsley-id-5464"></ul>
+                </p>
+                <p class="form-group">
+                    <label class="form-control-label required login-input-label" for="user_password_confim">确认密码：</label><input class="form-control textEntry" type="password" name="confimpassword" id="user_password_confim" required="required" data-parsley-equalto="#user_password"><ul class="parsley-errors-list" id="parsley-id-5465"></ul>
+                </p>
+                <p class="form-group">
+                    <label class="form-control-label required login-input-label" for="user_email">邮 箱：</label><input class="form-control textEntry" type="email" name="email" id="user_email" required="required" data-parsley-id="5467"><ul class="parsley-errors-list" id="parsley-id-5467"></ul>
+                </p>
+            </div>
+            <p class="submitButton" style="margin-top: 25px;">
+                <input type="submit" name="commit" value="注 册" class="btn btn-primary" data-disable-with="注 册">
+                <a class="btn-link text-warning float-right" style="float: right; color: #696969" href="/Login">已经是会员?</a>
+            </p>
+        </form>
+    </fieldset>
+
+</div>
+    <footer style="border-top: 1px solid #eeeeee; margin-top: 20px; height: 50px; line-height: 50px;">
+        <div class="container">
+            <small class="pull-left text-muted copyright">
+                © 2016-2017 RuGoGo俄罗斯海淘转运站物流管理系统  <a href="https://m.kuaidi100.com/" target="_blank">快递查询</a>
+            </small>
+
+            <div class="social-icons pull-right" style="">
+
+            </div>
+        </div>
+    </footer>
+    <style>
+        input[type=text], input[type=password], input[type=email], input[type=tel] {
+            width: 200px;
+            float: right;
+        }
+
+        .form-group {
+            margin-top: 30px;
+        }
+    </style>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script>
+
+        $(document)
+            .ready(function () {
+                var mge = "@ViewBag.message";
+                if (mge != "") {
+                    $('[role="alert"]').html("用户已存在");
+                    $('[role="alert"]').show();
+                }
+                $.listen('parsley:field:validate',
+                    function () {
+                        validateFront();
+                    });
+
+                $('#new_user .btn').on('click', function (e) {
+                    $('#new_user').parsley().validate();
+                });
+                var validateFront = function () {
+                    if (true === $('#new_user').parsley().isValid()) {
+                        $('.bs-callout-info').removeClass('hidden');
+                        $('.bs-callout-warning').addClass('hidden');
+                    } else {
+                        $('.bs-callout-info').addClass('hidden');
+                        $('.bs-callout-warning').removeClass('hidden');
+                    }
+                };
+
+            });
+    </script>
+</body>
+</html>

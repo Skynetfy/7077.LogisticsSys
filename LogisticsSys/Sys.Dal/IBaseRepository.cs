@@ -19,6 +19,8 @@ namespace Sys.Dal
         T FindByPk(long id);
 
         IList<T> GetAll();
+
+
         long Count();
 
         bool BulkInsert(IList<T> list);

@@ -416,57 +416,59 @@
                                     货物明细 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" required="required" data-parsley-group="form3" data-show-preview="false">
-                                </div>
-                            </div>
-                            @*<div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelweight">
-                                        包裹重量(千克) <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" onblur="parcelweightBlur()" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>*@
-                            @*<div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rbudgetprice">
-                                        预算价格(元)
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="rbudgetprice" name="rbudgetprice" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>*@
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kdgs">
-                                    快递公司
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control col-md-7 col-xs-12" name="kdgs" id="kdgs" onchange="parcelweightBlur()" data-parsley-group="form3">
-                                        <option value="0">选择快递公司</option>
-                                        @{
-                                            var CourierComData = ViewData["CourierComData"] as List<SelectBinding>;
+                                    @*<a href="http://view.rusqg.com/" target="_blank">上传Excel表格</a> |  <a href="https://www.rugogo.com/fqa/gaoshi/2017-07-05/253.html" target="_blank"></a>*@
+                                    <input id="goodsdesc" type="file" name="goodsdesc" class="file" required="required" data-parsley-group="form3" data-show-preview="false" accept=".xlsx" />
+                                    <a href="/ExcelFiles/modelexcel.xlsx" style="color:#fe0322" target="_blank">货物明细上传模板</a>
+            </div>
+        </div>
+        @*<div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parcelweight">
+                    包裹重量(千克) <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" id="parcelweight" name="parcelweight" required="required" data-parsley-type="number" onblur="parcelweightBlur()" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>*@
+                                    @*<div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rbudgetprice">
+                预算价格(元)
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="rbudgetprice" name="rbudgetprice" readonly="readonly" required="required" data-parsley-type="number" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+            </div>
+        </div>*@
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kdgs">
+                                            快递公司
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="kdgs" id="kdgs" onchange="parcelweightBlur()" data-parsley-group="form3">
+                                                <option value="0">选择快递公司</option>
+                                                @{
+                                                    var CourierComData = ViewData["CourierComData"] as List<SelectBinding>;
 
-                                        }
-                                        @Html.BindingSelectHtmlString(CourierComData)
-                                    </select>
-                                </div>
-                            </div>
-                            @*<div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
-                                        国内快递单号 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="chinacouriernumber" name="chinacouriernumber" required="required" data-parsley-type="alphanum" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+                                                }
+                                                @Html.BindingSelectHtmlString(CourierComData)
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>*@
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="desc">
-                                    备注
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea type="text" id="desc" name="desc" class="form-control col-md-7 col-xs-12"></textarea>
+                                    @*<div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="chinacouriernumber">
+                国内快递单号 <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="chinacouriernumber" name="chinacouriernumber" required="required" data-parsley-type="alphanum" data-parsley-group="form3" class="form-control col-md-7 col-xs-12">
+            </div>
+        </div>*@
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="desc">
+                                            备注
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea type="text" id="desc" name="desc" class="form-control col-md-7 col-xs-12"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                     <div id="step-5">
                         <h5>寄件人信息</h5>
@@ -585,7 +587,7 @@
         $('#td15').html($('[name=packagingway]:checked').attr('data-text'));
         $('#td16').html($('[name=packagingway]:checked').attr('data-text'));
         $('#td17').html($('[name=expressway]:checked').attr('data-text'));
-        $('#td18').html($('#goodsdesc').val());
+        //$('#td18').html($('#goodsdesc').val());
         $('#td19').html($('#kdgs>option:selected').text());
         $('#td20').html($('#desc').val());
     }
@@ -671,7 +673,7 @@
                 }
             });
             // with plugin options
-            $("#goodsdesc").fileinput({'showUpload':false, 'previewFileType':'any'});
+            //$("#goodsdesc").fileinput({'showUpload':false, 'previewFileType':'any'});
             var bs = @ViewBag.disabled;
             if (bs) {
                 $('#tips').show();

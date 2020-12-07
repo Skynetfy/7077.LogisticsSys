@@ -1,0 +1,115 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("个人中心", "交易记录", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <div id="toolbar">
+            <div class="form-inline" role="form">
+                <button id="ok" type="submit" class="btn btn-warning">查询</button>
+            </div>
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-toolbar="#toolbar"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-search="true"
+               data-url="@Url.Action("GetUserPagerList")"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-sort-name="a.CreateDate"
+               data-sort-order="desc"
+               data-page-size="50"
+               data-page-list="[20,50,100]"
+               data-pagination-first-text="首页"
+               data-pagination-pre-text="上一页"
+               data-pagination-next-text="下一页"
+               data-pagination-last-text="尾页">
+            <thead>
+            <tr>
+                <th data-field="stats" data-checkbox="true"></th>
+                <th data-field="OutTradeNo">支付订单号</th>
+                <th data-field="UserName">用户名</th>
+                <th data-field="DisplayName">姓名</th>
+                <th data-field="Amount">支付金额</th>
+                <th data-field="TradeNo">支付宝单号</th>
+                <th data-field="TradeDate">支付时间</th>
+                <th data-field="Status" data-formatter="stateFormatter">状态</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="userinfo">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    #form-main-page {
+        float: none;
+    }
+</style>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    $(function () {
+
+    })
+</script>
+
+<script>
+
+    $(function () {
+        $('[data-toggle="table"]').bootstrapTable();
+        var $table = $('#table'),
+            $remove = $('#remove'),
+            selections = [];
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table',
+            function () {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+                // save your data, here just save the current page
+                selections = getIdSelections();
+                // push or splice the selections if you want to save all data selections
+            });
+      
+
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'),
+                function (row) {
+                    return row.Id;
+                });
+        }
+    });
+
+    function stateFormatter(value, row, index) {
+        var h = "";
+        if (row.Status === 1)
+            h = "成功";
+        if (row.Status === -1)
+            h = "失败";
+        return h;
+    }
+
+</script>

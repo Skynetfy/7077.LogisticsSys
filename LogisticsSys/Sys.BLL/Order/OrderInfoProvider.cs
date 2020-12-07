@@ -34,11 +34,18 @@ namespace Sys.BLL.Order
             return addresserInfoDao.UpdateAddresser(entity);
         }
 
-        public int UpdateReceiverInfo(SysReceiverInfo entity)
+        public int UpdateReciverNumber(SysReceiverInfo entity)
+        {
+            return receiverInfoDao.UpdateReciverNumber(entity);
+        }
+        public int UpdateReciver(SysReceiverInfo entity)
         {
             return receiverInfoDao.Update(entity);
         }
-
+        public int UpdateReceiverInfo(SysReceiverInfo entity)
+        {
+            return receiverInfoDao.UpdateReciverInfo(entity);
+        }
         public SysOrderInfo GetOrderInfoById(long id)
         {
             return orderDao.FindByPk(id);

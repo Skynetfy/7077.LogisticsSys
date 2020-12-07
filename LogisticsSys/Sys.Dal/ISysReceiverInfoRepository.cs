@@ -14,6 +14,8 @@ namespace Sys.Dal
 
         int UpdateReciverInfo(SysReceiverInfo entity);
 
+        int UpdateReciverNumber(SysReceiverInfo entity);
+
         SysReceiverInfo GetByCourierNo(string no);
 
     }

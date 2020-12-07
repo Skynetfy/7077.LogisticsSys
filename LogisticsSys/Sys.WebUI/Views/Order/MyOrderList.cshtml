@@ -2,67 +2,67 @@
 @{
     Layout = null;
 }
-<div class="row">
-    <div class="col-md-3 complementary" role="complementary">
-        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
-            <ul class="nav bs-docs-sidenav">
-                @Html.LeftMeunHtmlString("订单管理", "我的订单", User.Identity.Name)
-            </ul>
-        </nav>
-    </div>
-    <div class="col-md-9 maincontent" role="main">
-        <h4 id="breadcrumbs" class="page-header">订单列表</h4>
-        <div id="toolbar">
-            <div class="form-inline" role="form">
-                <div class="form-group">
-                    <span>状态: </span>
-                    <select class="form-control" style="width: initial;" name="orderstatus">
-                        @Html.BindingOrderStatusSelectHtmlString()
-                    </select>
-                    <input type="text" class="form-control" id="orderdate" name="orderdate" placeholder="日期段" style="width: initial;" />
-                </div>
-                <button id="ok" type="submit" class="btn btn-default">查询</button>
-            </div>
+    <div class="row">
+        <div class="col-md-3 complementary" role="complementary">
+            <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+                <ul class="nav bs-docs-sidenav">
+                    @Html.LeftMeunHtmlString("订单管理", "我的订单", User.Identity.Name)
+                </ul>
+            </nav>
         </div>
-        <table id="table"
-               data-toggle="table"
-               data-toolbar="#toolbar"
-               data-show-refresh="true"
-               @*data-show-columns="true"
+        <div class="col-md-9 maincontent" role="main">
+            <h4 id="breadcrumbs" class="page-header">订单列表</h4>
+            <div id="toolbar">
+                <div class="form-inline" role="form">
+                    <div class="form-group">
+                        <span>状态: </span>
+                        <select class="form-control" style="width: initial;" name="orderstatus">
+                            @Html.BindingOrderStatusSelectHtmlString()
+                        </select>
+                        <input type="text" class="form-control" id="orderdate" name="orderdate" placeholder="日期段" style="width: initial;" />
+                    </div>
+                    <button id="ok" type="submit" class="btn btn-default">查询</button>
+                </div>
+            </div>
+            <table id="table"
+                   data-toggle="table"
+                   data-toolbar="#toolbar"
+                   data-show-refresh="true"
+                   @*data-show-columns="true"
                data-show-export="true"*@
-               data-show-toggle="true"
-               data-search="true"
-               data-url="@Url.Action("GetOrderViewPagerData")"
-               data-pagination="true"
-               data-side-pagination="server"
-               data-sort-name="CreateDate"
-               data-sort-order="desc"
-               data-query-params="queryParams"
-               data-page-size="10"
-               data-page-list="[10,50,100]"
-               data-pagination-first-text="首页"
-               data-pagination-pre-text="上一页"
-               data-pagination-next-text="下一页"
-               data-pagination-last-text="尾页">
-            <thead>
-                <tr>
-                    @*<th data-field="stats" data-checkbox="true" data-valign="middle"></th>*@
-                    <th data-field="OrderNo" data-formatter="OrderNoFormatter" data-valign="middle">订单编号</th>
-                    @*<th data-field="ShipperName">寄件人</th>
+                   data-show-toggle="true"
+                   data-search="true"
+                   data-url="@Url.Action("GetOrderViewPagerData")"
+                   data-pagination="true"
+                   data-side-pagination="server"
+                   data-sort-name="CreateDate"
+                   data-sort-order="desc"
+                   data-query-params="queryParams"
+                   data-page-size="10"
+                   data-page-list="[10,50,100]"
+                   data-pagination-first-text="首页"
+                   data-pagination-pre-text="上一页"
+                   data-pagination-next-text="下一页"
+                   data-pagination-last-text="尾页">
+                <thead>
+                    <tr>
+                        @*<th data-field="stats" data-checkbox="true" data-valign="middle"></th>*@
+                        <th data-field="OrderNo" data-formatter="OrderNoFormatter" data-valign="middle">订单编号</th>
+                        @*<th data-field="ShipperName">寄件人</th>
                         <th data-field="RussiaCityName">俄罗斯城市</th>*@
-                    <th data-field="OrderNumbers" data-valign="middle">网站订单号</th>
-                    <th data-field="DisplayName" data-valign="middle">下单人</th>
-                    <th data-field="CreateDate" data-valign="middle">下单时间</th>
-                    <th data-field="Status" data-formatter="stateFormatter" data-valign="middle">状态</th>
-                    <th data-field="ArrivePayStatus" data-align="center" data-formatter="ArrivePayFormatter" data-valign="middle">到付金额</th>
-                    <th data-field="WorldPayStatus" data-align="center" data-formatter="WorldPayFormatter" data-valign="middle">国际段费用</th>
-                    <th data-field="ChinaPayStatus" data-align="center" data-formatter="ChinaPayStatusFormatter" data-valign="middle">国内费用</th>
-                    <th data-field="Id" data-formatter="actionFormatter" data-valign="middle">操作</th>
-                </tr>
-            </thead>
-        </table>
+                        <th data-field="OrderNumbers" data-valign="middle">网站订单号</th>
+                        <th data-field="DisplayName" data-valign="middle">下单人</th>
+                        <th data-field="CreateDate" data-valign="middle">下单时间</th>
+                        <th data-field="Status" data-formatter="stateFormatter" data-valign="middle">状态</th>
+                        <th data-field="ArrivePayStatus" data-align="center" data-formatter="ArrivePayFormatter" data-valign="middle">到付金额</th>
+                        <th data-field="WorldPayStatus" data-align="center" data-formatter="WorldPayFormatter" data-valign="middle">国际段费用</th>
+                        <th data-field="ChinaPayStatus" data-align="center" data-formatter="ChinaPayStatusFormatter" data-valign="middle">国内费用</th>
+                        <th data-field="Id" data-formatter="actionFormatter" data-valign="middle">操作</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-</div>
 
 <div class="modal fade" id="ViewModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">

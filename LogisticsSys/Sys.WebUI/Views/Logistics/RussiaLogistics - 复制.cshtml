@@ -1,0 +1,520 @@
+﻿@using Sys.WebUI.Models
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-3 complementary" role="complementary">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+            <ul class="nav bs-docs-sidenav">
+                @Html.LeftMeunHtmlString("物流管理", "物流信息更新", User.Identity.Name)
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9 maincontent" role="main">
+        <div id="toolbar">
+            <button type="button" id="addbtn" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModel">新增</button>
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-show-refresh="true"
+               data-toolbar="#toolbar"
+               data-show-toggle="true"
+               data-search="true"
+               data-url="@Url.Action("GetLogisticsPagerList")"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-sort-name="UpdateDate"
+               data-sort-order="desc"
+               data-page-size="50"
+               data-page-list="[20,50,100]"
+               data-pagination-first-text="首页"
+               data-pagination-pre-text="上一页"
+               data-pagination-next-text="下一页"
+               data-pagination-last-text="尾页">
+            <thead>
+                <tr>
+                    <th data-field="stats" data-checkbox="true"></th>
+                    <th data-field="LogisticsSingle" data-formatter="LogisticsSingleFormatter">物流跟踪号</th>
+                    <th data-field="UpdateDate">最近更新时间</th>
+                    <th data-field="LogisticsDesc">物流详情</th>
+                    <th data-field="Status" data-formatter="statusFormatter">状态</th>
+                    <th data-field="Id" data-formatter="stateFormatter">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <div id="alert-infor" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>错误!</strong>
+                    <label></label>
+                </div>
+                <form class="form-horizontal form-label-left" id="addform" method="post" action="@Url.Action("AddLogistics")" data-parsley-validate data-parsley-excluded="input[type=button],input[type=submit],input[type=reset],input[type=hidden],input[type=radio]">
+                    <input type="hidden" name="id" value="" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wuliudanhao">
+                            物流跟踪号
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="wuliudanhao" name="wuliudanhao" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        </div>
+                    </div>
+                    <div class="form-group" id="orderlistdiv">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
+                            订单列表 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @*<select class="selectpicker" id="ordernumbers" name="ordernumbers" data-live-search="true" required="required" multiple>
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </select>*@
+                            <input id="ordernumbers" name="ordernumbers" required="required" class="form-control col-md-7 col-xs-12"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
+                            更新时间 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="UpdateDate" name="UpdateDate" required="required" class="form-control col-md-7 col-xs-12" data-parsley-group="form1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UpdateDate">
+                            是否到货 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div id="gender" class="btn-group">
+                                <label class="" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <input type="radio" name="gender" value="0" data-parsley-multiple="gender" checked="" data-parsley-id="2562"> &nbsp; 未到货 &nbsp;
+                                </label><ul class="parsley-errors-list" id="parsley-id-multiple-gender"></ul>
+                                <label class="" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <input type="radio" name="gender" value="1" data-parsley-multiple="gender" data-parsley-id="2562"> 已到货
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="LogisticsDesc">
+                            物流详情 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea type="text" id="LogisticsDesc" name="LogisticsDesc" required="required"
+                                      class="form-control col-md-7 col-xs-12"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="" id="btn-save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">物流信息</h4>
+            </div>
+            <div class="modal-body" id="logisticsview">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewOrders" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">物流跟踪与订单关系图</h4>
+            </div>
+            <div class="modal-body" id="orderview">
+                <div class="tree well">
+
+                    @*<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 somewhere</span>
+
+                                <ul>
+
+                                    <li>
+
+                                        <span><i class="icon-minus-sign"></i> 订单号 somewhere</span>
+
+                                        <ul>
+
+                                            <li>
+
+                                                <span><i class="icon-leaf"></i> 物流单号 somewhere</span> <a href=""></a>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </li>
+
+                                    <li>
+
+                                        <span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+
+                                        <ul>
+
+                                            <li>
+
+                                                <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <span><i class="icon-minus-sign"></i> Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                <ul>
+
+                                                    <li>
+
+                                                        <span><i class="icon-minus-sign"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                        <ul>
+
+                                                            <li>
+
+                                                                <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                            </li>
+
+                                                            <li>
+
+                                                                <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+
+                                                        <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                    </li>
+
+                                                    <li>
+
+                                                        <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+
+                                                    </li>
+
+                                                </ul>
+
+                                            </li>
+
+                                            <li>
+
+                                                <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        </ul>*@
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>.ui-autocomplete {
+                                                                                                               z-index: 1040 !important;
+                                                                                                           }</style>
+<link href="~/Scripts/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-tree.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/bootstrap-select/bootstrap-select.js"></script>
+
+<script>
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+    $(function () {
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        function split( val ) {
+            return val.split( /,\s*/ );
+        }
+        function extractLast( term ) {
+            return split( term ).pop();
+        }
+        $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
+            $('#ordernumbers') // don't navigate away from the field on tab when selecting an item
+                .on("keydown",
+                    function(event) {
+                        if (event.keyCode === $.ui.keyCode.TAB &&
+                            $(this).autocomplete("instance").menu.active) {
+                            event.preventDefault();
+                        }
+                    })
+                .autocomplete({
+                    //minLength: 0,
+                    source: function( request, response ) {
+                        // delegate back to autocomplete, but extract the last term
+                        response( $.ui.autocomplete.filter(
+                            e, extractLast( request.term ) ) );
+                    },
+                    select: function( event, ui ) {
+                        var terms = split( this.value );
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push( ui.item.value );
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push( "" );
+                        this.value = terms.join( ", " );
+                        return false;
+                    },
+                    search: function() {
+                        // custom minLength
+                        var term = extractLast( this.value );
+                        if ( term.length < 3 ) {
+                            return false;
+                        }
+                    },
+                    focus: function() {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                });
+        });
+      
+        @*$.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
+            $('#ordernumbers').empty();
+            $.each(e, function (x, v) {
+                $('#ordernumbers').append('<option value="' + v.Id + '">' + v.Number + '</option>');
+            });
+            $('#ordernumbers').selectpicker();
+        });*@
+        $('#addbtn').click(function () {
+            $('[name=id]').val('');
+            $('#wuliudanhao').val('');
+            $('#wuliudanhao').prop('disabled', false);
+            $('#ordernumbers').attr('required');
+            $('#orderlistdiv').show();
+
+        })
+        $('#UpdateDate')
+            .daterangepicker({
+                "singleDatePicker": true,
+                "timePicker": true,
+                "timePicker24Hour": true,
+                "locale": {
+                    "format": "YYYY-MM-DD HH:mm"
+                }
+            });
+        $('[role=complementary] ul.bs-docs-sidenav>li>a')
+            .click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var t = new Date().getTime();
+                var href = $(this).attr('href');
+                if (href != null && href != "#") {
+                    $('body').mLoading("show"); //显示loading组件
+                    $('#main-page')
+                        .load(href+"?t="+t,
+                            function () {
+                                $('body').mLoading("hide"); //显示loading组件
+                            });
+                }
+            });
+
+        $('[data-toggle="table"]').bootstrapTable();
+        var $table = $('#table'),
+            $remove = $('#remove'),
+            selections = [];
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table',
+            function () {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+                // save your data, here just save the current page
+                selections = getIdSelections();
+                // push or splice the selections if you want to save all data selections
+            });
+
+
+        $('#btn-save')
+            .click(function () {
+                if ($('#addform').parsley().validate() && $('#addform').parsley().isValid()) {
+                    $('#addform')
+                        .ajaxSubmit({
+                            resetForm: true,
+                            error: function (xhr, status, error, $form) {
+                                $('#alert-infor').removeClass('alert-success');
+                                $('#alert-infor').addClass('alert-danger');
+                                $('#alert-infor').show();
+                                $('#alert-infor label').html(error);
+                                $('#alert-infor strong').html('错误！');
+                            },
+                            success: function (responseText, statusText) {
+                                //alert(statusText.Status);
+                                //$('#alert-infor').removeClass('alert-danger');
+                                //$('#alert-infor').addClass('alert-success');
+                                //$('#alert-infor').show();
+                                ////$('#alert-infor label').html(error);
+                                //$('#alert-infor strong').html('Successfully');
+                                $('#alert-infor').hide();
+                                $('[data-toggle="table"]').bootstrapTable('refresh');
+                                $('#addModel').modal('hide');
+                            }
+                        });
+                }
+            });
+
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'),
+                function (row) {
+                    return row.Id;
+                });
+        }
+    });
+
+    function updatedate(row) {
+        $('#wuliudanhao').prop('disabled', true);
+        $('#ordernumbers').val('1');
+        $('#orderlistdiv').hide();
+        $('form [name=wuliudanhao]').val(row.LogisticsSingle);
+        $('form [name=id]').val(row.LogisticsSingle);
+        $('#ordernumbers').removeAttr('required');
+        $('#addModel').modal('show');
+    }
+
+    function showdate(row) {
+        $('#viewModel').modal('show');
+        $('#logisticsview').empty();
+        $('#logisticsview').load("@Url.Action("LogisticsDetail")?type=1&single=" + row.LogisticsSingle + " #viewdemailul", function (e) {
+            $('#viewdemailul li:first h2').addClass('last');
+        });
+    }
+    function viewOrder(row) {
+        var single = row.LogisticsSingle;
+        $('#viewOrders').modal('show');
+        $.getJSON('@Url.Action("GetLogisticsList")', { single: single }, function (e) {
+            var h = [];
+            h.push('<ul> <li> <span><i class="icon-folder-open"></i> 物流跟踪号 ' + single + '</span> <ul> ');
+            $.each(e.Orders, function (x, v) {
+                h.push(' <li> <span><i class="icon-minus-sign"></i> 快递单号 ' + v.OrderNumber + '</span> ');
+
+                h.push('</li>');
+            })
+            h.push('</li></ul>');
+            $('.tree').empty();
+            $('.tree').html(h.join(''));
+            $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+
+            $('.tree li.parent_li > span').on('click', function (e) {
+
+                var children = $(this).parent('li.parent_li').find(' > ul > li');
+
+                if (children.is(":visible")) {
+
+                    children.hide('fast');
+
+                    $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+
+                } else {
+
+                    children.show('fast');
+
+                    $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+
+                }
+
+                e.stopPropagation();
+
+            });
+        })
+    }
+    function LogisticsSingleFormatter(value, row, index) {
+        return '<a href="javascript:void(0)" onclick="viewOrder(' + JSON.stringify(row).replace(/\"/g, "\'") + ')">' + value + '</a>';
+    }
+    function statusFormatter(value, row, index) {
+        if (row.Status)
+            return '已到货';
+        else {
+            return '运送中';
+        }
+    }
+    function deletelo(row) {
+        if(confirm("确定要删除此条物流跟踪记录吗？"))
+            $.post("@Url.Action("DeleteLogistics")", { id: row.LogisticsSingle },function(e) {
+                $('[data-toggle="table"]').bootstrapTable('refresh');
+            });
+    }
+    function stateFormatter(value, row, index) {
+        var h = [];
+        h.push('<button  type="button" class="btn btn-default btn-xs" onclick="showdate(' +
+            JSON.stringify(row).replace(/\"/g, "\'") +
+            ')" value="">查看</button>');
+        if (row.Status == false) {
+            h.push(' <button  type="button" class="btn btn-primary btn-xs" onclick="updatedate(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">更新</button>');
+        }
+        if (row.Status == false) {
+            h.push(' <button  type="button" class="btn btn-danger btn-xs" onclick="deletelo(' +
+                JSON.stringify(row).replace(/\"/g, "\'") +
+                ')" value="">删除</button>');
+        }
+        return h.join('');
+    }
+</script>

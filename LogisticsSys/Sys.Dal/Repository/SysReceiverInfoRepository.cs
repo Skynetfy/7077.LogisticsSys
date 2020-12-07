@@ -49,7 +49,27 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
             }
         }
-
+        public int UpdateReciverNumber(SysReceiverInfo entity)
+        {
+            try
+            {
+                string sql = @"Update [dbo].[SysReceiverInfo] set
+                               [ChinaCourierNumber]=@ChinaCourierNumber,
+                               [GoodsDesc]=@GoodsDesc
+                              where Id=@id";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@id", DbType.Int64, entity.Id);
+                parameters.AddInParameter("@ChinaCourierNumber", DbType.AnsiString, entity.ChinaCourierNumber);
+                parameters.AddInParameter("@GoodsDesc", DbType.AnsiString, entity.GoodsDesc);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
+                int iReturn = Convert.ToInt32(result);
+                return iReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
+            }
+        }
         public int Update(SysReceiverInfo entity)
         {
             try

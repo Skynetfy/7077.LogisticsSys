@@ -12,5 +12,9 @@ namespace Sys.Dal
         SysAddresserInfo GetByOrderId(long id);
 
         int UpdateAddresser(SysAddresserInfo entity);
+
+        int UpdateAddresserByOrderNo(string orderNo, decimal goodWeight, decimal orderFrees);
+
+        int UpdateSysReceiverInfoByOrderNo(string orderNo, string number);
     }
 }

@@ -282,7 +282,7 @@ namespace Sys.WebUI.Controllers
                         {
                             var obj = "RuGoGo支付通知";
                             var msg = string.Format(@"尊敬的 {0} <br>
-<p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，金额为￥{2}。 请尽快支付。
+<p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，金额为￥{2}。 请尽快支付。其中包含国际运费＋保险费（自愿购买，货值的2%）＋加固费＋国内快递费，及赠送的小样也是有重量的。请先登陆物流系统查看详细费用清单，如果有疑问，私聊客服计算明细。
 网站首页链接 <a href='http://www.rugogo.com/'>http://www.rugogo.com/</a><p>
 <p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
 <p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
@@ -347,7 +347,7 @@ namespace Sys.WebUI.Controllers
                             rec.PackagingCosts = Convert.ToDecimal(packagingCosts);
                             rec.CourierFees = Convert.ToDecimal(kdfy);
                             rec.DomesticCost = Convert.ToDecimal(domesticcost);
-                            orderPrivder.UpdateReceiverInfo(rec);
+                            orderPrivder.UpdateReciver(rec);
                         }
 
                         var cusmer = DALFactory.SysUserDao.FindByPk(order.UserId);
@@ -355,7 +355,7 @@ namespace Sys.WebUI.Controllers
                         {
                             var obj = "RuGoGo支付通知";
                             var msg = string.Format(@"尊敬的 {0} <br>
-<p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，国际段金额为￥{2}。国内段金额￥{3} 请尽快支付。
+<p>您在RUGOGO俄罗斯海淘转运站有一笔订单【{1}】还没有支付，国际段金额为￥{2}。国内段金额￥{3} 请尽快支付。其中包含国际运费＋保险费（自愿购买，货值的2%）＋加固费＋国内快递费，及赠送的小样也是有重量的。请先登陆物流系统查看详细费用清单，如果有疑问，私聊客服计算明细。
 网站首页链接 <a href='http://www.rugogo.com/'>http://www.rugogo.com/</a><p>
 <p>感谢使用RUGOGO俄罗斯海淘转运系统。</p>
 <p>我们提供专业的 俄罗斯海淘购物，俄罗斯代购，俄罗斯化妆品，香水，护肤品，奢侈品，汽车配件，转运业务。俄罗斯转运到国内双清包税。</p>
@@ -390,7 +390,7 @@ namespace Sys.WebUI.Controllers
                             rec.GoodsDesc = newName;
                             editgoodsdesc.SaveAs(Path.Combine(fileSave, newName));
                         }
-                        orderPrivder.UpdateReceiverInfo(rec);
+                        orderPrivder.UpdateReciverNumber(rec);
                     }
                 }
             }
@@ -415,6 +415,13 @@ namespace Sys.WebUI.Controllers
 
         public ActionResult OrderList()
         {
+            var username = User.Identity.Name;
+            var userProvider = new UserLoginProvider();
+            var _user = userProvider.GetUser(username);
+            var cusmer = UserService.GetCustomerByUid(_user.Id);
+            ViewBag.Email = _user.Email;
+            ViewBag.FirstName = _user.DisplayName?.Substring(0, 1);
+            ViewBag.LastName = cusmer?.CustomerID;
             return View();
         }
 

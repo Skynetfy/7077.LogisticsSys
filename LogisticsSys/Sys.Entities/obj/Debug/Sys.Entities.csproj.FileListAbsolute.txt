@@ -50,7 +50,7 @@ D:\work\Projects\7077\LogisticsSys\Sys.Entities\bin\Debug\Arch.Data.dll
 D:\work\Projects\7077\LogisticsSys\Sys.Entities\bin\Debug\Arch.Data.MySqlProvider.dll
 D:\work\Projects\7077\LogisticsSys\Sys.Entities\bin\Debug\Newtonsoft.Json.dll
 D:\work\Projects\7077\LogisticsSys\Sys.Entities\bin\Debug\Newtonsoft.Json.xml
-D:\work\Projects\7077\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojAssemblyReference.cache
 D:\work\Projects\7077\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csproj.CopyComplete
 D:\work\Projects\7077\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.dll
 D:\work\Projects\7077\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.pdb
+D:\work\Projects\7077\LogisticsSys\Sys.Entities\obj\Debug\Sys.Entities.csprojAssemblyReference.cache

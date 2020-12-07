@@ -61,6 +61,8 @@ namespace Sys.BLL.Users
         [Description("User/Points")]
         积分管理,
         [Description("System/DbConfig")]
-        参数配置
+        参数配置,
+        [Description("Alipay/TradeList")]
+        交易记录
     }
 }

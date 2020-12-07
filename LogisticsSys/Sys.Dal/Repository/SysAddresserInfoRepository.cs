@@ -64,6 +64,50 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
             }
         }
+        public int UpdateAddresserByOrderNo(string orderNo, decimal goodWeight, decimal orderFrees)
+        {
+            try
+            {
+                string sql = @"Update [SysAddresserInfo]
+                             set [GoodsWeight]=@GoodsWeight
+                             where OrderId=(SELECT TOP 1 [Id] FROM [SysOrderInfo] (NOLOCK) WHERE OrderNo=@OrderNo);
+                             Update [SysOrderInfo]
+                             set [OrderRealPrice]=@OrderRealPrice
+                             where OrderNo=@OrderNo;";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@GoodsWeight", DbType.Decimal, goodWeight);
+                parameters.AddInParameter("@OrderRealPrice", DbType.Decimal, orderFrees);
+                parameters.AddInParameter("@OrderNo", DbType.AnsiString, orderNo);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
+                int iReturn = Convert.ToInt32(result);
+                return iReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
+            }
+        }
+
+        public int UpdateSysReceiverInfoByOrderNo(string orderNo, string number)
+        {
+            try
+            {
+                string sql = @"Update [SysReceiverInfo]
+                             set [ChinaCourierNumber]=@ChinaCourierNumber
+                             where OrderId=(SELECT TOP 1 [Id] FROM [SysOrderInfo] (NOLOCK) WHERE OrderNo=@OrderNo);
+                             ";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@ChinaCourierNumber", DbType.AnsiString, number);
+                parameters.AddInParameter("@OrderNo", DbType.AnsiString, orderNo);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
+                int iReturn = Convert.ToInt32(result);
+                return iReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Update时出错", ex);
+            }
+        }
         public int Delete(SysAddresserInfo entity)
         {
             try

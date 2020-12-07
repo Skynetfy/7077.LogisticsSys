@@ -233,6 +233,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlipayController.cs" />
     <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\ForgetpasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -297,11 +298,14 @@
     <Content Include="images\2017050902.jpg" />
     <Content Include="images\7f2d5573b2f65b6479689d77a05e9bb6.jpg" />
     <Content Include="images\bg.jpg" />
+    <Content Include="images\letu.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\rugogoico.ico" />
     <Content Include="images\star.png" />
     <Content Include="images\star_3.png" />
     <Content Include="images\working.gif" />
+    <Content Include="Scripts\autocomplete.min.css" />
+    <Content Include="Scripts\autocomplete.min.js" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.css" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.min.css" />
@@ -323,6 +327,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
     <Content Include="ExcelFiles\Upload\Export_excels\Export Data.xlsx" />
+    <Content Include="key\.DS_Store" />
+    <Content Include="key\alipay_public_key.pem" />
+    <Content Include="key\rsa_private_key.pem" />
+    <Content Include="key\sandbox_alipay_public_key.pem" />
     <None Include="Properties\PublishProfiles\Relse.pubxml" />
     <Content Include="Scripts\bootstrap-select\.jshintrc" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.scss" />
@@ -463,6 +471,12 @@
     <Content Include="Views\System\DbConfig.cshtml" />
     <Content Include="Views\Export\Index.cshtml" />
     <Content Include="Views\Export\List.cshtml" />
+    <Content Include="Views\Logistics\RussiaLogistics - 复制.cshtml" />
+    <Content Include="Views\Export\Weight.cshtml" />
+    <Content Include="Views\Export\Logistics.cshtml" />
+    <Content Include="Views\Alipay\ForexTrade.cshtml" />
+    <Content Include="Views\Alipay\Complate.cshtml" />
+    <Content Include="Views\Alipay\TradeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -476,6 +490,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sys.Alipay\Sys.Alipay.csproj">
+      <Project>{fe0968d5-c5b9-4e20-ba79-c43bd4a94422}</Project>
+      <Name>Sys.Alipay</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sys.BLL\Sys.BLL.csproj">
       <Project>{66b83118-c304-4095-864e-5652fab14d1a}</Project>
       <Name>Sys.BLL</Name>

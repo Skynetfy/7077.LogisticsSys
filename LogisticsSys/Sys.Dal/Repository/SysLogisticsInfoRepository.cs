@@ -72,6 +72,23 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRules时，访问Delete时出错", ex);
             }
         }
+
+        public int DeleteByNumber(string number)
+        {
+            try
+            {
+                string sql = @"delete from [SysLogisticsInfo] where OrderNos=@OrderNos";
+                StatementParameterCollection parameters = new StatementParameterCollection();
+                parameters.AddInParameter("@OrderNos", DbType.AnsiString, number);
+                Object result = baseDao.ExecNonQuery(sql, parameters);
+                int iReturn = Convert.ToInt32(result);
+                return iReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRules时，访问Delete时出错", ex);
+            }
+        }
         public SysLogisticsInfo FindByPk(long id)
         {
             try

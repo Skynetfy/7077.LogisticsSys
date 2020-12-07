@@ -17,6 +17,7 @@ using Sys.Entities;
 
 namespace Sys.WebUI.Controllers
 {
+    [Authorize]
     public class ExportController : Controller
     {
         // GET: Export
@@ -323,6 +324,146 @@ namespace Sys.WebUI.Controllers
             font.FontName = "微软雅黑"; //跟Excel中的字体值一样，直接写对应的名称即可
             style.SetFont(font);
             return style;
+        }
+
+        [HttpGet]
+        public ActionResult Weight()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Weight(HttpPostedFileBase file)
+        {
+            var fileName = file.FileName.Split('.')[0] + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + '.' + file.FileName.Split('.')[1];
+            var filepath = Path.Combine(Server.MapPath("~/ExcelFiles/Upload/Export_excels"), fileName);
+            file.SaveAs(filepath);
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file.InputStream);
+            ISheet sheet = workbook.GetSheetAt(0);
+
+            var list = new List<SysAddresserInfo>();
+            IRow headerRow = sheet.GetRow(0);//第一行为标题行
+            int cellCount = headerRow.LastCellNum;
+            var errorMsg = "";
+            if (cellCount != 3)
+            {
+                ViewBag.errorMsg = "导入Excel表格格式不正确！";
+                return View();
+            }
+            int rowCount = sheet.LastRowNum;//LastRowNum = PhysicalNumberOfRows - 1
+
+            for (int i = (sheet.FirstRowNum + 1); i <= rowCount; i++)
+            {
+                IRow row = sheet.GetRow(i);
+                var bl = true;
+                if (row != null && row.Count() == 3)
+                {
+                    var orderNo = row.GetCell(0).ToString();
+                    if (string.IsNullOrWhiteSpace(orderNo))
+                    {
+                        errorMsg += $"第【{i + 1}】行：“T开头订单号”值为空<br>";
+                        bl = false;
+                    }
+                  
+                    var goodWeight = Convert.ToDecimal(value: row.GetCell(1)?.ToString() ?? "0");
+                    if (goodWeight < 0)
+                    {
+                        errorMsg += $"第【{i + 1}】行：“重量价格”值为空<br>";
+                        bl = false;
+                    }
+
+                    var orderAount = Convert.ToDecimal(value: row.GetCell(2)?.ToString() ?? "0");
+                    if (orderAount < 0)
+                    {
+                        errorMsg += $"第【{i + 1}】行：“总金额”值为空<br>";
+                        bl = false;
+                    }
+                    if (bl)
+                    {
+                        var r = DALFactory.SysAddresserInfoDao.UpdateAddresserByOrderNo(orderNo, goodWeight, orderAount);
+
+                        if (r > 0)
+                        {
+                            list.Add(new SysAddresserInfo()
+                            {
+                                GoodsWeight = goodWeight,
+                                OrderFrees = orderAount,
+                                LogisticsSingle = orderNo
+                            });
+                        }
+                    }
+                }
+            }
+            ViewBag.errorMsg = $"导入成功";
+            ViewBag.msg = errorMsg;
+            return View(list);
+        }
+        [HttpGet]
+        public ActionResult Logistics()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Logistics(HttpPostedFileBase file)
+        {
+            var fileName = file.FileName.Split('.')[0] + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + '.' + file.FileName.Split('.')[1];
+            var filepath = Path.Combine(Server.MapPath("~/ExcelFiles/Upload/Export_excels"), fileName);
+            file.SaveAs(filepath);
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file.InputStream);
+            ISheet sheet = workbook.GetSheetAt(0);
+
+            var list = new List<SysReceiverInfo>();
+            IRow headerRow = sheet.GetRow(0);//第一行为标题行
+            int cellCount = headerRow.LastCellNum;
+            var errorMsg = "";
+            if (cellCount != 2)
+            {
+                ViewBag.errorMsg = "导入Excel表格格式不正确！";
+                return View();
+            }
+            int rowCount = sheet.LastRowNum;//LastRowNum = PhysicalNumberOfRows - 1
+
+            for (int i = (sheet.FirstRowNum + 1); i <= rowCount; i++)
+            {
+                IRow row = sheet.GetRow(i);
+                var bl = true;
+                if (row != null && row.Count() == 2)
+                {
+                    var orderNo = row.GetCell(0).ToString();
+                    if (string.IsNullOrWhiteSpace(orderNo))
+                    {
+                        errorMsg += $"第【{i + 1}】行：“T开头订单号”值为空<br>";
+                        bl = false;
+                    }
+
+                    var chinaCourierNumber = row.GetCell(1).ToString();
+                    if (string.IsNullOrWhiteSpace(orderNo))
+                    {
+                        errorMsg += $"第【{i + 1}】行：“T开头订单号”值为空<br>";
+                        bl = false;
+                    }
+                    if (bl)
+                    {
+                        var r = DALFactory.SysAddresserInfoDao.UpdateSysReceiverInfoByOrderNo(orderNo,
+                            chinaCourierNumber);
+
+                        if (r > 0)
+                        {
+                            list.Add(new SysReceiverInfo()
+                            {
+                                ChinaCourierNumber = chinaCourierNumber,
+                                CityName = orderNo
+                            });
+                        }
+                    }
+                }
+            }
+            ViewBag.errorMsg = $"导入成功";
+            ViewBag.msg = errorMsg;
+            return View(list);
         }
     }
 }

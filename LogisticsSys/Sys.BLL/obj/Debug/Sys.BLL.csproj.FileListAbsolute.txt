@@ -133,3 +133,5 @@ D:\work\Projects\7077\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.csprojAssemblyRefer
 D:\work\Projects\7077\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.csproj.CopyComplete
 D:\work\Projects\7077\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.dll
 D:\work\Projects\7077\LogisticsSys\Sys.BLL\obj\Debug\Sys.BLL.pdb
+D:\work\Projects\7077\LogisticsSys\Sys.BLL\bin\Debug\Sys.Alipay.dll
+D:\work\Projects\7077\LogisticsSys\Sys.BLL\bin\Debug\Sys.Alipay.pdb

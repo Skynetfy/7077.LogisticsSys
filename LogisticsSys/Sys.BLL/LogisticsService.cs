@@ -57,6 +57,11 @@ namespace Sys.BLL
         {
             return logisticsInfoRepository.GetPagerCount(search);
         }
+
+        public int DeleteByNumber(string number)
+        {
+            return logisticsInfoRepository.DeleteByNumber(number);
+        }
         public IList<SysLogisticsInfo> GetLogisticsListBySingleGroup(string single)
         {
             return logisticsInfoRepository.GetLogisticsListBySingleGroup(single);

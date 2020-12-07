@@ -1,0 +1,101 @@
+﻿@using Sys.Entities
+@model List<Sys.Entities.SysReceiverInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>View</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/plugins/canvas-to-blob.min.js"></script>
+    <script src="~/Scripts/plugins/sortable.min.js"></script>
+    <script src="~/Scripts/plugins/purify.min.js"></script>
+    <script src="~/Scripts/fileinput.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap-table-click-edit-row.js"></script>
+    <script src="~/Scripts/bootstrap-table-zh-CN.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" style="border-color: #563d7c;-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);box-shadow: 0 6px 12px rgba(0,0,0,.175);">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+                <a class="navbar-brand" href="#" style="color: #563d7c;font-weight: 800;font-size: 30px;">国内快递单号导入</a>
+            </div>
+            <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+            <div id="navbar">
+                @*<ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>*@
+                <div class="navbar-form navbar-right">
+                    <form class="form-inline" action="@Url.Action("Logistics")" method="post" enctype="multipart/form-data">
+                        @*<div class="form-group">
+                            <a href="/ExcelFiles/Upload/Export_excels/Export Data.xlsx">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                                模板下载
+                            </a>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="sr-only" for="file">选择文件</label>
+                            <input type="file" class="form-control" name="file" id="file">
+                        </div>
+                        <button type="submit" class="btn btn-danger" onclick="return toVaild()">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> 导入
+                        </button>
+                    </form>
+                </div>
+
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+<div class="container-full" style="margin-top: 65px;">
+    <table data-toggle="table" id="table">
+        <thead>
+        <tr>
+            <th data-field="CityName">T开头订单号</th>
+            <th data-field="ChinaCourierNumber">国内快递单号</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <p> <code>@Html.Raw(ViewBag.msg)</code></p>
+
+    @{
+        var dataJson = new List<SysReceiverInfo>();
+        if (Model != null && Model.Any())
+        {
+            dataJson = Model;
+        }
+    }
+    <script>
+        var $table = $('#table');
+        var dataJson = @Html.Raw(Json.Encode(dataJson));
+
+        if ('@ViewBag.errorMsg' != '') {
+            alert('@ViewBag.errorMsg');
+        }
+        $table.bootstrapTable({ data: dataJson });
+
+        function toVaild() {
+            var file = document.getElementById('file').value;
+            if (!file) {
+                alert('请选择Excel文件！');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</div>
+</body>
+</html>

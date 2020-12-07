@@ -709,3 +709,5 @@ D:\work\Projects\7077\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.csprojAssemblyR
 D:\work\Projects\7077\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.csproj.CopyComplete
 D:\work\Projects\7077\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.dll
 D:\work\Projects\7077\LogisticsSys\Sys.WebUI\obj\Debug\Sys.WebUI.pdb
+D:\work\Projects\7077\LogisticsSys\Sys.WebUI\bin\Sys.Alipay.dll
+D:\work\Projects\7077\LogisticsSys\Sys.WebUI\bin\Sys.Alipay.pdb

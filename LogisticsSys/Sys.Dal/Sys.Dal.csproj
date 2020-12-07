@@ -69,6 +69,7 @@
     <Compile Include="ISysOrderInfoRepository.cs" />
     <Compile Include="ISysOrderNumberRepository.cs" />
     <Compile Include="ISysOrderPayInfoRepository.cs" />
+    <Compile Include="ISysOrderTradeRepository.cs" />
     <Compile Include="ISysReceiverInfoRepository.cs" />
     <Compile Include="ISysRussiaCityRepository.cs" />
     <Compile Include="ISysUnitPriceRepository.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Repository\SysOrderInfoRepository.cs" />
     <Compile Include="Repository\SysOrderNumberRepository.cs" />
     <Compile Include="Repository\SysOrderPayInfoRepository.cs" />
+    <Compile Include="Repository\SysOrderTradeRepository.cs" />
     <Compile Include="Repository\SysReceiverInfoRepository.cs" />
     <Compile Include="Repository\SysRussiaCityRepository.cs" />
     <Compile Include="Repository\SysUnitPriceRepository.cs" />

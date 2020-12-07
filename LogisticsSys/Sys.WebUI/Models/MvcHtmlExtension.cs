@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Sys.BLL;
 using Sys.BLL.Users;
 using Sys.Common;
 
@@ -94,6 +95,21 @@ namespace Sys.WebUI.Models
             sb.AppendLine("<option value='7'>未发货</option>");
             sb.AppendLine("<option value='8'>已发货</option>");
             sb.AppendLine("<option value='9'>已完成</option>");
+            return MvcHtmlString.Create(sb.ToString());
+        }
+
+        public static MvcHtmlString LetuLinkHtmlString(this HtmlHelper html, string userName)
+        {
+            var userProvider = new UserLoginProvider();
+            var _user = userProvider.GetUser(userName);
+            var cusmer = UserService.GetCustomerByUid(_user.Id);
+            var email = _user.Email;
+            var firstName = _user.DisplayName?.Substring(0, 1);
+            var lastName = cusmer?.CustomerID;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($" <a href=\"https://www.letu.ru/register?email={email}&firstname={firstName}&lastname={lastName}\" target=\"_blank\">");
+            sb.AppendLine("<img src=\"/images/letu.png\" style=\"width:100%;margin-top:10px;\"/>");
+            sb.AppendLine("</a>");
             return MvcHtmlString.Create(sb.ToString());
         }
     }

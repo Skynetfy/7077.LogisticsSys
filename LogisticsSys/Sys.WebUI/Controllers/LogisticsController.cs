@@ -114,6 +114,8 @@ namespace Sys.WebUI.Controllers
                 {
                     foreach (var arg in ordernumbers)
                     {
+                        var info = LogisticsService.Current.DeleteByNumber(arg);
+
                         var entity = new SysLogisticsInfo();
                         entity.LogisticsDesc = LogisticsDesc.Trim();
                         entity.LogisticsSingle = wuliudanhao.Trim();
@@ -158,9 +160,15 @@ namespace Sys.WebUI.Controllers
             }
             return Content("ok");
         }
-        public ActionResult GetOrderNumberList()
+        public ActionResult GetOrderNumberList(string term)
         {
-            var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && !x.Status).ToList();
+            //if (!string.IsNullOrEmpty(term))
+            //{
+            //    var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete && x.Number.Contains(term)).Select(x=>new { id =x.Id, label =x.Number, value =x.Id}).ToList();
+            //    return Json(list, JsonRequestBehavior.AllowGet);
+            //}
+            //return Json(new List<dynamic>(), JsonRequestBehavior.AllowGet);
+            var list = DALFactory.OrderNumberDao.GetAll().Where(x => !x.IsDelete).Select(x => new { id = x.Id, label = x.Number, value = x.Id }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetLogisticsPagerList(string search, int offset, int limit, string order, string sort)

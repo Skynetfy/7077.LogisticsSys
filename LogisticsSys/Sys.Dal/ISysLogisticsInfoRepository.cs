@@ -17,6 +17,7 @@ namespace Sys.Dal
 
         int Delete(string single);
 
+        int DeleteByNumber(string number);
         IList<string> GetLoginsticsNosByOrderId(long id);
     }
 }

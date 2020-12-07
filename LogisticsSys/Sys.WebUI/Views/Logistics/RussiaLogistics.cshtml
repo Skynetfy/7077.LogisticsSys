@@ -74,10 +74,8 @@
                             订单列表 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="selectpicker" id="ordernumbers" name="ordernumbers" required="required" multiple>
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
+                            <select class="selectpicker" id="ordernumbers" name="ordernumbers" required="required" data-live-search="true" multiple>
+                              
                             </select>
 
                         </div>
@@ -261,20 +259,20 @@
     }
 
     $(function () {
-        $('#ordernumbers').selectpicker();
+       
+        $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
+            $('#ordernumbers').empty();
+            $.each(e,function(x, v) {
+                $('#ordernumbers').append('<option value="' + v.id + '">' + v.label + '</option>');
+            });
+            $('#ordernumbers').selectpicker();
+        });
         $('#addbtn').click(function () {
             $('[name=id]').val('');
             $('#wuliudanhao').val('');
             $('#wuliudanhao').prop('disabled', false);
             $('#ordernumbers').attr('required');
             $('#orderlistdiv').show();
-            $.getJSON('@Url.Action("GetOrderNumberList")',function(e) {
-                $('#ordernumbers').empty();
-                $.each(e,function(x, v) {
-                    $('#ordernumbers').append('<option value="' + v.Id + '">' + v.Number + '</option>');
-                });
-                $('#ordernumbers').selectpicker('refresh');
-            });
         })
         $('#UpdateDate')
             .daterangepicker({
@@ -339,6 +337,7 @@
                                 $('#alert-infor').hide();
                                 $('[data-toggle="table"]').bootstrapTable('refresh');
                                 $('#addModel').modal('hide');
+                                $('#ordernumbers').selectpicker('deselectAll');
                             }
                         });
                 } 

@@ -18,5 +18,7 @@ namespace Sys.Dal
         int GetOrderViewPagerCount(string search);
 
         IList<OrderView> GetOrderViewPagerList(string search, int offset, int limit, string order, string sort);
+
+        OrderView GetOrderView(long id);
     }
 }

@@ -223,5 +223,20 @@ namespace Sys.Dal.Repository
                 throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
             }
         }
+
+        public OrderView GetOrderView(long id)
+        {
+            try
+            {
+                String sql = string.Format(@"SELECT TOP 1 * from [v_orderinfo](nolock) where Id = @id");
+                var param = new StatementParameterCollection();
+                param.AddInParameter("@id", DbType.Int64, id);
+                return baseDao.SelectFirst<OrderView>(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new DalException("调用ActivityDirectRulesDao时，访问GetAll时出错", ex);
+            }
+        }
     }
 }

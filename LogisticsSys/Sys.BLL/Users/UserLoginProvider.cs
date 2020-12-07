@@ -85,6 +85,7 @@ namespace Sys.BLL.Users
                     var dic4 = new Dictionary<string, string>();
                     dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
                     dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
+                    dic4.Add(MenusEnum.交易记录.ToString(), MenusEnum.交易记录.GetDescription());
                     dic.Add(MenusEnum.个人中心.ToString(), dic4);
                 }
                 else if (user.RuleType.Equals(RuleTypeEnum.Customer.ToString()))
@@ -101,6 +102,7 @@ namespace Sys.BLL.Users
                     var dic4 = new Dictionary<string, string>();
                     dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
                     dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
+                    dic4.Add(MenusEnum.交易记录.ToString(), MenusEnum.交易记录.GetDescription());
                     dic.Add(MenusEnum.个人中心.ToString() , dic4);
                 }
                 else if (user.RuleType.Equals(RuleTypeEnum.Agents.ToString()))
@@ -119,6 +121,7 @@ namespace Sys.BLL.Users
                     var dic4 = new Dictionary<string, string>();
                     dic4.Add(MenusEnum.个人信息.ToString(), MenusEnum.个人信息.GetDescription());
                     dic4.Add(MenusEnum.密码修改.ToString(), MenusEnum.密码修改.GetDescription());
+                    dic4.Add(MenusEnum.交易记录.ToString(), MenusEnum.交易记录.GetDescription());
                     dic.Add(MenusEnum.个人中心.ToString() , dic4);
                 }
             }

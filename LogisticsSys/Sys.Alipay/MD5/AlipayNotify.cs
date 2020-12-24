@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,7 +21,7 @@ namespace Sys.Alipay.MD5
         //The URL of verification of Alipay notification.
         //沙箱网关异步消息验证地址
         //The verification URL of Alipay notification,sandbox environment.
-        private string Https_veryfy_url = "https://openapi.alipaydev.com/gateway.do?service=notify_verify&";
+        private string Https_veryfy_url ="";
         //线上网关异步消息验证地址，如商户使用的生产环境，请换成下面的生产环境的地址
         //The verification URL of Alipay notification,production environment.(pls use the below line instead if you were in production environment)	
         //private string Https_veryfy_url = "https://mapi.alipay.com/gateway.do?service=notify_verify&";
@@ -43,6 +44,7 @@ namespace Sys.Alipay.MD5
             _key = AlipayConfig.key.Trim();
             _input_charset = AlipayConfig.input_charset.Trim().ToLower();
             _sign_type = AlipayConfig.sign_type.Trim().ToUpper();
+            Https_veryfy_url = ConfigurationManager.AppSettings["alipay_GATEWAY_NEW"];
         }
 
         /// <summary>
@@ -186,7 +188,7 @@ namespace Sys.Alipay.MD5
         /// <returns>验证结果the result of notification</returns>
         private string GetResponseTxt(string notify_id)
         {
-            string veryfy_url = Https_veryfy_url + "partner=" + _partner + "&notify_id=" + notify_id;
+            string veryfy_url = Https_veryfy_url + "service=notify_verify&partner=" + _partner + "&notify_id=" + notify_id;
 
             //获取远程服务器ATN结果，验证是否是支付宝服务器发来的请求
             //Get the remote server ATN result,verify whether it's from Alipay

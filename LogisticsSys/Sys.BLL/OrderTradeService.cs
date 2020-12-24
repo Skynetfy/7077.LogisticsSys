@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Sys.Alipay;
 using Sys.Alipay.MD5;
+using Sys.BLL.Order;
 using Sys.Common;
 using Sys.Dal;
 using Sys.Entities;
@@ -30,12 +31,9 @@ namespace Sys.BLL
                 decimal total = order.OrderFrees + order.DomesticCost;
 
                 var rateStrinig = AlipayExchangeService.Convert(total, "CNY", "USD");
-                //dynamic jsonObj = JsonConvert.DeserializeObject<dynamic>(rateStrinig);
-                //double rate = jsonObj.result.rate;
-                //decimal usdAmount = jsonObj.result.camount;
-
-                double rate = 0;
-                decimal usdAmount = 100;
+                dynamic jsonObj = JsonConvert.DeserializeObject<dynamic>(rateStrinig);
+                double rate = jsonObj.result.rate;
+                decimal usdAmount = jsonObj.result.camount;
 
                 var orderTrade = new SysOrderTrade();
                 orderTrade.UserId = order.UserId;
@@ -75,17 +73,29 @@ namespace Sys.BLL
 
                     if (orderTrade != null)
                     {
-                        if (trade_status == "TRADE_FINISHED")
+                        if (trade_status == "TRADE_CLOSED")
                         {
                             orderTrade.TradeNo = trade_no;
                             orderTrade.RealAmount = Convert.ToDecimal(sPara["total_fee"]);
                             orderTrade.Status = -1;
                         }
-                        else if (trade_status == "TRADE_SUCCESS")
+                        else if (trade_status == "TRADE_FINISHED")
                         {
                             orderTrade.TradeNo = trade_no;
                             orderTrade.RealAmount = Convert.ToDecimal(sPara["total_fee"]);
                             orderTrade.Status = 1;
+
+                            var orderEntity = orderDao.FindByPk(orderTrade.OrderId);
+                            orderEntity.ChinaPayStatus = 2;
+                            orderEntity.WorldPayStatus = 2;
+                            orderEntity.PayStatus = (int)OrderPayStatusEnum.Recivied;
+
+                            var orderprovider = new OrderInfoProvider();
+                            orderprovider.UpdateOrderInfo(orderEntity);
+
+                            //赠送积分
+                            var address = DALFactory.SysAddresserInfoDao.GetByOrderId(orderEntity.Id);
+                            UserService.UpdateIntegral(orderEntity.UserId, (int)address.OrderFrees, 1, "下单赠送");
                         }
                         orderTradeDao.Update(orderTrade);
                     }

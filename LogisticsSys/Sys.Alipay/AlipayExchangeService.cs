@@ -14,13 +14,13 @@ namespace Sys.Alipay
     {
         private const String host = "https://jisuhuilv.market.alicloudapi.com";
         private const String path = "/exchange/convert";
-        private const String method = "ANY";
+        private const String method = "GET";
         private const String appcode = "53fc0db1979c43e186625ce4740f1f40";
 
         public static String Convert(decimal amount, string fromCode, string toCode)
         {
             String querys = $"amount={amount}&from={fromCode}&to={toCode}";
-            String bodys = "null";
+            String bodys = "";
             String url = host + path;
             HttpWebRequest httpRequest = null;
             HttpWebResponse httpResponse = null;
@@ -61,10 +61,11 @@ namespace Sys.Alipay
             }
 
             Stream st = httpResponse.GetResponseStream();
-            StreamReader reader = new StreamReader(st, Encoding.GetEncoding("utf-8"));
-
-            string result = reader.ReadToEnd();
-            return result; 
+            using (StreamReader reader = new StreamReader(st, Encoding.GetEncoding("utf-8")))
+            {
+                string result = reader.ReadToEnd();
+                return result;
+            }
         }
 
         public static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
